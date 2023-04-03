@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "557883267941",
+    "project_id": "mealaware",
+    "storage_bucket": "mealaware.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557883267941:android:eac6c08af1997d18861f8c",
+        "android_client_info": {
+          "package_name": "com.example.meal_aware"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557883267941-260lcp1m4ova8nm6ebn9cva0mksfv7ob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhppJuHvDvHm1R9s5iNl6UpAIDR4DRU-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557883267941-260lcp1m4ova8nm6ebn9cva0mksfv7ob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
