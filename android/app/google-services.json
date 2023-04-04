@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "557883267941",
-    "project_id": "mealaware",
-    "storage_bucket": "mealaware.appspot.com"
+    "project_number": "1030431181846",
+    "project_id": "meal-aware",
+    "storage_bucket": "meal-aware.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:557883267941:android:eac6c08af1997d18861f8c",
+        "mobilesdk_app_id": "1:1030431181846:android:1abf8e60e1f6e79782f937",
         "android_client_info": {
           "package_name": "com.example.meal_aware"
         }
       },
       "oauth_client": [
         {
-          "client_id": "557883267941-260lcp1m4ova8nm6ebn9cva0mksfv7ob.apps.googleusercontent.com",
+          "client_id": "1030431181846-jupc6hsr0iuor42oh0fn0i2vgcdrb43v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAhppJuHvDvHm1R9s5iNl6UpAIDR4DRU-4"
+          "current_key": "AIzaSyDoX6oLrX2YGgiQ5dM97C8QTcvrXztB6xI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "557883267941-260lcp1m4ova8nm6ebn9cva0mksfv7ob.apps.googleusercontent.com",
+              "client_id": "1030431181846-jupc6hsr0iuor42oh0fn0i2vgcdrb43v.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
