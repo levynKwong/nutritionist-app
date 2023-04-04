@@ -6,22 +6,30 @@ import 'package:flutter/material.dart';
 class AuthButton extends StatelessWidget {
   final IconData iconData;
   final String tittle;
-  const AuthButton({Key? key, required this.iconData, required this.tittle})
+  final Function()? onTap;
+  const AuthButton(
+      {Key? key, required this.iconData, required this.tittle, this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(iconData),
-          Text(tittle),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 40,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(20)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(iconData),
+              Text(tittle),
+            ],
+          ),
+        ),
       ),
     );
   }
