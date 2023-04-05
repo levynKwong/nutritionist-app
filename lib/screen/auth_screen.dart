@@ -113,7 +113,7 @@ class AuthScreen extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 0,
-                    left: (MediaQuery.of(context).size.width / 2) - 50,
+                    left: (MediaQuery.of(context).size.width / 2) - 53,
                     child: GestureDetector(
                       onTap: () {
                         // Action to perform on button click
