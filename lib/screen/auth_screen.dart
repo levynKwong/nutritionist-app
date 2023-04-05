@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/auth_button.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key});
@@ -32,11 +31,11 @@ class AuthScreen extends StatelessWidget {
             const SizedBox(height: 0.0),
             Image.asset(
               'images/workout.jpg',
-              height: 300.0,
+              height: 285.0,
             ),
-            const SizedBox(height: 5.0),
+            const SizedBox(height: 0.0),
             SizedBox(
-              height: 400,
+              height: 430,
               width: 350,
               child: Stack(
                 children: [
@@ -65,23 +64,49 @@ class AuthScreen extends StatelessWidget {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Username',
+                            prefixIcon: Icon(Icons.person),
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(height: 20.0),
+                        SizedBox(height: 10.0),
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Email',
+                            prefixIcon: Icon(Icons.email),
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(height: 20.0),
+                        SizedBox(height: 10.0),
                         TextFormField(
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'Password',
+                            prefixIcon: Icon(Icons.lock),
                             border: OutlineInputBorder(),
                           ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.male,
+                              color: Colors.grey,
+                              size: 50.0,
+                            ),
+                            SizedBox(width: 40.0),
+                            Icon(
+                              Icons.female,
+                              color: Colors.grey,
+                              size: 50.0,
+                            ),
+                            SizedBox(width: 40.0),
+                            Icon(
+                              Icons.transgender,
+                              color: Colors.grey,
+                              size: 50.0,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -111,7 +136,7 @@ class AuthScreen extends StatelessWidget {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(50.0),
                           child: Icon(
-                            Icons.arrow_forward,
+                            Icons.chevron_right,
                             color: Colors.black,
                           ),
                         ),
@@ -121,7 +146,7 @@ class AuthScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 15.0),
             GestureDetector(
               onTap: () {
                 //  Handle the tap event.
