@@ -18,6 +18,8 @@ class AuthScreen extends StatelessWidget {
               Color.fromARGB(255, 76, 146, 215),
               Color.fromARGB(255, 204, 223, 241),
             ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
         child: Stack(
@@ -75,7 +77,7 @@ class AuthScreen extends StatelessWidget {
                           'Welcome,',
                           style: TextStyle(
                             color: Color.fromARGB(
-                                255, 146, 117, 117), // The color of the text
+                                255, 216, 216, 216), // The color of the text
                             fontSize: 40.0, // The size of the text
                           ),
                         ),
