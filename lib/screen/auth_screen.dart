@@ -15,8 +15,8 @@ class AuthScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 76, 146, 215),
-              Color.fromARGB(255, 204, 223, 241),
+              Color(0xFF5e8eea),
+              Color.fromARGB(255, 214, 225, 249),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -33,8 +33,8 @@ class AuthScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: RadialGradient(
                     colors: [
-                      Color.fromARGB(255, 83, 22, 42),
-                      Color.fromARGB(255, 163, 180, 218),
+                      Color.fromARGB(0, 81, 100, 153),
+                      Color(0xFFe884d0),
                     ],
                     radius: 1,
                     center: Alignment(1, -1),
@@ -53,7 +53,7 @@ class AuthScreen extends StatelessWidget {
                   gradient: RadialGradient(
                     colors: [
                       Color.fromARGB(255, 255, 255, 255),
-                      Color.fromARGB(255, 153, 62, 100),
+                      Color(0xFF9553ac),
                     ],
                     radius: 1,
                     center: Alignment(-1, 1),
@@ -74,11 +74,11 @@ class AuthScreen extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.only(left: 16.0),
                         child: Text(
-                          'Welcome,',
+                          'WELCOME,',
                           style: TextStyle(
                             color: Color.fromARGB(
-                                255, 216, 216, 216), // The color of the text
-                            fontSize: 40.0, // The size of the text
+                                255, 255, 255, 255), // The color of the text
+                            fontSize: 30.0, // The size of the text
                           ),
                         ),
                       ),
@@ -112,22 +112,38 @@ class AuthScreen extends StatelessWidget {
                           margin: EdgeInsets.all(16.0),
                           padding: EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color.fromARGB(255, 136, 136, 136),
-                              width: 3.0,
-                            ),
+                            // border: Border.all(
+                            //   color: Color.fromARGB(255, 136, 136, 136),
+                            //   width: 3.0,
+                            // ),
                             color: Color.fromARGB(183, 214, 228, 239),
-                            borderRadius: BorderRadius.circular(25.0),
+                            borderRadius: BorderRadius.circular(50.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 207, 207, 207)
+                                    .withOpacity(0.3),
+                                spreadRadius: 3,
+                                blurRadius: 2,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(height: 10.0),
+                              const SizedBox(height: 5.0),
                               Text(
                                 'Login',
                                 style: TextStyle(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 10.0),
+                              Text(
+                                'To your account to continue',
+                                style: TextStyle(
+                                  fontSize: 20.0,
                                 ),
                               ),
                               SizedBox(height: 20.0),
