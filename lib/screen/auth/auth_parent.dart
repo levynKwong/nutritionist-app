@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class ParentAuth extends StatelessWidget {
+  const ParentAuth({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class RegisterScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 30.0),
+                  const SizedBox(height: 45.0),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -84,7 +85,7 @@ class RegisterScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 20.0),
                   SizedBox(
                     height: 620,
                     width: 370,
@@ -126,6 +127,14 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 10.0),
                                   Text(
+                                    'Since you are under 18, you need to have a parent or guardian to register you.',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Color.fromARGB(255, 197, 51, 40),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Text(
                                     'Create an account to continue',
                                     style: TextStyle(
                                       fontSize: 20.0,
@@ -134,7 +143,7 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
-                                      labelText: 'Patient | Nutritionist',
+                                      labelText: 'Patient',
                                       prefixIcon: Icon(Icons.account_circle),
                                       border: OutlineInputBorder(),
                                     ),
@@ -143,10 +152,6 @@ class RegisterScreen extends StatelessWidget {
                                         value: 'Patient',
                                         child: Text('Patient'),
                                       ),
-                                      DropdownMenuItem(
-                                        value: 'Nutritionist',
-                                        child: Text('Nutritionist'),
-                                      ),
                                     ],
                                     onChanged: (String? newValue) {
                                       // Do something with the new value
@@ -155,7 +160,8 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: 'Full Name',
+                                      labelText:
+                                          'Enter your child\'s\ Full Name',
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(),
                                     ),
@@ -163,7 +169,8 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: 'Username',
+                                      labelText:
+                                          'Enter your child\'s\ Username',
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(),
                                     ),
@@ -171,7 +178,7 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: 'Email',
+                                      labelText: 'Enter your Email',
                                       prefixIcon: Icon(Icons.email),
                                       border: OutlineInputBorder(),
                                     ),
@@ -179,22 +186,26 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
-                                      labelText: 'Age Range',
+                                      labelText: 'Enter the age of your child',
                                       prefixIcon: Icon(Icons.date_range),
                                       border: OutlineInputBorder(),
                                     ),
                                     items: [
                                       DropdownMenuItem(
-                                        value: '1-18',
-                                        child: Text('1-18'),
+                                        value: '1-5',
+                                        child: Text('1-5'),
                                       ),
                                       DropdownMenuItem(
-                                        value: '19-50',
-                                        child: Text('19-50'),
+                                        value: '6-10',
+                                        child: Text('6-10'),
                                       ),
                                       DropdownMenuItem(
-                                        value: '50+',
-                                        child: Text('50+'),
+                                        value: '11-15',
+                                        child: Text('11-15'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: '16-18',
+                                        child: Text('16-18'),
                                       ),
                                     ],
                                     onChanged: (String? newValue) {
@@ -204,7 +215,8 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: 'PhoneNumber',
+                                      labelText:
+                                          'PhoneNumber of Parent/Guardian',
                                       prefixIcon: Icon(Icons.phone),
                                       border: OutlineInputBorder(),
                                     ),
@@ -312,12 +324,17 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15.0),
-                  GestureDetector(
-                    onTap: () {
-                      //  Handle the tap event.
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => (RegisterScreen()),
+                        ),
+                      );
                     },
                     child: Text(
-                      'or back to Sign In',
+                      'or back to register',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 20.0,

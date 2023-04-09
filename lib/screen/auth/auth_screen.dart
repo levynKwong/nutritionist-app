@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 
 class AuthScreen extends StatelessWidget {
-  const AuthScreen({Key? key});
+  AuthScreen({Key? key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -148,14 +151,23 @@ class AuthScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 20.0),
                               TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: 'Username',
-                                  prefixIcon: Icon(Icons.person),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                onSaved: (newValue) => {
+                                  emailController.text = newValue!,
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Please Enter Your Email");
+                                  }
+                                  // reg expression for email validation
+                                  if (!RegExp(
+                                          "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                      .hasMatch(value)) {
+                                    return ("Please Enter a valid email");
+                                  }
+                                  return null;
+                                },
                                 decoration: InputDecoration(
                                   labelText: 'Email',
                                   prefixIcon: Icon(Icons.email),
@@ -164,11 +176,35 @@ class AuthScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 20.0),
                               TextFormField(
+                                controller: passwordController,
+                                autofocus: false,
                                 obscureText: true,
+                                onSaved: (newValue) => {
+                                  passwordController.text = newValue!,
+                                },
+                                validator: (value) {
+                                  RegExp regex = new RegExp(r'^.{8,32}$');
+                                  if (value!.isEmpty) {
+                                    return ("Password is required for login");
+                                  }
+                                },
                                 decoration: InputDecoration(
                                   labelText: 'Password',
                                   prefixIcon: Icon(Icons.lock),
                                   border: OutlineInputBorder(),
+                                ),
+                              ),
+                              const SizedBox(height: 20.0),
+                              TextButton(
+                                onPressed: () {
+                                  //  Handle the tap event.
+                                },
+                                child: Text(
+                                  'forgot password?',
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: Color.fromARGB(255, 199, 53, 43),
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 20.0),
@@ -201,9 +237,7 @@ class AuthScreen extends StatelessWidget {
                           bottom: 0,
                           left: (MediaQuery.of(context).size.width / 2) - 45,
                           child: GestureDetector(
-                            onTap: () {
-                              // Action to perform on button click
-                            },
+                            onTap: () {},
                             child: Container(
                               width: 50,
                               height: 50,
@@ -232,10 +266,15 @@ class AuthScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15.0),
-                  GestureDetector(
-                    onTap: () {
-                      //  Handle the tap event.
+                  const SizedBox(height: 12.0),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => (RegisterScreen()),
+                        ),
+                      );
                     },
                     child: Text(
                       'or Sign Up with',

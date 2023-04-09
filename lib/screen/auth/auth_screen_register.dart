@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/auth/auth_parent.dart';
 
-class ParentAuth extends StatelessWidget {
-  const ParentAuth({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({Key? key}) : super(key: key);
+  final choiceController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final ageController = TextEditingController();
+  final phonenumberController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
+
+  String error = "";
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +79,7 @@ class ParentAuth extends StatelessWidget {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 30.0),
+                  const SizedBox(height: 45.0),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -84,7 +97,7 @@ class ParentAuth extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 20.0),
                   SizedBox(
                     height: 620,
                     width: 370,
@@ -126,14 +139,6 @@ class ParentAuth extends StatelessWidget {
                                   ),
                                   SizedBox(height: 10.0),
                                   Text(
-                                    'Since you are under 18, you need to have a parent or guardian to register you.',
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Color.fromARGB(255, 197, 51, 40),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
                                     'Create an account to continue',
                                     style: TextStyle(
                                       fontSize: 20.0,
@@ -142,7 +147,7 @@ class ParentAuth extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
-                                      labelText: 'Patient',
+                                      labelText: 'Patient | Nutritionist',
                                       prefixIcon: Icon(Icons.account_circle),
                                       border: OutlineInputBorder(),
                                     ),
@@ -151,6 +156,10 @@ class ParentAuth extends StatelessWidget {
                                         value: 'Patient',
                                         child: Text('Patient'),
                                       ),
+                                      DropdownMenuItem(
+                                        value: 'Nutritionist',
+                                        child: Text('Nutritionist'),
+                                      ),
                                     ],
                                     onChanged: (String? newValue) {
                                       // Do something with the new value
@@ -159,8 +168,7 @@ class ParentAuth extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText:
-                                          'Enter your child\'s\ Full Name',
+                                      labelText: 'Full Name',
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(),
                                     ),
@@ -168,8 +176,7 @@ class ParentAuth extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText:
-                                          'Enter your child\'s\ Username',
+                                      labelText: 'Username',
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(),
                                     ),
@@ -177,7 +184,7 @@ class ParentAuth extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: 'Enter your Email',
+                                      labelText: 'Email',
                                       prefixIcon: Icon(Icons.email),
                                       border: OutlineInputBorder(),
                                     ),
@@ -185,37 +192,40 @@ class ParentAuth extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
-                                      labelText: 'Enter the age of your child',
+                                      labelText: 'Age Range',
                                       prefixIcon: Icon(Icons.date_range),
                                       border: OutlineInputBorder(),
                                     ),
                                     items: [
                                       DropdownMenuItem(
-                                        value: '1-5',
-                                        child: Text('1-5'),
+                                        value: '1-18',
+                                        child: Text('1-18'),
                                       ),
                                       DropdownMenuItem(
-                                        value: '6-10',
-                                        child: Text('6-10'),
+                                        value: '19-50',
+                                        child: Text('19-50'),
                                       ),
                                       DropdownMenuItem(
-                                        value: '11-15',
-                                        child: Text('11-15'),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: '16-18',
-                                        child: Text('16-18'),
+                                        value: '50+',
+                                        child: Text('50+'),
                                       ),
                                     ],
                                     onChanged: (String? newValue) {
                                       // Do something with the new value
+                                      if (newValue == '1-18') {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ParentAuth()),
+                                        );
+                                      }
                                     },
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText:
-                                          'PhoneNumber of Parent/Guardian',
+                                      labelText: 'PhoneNumber',
                                       prefixIcon: Icon(Icons.phone),
                                       border: OutlineInputBorder(),
                                     ),
@@ -323,12 +333,17 @@ class ParentAuth extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15.0),
-                  GestureDetector(
-                    onTap: () {
-                      //  Handle the tap event.
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => (AuthScreen()),
+                        ),
+                      );
                     },
                     child: Text(
-                      'or back to register',
+                      'or back to Sign In',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 20.0,
