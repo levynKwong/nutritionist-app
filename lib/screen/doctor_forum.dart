@@ -4,7 +4,7 @@ class DoctorForum extends StatelessWidget {
   const DoctorForum({Key? key}) : super(key: key);
 
   static const double _borderRadius = 23;
-  static const double _textFactor = 1.3;
+  static const double _textFactor = 1.4;
   static const double _iconSize = 30;
   static const double _boxWidth = 325;
   static const double _boxHeight = 75;
@@ -25,6 +25,7 @@ class DoctorForum extends StatelessWidget {
             ),
           ),
           _buildTitleBar(),
+          _buildImage(),
           Positioned(
             left: 0,
             right: 0,
@@ -74,6 +75,21 @@ class DoctorForum extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    return Container(
+      margin: EdgeInsets.only(top: 100, left: 25, right: 25),
+      width: 400,
+      height: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        image: DecorationImage(
+          image: AssetImage('images/heart.png'),
+          fit: BoxFit.cover,
         ),
       ),
     );
