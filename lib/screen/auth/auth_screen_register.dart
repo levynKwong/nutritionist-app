@@ -169,11 +169,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       value: _selectedUserType,
                                       items: [
                                         DropdownMenuItem(
-                                          value: 'P',
+                                          value: 'Patient',
                                           child: Text('Patient'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'N',
+                                          value: 'Nutritionist',
                                           child: Text('Nutritionist'),
                                         ),
                                       ],
