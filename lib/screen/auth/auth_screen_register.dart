@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/auth/auth_parent.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final choiceController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final ageController = TextEditingController();
+  final phonenumberController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
+
+  String error = "";
+  bool _isLoading = false;
+  String? _selectedUserType;
+  String? _selectedGender;
+  String? _selectedAge;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +88,7 @@ class RegisterScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 30.0),
+                  const SizedBox(height: 45.0),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -84,7 +106,7 @@ class RegisterScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 20.0),
                   SizedBox(
                     height: 620,
                     width: 370,
@@ -138,6 +160,7 @@ class RegisterScreen extends StatelessWidget {
                                       prefixIcon: Icon(Icons.account_circle),
                                       border: OutlineInputBorder(),
                                     ),
+                                    value: _selectedUserType,
                                     items: [
                                       DropdownMenuItem(
                                         value: 'Patient',
@@ -149,11 +172,14 @@ class RegisterScreen extends StatelessWidget {
                                       ),
                                     ],
                                     onChanged: (String? newValue) {
-                                      // Do something with the new value
+                                      setState(() {
+                                        _selectedUserType = newValue;
+                                      });
                                     },
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: fullnameController,
                                     decoration: InputDecoration(
                                       labelText: 'Full Name',
                                       prefixIcon: Icon(Icons.person),
@@ -162,6 +188,7 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: usernameController,
                                     decoration: InputDecoration(
                                       labelText: 'Username',
                                       prefixIcon: Icon(Icons.person),
@@ -169,7 +196,36 @@ class RegisterScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 20.0),
+                                  DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      labelText: 'Gender',
+                                      prefixIcon: Icon(Icons.person_pin),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    value: _selectedUserType,
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'Male',
+                                        child: Text('Male'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Female',
+                                        child: Text('Female'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Non-Binary',
+                                        child: Text('Non-Binary'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedUserType = newValue;
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: emailController,
                                     decoration: InputDecoration(
                                       labelText: 'Email',
                                       prefixIcon: Icon(Icons.email),
@@ -199,10 +255,19 @@ class RegisterScreen extends StatelessWidget {
                                     ],
                                     onChanged: (String? newValue) {
                                       // Do something with the new value
+                                      if (newValue == '1-18') {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ParentAuth()),
+                                        );
+                                      }
                                     },
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: phonenumberController,
                                     decoration: InputDecoration(
                                       labelText: 'PhoneNumber',
                                       prefixIcon: Icon(Icons.phone),
@@ -212,6 +277,7 @@ class RegisterScreen extends StatelessWidget {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     obscureText: true,
+                                    controller: passwordController,
                                     decoration: InputDecoration(
                                       labelText: 'Password',
                                       prefixIcon: Icon(Icons.lock),
@@ -220,6 +286,7 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: confirmpasswordController,
                                     obscureText: true,
                                     decoration: InputDecoration(
                                       labelText: 'Confirm Password',
@@ -312,9 +379,14 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15.0),
-                  GestureDetector(
-                    onTap: () {
-                      //  Handle the tap event.
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => (AuthScreen()),
+                        ),
+                      );
                     },
                     child: Text(
                       'or back to Sign In',

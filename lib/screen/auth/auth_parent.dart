@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 
-class ParentAuth extends StatelessWidget {
+class ParentAuth extends StatefulWidget {
   const ParentAuth({Key? key}) : super(key: key);
 
+  @override
+  State<ParentAuth> createState() => _ParentAuthState();
+}
+
+class _ParentAuthState extends State<ParentAuth> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +72,7 @@ class ParentAuth extends StatelessWidget {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 30.0),
+                  const SizedBox(height: 45.0),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -84,7 +90,7 @@ class ParentAuth extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 20.0),
                   SizedBox(
                     height: 620,
                     width: 370,
@@ -173,6 +179,31 @@ class ParentAuth extends StatelessWidget {
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(),
                                     ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      labelText: 'Gender',
+                                      prefixIcon: Icon(Icons.person_pin),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'Male',
+                                        child: Text('Male'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Female',
+                                        child: Text('Female'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Non-Binary',
+                                        child: Text('Non-Binary'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      setState(() {});
+                                    },
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
@@ -323,9 +354,14 @@ class ParentAuth extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15.0),
-                  GestureDetector(
-                    onTap: () {
-                      //  Handle the tap event.
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => (RegisterScreen()),
+                        ),
+                      );
                     },
                     child: Text(
                       'or back to register',

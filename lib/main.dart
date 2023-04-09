@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
       home: AuthScreen(),
       // home: const ParentAuth(),
       // home: const Terms_and_condition()
+      // home: test_home(),
     );
   }
 }
