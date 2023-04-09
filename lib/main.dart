@@ -4,6 +4,7 @@ import 'package:meal_aware/screen/auth_parent.dart';
 import 'package:meal_aware/screen/auth_screen.dart';
 import 'package:meal_aware/screen/auth_screen_register.dart';
 import 'package:meal_aware/screen/term_and_condition.dart';
+import 'package:meal_aware/screen/doctor_forum.dart';
 
 import 'firebase_options.dart';
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         // home: const RegisterScreen(),
         // home: const AuthScreen(),
         // home: const ParentAuth(),
-        home: const Terms_and_condition());
+        // home: const Terms_and_condition());
+        home: const DoctorForum());
   }
 }
