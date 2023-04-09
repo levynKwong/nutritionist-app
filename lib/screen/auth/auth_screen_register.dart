@@ -169,17 +169,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       value: _selectedUserType,
                                       items: [
                                         DropdownMenuItem(
-                                          value: 'Patient',
+                                          value: 'P',
                                           child: Text('Patient'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Nutritionist',
+                                          value: 'N',
                                           child: Text('Nutritionist'),
                                         ),
                                       ],
                                       onChanged: (String? newValue) {
                                         setState(() {
                                           _selectedUserType = newValue;
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(height: 20.0),
+                                    DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Age Range',
+                                        prefixIcon: Icon(Icons.date_range),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      value: _selectedAge,
+                                      items: [
+                                        DropdownMenuItem(
+                                          value: '1',
+                                          child: Text('1-18'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '2',
+                                          child: Text('19-50'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '3',
+                                          child: Text('50+'),
+                                        ),
+                                      ],
+                                      onChanged: (String? newValue) {
+                                        // Do something with the new value
+                                        if (newValue == '1') {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ParentAuth()),
+                                          );
+                                        }
+                                        setState(() {
+                                          _selectedAge = newValue;
                                         });
                                       },
                                     ),
@@ -211,15 +248,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       value: _selectedGender,
                                       items: [
                                         DropdownMenuItem(
-                                          value: 'Male',
+                                          value: '1',
                                           child: Text('Male'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Female',
+                                          value: '2',
                                           child: Text('Female'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Non-Binary',
+                                          value: '3',
                                           child: Text('Non-Binary'),
                                         ),
                                       ],
@@ -239,42 +276,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 20.0),
-                                    DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Age Range',
-                                        prefixIcon: Icon(Icons.date_range),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      value: _selectedAge,
-                                      items: [
-                                        DropdownMenuItem(
-                                          value: '1-18',
-                                          child: Text('1-18'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '19-50',
-                                          child: Text('19-50'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '50+',
-                                          child: Text('50+'),
-                                        ),
-                                      ],
-                                      onChanged: (String? newValue) {
-                                        // Do something with the new value
-                                        if (newValue == '1-18') {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ParentAuth()),
-                                          );
-                                          setState(() {
-                                            _selectedAge = newValue;
-                                          });
-                                        }
-                                      },
-                                    ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
                                       controller: phonenumberController,
@@ -361,8 +362,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 register(
+                                  _selectedUserType!,
+                                  fullnameController.text,
                                   usernameController.text,
+                                  _selectedGender!,
                                   emailController.text,
+                                  _selectedAge!,
+                                  phonenumberController.text,
                                   passwordController.text,
                                 );
                               },
@@ -423,7 +429,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void register(String username, String email, String password) async {
+  void register(
+      String usertype,
+      String fullname,
+      String username,
+      String gender,
+      String email,
+      String age,
+      String phonenumber,
+      String password) async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -435,7 +449,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
-                  saveUser(username, email),
+                  saveUser(usertype, fullname, username, gender, email, age,
+                      phonenumber),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -463,15 +478,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void saveUser(String username, String email) async {
+  void saveUser(String usertype, String fullname, String username,
+      String gender, String email, String age, String phonenumber) async {
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
 
-    await FirebaseFirestore.instance.collection('users').doc(uid).set({
+    await FirebaseFirestore.instance
+        .collection(_selectedUserType!)
+        .doc(uid)
+        .set({
+      'user type': _selectedUserType!,
+      'fullname': fullname,
       'username': username,
       'email': email,
-      'profile_picture_url':
-          'https://ui-avatars.com/api/?background=random&name=' + username,
+      'age': age,
+      'phone number': phonenumber,
     });
   }
 }
