@@ -66,7 +66,7 @@ class ParentAuth extends StatelessWidget {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 30.0),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -84,9 +84,9 @@ class ParentAuth extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 0.0),
+                  const SizedBox(height: 10.0),
                   SizedBox(
-                    height: 1050,
+                    height: 620,
                     width: 370,
                     child: Stack(
                       children: [
@@ -110,173 +110,181 @@ class ParentAuth extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 5.0),
-                              Text(
-                                'Register',
-                                style: TextStyle(
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 10.0),
-                              Text(
-                                'Since you are under 18, you need to have a parent or guardian to register you.',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Color.fromARGB(255, 197, 51, 40),
-                                ),
-                              ),
-                              SizedBox(height: 10.0),
-                              Text(
-                                'Create an account to continue',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              DropdownButtonFormField<String>(
-                                decoration: InputDecoration(
-                                  labelText: 'Patient',
-                                  prefixIcon: Icon(Icons.account_circle),
-                                  border: OutlineInputBorder(),
-                                ),
-                                items: [
-                                  DropdownMenuItem(
-                                    value: 'Patient',
-                                    child: Text('Patient'),
-                                  ),
-                                ],
-                                onChanged: (String? newValue) {
-                                  // Do something with the new value
-                                },
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your child\'s\ Full Name',
-                                  prefixIcon: Icon(Icons.person),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your child\'s\ Username',
-                                  prefixIcon: Icon(Icons.person),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your Email',
-                                  prefixIcon: Icon(Icons.email),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              DropdownButtonFormField<String>(
-                                decoration: InputDecoration(
-                                  labelText: 'Enter the age of your child',
-                                  prefixIcon: Icon(Icons.date_range),
-                                  border: OutlineInputBorder(),
-                                ),
-                                items: [
-                                  DropdownMenuItem(
-                                    value: '1-5',
-                                    child: Text('1-5'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: '6-10',
-                                    child: Text('6-10'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: '11-15',
-                                    child: Text('11-15'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: '16-18',
-                                    child: Text('16-18'),
-                                  ),
-                                ],
-                                onChanged: (String? newValue) {
-                                  // Do something with the new value
-                                },
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: 'PhoneNumber of Parent/Guardian',
-                                  prefixIcon: Icon(Icons.phone),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  prefixIcon: Icon(Icons.lock),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Confirm Password',
-                                  prefixIcon: Icon(Icons.lock),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              const SizedBox(height: 20.0),
-                              Text(
-                                'By pressing "submit" you agree to our',
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  //  Handle the tap event.
-                                },
-                                child: Text(
-                                  'Terms and Conditions',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 196, 20, 20),
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20.0),
-                              Row(
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.male,
-                                    color: Colors.grey,
-                                    size: 55.0,
+                                  const SizedBox(height: 5.0),
+                                  Text(
+                                    'Register',
+                                    style: TextStyle(
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  SizedBox(width: 40.0),
-                                  Icon(
-                                    Icons.female,
-                                    color: Colors.grey,
-                                    size: 55.0,
+                                  SizedBox(height: 10.0),
+                                  Text(
+                                    'Since you are under 18, you need to have a parent or guardian to register you.',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Color.fromARGB(255, 197, 51, 40),
+                                    ),
                                   ),
-                                  SizedBox(width: 40.0),
-                                  Icon(
-                                    Icons.transgender,
-                                    color: Colors.grey,
-                                    size: 55.0,
+                                  SizedBox(height: 10.0),
+                                  Text(
+                                    'Create an account to continue',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      labelText: 'Patient',
+                                      prefixIcon: Icon(Icons.account_circle),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'Patient',
+                                        child: Text('Patient'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      // Do something with the new value
+                                    },
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      labelText:
+                                          'Enter your child\'s\ Full Name',
+                                      prefixIcon: Icon(Icons.person),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      labelText:
+                                          'Enter your child\'s\ Username',
+                                      prefixIcon: Icon(Icons.person),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      labelText: 'Enter your Email',
+                                      prefixIcon: Icon(Icons.email),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      labelText: 'Enter the age of your child',
+                                      prefixIcon: Icon(Icons.date_range),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: '1-5',
+                                        child: Text('1-5'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: '6-10',
+                                        child: Text('6-10'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: '11-15',
+                                        child: Text('11-15'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: '16-18',
+                                        child: Text('16-18'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      // Do something with the new value
+                                    },
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      labelText:
+                                          'PhoneNumber of Parent/Guardian',
+                                      prefixIcon: Icon(Icons.phone),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  TextFormField(
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      labelText: 'Password',
+                                      prefixIcon: Icon(Icons.lock),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  TextFormField(
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      labelText: 'Confirm Password',
+                                      prefixIcon: Icon(Icons.lock),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  Text(
+                                    'By pressing "submit" you agree to our',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      //  Handle the tap event.
+                                    },
+                                    child: Text(
+                                      'Terms and Conditions',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 196, 20, 20),
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.male,
+                                        color: Colors.grey,
+                                        size: 55.0,
+                                      ),
+                                      SizedBox(width: 40.0),
+                                      Icon(
+                                        Icons.female,
+                                        color: Colors.grey,
+                                        size: 55.0,
+                                      ),
+                                      SizedBox(width: 40.0),
+                                      Icon(
+                                        Icons.transgender,
+                                        color: Colors.grey,
+                                        size: 55.0,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                         Positioned(
