@@ -188,6 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: usernameController,
                                     decoration: InputDecoration(
                                       labelText: 'Username',
                                       prefixIcon: Icon(Icons.person),
@@ -224,6 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: emailController,
                                     decoration: InputDecoration(
                                       labelText: 'Email',
                                       prefixIcon: Icon(Icons.email),
@@ -265,6 +267,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: phonenumberController,
                                     decoration: InputDecoration(
                                       labelText: 'PhoneNumber',
                                       prefixIcon: Icon(Icons.phone),
@@ -274,6 +277,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   SizedBox(height: 20.0),
                                   TextFormField(
                                     obscureText: true,
+                                    controller: passwordController,
                                     decoration: InputDecoration(
                                       labelText: 'Password',
                                       prefixIcon: Icon(Icons.lock),
@@ -282,6 +286,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: confirmpasswordController,
                                     obscureText: true,
                                     decoration: InputDecoration(
                                       labelText: 'Confirm Password',
