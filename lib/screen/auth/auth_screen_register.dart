@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final choiceController = TextEditingController();
   final fullnameController = TextEditingController();
   final usernameController = TextEditingController();
@@ -15,6 +21,9 @@ class RegisterScreen extends StatelessWidget {
 
   String error = "";
   bool _isLoading = false;
+  String? _selectedUserType;
+  String? _selectedGender;
+  String? _selectedAge;
 
   @override
   Widget build(BuildContext context) {
@@ -151,6 +160,7 @@ class RegisterScreen extends StatelessWidget {
                                       prefixIcon: Icon(Icons.account_circle),
                                       border: OutlineInputBorder(),
                                     ),
+                                    value: _selectedUserType,
                                     items: [
                                       DropdownMenuItem(
                                         value: 'Patient',
@@ -162,11 +172,14 @@ class RegisterScreen extends StatelessWidget {
                                       ),
                                     ],
                                     onChanged: (String? newValue) {
-                                      // Do something with the new value
+                                      setState(() {
+                                        _selectedUserType = newValue;
+                                      });
                                     },
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
+                                    controller: fullnameController,
                                     decoration: InputDecoration(
                                       labelText: 'Full Name',
                                       prefixIcon: Icon(Icons.person),
@@ -180,6 +193,34 @@ class RegisterScreen extends StatelessWidget {
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(),
                                     ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      labelText: 'Gender',
+                                      prefixIcon: Icon(Icons.person_pin),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    value: _selectedUserType,
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'Male',
+                                        child: Text('Male'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Female',
+                                        child: Text('Female'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Non-Binary',
+                                        child: Text('Non-Binary'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedUserType = newValue;
+                                      });
+                                    },
                                   ),
                                   SizedBox(height: 20.0),
                                   TextFormField(
