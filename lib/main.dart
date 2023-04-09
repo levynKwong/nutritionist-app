@@ -37,12 +37,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // home: RegisterScreen(),
+      home: RegisterScreen(),
       // home: AuthScreen(),
       // home: const ParentAuth(),
       // home: const Terms_and_condition()
       // home: test_home(),
-      home: DoctorForum(),
+      // home: DoctorForum(),
     );
   }
 }

@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       prefixIcon: Icon(Icons.person_pin),
                                       border: OutlineInputBorder(),
                                     ),
-                                    value: _selectedUserType,
+                                    value: _selectedGender,
                                     items: [
                                       DropdownMenuItem(
                                         value: 'Male',
@@ -219,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ],
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        _selectedUserType = newValue;
+                                        _selectedGender = newValue;
                                       });
                                     },
                                   ),
@@ -239,6 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       prefixIcon: Icon(Icons.date_range),
                                       border: OutlineInputBorder(),
                                     ),
+                                    value: _selectedAge,
                                     items: [
                                       DropdownMenuItem(
                                         value: '1-18',
@@ -262,6 +263,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               builder: (context) =>
                                                   ParentAuth()),
                                         );
+                                        setState(() {
+                                          _selectedAge = newValue;
+                                        });
                                       }
                                     },
                                   ),
