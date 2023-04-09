@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:meal_aware/screen/auth_parent.dart';
-import 'package:meal_aware/screen/auth_screen.dart';
-import 'package:meal_aware/screen/auth_screen_register.dart';
-import 'package:meal_aware/screen/term_and_condition.dart';
-import 'package:meal_aware/screen/doctor_forum.dart';
+import 'package:meal_aware/screen/auth/auth_parent.dart';
+import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/auth/auth_screen_register.dart';
+import 'package:meal_aware/screen/auth/term_and_condition.dart';
+import 'package:meal_aware/screen/home/home.dart';
 
 import 'firebase_options.dart';
 
@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // home: const RegisterScreen(),
-      // home: const AuthScreen(),
-      home: const ParentAuth(),
+      // home: RegisterScreen(),
+      home: AuthScreen(),
+      // home: const ParentAuth(),
       // home: const Terms_and_condition()
     );
   }
