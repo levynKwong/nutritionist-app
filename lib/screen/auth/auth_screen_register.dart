@@ -362,7 +362,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 register(
-                                  _selectedUserType!,
                                   fullnameController.text,
                                   usernameController.text,
                                   _selectedGender!,
@@ -429,15 +428,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void register(
-      String usertype,
-      String fullname,
-      String username,
-      String gender,
-      String email,
-      String age,
-      String phonenumber,
-      String password) async {
+  void register(String fullname, String username, String gender, String email,
+      String age, String phonenumber, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -449,8 +441,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
-                  saveUser(usertype, fullname, username, gender, email, age,
-                      phonenumber),
+                  saveUser(fullname, username, gender, email, age, phonenumber),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -478,8 +469,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void saveUser(String usertype, String fullname, String username,
-      String gender, String email, String age, String phonenumber) async {
+  void saveUser(String fullname, String username, String gender, String email,
+      String age, String phonenumber) async {
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
 
@@ -487,7 +478,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .collection(_selectedUserType!)
         .doc(uid)
         .set({
-      'user type': _selectedUserType!,
       'fullname': fullname,
       'username': username,
       'email': email,
