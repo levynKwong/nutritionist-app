@@ -182,8 +182,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         });
                                       },
                                       validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Please select a user type';
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select your user type';
                                         }
                                         return null;
                                       },
@@ -225,7 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         });
                                       },
                                       validator: (value) {
-                                        if (value!.isEmpty) {
+                                        if (value == null || value.isEmpty) {
                                           return 'Please select your age range';
                                         }
                                         return null;
