@@ -26,7 +26,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String error = "";
   bool _isLoading = false;
   String? _selectedUserType;
-  String? _selectedGender;
   String? _selectedAge;
 
   @override
@@ -182,6 +181,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           _selectedUserType = newValue;
                                         });
                                       },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please select a user type';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     DropdownButtonFormField<String>(
@@ -219,6 +224,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           _selectedAge = newValue;
                                         });
                                       },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please select your age range';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
@@ -228,6 +239,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your full name';
+                                        } else if (!RegExp(r"^[a-zA-Z\s]+$")
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid name';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
@@ -237,6 +257,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Please enter a username");
+                                        }
+                                        // reg expression for email validation
+                                        if (!RegExp(
+                                                "^(?=.{3,16})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
+                                            .hasMatch(value)) {
+                                          return ("Please Enter a valid username (3 to 16 Characters)");
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
@@ -246,6 +278,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         prefixIcon: Icon(Icons.email),
                                         border: OutlineInputBorder(),
                                       ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Please Enter Your Email");
+                                        }
+                                        // reg expression for email validation
+                                        if (!RegExp(
+                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                            .hasMatch(value)) {
+                                          return ("Please Enter a valid email");
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
@@ -255,6 +299,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         prefixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(),
                                       ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a phone number';
+                                        }
+                                        if (!RegExp(r'^\+?[0-9]{10,12}$')
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid phone number';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
@@ -265,6 +319,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         prefixIcon: Icon(Icons.lock),
                                         border: OutlineInputBorder(),
                                       ),
+                                      validator: (value) {
+                                        RegExp regex = new RegExp(r'^.{8,32}$');
+                                        if (value!.isEmpty) {
+                                          return ("Password is required for registration");
+                                        }
+                                        if (!regex.hasMatch(value)) {
+                                          return ("Enter a valid Password (8 to 32 Characters)");
+                                        }
+                                      },
                                     ),
                                     SizedBox(height: 20.0),
                                     TextFormField(
@@ -275,6 +338,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         prefixIcon: Icon(Icons.lock),
                                         border: OutlineInputBorder(),
                                       ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Please confirm your password");
+                                        }
+                                        if (value != passwordController.text) {
+                                          return ("Passwords do not match");
+                                        }
+                                      },
                                     ),
                                     const SizedBox(height: 20.0),
                                     Text(
