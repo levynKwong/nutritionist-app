@@ -239,34 +239,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 20.0),
-                                    DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Gender',
-                                        prefixIcon: Icon(Icons.person_pin),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      value: _selectedGender,
-                                      items: [
-                                        DropdownMenuItem(
-                                          value: '1',
-                                          child: Text('Male'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '2',
-                                          child: Text('Female'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '3',
-                                          child: Text('Non-Binary'),
-                                        ),
-                                      ],
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          _selectedGender = newValue;
-                                        });
-                                      },
-                                    ),
-                                    SizedBox(height: 20.0),
                                     TextFormField(
                                       controller: emailController,
                                       decoration: InputDecoration(
@@ -275,7 +247,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         border: OutlineInputBorder(),
                                       ),
                                     ),
-                                    SizedBox(height: 20.0),
                                     SizedBox(height: 20.0),
                                     TextFormField(
                                       controller: phonenumberController,
@@ -364,7 +335,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 register(
                                   fullnameController.text,
                                   usernameController.text,
-                                  _selectedGender!,
                                   emailController.text,
                                   _selectedAge!,
                                   phonenumberController.text,
@@ -428,8 +398,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void register(String fullname, String username, String gender, String email,
-      String age, String phonenumber, String password) async {
+  void register(String fullname, String username, String email, String age,
+      String phonenumber, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -441,7 +411,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
-                  saveUser(fullname, username, gender, email, age, phonenumber),
+                  saveUser(fullname, username, email, age, phonenumber),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -469,8 +439,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void saveUser(String fullname, String username, String gender, String email,
-      String age, String phonenumber) async {
+  void saveUser(String fullname, String username, String email, String age,
+      String phonenumber) async {
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
 
