@@ -6,7 +6,7 @@ import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 import 'package:meal_aware/screen/home/home.dart';
 import 'package:meal_aware/screen/home/doctor_forum.dart';
-
+import 'package:meal_aware/screen/auth/email_verification_code.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
@@ -40,11 +40,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: RegisterScreen(),
-      home: AuthScreen(),
+      // home: AuthScreen(),
       // home: const ParentAuth(),
       // home: const Terms_and_condition()
       // home: test_home(),
       // home: DoctorForum(),
+      home: EmailVerificationCode(),
     );
   }
 }
