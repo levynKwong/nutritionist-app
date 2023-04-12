@@ -407,7 +407,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   fullnameController.text,
                                   usernameController.text,
                                   emailController.text,
-                                  _selectedAge!,
+                                  _selectedAge ?? '',
                                   phonenumberController.text,
                                   passwordController.text,
                                 );
