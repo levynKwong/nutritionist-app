@@ -1,10 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
+import 'package:meal_aware/screen/home/doctor_forum.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatefulWidget {
   AuthScreen({Key? key});
+
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isLoading = false;
+
+  String error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -150,61 +165,71 @@ class AuthScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 20.0),
-                              TextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                onSaved: (newValue) => {
-                                  emailController.text = newValue!,
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return ("Please Enter Your Email");
-                                  }
-                                  // reg expression for email validation
-                                  if (!RegExp(
-                                          "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                      .hasMatch(value)) {
-                                    return ("Please Enter a valid email");
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  prefixIcon: Icon(Icons.email),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                controller: passwordController,
-                                autofocus: false,
-                                obscureText: true,
-                                onSaved: (newValue) => {
-                                  passwordController.text = newValue!,
-                                },
-                                validator: (value) {
-                                  RegExp regex = new RegExp(r'^.{8,32}$');
-                                  if (value!.isEmpty) {
-                                    return ("Password is required for login");
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  prefixIcon: Icon(Icons.lock),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              const SizedBox(height: 20.0),
-                              TextButton(
-                                onPressed: () {
-                                  //  Handle the tap event.
-                                },
-                                child: Text(
-                                  'forgot password?',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                    color: Color.fromARGB(255, 199, 53, 43),
-                                  ),
+                              Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      controller: emailController,
+                                      keyboardType: TextInputType.emailAddress,
+                                      onSaved: (newValue) {
+                                        emailController.text = newValue!;
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please Enter Your Email';
+                                        }
+                                        if (!RegExp(
+                                                '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid email';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: 'Email',
+                                        prefixIcon: Icon(Icons.email),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.0),
+                                    TextFormField(
+                                      controller: passwordController,
+                                      autofocus: false,
+                                      obscureText: true,
+                                      onSaved: (newValue) {
+                                        passwordController.text = newValue!;
+                                      },
+                                      validator: (value) {
+                                        RegExp regex = RegExp(r'^.{8,32}$');
+                                        if (value!.isEmpty) {
+                                          return 'Password is required for login';
+                                        } else if (!regex.hasMatch(value)) {
+                                          return 'Password must be between 8 and 32 characters';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: 'Password',
+                                        prefixIcon: Icon(Icons.lock),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.0),
+                                    TextButton(
+                                      onPressed: () {
+                                        // Handle the tap event.
+                                      },
+                                      child: Text(
+                                        'forgot password?',
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                          color:
+                                              Color.fromARGB(255, 199, 53, 43),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(height: 20.0),
@@ -237,7 +262,10 @@ class AuthScreen extends StatelessWidget {
                           bottom: 0,
                           left: (MediaQuery.of(context).size.width / 2) - 45,
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              login(emailController.text,
+                                  passwordController.text);
+                            },
                             child: Container(
                               width: 50,
                               height: 50,
@@ -291,5 +319,35 @@ class AuthScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void login(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        if (credential.user != null) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const DoctorForum()),
+              (_) => false);
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+          setState(() {
+            _isLoading = false;
+            error = "Invalid Email or Password";
+            Future.delayed(const Duration(seconds: 3), () {
+              setState(() {
+                error = "";
+              });
+            });
+          });
+        }
+      }
+    }
   }
 }

@@ -303,7 +303,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter a phone number';
                                         }
-                                        if (!RegExp(r'^\+?[0-9]{10,12}$')
+                                        if (!RegExp(r'^\+?[0-9]{7,9}$')
                                             .hasMatch(value)) {
                                           return 'Please enter a valid phone number';
                                         }
@@ -398,40 +398,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            left: (MediaQuery.of(context).size.width / 2) - 45,
-                            child: GestureDetector(
-                              onTap: () {
-                                register(
-                                  fullnameController.text,
-                                  usernameController.text,
-                                  emailController.text,
-                                  _selectedAge ?? '',
-                                  phonenumberController.text,
-                                  passwordController.text,
-                                );
-                              },
-                              child: Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 3),
+                          Center(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    register(
+                                      fullnameController.text,
+                                      usernameController.text,
+                                      emailController.text,
+                                      _selectedAge ?? '',
+                                      phonenumberController.text,
+                                      passwordController.text,
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.black,
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      child: Icon(
+                                        Icons.chevron_right,
+                                        color: Colors.black,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
