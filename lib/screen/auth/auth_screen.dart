@@ -102,28 +102,28 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Text(
                     'MeA',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 70.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Text(
                     'MealAware Company Ltd',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 20.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 35.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                   SizedBox(
-                    height: 500,
-                    width: 370,
+                    height: MediaQuery.of(context).size.height * 0.57,
+                    width: MediaQuery.of(context).size.width * 0.9,
                     child: Stack(
                       children: [
                         Container(
@@ -269,8 +269,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                       passwordController.text);
                                 },
                                 child: Container(
-                                  width: 50,
-                                  height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.12,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.12,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
@@ -298,7 +300,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -312,7 +314,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       'or Sign Up with',
                       style: TextStyle(
                         color: Color.fromARGB(255, 25, 25, 25),
-                        fontSize: 20.0,
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
                       ),
                     ),
                   ),

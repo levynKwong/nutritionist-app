@@ -91,30 +91,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                   Text(
                     'MeA',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 70.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Text(
                     'MealAware Company Ltd',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 20.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Form(
                     key: _formKey,
                     child: SizedBox(
-                      height: 620,
-                      width: 370,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      width: MediaQuery.of(context).size.width * 0.9,
                       child: Stack(
                         children: [
                           Container(
@@ -143,7 +143,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const SizedBox(height: 5.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.001),
                                     Text(
                                       'Register',
                                       style: TextStyle(
@@ -151,7 +154,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 10.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.009),
                                     Text(
                                       'Create an account to continue',
                                       style: TextStyle(
@@ -415,8 +421,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     );
                                   },
                                   child: Container(
-                                    width: 50,
-                                    height: 50,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.12,
+                                    height: MediaQuery.of(context).size.width *
+                                        0.12,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
@@ -445,7 +453,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -459,7 +467,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       'or back to Sign In',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 20.0,
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
                       ),
                     ),
                   ),
