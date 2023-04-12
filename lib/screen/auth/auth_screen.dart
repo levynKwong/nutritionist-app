@@ -96,13 +96,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           style: TextStyle(
                             color: Color.fromARGB(
                                 255, 255, 255, 255), // The color of the text
-                            fontSize: 30.0, // The size of the text
+                            fontSize: 25.0, // The size of the text
                           ),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.001),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -149,22 +149,30 @@ class _AuthScreenState extends State<AuthScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(height: 5.0),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.00),
                               Text(
                                 'Login',
                                 style: TextStyle(
-                                  fontSize: 30.0,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.08,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 10.0),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                               Text(
                                 'To your account to continue',
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
                                 ),
                               ),
-                              SizedBox(height: 20.0),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.03),
                               Form(
                                 key: _formKey,
                                 child: Column(
@@ -192,7 +200,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                         border: OutlineInputBorder(),
                                       ),
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       controller: passwordController,
                                       autofocus: false,
@@ -215,7 +226,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                         border: OutlineInputBorder(),
                                       ),
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextButton(
                                       onPressed: () {
                                         // Handle the tap event.
@@ -223,7 +237,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                       child: Text(
                                         'forgot password?',
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.04,
                                           color:
                                               Color.fromARGB(255, 199, 53, 43),
                                         ),
@@ -232,29 +249,41 @@ class _AuthScreenState extends State<AuthScreen> {
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 20.0),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     Icons.male,
                                     color: Colors.grey,
-                                    size: 55.0,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.13,
                                   ),
-                                  SizedBox(width: 40.0),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1),
                                   Icon(
                                     Icons.female,
                                     color: Colors.grey,
-                                    size: 55.0,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.13,
                                   ),
-                                  SizedBox(width: 40.0),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1),
                                   Icon(
                                     Icons.transgender,
                                     color: Colors.grey,
-                                    size: 55.0,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.13,
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                             ],
                           ),
                         ),

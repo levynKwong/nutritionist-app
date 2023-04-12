@@ -1,14 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/auth_screen_register.dart';
+import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/auth/auth_parent.dart';
+import 'package:meal_aware/screen/home/doctor_forum.dart';
 
 class ParentAuth extends StatefulWidget {
-  const ParentAuth({Key? key}) : super(key: key);
+  ParentAuth({Key? key}) : super(key: key);
 
   @override
-  State<ParentAuth> createState() => _ParentAuthState();
+  _ParentAuthState createState() => _ParentAuthState();
 }
 
 class _ParentAuthState extends State<ParentAuth> {
+  final _formKey = GlobalKey<FormState>();
+  final choiceController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final ageController = TextEditingController();
+  final phonenumberController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
+
+  String error = "";
+  bool _isLoading = false;
+  String? _selectedUserType;
+  String? _selectedAge;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,306 +91,455 @@ class _ParentAuthState extends State<ParentAuth> {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 45.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Text(
                     'MeA',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 70.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Text(
                     'MealAware Company Ltd',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 20.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  SizedBox(
-                    height: 620,
-                    width: 370,
-                    child: Stack(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(16.0),
-                          padding: EdgeInsets.all(16.0),
-                          decoration: BoxDecoration(
-                            // border: Border.all(
-                            //   color: Color.fromARGB(255, 136, 136, 136),
-                            //   width: 3.0,
-                            // ),
-                            color: Color.fromARGB(183, 214, 228, 239),
-                            borderRadius: BorderRadius.circular(50.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(255, 207, 207, 207)
-                                    .withOpacity(0.3),
-                                spreadRadius: 3,
-                                blurRadius: 2,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const SizedBox(height: 5.0),
-                                  Text(
-                                    'Register',
-                                    style: TextStyle(
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'Since you are under 18, you need to have a parent or guardian to register you.',
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Color.fromARGB(255, 197, 51, 40),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'Create an account to continue',
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      labelText: 'Patient',
-                                      prefixIcon: Icon(Icons.account_circle),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    items: [
-                                      DropdownMenuItem(
-                                        value: 'Patient',
-                                        child: Text('Patient'),
-                                      ),
-                                    ],
-                                    onChanged: (String? newValue) {
-                                      // Do something with the new value
-                                    },
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  TextFormField(
-                                    decoration: InputDecoration(
-                                      labelText:
-                                          'Enter your child\'s\ Full Name',
-                                      prefixIcon: Icon(Icons.person),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  TextFormField(
-                                    decoration: InputDecoration(
-                                      labelText:
-                                          'Enter your child\'s\ Username',
-                                      prefixIcon: Icon(Icons.person),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      labelText: 'Gender',
-                                      prefixIcon: Icon(Icons.person_pin),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    items: [
-                                      DropdownMenuItem(
-                                        value: 'Male',
-                                        child: Text('Male'),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: 'Female',
-                                        child: Text('Female'),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: 'Non-Binary',
-                                        child: Text('Non-Binary'),
-                                      ),
-                                    ],
-                                    onChanged: (String? newValue) {
-                                      setState(() {});
-                                    },
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  TextFormField(
-                                    decoration: InputDecoration(
-                                      labelText: 'Enter your Email',
-                                      prefixIcon: Icon(Icons.email),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      labelText: 'Enter the age of your child',
-                                      prefixIcon: Icon(Icons.date_range),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    items: [
-                                      DropdownMenuItem(
-                                        value: '1-5',
-                                        child: Text('1-5'),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: '6-10',
-                                        child: Text('6-10'),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: '11-15',
-                                        child: Text('11-15'),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: '16-18',
-                                        child: Text('16-18'),
-                                      ),
-                                    ],
-                                    onChanged: (String? newValue) {
-                                      // Do something with the new value
-                                    },
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  TextFormField(
-                                    decoration: InputDecoration(
-                                      labelText:
-                                          'PhoneNumber of Parent/Guardian',
-                                      prefixIcon: Icon(Icons.phone),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      labelText: 'Password',
-                                      prefixIcon: Icon(Icons.lock),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.0),
-                                  TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      labelText: 'Confirm Password',
-                                      prefixIcon: Icon(Icons.lock),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20.0),
-                                  Text(
-                                    'By pressing "submit" you agree to our',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      //  Handle the tap event.
-                                    },
-                                    child: Text(
-                                      'Terms and Conditions',
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Form(
+                    key: _formKey,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: Stack(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(16.0),
+                            decoration: BoxDecoration(
+                              // border: Border.all(
+                              //   color: Color.fromARGB(255, 136, 136, 136),
+                              //   width: 3.0,
+                              // ),
+                              color: Color.fromARGB(183, 214, 228, 239),
+                              borderRadius: BorderRadius.circular(50.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(255, 207, 207, 207)
+                                      .withOpacity(0.3),
+                                  spreadRadius: 3,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.001),
+                                    Text(
+                                      'Register',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 196, 20, 20),
-                                        fontSize: 15.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.08,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.male,
-                                        color: Colors.grey,
-                                        size: 55.0,
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.009),
+                                    Center(
+                                      child: Text(
+                                        'Since you are under 18, you need to have a parent or a guardian to register you.',
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          color:
+                                              Color.fromARGB(255, 197, 51, 40),
+                                        ),
                                       ),
-                                      SizedBox(width: 40.0),
-                                      Icon(
-                                        Icons.female,
-                                        color: Colors.grey,
-                                        size: 55.0,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.009),
+                                    Text(
+                                      'Create an account to continue',
+                                      style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
                                       ),
-                                      SizedBox(width: 40.0),
-                                      Icon(
-                                        Icons.transgender,
-                                        color: Colors.grey,
-                                        size: 55.0,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Patient',
+                                        prefixIcon: Icon(Icons.account_circle),
+                                        border: OutlineInputBorder(),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: (MediaQuery.of(context).size.width / 2) - 45,
-                          child: GestureDetector(
-                            onTap: () {
-                              // Action to perform on button click
-                            },
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(50.0),
-                                child: Icon(
-                                  Icons.chevron_right,
-                                  color: Colors.black,
+                                      value: _selectedUserType,
+                                      items: [
+                                        DropdownMenuItem(
+                                          value: 'Patient',
+                                          child: Text('Patient'),
+                                        ),
+                                      ],
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          _selectedUserType = newValue;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select your user type';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            'Enter the age of your child',
+                                        prefixIcon: Icon(Icons.date_range),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      value: _selectedAge,
+                                      items: [
+                                        DropdownMenuItem(
+                                          value: '4',
+                                          child: Text('1-5'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '5',
+                                          child: Text('6-10'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '6',
+                                          child: Text('11-15'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '7',
+                                          child: Text('16-18'),
+                                        ),
+                                      ],
+                                      onChanged: (String? newValue) {
+                                        // Do something with the new value
+
+                                        setState(() {
+                                          _selectedAge = newValue;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select your age range';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    TextFormField(
+                                      controller: fullnameController,
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            'Enter your child\'s\ Full Name',
+                                        prefixIcon: Icon(Icons.person),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your full name';
+                                        } else if (!RegExp(r"^[a-zA-Z\s]+$")
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid name';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    TextFormField(
+                                      controller: usernameController,
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            'Enter your child\'s\ Username',
+                                        prefixIcon: Icon(Icons.person),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Please enter a username");
+                                        }
+                                        // reg expression for email validation
+                                        if (!RegExp(
+                                                "^(?=.{3,16})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
+                                            .hasMatch(value)) {
+                                          return ("Please Enter a valid username (3 to 16 Characters)");
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    TextFormField(
+                                      controller: emailController,
+                                      decoration: InputDecoration(
+                                        labelText: 'Email',
+                                        prefixIcon: Icon(Icons.email),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Please Enter Your Email");
+                                        }
+                                        // reg expression for email validation
+                                        if (!RegExp(
+                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                            .hasMatch(value)) {
+                                          return ("Please Enter a valid email");
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    TextFormField(
+                                      controller: phonenumberController,
+                                      decoration: InputDecoration(
+                                        labelText: 'Parent\'s\ PhoneNumber',
+                                        prefixIcon: Icon(Icons.phone),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a phone number';
+                                        }
+                                        if (!RegExp(r'^\+?[0-9]{7,9}$')
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid phone number';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    TextFormField(
+                                      obscureText: true,
+                                      controller: passwordController,
+                                      decoration: InputDecoration(
+                                        labelText: 'Password',
+                                        prefixIcon: Icon(Icons.lock),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        RegExp regex = new RegExp(r'^.{8,32}$');
+                                        if (value!.isEmpty) {
+                                          return ("Password is required for registration");
+                                        }
+                                        if (!regex.hasMatch(value)) {
+                                          return ("Enter (8 to 32 Characters) valid password");
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    TextFormField(
+                                      controller: confirmpasswordController,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                        labelText: 'Confirm Password',
+                                        prefixIcon: Icon(Icons.lock),
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Please confirm your password");
+                                        }
+                                        if (value != passwordController.text) {
+                                          return ("Passwords do not match");
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    Text(
+                                      'By pressing "submit" you agree to our',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.03,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        //  Handle the tap event.
+                                      },
+                                      child: Text(
+                                        'Terms and Conditions',
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 196, 20, 20),
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.04,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.male,
+                                          color: Colors.grey,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.13,
+                                        ),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1),
+                                        Icon(
+                                          Icons.female,
+                                          color: Colors.grey,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.13,
+                                        ),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1),
+                                        Icon(
+                                          Icons.transgender,
+                                          color: Colors.grey,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.13,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          Center(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    register(
+                                      fullnameController.text,
+                                      usernameController.text,
+                                      emailController.text,
+                                      _selectedAge ?? '',
+                                      phonenumberController.text,
+                                      passwordController.text,
+                                    );
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.12,
+                                    height: MediaQuery.of(context).size.width *
+                                        0.12,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      child: Icon(
+                                        Icons.chevron_right,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 15.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => (RegisterScreen()),
+                          builder: (context) => (AuthScreen()),
                         ),
                       );
                     },
                     child: Text(
-                      'or back to register',
+                      'or back to Sign In',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 20.0,
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15.0),
                 ],
               ),
             ),
@@ -379,5 +547,63 @@ class _ParentAuthState extends State<ParentAuth> {
         ),
       ),
     );
+  }
+
+  void register(String fullname, String username, String email, String age,
+      String phonenumber, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        final credential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: email,
+              password: password,
+            )
+            .then((value) => {
+                  saveUser(fullname, username, email, age, phonenumber),
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DoctorForum()),
+                      (_) => false),
+                });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          setState(() {
+            _isLoading = false;
+            error = 'The password provided is too weak.';
+          });
+        } else if (e.code == 'email-already-in-use') {
+          setState(() {
+            _isLoading = false;
+            error = 'The account already exists for that email.';
+          });
+        }
+      } catch (e) {
+        setState(() {
+          _isLoading = false;
+          error = "An unexpected error occured, please try again";
+        });
+      }
+    }
+  }
+
+  void saveUser(String fullname, String username, String email, String age,
+      String phonenumber) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+
+    await FirebaseFirestore.instance
+        .collection(_selectedUserType!)
+        .doc(uid)
+        .set({
+      'fullname': fullname,
+      'username': username,
+      'email': email,
+      'age': age,
+      'phone number': phonenumber,
+    });
   }
 }

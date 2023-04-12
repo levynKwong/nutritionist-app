@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   Container(),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -150,7 +150,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Text(
                                       'Register',
                                       style: TextStyle(
-                                        fontSize: 30.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.08,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -161,10 +163,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Text(
                                       'Create an account to continue',
                                       style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
                                       ),
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Patient | Nutritionist',
@@ -194,7 +201,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Age Range',
@@ -237,7 +247,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       controller: fullnameController,
                                       decoration: InputDecoration(
@@ -255,7 +268,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       controller: usernameController,
                                       decoration: InputDecoration(
@@ -276,7 +292,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       controller: emailController,
                                       decoration: InputDecoration(
@@ -297,7 +316,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       controller: phonenumberController,
                                       decoration: InputDecoration(
@@ -316,7 +338,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       obscureText: true,
                                       controller: passwordController,
@@ -331,11 +356,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           return ("Password is required for registration");
                                         }
                                         if (!regex.hasMatch(value)) {
-                                          return ("Enter a valid Password (8 to 32 Characters)");
+                                          return ("Enter (8 to 32 Characters) valid password");
                                         }
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     TextFormField(
                                       controller: confirmpasswordController,
                                       obscureText: true,
@@ -353,12 +381,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                       },
                                     ),
-                                    const SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     Text(
                                       'By pressing "submit" you agree to our',
                                       style: TextStyle(
                                         color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 15.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.03,
                                       ),
                                     ),
                                     GestureDetector(
@@ -370,12 +403,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         style: TextStyle(
                                           color:
                                               Color.fromARGB(255, 196, 20, 20),
-                                          fontSize: 15.0,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.04,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 20.0),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -383,19 +422,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         Icon(
                                           Icons.male,
                                           color: Colors.grey,
-                                          size: 55.0,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.13,
                                         ),
-                                        SizedBox(width: 40.0),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1),
                                         Icon(
                                           Icons.female,
                                           color: Colors.grey,
-                                          size: 55.0,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.13,
                                         ),
-                                        SizedBox(width: 40.0),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1),
                                         Icon(
                                           Icons.transgender,
                                           color: Colors.grey,
-                                          size: 55.0,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.13,
                                         ),
                                       ],
                                     ),
@@ -471,7 +527,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15.0),
                 ],
               ),
             ),

@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: RegisterScreen(),
-      // home: AuthScreen(),
+      // home: RegisterScreen(),
+      home: AuthScreen(),
       // home: const ParentAuth(),
       // home: const Terms_and_condition()
       // home: test_home(),
