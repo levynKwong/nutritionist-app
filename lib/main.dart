@@ -8,9 +8,11 @@ import 'package:meal_aware/screen/home/home.dart';
 import 'package:meal_aware/screen/home/doctor_forum.dart';
 
 import 'firebase_options.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   var firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
