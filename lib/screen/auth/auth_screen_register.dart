@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   Container(),
-                  const SizedBox(height: 45.0),
+                  const SizedBox(height: 20.0),
                   Text(
                     'MeA',
                     style: TextStyle(

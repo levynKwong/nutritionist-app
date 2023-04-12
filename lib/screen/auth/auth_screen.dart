@@ -102,7 +102,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40.0),
+                  const SizedBox(height: 20.0),
                   Text(
                     'MeA',
                     style: TextStyle(
@@ -120,7 +120,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 55.0),
+                  const SizedBox(height: 35.0),
                   SizedBox(
                     height: 500,
                     width: 370,
@@ -258,39 +258,43 @@ class _AuthScreenState extends State<AuthScreen> {
                             ],
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: (MediaQuery.of(context).size.width / 2) - 45,
-                          child: GestureDetector(
-                            onTap: () {
-                              login(emailController.text,
-                                  passwordController.text);
-                            },
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
+                        Center(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  login(emailController.text,
+                                      passwordController.text);
+                                },
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(50.0),
-                                child: Icon(
-                                  Icons.chevron_right,
-                                  color: Colors.black,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
