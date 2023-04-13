@@ -10,12 +10,10 @@ class Text2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin:
-            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.2),
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: MediaQuery.of(context).size.width * 0.045,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),

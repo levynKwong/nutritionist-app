@@ -521,7 +521,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       );
                     },
                     child: Text(
-                      'or back to Sign In',
+                      'or back to login',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: MediaQuery.of(context).size.width * 0.045,
