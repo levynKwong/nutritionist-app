@@ -16,21 +16,25 @@ class EmailVerificationCode extends StatelessWidget {
       body: Stack(
         children: [
           background(),
-          _buildImage(),
-          text1(),
+          Align(
+            alignment: Alignment.topCenter,
+            child: _buildImage(height_),
+          ),
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(top: height_ * 0.1),
+              child: Text1(text: 'Verify your email'),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImage(double height_) {
     return Container(
-      margin: EdgeInsets.only(top: 200, left: 25, right: 25),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('images/email_verification.png'),
-        ),
-      ),
+      margin: EdgeInsets.only(top: height_ * 0.1),
+      child: Image.asset('images/email_verification.png'),
     );
   }
 }
