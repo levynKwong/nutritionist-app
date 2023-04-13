@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/customer_widget.dart/text2.dart';
+import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 
 class EmailVerificationCode extends StatelessWidget {
-  const EmailVerificationCode({Key? key}) : super(key: key);
+  final String email;
+  const EmailVerificationCode({Key? key, required this.email})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,6 @@ class EmailVerificationCode extends StatelessWidget {
     final double height_ = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
@@ -20,11 +23,17 @@ class EmailVerificationCode extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: _buildImage(height_),
           ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(top: height_ * 0.1),
-              child: Text1(text: 'Verify your email'),
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: height_ * 0.03),
+                child: Text1(
+                  text: 'Verify your email',
+                ),
+              ),
+              Text2(text: 'A 6-digit code has been sent to \n\ $email'),
+            ],
           ),
         ],
       ),

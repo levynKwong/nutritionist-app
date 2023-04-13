@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
 import 'package:meal_aware/screen/home/doctor_forum.dart';
+import 'package:meal_aware/screen/auth/email_verification_code.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -575,6 +576,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
       }
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EmailVerificationCode(email: email),
+      ),
+    );
   }
 
   void saveUser(String fullname, String username, String email, String age,
