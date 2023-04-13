@@ -74,6 +74,7 @@ flutter:
     - images/workout.jpg
     - images/heart.png
     - images/email.png
+    - images/email_verification.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
