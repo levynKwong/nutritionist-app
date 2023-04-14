@@ -238,7 +238,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                (forgotPassword()),
+                                                (ForgotPassword()),
                                           ),
                                         );
                                       },
