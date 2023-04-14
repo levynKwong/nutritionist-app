@@ -4,11 +4,16 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text2.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 
-class EmailVerificationCode extends StatelessWidget {
+class EmailVerificationCode extends StatefulWidget {
   final String email;
   const EmailVerificationCode({Key? key, required this.email})
       : super(key: key);
 
+  @override
+  State<EmailVerificationCode> createState() => _EmailVerificationCodeState();
+}
+
+class _EmailVerificationCodeState extends State<EmailVerificationCode> {
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -30,7 +35,9 @@ class EmailVerificationCode extends StatelessWidget {
                   text: 'Verify your email',
                 ),
                 SizedBox(height: height_ * 0.02),
-                Text2(text: 'An email from us has been sent to \n\ $email'),
+                Text2(
+                    text:
+                        'An email from us has been sent to \n\ ${widget.email}'),
                 SizedBox(height: height_ * 0.0),
                 TextButton(
                   onPressed: () {
@@ -73,9 +80,6 @@ class EmailVerificationCode extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: height_ * 0.02),
-                verifyButton(height_, width_, () {
-                  // Your code to handle button press goes here
-                }),
               ],
             ),
           )
@@ -91,55 +95,4 @@ class EmailVerificationCode extends StatelessWidget {
       child: Image.asset('images/email_verification.png'),
     );
   }
-
-  // Widget InputBox() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: List.generate(
-  //       6,
-  //       (index) => Container(
-  //         margin: EdgeInsets.symmetric(horizontal: 8.0),
-  //         child: SizedBox(
-  //           width: 40,
-  //           child: TextField(
-  //             textAlign: TextAlign.center,
-  //             keyboardType: TextInputType.number,
-  //             maxLength: 1,
-  //             decoration: InputDecoration(
-  //               counterText: '',
-  //               filled: true,
-  //               fillColor: Color.fromARGB(255, 211, 211, 211),
-  //               border: OutlineInputBorder(
-  //                 borderRadius: BorderRadius.circular(5),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-}
-
-Widget verifyButton(double height_, double width_, VoidCallback onPressed) {
-  return Container(
-    width: width_ * 0.8,
-    height: height_ * 0.07,
-    decoration: BoxDecoration(
-      color: Color(0xFF989efd),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: TextButton(
-      onPressed: onPressed,
-      child: Center(
-        child: Text(
-          'Verify',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ),
-  );
 }

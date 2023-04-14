@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/home/doctor_forum.dart';
+import 'package:meal_aware/screen/auth/forgotPassword.dart';
 
 class AuthScreen extends StatefulWidget {
   AuthScreen({Key? key});
@@ -232,7 +233,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                                 0.02),
                                     TextButton(
                                       onPressed: () {
-                                        // Handle the tap event.
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                (forgotPassword()),
+                                          ),
+                                        );
                                       },
                                       child: Text(
                                         'forgot password?',

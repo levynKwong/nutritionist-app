@@ -359,6 +359,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (!regex.hasMatch(value)) {
                                           return ("Enter (8 to 32 Characters) valid password");
                                         }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(

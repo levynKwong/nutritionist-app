@@ -41,14 +41,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: RegisterScreen(),
-      // home: AuthScreen(),
+      home: AuthScreen(),
       // home: const ParentAuth(),
       // home: const Terms_and_condition()
       // home: test_home(),
       // home: DoctorForum(),
-      home: EmailVerificationCode(
-        email: '',
-      ),
+      // home: EmailVerificationCode(
+      //   email: '',
+      // ),
     );
   }
 }
