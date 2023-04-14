@@ -56,7 +56,7 @@ class forgotPassword extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(width_ * 0.04),
-                    color: Colors.blue,
+                    color: Color(0xFF989efd),
                   ),
                   child: MaterialButton(
                     onPressed: () {},

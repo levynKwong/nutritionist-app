@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/home/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/forgotPassword.dart';
+// import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 
 class AuthScreen extends StatefulWidget {
   AuthScreen({Key? key});
