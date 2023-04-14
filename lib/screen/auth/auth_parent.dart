@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
 import 'package:meal_aware/screen/home/doctor_forum.dart';
+import 'package:meal_aware/screen/auth/email_verification_code.dart';
 
 class ParentAuth extends StatefulWidget {
   ParentAuth({Key? key}) : super(key: key);
@@ -568,23 +569,35 @@ class _ParentAuthState extends State<ParentAuth> {
                       MaterialPageRoute(
                           builder: (context) => const DoctorForum()),
                       (_) => false),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EmailVerificationCode(email: email),
+                    ),
+                  ),
                 });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           setState(() {
             _isLoading = false;
-            error = 'The password provided is too weak.';
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('The password provided is too weak.'),
+                duration: Duration(seconds: 3)));
           });
         } else if (e.code == 'email-already-in-use') {
           setState(() {
             _isLoading = false;
-            error = 'The account already exists for that email.';
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('The account already exists for that email.'),
+                duration: Duration(seconds: 3)));
           });
         }
       } catch (e) {
         setState(() {
           _isLoading = false;
-          error = "An unexpected error occured, please try again";
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('An unexpected error occurred, please try again'),
+              duration: Duration(seconds: 3)));
         });
       }
     }

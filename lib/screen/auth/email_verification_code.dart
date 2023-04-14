@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
@@ -16,12 +18,49 @@ class EmailVerificationCode extends StatefulWidget {
 
 class _EmailVerificationCodeState extends State<EmailVerificationCode> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
+  Timer? timer;
+  @override
   @override
   void initState() {
     super.initState();
-    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-    if (!isEmailVerified) {
-      sendVerificationEmail();
+    // check if the user is logged in
+    if (FirebaseAuth.instance.currentUser != null) {
+      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+      if (!isEmailVerified) {
+        sendVerificationEmail();
+      }
+      timer = Timer.periodic(
+        Duration(seconds: 3),
+        (_) => checkEmailVerified(),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  Future checkEmailVerified() async {
+    final user = FirebaseAuth.instance.currentUser!;
+    await user.reload();
+    isEmailVerified = user.emailVerified;
+    if (isEmailVerified) {
+      timer?.cancel();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Email confirmed'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DoctorForum(),
+        ),
+      );
     }
   }
 
@@ -29,6 +68,10 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
     try {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
+      setState(() => canResendEmail = false);
+      await Future.delayed(Duration(seconds: 5));
+      setState(() => canResendEmail = true);
+      print('Email verification sent');
     } catch (e) {
       print('Error sending verification email: $e');
     }
@@ -36,7 +79,11 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
 
   @override
   Widget build(BuildContext context) {
-    return isEmailVerified ? DoctorForum() : _emailVerification(context);
+    if (isEmailVerified == true) {
+      return DoctorForum();
+    } else {
+      return _emailVerification(context);
+    }
   }
 
   Widget _buildImage(double height_, double width_) {
@@ -71,34 +118,25 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
                   text: 'An email from us has been sent to \n\ ${widget.email}',
                 ),
                 SizedBox(height: height_ * 0.02),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RegisterScreen(),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Change email',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: MediaQuery.of(context).size.width * 0.045,
-                    ),
-                  ),
-                ),
-                SizedBox(height: height_ * 0.02),
+
                 // InputBox(),
-                SizedBox(height: height_ * 0.02),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text2(text: 'Didn’t receive any email?'),
                     TextButton(
                       onPressed: () {
-                        // Resend code action
+                        if (canResendEmail == true) {
+                          sendVerificationEmail();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('Verification email has been resent'),
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        }
                       },
                       child: Text(
                         'Resend',
@@ -112,6 +150,25 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
                   ],
                 ),
                 SizedBox(height: height_ * 0.02),
+                TextButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: MediaQuery.of(context).size.width * 0.045,
+                    ),
+                  ),
+                ),
               ],
             ),
           )

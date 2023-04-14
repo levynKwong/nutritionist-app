@@ -374,20 +374,21 @@ class _AuthScreenState extends State<AuthScreen> {
             .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user != null) {
           Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const DoctorForum()),
-              (_) => false);
+            context,
+            MaterialPageRoute(builder: (context) => const DoctorForum()),
+            (_) => false,
+          );
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Invalid Email or Password'),
+              duration: const Duration(seconds: 3),
+            ),
+          );
           setState(() {
             _isLoading = false;
-            error = "Invalid Email or Password";
-            Future.delayed(const Duration(seconds: 3), () {
-              setState(() {
-                error = "";
-              });
-            });
           });
         }
       }

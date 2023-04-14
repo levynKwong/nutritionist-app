@@ -236,7 +236,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 builder: (context) =>
                                                     ParentAuth()),
                                           );
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'You are under 18. you need to have a parent or a guardian to register you.'),
+                                              duration: Duration(seconds: 4),
+                                            ),
+                                          );
                                         }
+
                                         setState(() {
                                           _selectedAge = newValue;
                                         });
@@ -381,6 +391,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (value != passwordController.text) {
                                           return ("Passwords do not match");
                                         }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(
@@ -557,32 +568,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       MaterialPageRoute(
                           builder: (context) => const DoctorForum()),
                       (_) => false),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EmailVerificationCode(email: email),
+                    ),
+                  ),
                 });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           setState(() {
             _isLoading = false;
-            error = 'The password provided is too weak.';
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('The password provided is too weak.'),
+                duration: Duration(seconds: 3)));
           });
         } else if (e.code == 'email-already-in-use') {
           setState(() {
             _isLoading = false;
-            error = 'The account already exists for that email.';
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('The account already exists for that email.'),
+                duration: Duration(seconds: 3)));
           });
         }
       } catch (e) {
         setState(() {
           _isLoading = false;
-          error = "An unexpected error occured, please try again";
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('An unexpected error occurred, please try again'),
+              duration: Duration(seconds: 3)));
         });
       }
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EmailVerificationCode(email: email),
-      ),
-    );
   }
 
   void saveUser(String fullname, String username, String email, String age,

@@ -142,7 +142,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('An error occurred while resetting password.'),
+          content: Text(
+              'An error occurred while resetting password or Password Blank.'),
         ),
       );
     }
