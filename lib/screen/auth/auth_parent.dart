@@ -616,7 +616,7 @@ class _ParentAuthState extends State<ParentAuth> {
       'username': username,
       'email': email,
       'age': age,
-      'phone number': phonenumber,
+      'phoneNumber': phonenumber,
     });
   }
 }

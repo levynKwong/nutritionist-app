@@ -9,6 +9,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final formKey = GlobalKey<FormState>();
+  final TextEditingController passwordController = TextEditingController();
 
   final TextEditingController emailController = TextEditingController();
   @override
@@ -122,6 +123,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Future<void> resetPassword() async {
     try {
+      final password = passwordController.text.trim();
+      if (password.length < 8 || password.length > 32) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Password must be between 8 and 32 characters long.'),
+          ),
+        );
+        return;
+      }
       showDialog(
         context: context,
         barrierDismissible: false,

@@ -615,7 +615,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'username': username,
       'email': email,
       'age': age,
-      'phone number': phonenumber,
+      'phoneNumber': phonenumber,
     });
   }
 }
