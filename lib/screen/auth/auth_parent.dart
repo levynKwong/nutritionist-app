@@ -93,13 +93,26 @@ class _ParentAuthState extends State<ParentAuth> {
                 children: [
                   Container(),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Text(
-                    'MeA',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: MediaQuery.of(context).size.width * 0.20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.175),
+                        child: Text(
+                          'MeA',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: MediaQuery.of(context).size.width * 0.20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Text(
