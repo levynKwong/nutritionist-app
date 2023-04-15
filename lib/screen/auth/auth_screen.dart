@@ -214,11 +214,11 @@ class _AuthScreenState extends State<AuthScreen> {
                                         passwordController.text = newValue!;
                                       },
                                       validator: (value) {
-                                        RegExp regex = RegExp(r'^.{8,32}$');
+                                        RegExp regex = RegExp(r'^.{6,32}$');
                                         if (value!.isEmpty) {
                                           return 'Password is required for login';
                                         } else if (!regex.hasMatch(value)) {
-                                          return 'Password must be between 8 and 32 characters';
+                                          return 'Password must be between 6 and 32 characters';
                                         }
                                         return null;
                                       },
