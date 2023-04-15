@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/home/doctor_forum.dart';
 
-class Terms_and_condition extends StatelessWidget {
+class Terms_and_condition extends StatefulWidget {
   const Terms_and_condition({super.key});
+
+  @override
+  State<Terms_and_condition> createState() => _Terms_and_conditionState();
+}
+
+class _Terms_and_conditionState extends State<Terms_and_condition> {
+  bool _isChecked = false;
+
+  void updateCheckbox(bool? newValue) {
+    setState(() {
+      _isChecked = newValue!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool _isChecked = false;
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       // Set scaffold's background color to transparent
@@ -230,14 +246,12 @@ class Terms_and_condition extends StatelessWidget {
                               const SizedBox(height: 10.0),
                               Row(
                                 children: <Widget>[
-                                  // Checkbox(
-                                  //     //   value: _isChecked,
-                                  //     //   onChanged: (bool value) {
-                                  //     //     // setState(() {
-                                  //     //     //   _isChecked = value;
-                                  //     //     // });
-                                  //     //   },
-                                  //     ),
+                                  Checkbox(
+                                    value: _isChecked,
+                                    onChanged: (value) {
+                                      updateCheckbox(value);
+                                    },
+                                  ),
                                   Text('Agree terms and conditions'),
                                 ],
                               ),
@@ -245,33 +259,46 @@ class Terms_and_condition extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: (MediaQuery.of(context).size.width / 2) - 45,
-                          child: GestureDetector(
-                            onTap: () {
-                              // Action to perform on button click
-                            },
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
+                        Center(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (_isChecked == true) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DoctorForum(),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.12,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.12,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(50.0),
-                                child: Icon(
-                                  Icons.chevron_right,
-                                  color: Colors.black,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -280,20 +307,6 @@ class Terms_and_condition extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15.0),
-                  GestureDetector(
-                    onTap: () {
-                      //  Handle the tap event.
-                    },
-                    child: Text(
-                      'or back',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15.0),
                 ],
               ),
             ),

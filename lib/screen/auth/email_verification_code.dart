@@ -6,7 +6,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text2.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
-import 'package:meal_aware/screen/home/doctor_forum.dart';
+import 'package:meal_aware/screen/auth/term_and_condition.dart';
 
 class EmailVerificationCode extends StatefulWidget {
   final String email;
@@ -58,7 +58,7 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DoctorForum(),
+          builder: (context) => Terms_and_condition(),
         ),
       );
     }
@@ -80,7 +80,7 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
   @override
   Widget build(BuildContext context) {
     if (isEmailVerified == true) {
-      return DoctorForum();
+      return Terms_and_condition();
     } else {
       return _emailVerification(context);
     }

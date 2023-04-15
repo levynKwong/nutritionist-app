@@ -234,8 +234,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                                 0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
-                                        labelText:
-                                            'Enter the age of your child',
+                                        labelText: 'Enter the age of the child',
                                         prefixIcon: Icon(Icons.date_range),
                                         border: OutlineInputBorder(),
                                       ),
@@ -280,7 +279,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                       controller: fullnameController,
                                       decoration: InputDecoration(
                                         labelText:
-                                            'Enter your child\'s\ Full Name',
+                                            'Enter the child\'s\ Full Name',
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
@@ -302,7 +301,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                       controller: usernameController,
                                       decoration: InputDecoration(
                                         labelText:
-                                            'Enter your child\'s\ Username',
+                                            'Enter the child\'s\ Username',
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
@@ -350,7 +349,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                     TextFormField(
                                       controller: phonenumberController,
                                       decoration: InputDecoration(
-                                        labelText: 'Parent\'s\ PhoneNumber',
+                                        labelText: 'Your PhoneNumber',
                                         prefixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(),
                                       ),

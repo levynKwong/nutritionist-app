@@ -27,15 +27,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: RegisterScreen(),
-      home: AuthScreen(),
-      // home: const ParentAuth(),
-      // home: const Terms_and_condition()
-      // home: test_home(),
-      // home: DoctorForum(),
-      // home: EmailVerificationCode(
-      //   email: '',
-      // ),
-    );
+        // home: RegisterScreen(),
+        // home: AuthScreen(),
+        // home: const ParentAuth(),
+        home: Terms_and_condition()
+        // home: test_home(),
+        // home: DoctorForum(),
+        // home: EmailVerificationCode(
+        //   email: '',
+        // ),
+        );
   }
 }
