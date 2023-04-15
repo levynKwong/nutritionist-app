@@ -9,7 +9,6 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final formKey = GlobalKey<FormState>();
-  final TextEditingController passwordController = TextEditingController();
 
   final TextEditingController emailController = TextEditingController();
   @override
@@ -52,7 +51,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: height_ * 0.2),
+                SizedBox(height: height_ * 0.1),
                 Text(
                   "Enter the email address associated \n\ with your account",
                   style: TextStyle(
@@ -113,6 +112,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: height_ * 0.07),
+                Text(
+                  "Make sure that when you reset a new password, it must be at least 6 characters long. ",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 205, 57, 57),
+                    fontSize: width_ * 0.04,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -123,15 +131,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Future<void> resetPassword() async {
     try {
-      final password = passwordController.text.trim();
-      if (password.length < 8 || password.length > 32) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Password must be between 8 and 32 characters long.'),
-          ),
-        );
-        return;
-      }
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -144,7 +143,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       Navigator.of(context).popUntil((route) => route.isFirst);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Password reset email has been sent.'),
+          content: Text(
+              'Password reset email has been sent, make sure to put at least 6 characters.'),
         ),
       );
     } on FirebaseAuthException catch (e) {

@@ -362,12 +362,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         border: OutlineInputBorder(),
                                       ),
                                       validator: (value) {
-                                        RegExp regex = new RegExp(r'^.{8,32}$');
+                                        RegExp regex = new RegExp(r'^.{6,32}$');
                                         if (value!.isEmpty) {
                                           return ("Password is required for registration");
                                         }
                                         if (!regex.hasMatch(value)) {
-                                          return ("Enter (8 to 32 Characters) valid password");
+                                          return ("Enter (6 to 32 Characters) valid password");
                                         }
                                         return null;
                                       },
