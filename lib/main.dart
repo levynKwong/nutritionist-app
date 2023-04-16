@@ -8,6 +8,7 @@ import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       home: Home(),
       // home: test_home(),
       // home: DoctorForum(),
+      // home: NotificationWidget(),
       // home: EmailVerificationCode(
       //   email: '',
       // ),

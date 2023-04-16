@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -20,11 +21,32 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
           background(),
           screens[_currentIndex],
+          Positioned(
+            top: height_ * 0.08,
+            right: width_ * 0.01,
+            child: Material(
+              elevation:
+                  0, // add elevation to bring the widget to the foreground
+              color: Colors.transparent, // set background color to transparent
+              child: InkWell(
+                onTap: () {
+                  // Handle the onTap event here
+                  // For example, navigate to a notification screen
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.notifications),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
