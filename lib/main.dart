@@ -4,10 +4,11 @@ import 'package:meal_aware/screen/auth/auth_parent.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
-import 'package:meal_aware/screen/home/home.dart';
-import 'package:meal_aware/screen/home/doctor_forum.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
+
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
@@ -27,15 +28,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // home: RegisterScreen(),
-        // home: AuthScreen(),
-        // home: const ParentAuth(),
-        home: Terms_and_condition()
-        // home: test_home(),
-        // home: DoctorForum(),
-        // home: EmailVerificationCode(
-        //   email: '',
-        // ),
-        );
+      // home: RegisterScreen(),
+      // home: AuthScreen(),
+      // home: const ParentAuth(),
+      // home: Terms_and_condition()
+      home: Home(),
+      // home: test_home(),
+      // home: DoctorForum(),
+      // home: EmailVerificationCode(
+      //   email: '',
+      // ),
+    );
   }
 }

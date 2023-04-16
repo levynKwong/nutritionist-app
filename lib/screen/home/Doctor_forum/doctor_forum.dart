@@ -1,45 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 class DoctorForum extends StatelessWidget {
   const DoctorForum({Key? key}) : super(key: key);
 
   static const double _borderRadius = 23;
   static const double _textFactor = 1.4;
-  static const double _iconSize = 30;
-  static const double _boxWidth = 325;
-  static const double _boxHeight = 75;
+  static const double _iconSize = 0.1;
+  static const double _boxWidth = 0.9;
+  static const double _boxHeight = 0.1;
   static const dynamic _textColour = Colors.black;
   static const dynamic _iconColour = Colors.grey;
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            // Wrap the body in a container to add a gradient background
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 203, 222, 250),
-            ),
-          ),
-          _buildTitleBar(),
-          _buildImage(),
+          background(),
+          _buildTitleBar(width_, height_),
+          _buildImage(width_, height_),
           Positioned(
             left: 0,
             right: 0,
-            bottom: 20,
+            bottom: height_ * 0.05,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildAppointmentButton(),
-                SizedBox(height: 30),
+                _buildAppointmentButton(width_, height_),
+                SizedBox(height: height_ * 0.02),
+                _buildElevatedButton('Chat With Doctor', Icons.chat_rounded,
+                    () {}, width_, height_),
+                SizedBox(height: height_ * 0.02),
                 _buildElevatedButton(
-                    'Chat With Doctor', Icons.chat_rounded, () {}),
-                SizedBox(height: 30),
-                _buildElevatedButton('Chat With Friends', Icons.chat, () {}),
-                SizedBox(height: 50),
+                    'Chat With Friends', Icons.chat, () {}, width_, height_),
+                SizedBox(height: height_ * 0.03),
               ],
             ),
           ),
@@ -48,18 +45,19 @@ class DoctorForum extends StatelessWidget {
     );
   }
 
-  Widget _buildTitleBar() {
+  Widget _buildTitleBar(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: 20, left: 25, right: 25),
+      margin: EdgeInsets.only(
+          top: height_ * 0.08, left: width_ * 0.1, right: width_ * 0.1),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(_borderRadius),
         child: SizedBox(
           height: 55,
           child: Container(
             padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 226, 226, 226),
-            ),
+            // decoration: BoxDecoration(
+            //   color: Color.fromARGB(255, 226, 226, 226),
+            // ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,13 +78,14 @@ class DoctorForum extends StatelessWidget {
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImage(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: 100, left: 25, right: 25),
-      width: 400,
-      height: 300,
+      margin: EdgeInsets.only(
+          top: height_ * 0.18, left: width_ * 0.1, right: width_ * 0.1),
+      width: width_ * 0.9,
+      height: height_ * 0.30,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(width_ * 0.0),
         image: DecorationImage(
           image: AssetImage('images/heart.png'),
           fit: BoxFit.cover,
@@ -95,18 +94,18 @@ class DoctorForum extends StatelessWidget {
     );
   }
 
-  Widget _buildElevatedButton(
-      String text, IconData icon, Function() onPressed) {
+  Widget _buildElevatedButton(String text, IconData icon, Function() onPressed,
+      double width_, double height_) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
       child: SizedBox(
-        width: _boxWidth,
-        height: _boxHeight,
+        width: _boxWidth * width_,
+        height: _boxHeight * height_,
         child: ElevatedButton.icon(
           onPressed: onPressed,
           icon: Icon(
             icon,
-            size: _iconSize,
+            size: _iconSize * width_,
             color: _iconColour[600],
           ),
           style: ButtonStyle(
@@ -126,17 +125,17 @@ class DoctorForum extends StatelessWidget {
     );
   }
 
-  Widget _buildAppointmentButton() {
+  Widget _buildAppointmentButton(double width_, double height_) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
       child: SizedBox(
-        width: _boxWidth,
-        height: _boxHeight,
+        width: _boxWidth * width_,
+        height: _boxHeight * height_,
         child: ElevatedButton.icon(
           onPressed: () {},
           icon: Icon(
             Icons.calendar_month_outlined,
-            size: _iconSize,
+            size: _iconSize * width_,
             color: _iconColour[600],
           ),
           style: ButtonStyle(
@@ -149,14 +148,14 @@ class DoctorForum extends StatelessWidget {
               text: 'Book an Appointment\n',
               style: TextStyle(
                   color: _textColour,
-                  fontSize: 19,
+                  fontSize: width_ * 0.045,
                   fontWeight: FontWeight.w500),
               children: <TextSpan>[
                 TextSpan(
                   text: 'Available 9:00 to 11:00 a.m',
                   style: TextStyle(
                       color: _textColour,
-                      fontSize: 15,
+                      fontSize: width_ * 0.035,
                       fontWeight: FontWeight.normal),
                 ),
               ],
