@@ -48,7 +48,7 @@ class DoctorForum extends StatelessWidget {
   Widget _buildTitleBar(double width_, double height_) {
     return Container(
       margin: EdgeInsets.only(
-          top: height_ * 0.08, left: width_ * 0.1, right: width_ * 0.1),
+          top: height_ * 0.07, left: width_ * 0.00, right: width_ * 0.3),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(_borderRadius),
         child: SizedBox(
