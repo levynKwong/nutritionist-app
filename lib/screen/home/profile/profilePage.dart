@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+// import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -21,37 +22,42 @@ class _profileState extends State<profile> {
         children: [
           background(),
           cover(width_, height_),
-          Positioned(
-            top: height_ * 0.06,
-            child: Column(
-              children: [
-                Text(
-                  'Profile',
-                  style: TextStyle(
-                      fontSize: width_ * 0.06,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+          Column(
+            children: [
+              Positioned(
+                top: height_ * 0.06,
+                child: Column(
+                  children: [
+                    Text(
+                      'Profile',
+                      style: TextStyle(
+                          fontSize: width_ * 0.06,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    SizedBox(height: height_ * 0.01),
+                    Text(
+                      'Your Name',
+                      style: TextStyle(
+                          fontSize: width_ * 0.1,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    SizedBox(height: height_ * 0.01),
+                    Text(
+                      'Username',
+                      style: TextStyle(
+                          fontSize: width_ * 0.05,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 132, 132, 132)),
+                    ),
+                  ],
                 ),
-                SizedBox(height: height_ * 0.01),
-                Text(
-                  'Your Name',
-                  style: TextStyle(
-                      fontSize: width_ * 0.1,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                SizedBox(height: height_ * 0.01),
-                Text(
-                  'Username',
-                  style: TextStyle(
-                      fontSize: width_ * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 132, 132, 132)),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           buildProfileHeader(width_, height_),
+          topRow(width_, height_),
         ],
       ),
     );
@@ -95,7 +101,6 @@ class _profileState extends State<profile> {
               ),
             ],
           ),
-          SizedBox(height: height_ * 0.04),
         ],
       );
 
@@ -108,4 +113,85 @@ class _profileState extends State<profile> {
           backgroundImage: NetworkImage('https://picsum.photos/250?image=9'),
         ),
       );
+
+  Widget topRow(double width_, double height_) => IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    'Age',
+                    style: title,
+                  ),
+                  SizedBox(height: height_ * 0.01),
+                  Text(
+                    '20',
+                    style: subtitle,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: height_ * 0.01),
+            VerticalDivider(
+              color: Color(0xFFd9f2ff),
+              thickness: 1,
+              width: 8,
+            ),
+            SizedBox(height: height_ * 0.01),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    'Status',
+                    style: title,
+                  ),
+                  SizedBox(height: height_ * 0.01),
+                  Text(
+                    'Patient',
+                    style: subtitle,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: height_ * 0.01),
+            VerticalDivider(
+              color: Color(0xFFd9f2ff),
+              thickness: 1,
+              width: 8,
+            ),
+            SizedBox(height: height_ * 0.01),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    'Gender',
+                    style: title,
+                  ),
+                  SizedBox(height: height_ * 0.01),
+                  Text(
+                    'Female',
+                    style: subtitle,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+
+  TextStyle title = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    decoration: TextDecoration.none,
+  );
+
+  TextStyle subtitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: Color.fromARGB(255, 0, 0, 0),
+    decoration: TextDecoration.none,
+  );
 }
