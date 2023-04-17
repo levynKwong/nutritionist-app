@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
-// import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
+import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
