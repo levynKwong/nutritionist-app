@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
+import 'package:meal_aware/screen/auth/auth_screen.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -43,7 +45,15 @@ class _profileState extends State<profile> {
   Widget logout(double height_) => Container(
         margin: EdgeInsets.only(top: height_ * 0.034),
         child: TextButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AuthScreen(),
+              ),
+            );
+          },
           icon: Icon(Icons.power_settings_new,
               color: Colors.red), // Add your icon here
           label: Text(
