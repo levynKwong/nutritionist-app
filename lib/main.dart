@@ -9,7 +9,7 @@ import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
-
+import 'package:meal_aware/screen/customer_widget.dart/token_top_right.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       // home: const ParentAuth(),
       // home: Terms_and_condition()
       home: Home(),
+      // home: token_top(),
       // home: test_home(),
       // home: DoctorForum(),
       // home: NotificationWidget(),
