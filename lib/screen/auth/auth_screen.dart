@@ -4,6 +4,7 @@ import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/forgotPassword.dart';
 // import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   AuthScreen({Key? key});
@@ -375,7 +376,7 @@ class _AuthScreenState extends State<AuthScreen> {
         if (credential.user != null) {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const DoctorForum()),
+            MaterialPageRoute(builder: (context) => const Home()),
             (_) => false,
           );
         }

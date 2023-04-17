@@ -30,10 +30,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: RegisterScreen(),
-      home: AuthScreen(),
+      // home: AuthScreen(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
-      // home: Home(),
+      home: Home(),
       // home: token_top(),
       // home: test_home(),
       // home: DoctorForum(),

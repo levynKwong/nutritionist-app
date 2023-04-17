@@ -34,7 +34,7 @@ class _profileState extends State<profile> {
               bottomRow(width_, height_),
               dividingLine1(width_, height_, 0.21),
               selector(height_, width_),
-              dividingLine2(width_, height_, 1.25),
+              dividingLine2(width_, height_, 1.22),
             ],
           ),
         ),
@@ -43,7 +43,7 @@ class _profileState extends State<profile> {
   }
 
   Widget logout(double height_) => Container(
-        margin: EdgeInsets.only(top: height_ * 0.034),
+        margin: EdgeInsets.only(top: height_ * 0.014),
         child: TextButton.icon(
           onPressed: () {
             FirebaseAuth.instance.signOut();
