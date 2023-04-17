@@ -76,6 +76,7 @@ flutter:
     - images/email.png
     - images/email_verification.png
     - images/token_.png
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

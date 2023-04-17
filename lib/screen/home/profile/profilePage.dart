@@ -16,17 +16,163 @@ class _profileState extends State<profile> {
     final double height_ = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          height: height_ * 1.4,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              background(),
+              cover(width_, height_),
+              topTitle(height_, width_),
+              buildProfileHeader(width_, height_),
+              topRow(width_, height_),
+              dividingLine1(width_, height_, 0.46),
+              bottomRow(width_, height_),
+              dividingLine1(width_, height_, 0.21),
+              selector(height_, width_),
+              dividingLine2(width_, height_, 1.25),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget logout(double height_) => Container(
+        margin: EdgeInsets.only(top: height_ * 0.034),
+        child: TextButton.icon(
+          onPressed: () {},
+          icon: Icon(Icons.power_settings_new,
+              color: Colors.red), // Add your icon here
+          label: Text(
+            'Logout',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 233, 58, 58),
+            ),
+          ),
+        ),
+      );
+
+  Widget selector(double height_, double width_) => Container(
+        margin: EdgeInsets.only(
+            top: height_ * 0.6, left: width_ * 0.12, right: width_ * 0.1),
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(width_ * 0.8, height_ * 0.07),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'images/tokenIcon.png',
+                    height: height_ * 0.1,
+                    width: width_ * 0.1,
+                  ),
+                  SizedBox(width: width_ * 0.08),
+                  Text(
+                    'Buy Token',
+                    style: TextStyle(
+                      fontSize: width_ * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(width_ * 0.8, height_ * 0.07),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'images/tokenIcon.png',
+                    height: height_ * 0.1,
+                    width: width_ * 0.1,
+                  ),
+                  SizedBox(width: width_ * 0.08),
+                  Text(
+                    'Purchase History',
+                    style: TextStyle(
+                      fontSize: width_ * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            divider(),
+            list(height_, width_, 'Age', '18-50', 0.37, 0.11),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Gender', 'Female', 0.28, 0.11),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Country', 'Moderately Active', 0.08, 0.11),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Height', '1m 70cm', 0.26, 0.11),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Current Body Weight', '60kg', 0.02, 0.114),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Target Body Weight', '55kg', 0.04, 0.114),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'No of Meal per day', '3', 0.12, 0.114),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Body Goal', 'Muscle Gain', 0.12, 0.114),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Activity Level', 'Moderately Active', 0.001,
+                0.05),
+            SizedBox(width: height_ * 0.2),
+            list(height_, width_, 'Dietary Preference\n\or restrictions ',
+                'Vegetarian', 0.02, 0.05),
+            SizedBox(width: height_ * 0.2),
+            logout(height_),
+          ],
+        ),
+      );
+  Widget list(double height_, double width_, String text1, String text2,
+      double space1, double space2) {
+    return SingleChildScrollView(
+      child: Row(
         children: [
-          background(),
-          cover(width_, height_),
-          topTitle(height_, width_),
-          buildProfileHeader(width_, height_),
-          topRow(width_, height_),
-          divider(),
-          bottomRow(width_, height_),
-          divider(),
+          // SizedBox(width: height_ * 0.1),
+          Text(
+            text1,
+            style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
+          ),
+          SizedBox(width: width_ * space1),
+          TextButton(
+            onPressed: () {},
+            child: Row(
+              children: [
+                Text(
+                  text2,
+                  style: TextStyle(
+                      fontSize: width_ * 0.04,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 86, 86, 86)),
+                ),
+                SizedBox(width: width_ * space2),
+                Icon(Icons.arrow_forward_ios,
+                    color: Color.fromARGB(255, 86, 86, 86),
+                    size: width_ * 0.04),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -34,7 +180,7 @@ class _profileState extends State<profile> {
 
   Widget topTitle(double height_, double width_) {
     return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.68),
+      margin: EdgeInsets.only(bottom: height_ * 1.15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -119,7 +265,7 @@ class _profileState extends State<profile> {
 
   Widget topRow(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-            bottom: height_ * 0.1, left: width_ * 0.1, right: width_ * 0.1),
+            bottom: height_ * 0.55, left: width_ * 0.1, right: width_ * 0.1),
         child: IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +336,7 @@ class _profileState extends State<profile> {
 
   Widget bottomRow(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          top: height_ * 0.13,
+          bottom: height_ * 0.34,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
@@ -220,7 +366,7 @@ class _profileState extends State<profile> {
                         ],
                       ),
                     ),
-                    SizedBox(height: height_ * 0.00),
+                    SizedBox(height: height_ * 0.0001),
                     Center(
                       child: Text(
                         '1',
@@ -253,13 +399,13 @@ class _profileState extends State<profile> {
                           ),
                           SizedBox(width: width_ * 0.04),
                           Text(
-                            'Token',
+                            'Orders',
                             style: title,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: height_ * 0.00),
+                    SizedBox(height: height_ * 0.0001),
                     Center(
                       child: Text(
                         '1',
@@ -274,6 +420,30 @@ class _profileState extends State<profile> {
         ),
       );
 
+  Widget dividingLine1(double width_, double height_, double height) =>
+      Container(
+        margin: EdgeInsets.only(
+          bottom: height_ * height,
+          left: width_ * 0.1,
+          right: width_ * 0.1,
+        ),
+        child: Divider(
+          color: Color(0xFFd9f2ff),
+          thickness: 1,
+        ),
+      );
+  Widget dividingLine2(double width_, double height_, double height) =>
+      Container(
+        margin: EdgeInsets.only(
+          top: height_ * height,
+          left: width_ * 0.1,
+          right: width_ * 0.1,
+        ),
+        child: Divider(
+          color: Color.fromARGB(255, 112, 112, 112),
+          thickness: 1,
+        ),
+      );
   TextStyle title = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
