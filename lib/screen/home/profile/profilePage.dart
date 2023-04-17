@@ -26,6 +26,7 @@ class _profileState extends State<profile> {
           topRow(width_, height_),
           divider(),
           bottomRow(width_, height_),
+          divider(),
         ],
       ),
     );
@@ -33,39 +34,32 @@ class _profileState extends State<profile> {
 
   Widget topTitle(double height_, double width_) {
     return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.06, left: width_ * 0.1, right: width_ * 0.1),
+      margin: EdgeInsets.only(bottom: height_ * 0.68),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Positioned(
-            top: height_ * 0.1,
-            child: Column(
-              children: [
-                Text(
-                  'Profile',
-                  style: TextStyle(
-                      fontSize: width_ * 0.06,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                SizedBox(height: height_ * 0.01),
-                Text(
-                  'Your Name',
-                  style: TextStyle(
-                      fontSize: width_ * 0.1,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                SizedBox(height: height_ * 0.01),
-                Text(
-                  'Username',
-                  style: TextStyle(
-                      fontSize: width_ * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 132, 132, 132)),
-                ),
-              ],
-            ),
+          Text(
+            'Profile',
+            style: TextStyle(
+                fontSize: width_ * 0.06,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          ),
+          SizedBox(height: height_ * 0.01),
+          Text(
+            'Your Name',
+            style: TextStyle(
+                fontSize: width_ * 0.1,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          ),
+          SizedBox(height: height_ * 0.01),
+          Text(
+            'Username',
+            style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 132, 132, 132)),
           ),
         ],
       ),
