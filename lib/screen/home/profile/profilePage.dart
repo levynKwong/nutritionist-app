@@ -14,7 +14,6 @@ class _profileState extends State<profile> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    final double profileHeight = height_ * 0.3;
 
     return Scaffold(
       body: Stack(
@@ -22,42 +21,52 @@ class _profileState extends State<profile> {
         children: [
           background(),
           cover(width_, height_),
-          Column(
-            children: [
-              Positioned(
-                top: height_ * 0.06,
-                child: Column(
-                  children: [
-                    Text(
-                      'Profile',
-                      style: TextStyle(
-                          fontSize: width_ * 0.06,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    SizedBox(height: height_ * 0.01),
-                    Text(
-                      'Your Name',
-                      style: TextStyle(
-                          fontSize: width_ * 0.1,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    SizedBox(height: height_ * 0.01),
-                    Text(
-                      'Username',
-                      style: TextStyle(
-                          fontSize: width_ * 0.05,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 132, 132, 132)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          topTitle(height_, width_),
           buildProfileHeader(width_, height_),
           topRow(width_, height_),
+          divider(),
+          bottomRow(width_, height_),
+        ],
+      ),
+    );
+  }
+
+  Widget topTitle(double height_, double width_) {
+    return Container(
+      margin: EdgeInsets.only(
+          top: height_ * 0.06, left: width_ * 0.1, right: width_ * 0.1),
+      child: Column(
+        children: [
+          Positioned(
+            top: height_ * 0.1,
+            child: Column(
+              children: [
+                Text(
+                  'Profile',
+                  style: TextStyle(
+                      fontSize: width_ * 0.06,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                SizedBox(height: height_ * 0.01),
+                Text(
+                  'Your Name',
+                  style: TextStyle(
+                      fontSize: width_ * 0.1,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                SizedBox(height: height_ * 0.01),
+                Text(
+                  'Username',
+                  style: TextStyle(
+                      fontSize: width_ * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 132, 132, 132)),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -114,70 +123,160 @@ class _profileState extends State<profile> {
         ),
       );
 
-  Widget topRow(double width_, double height_) => IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Age',
-                    style: title,
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  Text(
-                    '20',
-                    style: subtitle,
-                  )
-                ],
+  Widget topRow(double width_, double height_) => Container(
+        margin: EdgeInsets.only(
+            bottom: height_ * 0.1, left: width_ * 0.1, right: width_ * 0.1),
+        child: IntrinsicHeight(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'Age',
+                      style: title,
+                    ),
+                    SizedBox(height: height_ * 0.01),
+                    Text(
+                      '20',
+                      style: subtitle,
+                    )
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: height_ * 0.01),
-            VerticalDivider(
-              color: Color(0xFFd9f2ff),
-              thickness: 1,
-              width: 8,
-            ),
-            SizedBox(height: height_ * 0.01),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Status',
-                    style: title,
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  Text(
-                    'Patient',
-                    style: subtitle,
-                  )
-                ],
+              SizedBox(height: height_ * 0.01),
+              VerticalDivider(
+                color: Color(0xFFd9f2ff),
+                thickness: 1,
+                width: 8,
               ),
-            ),
-            SizedBox(height: height_ * 0.01),
-            VerticalDivider(
-              color: Color(0xFFd9f2ff),
-              thickness: 1,
-              width: 8,
-            ),
-            SizedBox(height: height_ * 0.01),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Gender',
-                    style: title,
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  Text(
-                    'Female',
-                    style: subtitle,
-                  )
-                ],
+              SizedBox(height: height_ * 0.01),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'Status',
+                      style: title,
+                    ),
+                    SizedBox(height: height_ * 0.01),
+                    Text(
+                      'Patient',
+                      style: subtitle,
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: height_ * 0.01),
+              VerticalDivider(
+                color: Color(0xFFd9f2ff),
+                thickness: 1,
+                width: 8,
+              ),
+              SizedBox(height: height_ * 0.01),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'Gender',
+                      style: title,
+                    ),
+                    SizedBox(height: height_ * 0.01),
+                    Text(
+                      'Female',
+                      style: subtitle,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget bottomRow(double width_, double height_) => Container(
+        margin: EdgeInsets.only(
+          top: height_ * 0.13,
+          left: width_ * 0.1,
+          right: width_ * 0.1,
+        ),
+        child: IntrinsicHeight(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Row(
+                        children: [
+                          SizedBox(width: width_ * 0.04),
+                          Image.asset(
+                            'images/token_.png',
+                            width: width_ * 0.08,
+                            height: height_ * 0.08,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          SizedBox(width: width_ * 0.04),
+                          Text(
+                            'Token',
+                            style: title,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: height_ * 0.00),
+                    Center(
+                      child: Text(
+                        '1',
+                        style: subtitle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: width_ * 0.04),
+              VerticalDivider(
+                color: Color(0xFFd9f2ff),
+                thickness: 1,
+                width: 8,
+              ),
+              SizedBox(width: width_ * 0.04),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Row(
+                        children: [
+                          SizedBox(width: width_ * 0.04),
+                          Image.asset(
+                            'images/token_.png',
+                            width: width_ * 0.08,
+                            height: height_ * 0.08,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          SizedBox(width: width_ * 0.04),
+                          Text(
+                            'Token',
+                            style: title,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: height_ * 0.00),
+                    Center(
+                      child: Text(
+                        '1',
+                        style: subtitle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
 

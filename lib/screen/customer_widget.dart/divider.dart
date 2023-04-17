@@ -13,7 +13,7 @@ class _dividerState extends State<divider> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Divider(
-      color: Color.fromARGB(255, 132, 132, 132),
+      color: Color(0xFFd9f2ff),
       thickness: height_ * 0.001,
       indent: width_ * 0.1,
       endIndent: width_ * 0.1,
