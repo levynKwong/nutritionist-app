@@ -331,13 +331,11 @@ class _profileState extends State<profile> {
                   ],
                 ),
               ),
-              SizedBox(height: height_ * 0.01),
               VerticalDivider(
                 color: Color(0xFFd9f2ff),
                 thickness: 1,
                 width: 8,
               ),
-              SizedBox(height: height_ * 0.01),
               Expanded(
                 child: Column(
                   children: [
@@ -347,13 +345,11 @@ class _profileState extends State<profile> {
                   ],
                 ),
               ),
-              SizedBox(height: height_ * 0.01),
               VerticalDivider(
                 color: Color(0xFFd9f2ff),
                 thickness: 1,
                 width: 8,
               ),
-              SizedBox(height: height_ * 0.01),
               Expanded(
                 child: Column(
                   children: [
