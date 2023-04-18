@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
+import 'package:meal_aware/screen/customer_widget.dart/text2.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -21,20 +23,12 @@ class _profileState extends State<profile> {
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
-          height: height_ * 1.4,
+          height: height_ * 2,
           child: Stack(
-            alignment: Alignment.center,
             children: [
               background(),
-              cover(width_, height_),
-              topTitle(height_, width_),
-              buildProfileHeader(width_, height_),
-              topRow(width_, height_),
-              dividingLine1(width_, height_, 0.46),
-              bottomRow(width_, height_),
-              dividingLine1(width_, height_, 0.21),
-              selector(height_, width_),
-              dividingLine2(width_, height_, 1.22),
+              topContent(height_, width_),
+              Content(width_, height_)
             ],
           ),
         ),
@@ -42,6 +36,89 @@ class _profileState extends State<profile> {
     );
   }
 
+  Widget topContent(double height_, double width_) => Container(
+        width: double.infinity,
+        child: Stack(
+          children: [
+            cover(width_, height_),
+            topTitle(height_, width_),
+            buildProfileHeader(width_, height_),
+          ],
+        ),
+      );
+  Widget topTitle(double height_, double width_) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(bottom: height_ * 1.75),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Profile',
+              style: TextStyle(
+                  fontSize: width_ * 0.06,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            SizedBox(height: height_ * 0.01),
+            Text(
+              'Your Name',
+              style: TextStyle(
+                  fontSize: width_ * 0.1,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            SizedBox(height: height_ * 0.01),
+            Text(
+              'Username',
+              style: TextStyle(
+                  fontSize: width_ * 0.05,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 132, 132, 132)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildProfileHeader(double width_, double height_) => Center(
+        child: Column(
+          children: [
+            SizedBox(height: width_ * 0.44),
+            Stack(
+              children: [
+                buildProfileImage(width_, height_),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey[300],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+
+  Widget Content(double width_, double height_) => Container(
+        margin: EdgeInsets.only(top: height_ * 0.4),
+        width: double.infinity,
+        child: Stack(
+          children: [
+            topRow(width_, height_),
+            dividingLine1(width_, height_, 0.055),
+            bottomRow(width_, height_),
+            dividingLine1(width_, height_, 0.17),
+            selector(height_, width_),
+            dividingLine2(width_, height_, 1.22),
+          ],
+        ),
+      );
   Widget logout(double height_) => Container(
         margin: EdgeInsets.only(top: height_ * 0.014),
         child: TextButton.icon(
@@ -69,7 +146,7 @@ class _profileState extends State<profile> {
 
   Widget selector(double height_, double width_) => Container(
         margin: EdgeInsets.only(
-            top: height_ * 0.6, left: width_ * 0.12, right: width_ * 0.1),
+            top: height_ * 0.18, left: width_ * 0.1, right: width_ * 0.1),
         child: Column(
           children: [
             TextButton(
@@ -126,27 +203,27 @@ class _profileState extends State<profile> {
             ),
             divider(),
             list(height_, width_, 'Age', '18-50', 0.37, 0.11),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Gender', 'Female', 0.28, 0.11),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Country', 'Moderately Active', 0.08, 0.11),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Height', '1m 70cm', 0.26, 0.11),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Current Body Weight', '60kg', 0.02, 0.114),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Target Body Weight', '55kg', 0.04, 0.114),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'No of Meal per day', '3', 0.12, 0.114),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Body Goal', 'Muscle Gain', 0.12, 0.114),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Activity Level', 'Moderately Active', 0.001,
                 0.05),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Dietary Preference\n\or restrictions ',
                 'Vegetarian', 0.02, 0.05),
-            SizedBox(width: height_ * 0.2),
+            SizedBox(height: height_ * 0.02),
             logout(height_),
           ],
         ),
@@ -188,40 +265,6 @@ class _profileState extends State<profile> {
     );
   }
 
-  Widget topTitle(double height_, double width_) {
-    return Container(
-      margin: EdgeInsets.only(bottom: height_ * 1.15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Profile',
-            style: TextStyle(
-                fontSize: width_ * 0.06,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          SizedBox(height: height_ * 0.01),
-          Text(
-            'Your Name',
-            style: TextStyle(
-                fontSize: width_ * 0.1,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          SizedBox(height: height_ * 0.01),
-          Text(
-            'Username',
-            style: TextStyle(
-                fontSize: width_ * 0.05,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 132, 132, 132)),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget cover(double width_, double height_) => Positioned(
         top: height_ * -0.50,
         right: width_ * -0.06,
@@ -242,27 +285,6 @@ class _profileState extends State<profile> {
         ),
       );
 
-  Widget buildProfileHeader(double width_, double height_) => Column(
-        children: [
-          SizedBox(height: width_ * 0.44),
-          Stack(
-            children: [
-              buildProfileImage(width_, height_),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey[300],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-
   Widget buildProfileImage(double width_, double height_) => CircleAvatar(
         radius: width_ * 0.18,
         backgroundColor: Color.fromARGB(255, 130, 130, 130),
@@ -274,8 +296,8 @@ class _profileState extends State<profile> {
       );
 
   Widget topRow(double width_, double height_) => Container(
-        margin: EdgeInsets.only(
-            bottom: height_ * 0.55, left: width_ * 0.1, right: width_ * 0.1),
+        // margin: EdgeInsets.only(
+        //     bottom: height_ * 0.55, left: width_ * 0.1, right: width_ * 0.1),
         child: IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -346,7 +368,7 @@ class _profileState extends State<profile> {
 
   Widget bottomRow(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          bottom: height_ * 0.34,
+          top: height_ * 0.07,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
@@ -433,7 +455,7 @@ class _profileState extends State<profile> {
   Widget dividingLine1(double width_, double height_, double height) =>
       Container(
         margin: EdgeInsets.only(
-          bottom: height_ * height,
+          top: height_ * height,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
