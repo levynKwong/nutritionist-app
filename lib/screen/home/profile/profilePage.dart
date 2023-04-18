@@ -23,7 +23,7 @@ class _profileState extends State<profile> {
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
-          height: height_ * 1.6,
+          height: height_ * 1.8,
           child: Stack(
             children: [
               background(),
@@ -49,7 +49,7 @@ class _profileState extends State<profile> {
   Widget topTitle(double height_, double width_) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(bottom: height_ * 1.34),
+        margin: EdgeInsets.only(bottom: height_ * 1.55),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -106,21 +106,20 @@ class _profileState extends State<profile> {
       );
 
   Widget Content(double width_, double height_) => Container(
-        margin: EdgeInsets.only(top: height_ * 0.4),
+        margin: EdgeInsets.only(top: height_ * 0.43),
         width: double.infinity,
         child: Stack(
           children: [
             topRow(width_, height_),
-            dividingLine1(width_, height_, 0.059),
+            dividingLine1(width_, height_, 0.07),
             bottomRow(width_, height_),
-            dividingLine1(width_, height_, 0.18),
+            dividingLine1(width_, height_, 0.20),
             selector(height_, width_),
-            dividingLine2(width_, height_, 1.10),
           ],
         ),
       );
   Widget logout(double height_) => Container(
-        margin: EdgeInsets.only(top: height_ * 0.014),
+        margin: EdgeInsets.only(top: height_ * 0.03),
         child: TextButton.icon(
           onPressed: () {
             FirebaseAuth.instance.signOut();
@@ -146,7 +145,7 @@ class _profileState extends State<profile> {
 
   Widget selector(double height_, double width_) => Container(
         margin: EdgeInsets.only(
-            top: height_ * 0.19, left: width_ * 0.1, right: width_ * 0.1),
+            top: height_ * 0.22, left: width_ * 0.1, right: width_ * 0.1),
         child: Column(
           children: [
             TextButton(
@@ -223,6 +222,7 @@ class _profileState extends State<profile> {
             list(height_, width_, 'Dietary Preference\n\or restrictions ',
                 'Vegetarian'),
             SizedBox(height: height_ * 0.02),
+            dividingLine2(width_, height_, 0),
             logout(height_),
           ],
         ),
@@ -366,7 +366,7 @@ class _profileState extends State<profile> {
 
   Widget bottomRow(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          top: height_ * 0.075,
+          top: height_ * 0.09,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
@@ -453,7 +453,7 @@ class _profileState extends State<profile> {
   Widget dividingLine2(double width_, double height_, double height) =>
       Container(
         margin: EdgeInsets.only(
-          top: height_ * height,
+          bottom: height_ * height,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
