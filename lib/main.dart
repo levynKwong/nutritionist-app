@@ -9,7 +9,7 @@ import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
-import 'package:meal_aware/screen/customer_widget.dart/token_top_right.dart';
+import 'package:meal_aware/screen/customer_widget.dart/tokenCounter.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
