@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
-import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
-import 'package:meal_aware/screen/customer_widget.dart/text2.dart';
+
+import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -23,7 +23,7 @@ class _profileState extends State<profile> {
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
-          height: height_ * 2,
+          height: height_ * 1.6,
           child: Stack(
             children: [
               background(),
@@ -49,7 +49,7 @@ class _profileState extends State<profile> {
   Widget topTitle(double height_, double width_) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(bottom: height_ * 1.75),
+        margin: EdgeInsets.only(bottom: height_ * 1.34),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -111,11 +111,11 @@ class _profileState extends State<profile> {
         child: Stack(
           children: [
             topRow(width_, height_),
-            dividingLine1(width_, height_, 0.055),
+            dividingLine1(width_, height_, 0.059),
             bottomRow(width_, height_),
-            dividingLine1(width_, height_, 0.17),
+            dividingLine1(width_, height_, 0.18),
             selector(height_, width_),
-            dividingLine2(width_, height_, 1.22),
+            dividingLine2(width_, height_, 1.10),
           ],
         ),
       );
@@ -146,7 +146,7 @@ class _profileState extends State<profile> {
 
   Widget selector(double height_, double width_) => Container(
         margin: EdgeInsets.only(
-            top: height_ * 0.18, left: width_ * 0.1, right: width_ * 0.1),
+            top: height_ * 0.19, left: width_ * 0.1, right: width_ * 0.1),
         child: Column(
           children: [
             TextButton(
@@ -202,61 +202,81 @@ class _profileState extends State<profile> {
               ),
             ),
             divider(),
-            list(height_, width_, 'Age', '18-50', 0.37, 0.11),
+            list(height_, width_, 'Age', '18-50'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Gender', 'Female', 0.28, 0.11),
+            list(height_, width_, 'Gender', 'Female'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Country', 'Moderately Active', 0.08, 0.11),
+            list(height_, width_, 'Country', 'Mauritius'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Height', '1m 70cm', 0.26, 0.11),
+            list(height_, width_, 'Height', '1m 70cm'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Current Body Weight', '60kg', 0.02, 0.114),
+            list(height_, width_, 'Current Body Weight', '60kg'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Target Body Weight', '55kg', 0.04, 0.114),
+            list(height_, width_, 'Target Body Weight', '55kg'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'No of Meal per day', '3', 0.12, 0.114),
+            list(height_, width_, 'No of Meal per day', '3'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Body Goal', 'Muscle Gain', 0.12, 0.114),
+            list(height_, width_, 'Body Goal', 'Muscle Gain'),
             SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Activity Level', 'Moderately Active', 0.001,
-                0.05),
+            list(height_, width_, 'Activity Level', 'Moderately \n\ Active'),
             SizedBox(height: height_ * 0.02),
             list(height_, width_, 'Dietary Preference\n\or restrictions ',
-                'Vegetarian', 0.02, 0.05),
+                'Vegetarian'),
             SizedBox(height: height_ * 0.02),
             logout(height_),
           ],
         ),
       );
-  Widget list(double height_, double width_, String text1, String text2,
-      double space1, double space2) {
+
+  Widget list(
+    double height_,
+    double width_,
+    String text1,
+    String text2,
+  ) {
     return SingleChildScrollView(
       child: Row(
         children: [
-          // SizedBox(width: height_ * 0.1),
-          Text(
-            text1,
-            style: TextStyle(
+          Expanded(
+            child: Text(
+              text1,
+              style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black),
+                color: Colors.black,
+              ),
+            ),
           ),
-          SizedBox(width: width_ * space1),
-          TextButton(
-            onPressed: () {},
+          Expanded(
+            flex: 0,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  text2,
-                  style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 86, 86, 86)),
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Text(
+                        text2,
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 86, 86, 86),
+                        ),
+                      ),
+                      SizedBox(width: width_ * 0.01),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromARGB(255, 86, 86, 86),
+                          size: width_ * 0.04,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(width: width_ * space2),
-                Icon(Icons.arrow_forward_ios,
-                    color: Color.fromARGB(255, 86, 86, 86),
-                    size: width_ * 0.04),
               ],
             ),
           ),
@@ -305,15 +325,9 @@ class _profileState extends State<profile> {
               Expanded(
                 child: Column(
                   children: [
-                    Text(
-                      'Age',
-                      style: title,
-                    ),
+                    Text3(text: 'Age'),
                     SizedBox(height: height_ * 0.01),
-                    Text(
-                      '20',
-                      style: subtitle,
-                    )
+                    Text4(text: '20'),
                   ],
                 ),
               ),
@@ -327,15 +341,9 @@ class _profileState extends State<profile> {
               Expanded(
                 child: Column(
                   children: [
-                    Text(
-                      'Status',
-                      style: title,
-                    ),
+                    Text3(text: 'Status'),
                     SizedBox(height: height_ * 0.01),
-                    Text(
-                      'Patient',
-                      style: subtitle,
-                    )
+                    Text4(text: 'Patient'),
                   ],
                 ),
               ),
@@ -349,15 +357,9 @@ class _profileState extends State<profile> {
               Expanded(
                 child: Column(
                   children: [
-                    Text(
-                      'Gender',
-                      style: title,
-                    ),
+                    Text3(text: 'Gender'),
                     SizedBox(height: height_ * 0.01),
-                    Text(
-                      'Female',
-                      style: subtitle,
-                    )
+                    Text4(text: 'Female'),
                   ],
                 ),
               ),
@@ -368,7 +370,7 @@ class _profileState extends State<profile> {
 
   Widget bottomRow(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          top: height_ * 0.07,
+          top: height_ * 0.075,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
@@ -391,19 +393,13 @@ class _profileState extends State<profile> {
                             fit: BoxFit.scaleDown,
                           ),
                           SizedBox(width: width_ * 0.04),
-                          Text(
-                            'Token',
-                            style: title,
-                          ),
+                          Text3(text: 'Token'),
                         ],
                       ),
                     ),
                     SizedBox(height: height_ * 0.0001),
                     Center(
-                      child: Text(
-                        '1',
-                        style: subtitle,
-                      ),
+                      child: Text4(text: '1'),
                     ),
                   ],
                 ),
@@ -430,19 +426,13 @@ class _profileState extends State<profile> {
                             fit: BoxFit.scaleDown,
                           ),
                           SizedBox(width: width_ * 0.04),
-                          Text(
-                            'Orders',
-                            style: title,
-                          ),
+                          Text3(text: 'Orders'),
                         ],
                       ),
                     ),
                     SizedBox(height: height_ * 0.0001),
                     Center(
-                      child: Text(
-                        '1',
-                        style: subtitle,
-                      ),
+                      child: Text4(text: '1'),
                     ),
                   ],
                 ),
@@ -476,17 +466,4 @@ class _profileState extends State<profile> {
           thickness: 1,
         ),
       );
-  TextStyle title = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-    decoration: TextDecoration.none,
-  );
-
-  TextStyle subtitle = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.normal,
-    color: Color.fromARGB(255, 0, 0, 0),
-    decoration: TextDecoration.none,
-  );
 }

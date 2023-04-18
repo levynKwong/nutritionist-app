@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
-import 'package:meal_aware/screen/customer_widget.dart/text1.dart';
-import 'package:meal_aware/screen/customer_widget.dart/text2.dart';
+
+import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 
