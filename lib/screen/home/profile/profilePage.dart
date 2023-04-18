@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/home/profile/BuyToken/BuyToken.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -149,7 +150,14 @@ class _profileState extends State<profile> {
         child: Column(
           children: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BuyToken(),
+                  ),
+                );
+              },
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
                   Size(width_ * 0.8, height_ * 0.07),

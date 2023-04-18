@@ -78,6 +78,7 @@ class Text4 extends StatelessWidget {
             // fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     );
