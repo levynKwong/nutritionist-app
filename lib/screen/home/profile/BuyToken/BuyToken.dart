@@ -4,7 +4,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/tokenCounter.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/GetToken.dart';
-import 'package:meal_aware/screen/home/profile/profilePage.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class BuyToken extends StatefulWidget {
   const BuyToken({super.key});
@@ -237,7 +237,7 @@ class _BuyTokenState extends State<BuyToken> {
         IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => profile())),
+              context, MaterialPageRoute(builder: (context) => Home())),
         ),
         Row(
           children: [
