@@ -37,10 +37,11 @@ class _BuyTokenState extends State<BuyToken> {
             margin: EdgeInsets.symmetric(vertical: height_ * 0.04),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [topBar(width_, height_, context)],
+              children: [topBar(width_, height_, context)], //correct
             ),
           ),
-          YourToken(width_, height_),
+          YourToken(width_, height_), //correct
+
           SizedBox(
             height: height_ * 0.0,
           ),
@@ -55,6 +56,7 @@ class _BuyTokenState extends State<BuyToken> {
                   'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
             ),
           ),
+
           selectionButton(height_, width_),
           TermsofUse(height_, width_),
           buttons(height_, width_)
@@ -199,19 +201,17 @@ class _BuyTokenState extends State<BuyToken> {
         },
         controlAffinity: ListTileControlAffinity.trailing,
         activeColor: Colors.green,
-        title: Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 30,
-                height: 30,
-                child: image,
-              ),
-              SizedBox(width: 19),
-              title,
-            ],
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: image,
+            ),
+            SizedBox(width: 19),
+            Flexible(child: title),
+          ],
         ),
       ),
     );
@@ -258,7 +258,6 @@ class _BuyTokenState extends State<BuyToken> {
           width: width_ * 0.6,
           child: Container(
             decoration: BoxDecoration(
-              // border: Border.all(color: Color.fromARGB(255, 177, 177, 177)),
               borderRadius: BorderRadius.circular(10.0),
               color: Color(0xFFa9c3f4),
             ),
@@ -271,14 +270,13 @@ class _BuyTokenState extends State<BuyToken> {
                     "Your Token:",
                     style: TextStyle(
                       fontSize: width_ * 0.05,
-                      // fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Expanded(
-                    flex: 1,
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
