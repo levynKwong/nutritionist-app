@@ -319,7 +319,7 @@ class _profileState extends State<profile> {
         child: CircleAvatar(
           radius: width_ * 0.16,
           backgroundColor: Colors.white,
-          backgroundImage: NetworkImage('https://picsum.photos/250?image=9'),
+          backgroundImage: AssetImage('images/photoCat.png'),
         ),
       );
 

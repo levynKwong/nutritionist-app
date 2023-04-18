@@ -3,6 +3,8 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/tokenCounter.dart';
+import 'package:meal_aware/screen/home/profile/BuyToken/GetToken.dart';
+import 'package:meal_aware/screen/home/profile/profilePage.dart';
 
 class BuyToken extends StatefulWidget {
   const BuyToken({super.key});
@@ -90,7 +92,12 @@ class _BuyTokenState extends State<BuyToken> {
                 width: width_ * 0.15), // add some spacing between the buttons
             ElevatedButton(
               onPressed: () {
-                // add onPressed function
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GetToken(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF575ecb), // set background color
@@ -161,20 +168,23 @@ class _BuyTokenState extends State<BuyToken> {
             children: <Widget>[
               buildRadioTile(
                 value: 1,
-                image: Image.asset('images/token_.png'),
-                title: Text('1'),
+                image: Image.asset('images/token1.png'),
+                title: Text('1', style: TextStyle(fontWeight: FontWeight.bold)),
+                imageSize: width_ * 0.11, // <-- Set the size of the image
               ),
               SizedBox(height: height_ * 0.02),
               buildRadioTile(
                 value: 2,
-                image: Image.asset('images/token_.png'),
-                title: Text('2'),
+                image: Image.asset('images/token2.png'),
+                title: Text('2', style: TextStyle(fontWeight: FontWeight.bold)),
+                imageSize: width_ * 0.13, // <-- Set the size of the image
               ),
               SizedBox(height: height_ * 0.02),
               buildRadioTile(
                 value: 3,
-                image: Image.asset('images/token_.png'),
-                title: Text('3'),
+                image: Image.asset('images/token3.png'),
+                title: Text('3', style: TextStyle(fontWeight: FontWeight.bold)),
+                imageSize: width_ * 0.14, // <-- Set the size of the image
               ),
             ],
           ),
@@ -187,6 +197,7 @@ class _BuyTokenState extends State<BuyToken> {
     required int value,
     required Image image,
     required Widget title,
+    required double imageSize, // <-- Add a parameter for image size
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -202,16 +213,16 @@ class _BuyTokenState extends State<BuyToken> {
           setSelectedRadio(val!);
         },
         controlAffinity: ListTileControlAffinity.trailing,
-        activeColor: Colors.green,
+        activeColor: Color(0xFF575dcb),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 30,
-              height: 30,
+              width: imageSize,
+              height: imageSize,
               child: image,
             ),
-            SizedBox(width: 19),
+            SizedBox(width: 26),
             Flexible(child: title),
           ],
         ),
@@ -225,7 +236,8 @@ class _BuyTokenState extends State<BuyToken> {
       children: [
         IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => profile())),
         ),
         Row(
           children: [
