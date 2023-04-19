@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 
 class DoctorForum extends StatelessWidget {
   const DoctorForum({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class DoctorForum extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildAppointmentButton(width_, height_),
+                _buildAppointmentButton(width_, height_, context),
                 SizedBox(height: height_ * 0.02),
                 _buildElevatedButton('Chat With Doctor', Icons.chat_rounded,
                     () {}, width_, height_),
@@ -125,14 +126,21 @@ class DoctorForum extends StatelessWidget {
     );
   }
 
-  Widget _buildAppointmentButton(double width_, double height_) {
+  Widget _buildAppointmentButton(double width_, double height_, context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
       child: SizedBox(
         width: _boxWidth * width_,
         height: _boxHeight * height_,
         child: ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BookAppointmentService(),
+              ),
+            );
+          },
           icon: Icon(
             Icons.calendar_month_outlined,
             size: _iconSize * width_,
