@@ -87,7 +87,12 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
         children: [
           InkWell(
             onTap: () {
-              print('Button pressed');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NutritionistBookAppointment(),
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -132,27 +137,27 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
               ),
               child: Text('        Back       '),
             ),
-            SizedBox(
-                width: width_ * 0.15), // add some spacing between the buttons
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NutritionistBookAppointment(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(width_ * 0.3, 50),
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('         Next         '),
-            ),
+            // SizedBox(
+            //     width: width_ * 0.15), // add some spacing between the buttons
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => NutritionistBookAppointment(),
+            //       ),
+            //     );
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     minimumSize: Size(width_ * 0.3, 50),
+            //     primary: Color(0xFF575ecb), // set background color
+            //     onPrimary: Colors.white, // set text color
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            //   child: Text('         Next         '),
+            // ),
           ],
         ));
   }
