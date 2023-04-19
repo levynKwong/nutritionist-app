@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 
 class NutritionistBookAppointment extends StatefulWidget {
   const NutritionistBookAppointment({super.key});
@@ -86,7 +87,12 @@ class _NutritionistBookAppointmentState
         children: [
           InkWell(
             onTap: () {
-              print('Button pressed');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => (selectionDate()),
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -129,7 +135,7 @@ class _NutritionistBookAppointmentState
             margin: EdgeInsets.all(16.0),
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Color.fromARGB(42, 214, 228, 239),
+              color: Color.fromARGB(104, 214, 228, 239),
               borderRadius: BorderRadius.circular(20.0),
               boxShadow: [
                 BoxShadow(
