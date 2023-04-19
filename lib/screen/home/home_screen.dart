@@ -3,6 +3,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/profile/profilePage.dart';
+import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -30,24 +31,11 @@ class _HomeState extends State<Home> {
           background(),
           screens[_currentIndex],
           Positioned(
-            top: height_ * 0.08,
+            top: height_ * 0.05,
             right: width_ * 0.01,
-            child: Material(
-              elevation:
-                  0, // add elevation to bring the widget to the foreground
-              color: Colors.transparent, // set background color to transparent
-              child: InkWell(
-                onTap: () {
-                  // Handle the onTap event here
-                  // For example, navigate to a notification screen
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.notifications),
-                ),
-              ),
-            ),
+            child: NotificationWidget(),
           ),
+          topRightCounter()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

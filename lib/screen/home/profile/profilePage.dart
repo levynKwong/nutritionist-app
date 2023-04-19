@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
@@ -15,11 +16,27 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
+  int _coin = 0;
+  String _username = '';
+  @override
+  void initState() {
+    super.initState();
+    getCoin().then((coin) {
+      setState(() {
+        _coin = coin;
+      });
+    });
+    getUserName().then((username) {
+      setState(() {
+        _username = username;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -63,7 +80,7 @@ class _profileState extends State<profile> {
             ),
             SizedBox(height: height_ * 0.01),
             Text(
-              'Your Name',
+              '$_username',
               style: TextStyle(
                   fontSize: width_ * 0.1,
                   fontWeight: FontWeight.bold,
@@ -192,7 +209,7 @@ class _profileState extends State<profile> {
               child: Row(
                 children: [
                   Image.asset(
-                    'images/tokenIcon.png',
+                    'images/to-do-list.png',
                     height: height_ * 0.1,
                     width: width_ * 0.1,
                   ),
@@ -403,7 +420,7 @@ class _profileState extends State<profile> {
                     ),
                     SizedBox(height: height_ * 0.0001),
                     Center(
-                      child: Text4(text: '1'),
+                      child: Text4(text: '$_coin'),
                     ),
                   ],
                 ),
@@ -424,7 +441,7 @@ class _profileState extends State<profile> {
                         children: [
                           SizedBox(width: width_ * 0.04),
                           Image.asset(
-                            'images/token_.png',
+                            'images/order.png',
                             width: width_ * 0.08,
                             height: height_ * 0.08,
                             fit: BoxFit.scaleDown,
@@ -470,4 +487,32 @@ class _profileState extends State<profile> {
           thickness: 1,
         ),
       );
+
+  Future<int> getCoin() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('coin');
+    } else {
+      return 0;
+    }
+  }
+
+  Future<String> getUserName() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('username');
+    } else {
+      return 'Username';
+    }
+  }
 }

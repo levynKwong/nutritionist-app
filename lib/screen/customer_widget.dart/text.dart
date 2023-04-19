@@ -84,3 +84,25 @@ class Text4 extends StatelessWidget {
     );
   }
 }
+
+class Text5 extends StatelessWidget {
+  final String text;
+  const Text5({required this.text, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width * 0.040,
+            // fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 75, 75, 75),
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+}

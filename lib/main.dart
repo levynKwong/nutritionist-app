@@ -7,7 +7,7 @@ import 'package:meal_aware/screen/auth/term_and_condition.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
-
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'firebase_options.dart';
@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
       // home: AuthScreen(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
-      home: Home(),
+      // home: Home(),
+      home: BookAppointmentService(),
       // home: token_top(),
       // home: test_home(),
       // home: DoctorForum(),
