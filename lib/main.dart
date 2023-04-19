@@ -9,7 +9,7 @@ import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
-import 'package:meal_aware/screen/customer_widget.dart/tokenCounter.dart';
+import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
@@ -30,10 +30,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: RegisterScreen(),
-      home: AuthScreen(),
+      // home: AuthScreen(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
-      // home: Home(),
+      home: Home(),
       // home: token_top(),
       // home: test_home(),
       // home: DoctorForum(),

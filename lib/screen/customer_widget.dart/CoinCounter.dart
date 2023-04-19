@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class tokenCounter extends StatefulWidget {
-  const tokenCounter({Key? key}) : super(key: key);
+class CoinCounter extends StatefulWidget {
+  const CoinCounter({Key? key}) : super(key: key);
 
   @override
-  State<tokenCounter> createState() => _tokenCounterState();
+  State<CoinCounter> createState() => _CoinCounterState();
 }
 
-class _tokenCounterState extends State<tokenCounter> {
+class _CoinCounterState extends State<CoinCounter> {
+  int _coin = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getCoin().then((coin) {
+      setState(() {
+        _coin = coin;
+      });
+    });
+  }
+
+  Future<int> getCoin() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('coin');
+    } else {
+      return 0;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -33,7 +61,7 @@ class _tokenCounterState extends State<tokenCounter> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Your Token:",
+                    "Your Coin:",
                     style: TextStyle(
                       fontSize: width_ * 0.05,
                       fontWeight: FontWeight.bold,
@@ -54,7 +82,7 @@ class _tokenCounterState extends State<tokenCounter> {
                         ),
                         SizedBox(width: width_ * 0.1),
                         Text(
-                          "0",
+                          "$_coin",
                           style: TextStyle(
                             fontSize: width_ * 0.05,
                             fontWeight: FontWeight.bold,

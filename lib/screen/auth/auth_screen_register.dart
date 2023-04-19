@@ -296,9 +296,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                "^(?=.{3,16})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
+                                                "^(?=.{3,8})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
                                             .hasMatch(value)) {
-                                          return ("Please Enter a valid username (3 to 16 Characters)");
+                                          return ("Please Enter a valid username (3 to 8 Characters)");
                                         }
                                         return null;
                                       },
@@ -607,15 +607,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
 
-    await FirebaseFirestore.instance
-        .collection(_selectedUserType!)
-        .doc(uid)
-        .set({
+    Map<String, dynamic> userData = {
       'fullname': fullname,
       'username': username,
       'email': email,
       'age': age,
       'phoneNumber': phonenumber,
-    });
+    };
+
+    if (_selectedUserType == 'Patient') {
+      userData['coin'] = 0;
+    }
+
+    await FirebaseFirestore.instance
+        .collection(_selectedUserType!)
+        .doc(uid)
+        .set(userData);
   }
 }

@@ -5,7 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/home/profile/BuyToken/BuyToken.dart';
+import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -154,7 +154,7 @@ class _profileState extends State<profile> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BuyToken(),
+                    builder: (context) => BuyCoin(),
                   ),
                 );
               },
@@ -172,7 +172,7 @@ class _profileState extends State<profile> {
                   ),
                   SizedBox(width: width_ * 0.08),
                   Text(
-                    'Buy Token',
+                    'Buy Coin',
                     style: TextStyle(
                       fontSize: width_ * 0.05,
                       fontWeight: FontWeight.bold,
@@ -397,7 +397,7 @@ class _profileState extends State<profile> {
                             fit: BoxFit.scaleDown,
                           ),
                           SizedBox(width: width_ * 0.04),
-                          Text3(text: 'Token'),
+                          Text3(text: 'Coin'),
                         ],
                       ),
                     ),

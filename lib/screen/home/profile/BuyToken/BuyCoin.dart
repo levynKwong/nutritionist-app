@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
-import 'package:meal_aware/screen/customer_widget.dart/tokenCounter.dart';
-import 'package:meal_aware/screen/customer_widget.dart/sixDigitCode.dart';
-import 'package:meal_aware/screen/home/profile/BuyToken/BuyToken.dart';
+import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
+import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
-class GetToken extends StatefulWidget {
-  const GetToken({super.key});
+class BuyCoin extends StatefulWidget {
+  const BuyCoin({super.key});
 
   @override
-  State<GetToken> createState() => _GetTokenState();
+  State<BuyCoin> createState() => _BuyCoinState();
 }
 
-class _GetTokenState extends State<GetToken> {
+class _BuyCoinState extends State<BuyCoin> {
   int selectedRadio = 0;
 
   @override
@@ -34,7 +34,6 @@ class _GetTokenState extends State<GetToken> {
     final double height_ = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           background(),
@@ -45,7 +44,7 @@ class _GetTokenState extends State<GetToken> {
               children: [topBar(width_, height_, context)], //correct
             ),
           ),
-          tokenCounter(), //correct
+          CoinCounter(), //correct
 
           SizedBox(
             height: height_ * 0.0,
@@ -61,25 +60,8 @@ class _GetTokenState extends State<GetToken> {
                   'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(
-              top: height_ * 0.14,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: Text4(
-              text: 'Enter Your Coupon Code:',
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: height_ * 0.65,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: CouponCodeInput(),
-          ),
 
+          selectionButton(height_, width_),
           TermsofUse(height_, width_),
           buttons(height_, width_)
         ],
@@ -95,10 +77,25 @@ class _GetTokenState extends State<GetToken> {
           children: [
             ElevatedButton(
               onPressed: () {
+                // add onPressed function
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF575ecb), // set background color
+                onPrimary: Colors.white, // set text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: Text('        Pay       '),
+            ),
+            SizedBox(
+                width: width_ * 0.15), // add some spacing between the buttons
+            ElevatedButton(
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BuyToken(),
+                    builder: (context) => GetCoin(),
                   ),
                 );
               },
@@ -109,22 +106,7 @@ class _GetTokenState extends State<GetToken> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
-              child: Text('    Back   '),
-            ),
-            SizedBox(
-                width: width_ * 0.15), // add some spacing between the buttons
-            ElevatedButton(
-              onPressed: () {
-                // add onPressed function
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('Confirm'),
+              child: Text('Use Coupon'),
             ),
           ],
         ));
@@ -174,13 +156,88 @@ class _GetTokenState extends State<GetToken> {
     );
   }
 
+  Widget selectionButton(double height_, double width_) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: height_ * 0.3),
+        child: Container(
+          width: width_ * 0.8,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              buildRadioTile(
+                value: 1,
+                image: Image.asset('images/token1.png'),
+                title: Text('1', style: TextStyle(fontWeight: FontWeight.bold)),
+                imageSize: width_ * 0.11, // <-- Set the size of the image
+              ),
+              SizedBox(height: height_ * 0.02),
+              buildRadioTile(
+                value: 2,
+                image: Image.asset('images/token2.png'),
+                title: Text('2', style: TextStyle(fontWeight: FontWeight.bold)),
+                imageSize: width_ * 0.13, // <-- Set the size of the image
+              ),
+              SizedBox(height: height_ * 0.02),
+              buildRadioTile(
+                value: 3,
+                image: Image.asset('images/token3.png'),
+                title: Text('3', style: TextStyle(fontWeight: FontWeight.bold)),
+                imageSize: width_ * 0.14, // <-- Set the size of the image
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildRadioTile({
+    required int value,
+    required Image image,
+    required Widget title,
+    required double imageSize, // <-- Add a parameter for image size
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Color(0xFFa0b1f9),
+      ),
+      height: 60,
+      child: RadioListTile(
+        value: value,
+        groupValue: selectedRadio,
+        onChanged: (val) {
+          print('number $val');
+          setSelectedRadio(val!);
+        },
+        controlAffinity: ListTileControlAffinity.trailing,
+        activeColor: Color(0xFF575dcb),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: imageSize,
+              height: imageSize,
+              child: image,
+            ),
+            SizedBox(width: 26),
+            Flexible(child: title),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget topBar(double width_, double height_, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Home())),
         ),
         Row(
           children: [
@@ -192,7 +249,7 @@ class _GetTokenState extends State<GetToken> {
             SizedBox(
               width: width_ * 0.08,
             ),
-            Text3(text: 'Get Token')
+            Text3(text: 'Buy Coin')
           ],
         ),
         SizedBox(
