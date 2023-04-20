@@ -3,6 +3,7 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
 
 class NutritionistChat extends StatefulWidget {
   const NutritionistChat({super.key});
@@ -90,7 +91,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => (selectionDate()),
+                  builder: (context) => (paymentChat()),
                 ),
               );
             },

@@ -3,6 +3,8 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
 
+import 'RandomChat.dart/randomChat.dart';
+
 class DoctorForum extends StatelessWidget {
   const DoctorForum({Key? key}) : super(key: key);
 
@@ -43,8 +45,14 @@ class DoctorForum extends StatelessWidget {
                   );
                 }, width_, height_),
                 SizedBox(height: height_ * 0.02),
-                _buildElevatedButton(
-                    'Chat With Friends', Icons.chat, () {}, width_, height_),
+                _buildElevatedButton('Chat With Friends', Icons.chat, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => randomChat(),
+                    ),
+                  );
+                }, width_, height_),
                 SizedBox(height: height_ * 0.03),
               ],
             ),
@@ -72,12 +80,13 @@ class DoctorForum extends StatelessWidget {
               children: [
                 Icon(
                   Icons.person_2_outlined,
-                  size: 30,
+                  size: width_ * 0.08,
                 ),
                 SizedBox(width: 15),
                 Text(
                   "Doctor's Forum",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: width_ * 0.07, fontWeight: FontWeight.w600),
                 ),
               ],
             ),

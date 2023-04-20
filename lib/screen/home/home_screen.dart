@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:meal_aware/screen/home/Message/message.dart';
 import 'package:meal_aware/screen/home/profile/profilePage.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 
@@ -16,7 +17,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final screens = [
     Center(child: Text('Journal')),
-    Center(child: Text('Message')),
+    message(),
     DoctorForum(),
     profile(),
   ];
