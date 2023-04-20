@@ -24,7 +24,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
           topTitle(width_, height_),
           topSubTitle(width_, height_),
           content(width_, height_),
-          buttons(height_, width_)
+          bottomContent(width_, height_)
         ],
       ),
     );
@@ -98,53 +98,52 @@ class _paymentAppointmentState extends State<paymentAppointment> {
 
   Container buttons(double height_, double width_) {
     return Container(
-        margin: EdgeInsets.only(top: height_ * 0.9),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(width_ * 0.3, 50),
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('        Back       '),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            SizedBox(width: width_ * 0.05),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(width_ * 0.3, 50),
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'images/token_.png', // replace this with the path to your image asset
-                    width: 24,
-                    height: 24,
-                  ),
-                  SizedBox(width: 8),
-                  Text('1 coin'),
-                ],
-              ),
+          ),
+          child: Text('        Back       '),
+        ),
+        SizedBox(width: width_ * 0.1),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          ],
-        ));
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'images/token_.png', // replace this with the path to your image asset
+                width: 24,
+                height: 24,
+              ),
+              SizedBox(width: 8),
+              Text('1 coin'),
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 
   Widget content(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.2),
+      margin: EdgeInsets.only(top: height_ * 0.18),
       child: Column(
         children: [
           Container(
@@ -154,32 +153,30 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                 Text(
                   'Read before pressing on the coin',
                   style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                    fontSize: MediaQuery.of(context).size.width * 0.052,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 175, 67, 67),
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: height_ * 0.08),
+                SizedBox(height: height_ * 0.03),
                 Container(
                   margin: EdgeInsets.only(
                       left: width_ * 0.05, right: width_ * 0.05),
-                  child: Text2(
+                  child: Text8(
                       text:
                           'With 1 Coin you are only paying half of the price, this makes sure that your appointment has been reserved'),
                 ),
-                SizedBox(height: height_ * 0.05),
+                SizedBox(height: height_ * 0.03),
                 Container(
                   margin: EdgeInsets.only(
                       left: width_ * 0.05, right: width_ * 0.05),
-                  child: Text2(
+                  child: Text8(
                       text:
                           'If you want to change the date of your appointment in the future, contact your nutritionist'),
                 ),
-                SizedBox(height: height_ * 0.04),
+                SizedBox(height: height_ * 0.05),
                 NutritionistService(width_, height_),
-                SizedBox(height: height_ * 0.035),
-                TermsofUse(height_, width_),
               ],
             ),
           ),
@@ -228,6 +225,18 @@ class _paymentAppointmentState extends State<paymentAppointment> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget bottomContent(double width_, double height_) {
+    return Container(
+      margin: EdgeInsets.only(top: height_ * 0.77),
+      child: Column(children: [
+        SizedBox(height: height_ * 0.04),
+        TermsofUse(height_, width_),
+        SizedBox(height: height_ * 0.035),
+        buttons(height_, width_)
+      ]),
     );
   }
 }
