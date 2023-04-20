@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/NutritionistBookApp.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 
-class BookAppointmentService extends StatefulWidget {
-  const BookAppointmentService({super.key});
+class NutritionistChat extends StatefulWidget {
+  const NutritionistChat({super.key});
 
   @override
-  State<BookAppointmentService> createState() => _BookAppointmentServiceState();
+  State<NutritionistChat> createState() => _NutritionistChatState();
 }
 
-class _BookAppointmentServiceState extends State<BookAppointmentService> {
+class _NutritionistChatState extends State<NutritionistChat> {
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -24,7 +24,7 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
           topTitle(width_, height_),
           topSubTitle(width_, height_),
           searchBar(width_, height_),
-          NutritionistService(width_, height_),
+          Box(width_, height_),
           buttons(height_, width_)
         ],
       ),
@@ -36,7 +36,7 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
       margin: EdgeInsets.only(bottom: height_ * 0.82, left: width_ * 0.05),
       child: Row(
         children: [
-          Text6(text: 'Book Appointment'),
+          Text6(text: 'Nutritionist'),
           Expanded(
             child: Container(
               alignment: Alignment.centerRight,
@@ -53,7 +53,7 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
       margin: EdgeInsets.only(bottom: height_ * 0.74, left: width_ * 0.05),
       child: Row(
         children: [
-          Text5(text: 'Select a service'),
+          Text5(text: 'Here are our valued Nutritionist'),
         ],
       ),
     );
@@ -83,8 +83,6 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
 
   NutritionistService(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.26, left: width_ * 0.1, right: width_ * 0.5),
       child: Column(
         children: [
           InkWell(
@@ -92,13 +90,13 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NutritionistBookAppointment(),
+                  builder: (context) => (selectionDate()),
                 ),
               );
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: height_ * 0.06, horizontal: width_ * 0.06),
+                  vertical: height_ * 0.032, horizontal: width_ * 0.07),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 color: Color.fromARGB(255, 255, 255, 255),
@@ -121,9 +119,62 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
     );
   }
 
+  Box(double width_, double height_) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: height_ * 0.21,
+        left: width_ * 0.001,
+        right: width_ * 0.001,
+      ),
+      child: Form(
+        // key: _formKey,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.68,
+          width: MediaQuery.of(context).size.width * 1.4,
+          child: Container(
+            margin: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Color.fromARGB(104, 214, 228, 239),
+              borderRadius: BorderRadius.circular(20.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 207, 207, 207).withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 2,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    NutritionistService(width_, height_),
+                    SizedBox(height: height_ * 0.02),
+                    NutritionistService(width_, height_),
+                    SizedBox(height: height_ * 0.02),
+                    NutritionistService(width_, height_),
+                    SizedBox(height: height_ * 0.02),
+                    NutritionistService(width_, height_),
+                    SizedBox(height: height_ * 0.02),
+                    NutritionistService(width_, height_),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Container buttons(double height_, double width_) {
     return Container(
-        margin: EdgeInsets.only(top: height_ * 0.88),
+        margin: EdgeInsets.only(top: height_ * 0.9),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -139,27 +190,6 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
               ),
               child: Text('        Back       '),
             ),
-            // SizedBox(
-            //     width: width_ * 0.15), // add some spacing between the buttons
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => NutritionistBookAppointment(),
-            //       ),
-            //     );
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     minimumSize: Size(width_ * 0.3, 50),
-            //     primary: Color(0xFF575ecb), // set background color
-            //     onPrimary: Colors.white, // set text color
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(10.0),
-            //     ),
-            //   ),
-            //   child: Text('         Next         '),
-            // ),
           ],
         ));
   }

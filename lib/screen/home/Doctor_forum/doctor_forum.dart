@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
 
 class DoctorForum extends StatelessWidget {
   const DoctorForum({Key? key}) : super(key: key);
@@ -33,7 +34,14 @@ class DoctorForum extends StatelessWidget {
                 _buildAppointmentButton(width_, height_, context),
                 SizedBox(height: height_ * 0.02),
                 _buildElevatedButton('Chat With Doctor', Icons.chat_rounded,
-                    () {}, width_, height_),
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatDoctorReg(),
+                    ),
+                  );
+                }, width_, height_),
                 SizedBox(height: height_ * 0.02),
                 _buildElevatedButton(
                     'Chat With Friends', Icons.chat, () {}, width_, height_),

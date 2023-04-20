@@ -65,17 +65,19 @@ class _NutritionistBookAppointmentState
     return Container(
       margin: EdgeInsets.only(
           top: height_ * 0.16, left: width_ * 0.05, right: width_ * 0.05),
+      height: height_ * 0.042,
       child: TextField(
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Color.fromARGB(255, 1, 1, 1)),
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Color.fromARGB(255, 255, 255, 255),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(40),
             borderSide: BorderSide.none,
           ),
           hintText: 'Search here for category',
           prefixIcon: Icon(Icons.search, size: 30, color: Colors.black),
+          contentPadding: EdgeInsets.symmetric(vertical: height_ * 0.01),
         ),
       ),
     );
@@ -122,14 +124,14 @@ class _NutritionistBookAppointmentState
   Box(double width_, double height_) {
     return Container(
       margin: EdgeInsets.only(
-        top: height_ * 0.23,
+        top: height_ * 0.21,
         left: width_ * 0.001,
         right: width_ * 0.001,
       ),
       child: Form(
         // key: _formKey,
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.65,
+          height: MediaQuery.of(context).size.height * 0.68,
           width: MediaQuery.of(context).size.width * 1.4,
           child: Container(
             margin: EdgeInsets.all(16.0),

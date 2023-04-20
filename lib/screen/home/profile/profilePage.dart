@@ -196,6 +196,15 @@ class _profileState extends State<profile> {
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(width: width_ * 0.06),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 86, 86, 86),
+                      size: width_ * 0.04,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -220,6 +229,15 @@ class _profileState extends State<profile> {
                       fontSize: width_ * 0.05,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(width: width_ * 0.07),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 86, 86, 86),
+                      size: width_ * 0.04,
                     ),
                   ),
                 ],

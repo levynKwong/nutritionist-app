@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/NutritionistChat.dart';
 
 class ChatDoctorReg extends StatefulWidget {
   const ChatDoctorReg({super.key});
@@ -61,18 +62,20 @@ class _ChatDoctorRegState extends State<ChatDoctorReg> {
   searchBar(width_, height_) {
     return Container(
       margin: EdgeInsets.only(
-          top: height_ * 0.17, left: width_ * 0.05, right: width_ * 0.05),
+          top: height_ * 0.16, left: width_ * 0.05, right: width_ * 0.05),
+      height: height_ * 0.042,
       child: TextField(
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Color.fromARGB(255, 1, 1, 1)),
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Color.fromARGB(255, 255, 255, 255),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(40),
             borderSide: BorderSide.none,
           ),
           hintText: 'Search here for category',
           prefixIcon: Icon(Icons.search, size: 30, color: Colors.black),
+          contentPadding: EdgeInsets.symmetric(vertical: height_ * 0.01),
         ),
       ),
     );
@@ -81,12 +84,17 @@ class _ChatDoctorRegState extends State<ChatDoctorReg> {
   NutritionistService(double width_, double height_) {
     return Container(
       margin: EdgeInsets.only(
-          top: height_ * 0.31, left: width_ * 0.1, right: width_ * 0.5),
+          top: height_ * 0.26, left: width_ * 0.1, right: width_ * 0.5),
       child: Column(
         children: [
           InkWell(
             onTap: () {
-              print('Button pressed');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NutritionistChat(),
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -120,9 +128,7 @@ class _ChatDoctorRegState extends State<ChatDoctorReg> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-                // add onPressed function
-              },
+              onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(width_ * 0.3, 50),
                 primary: Color(0xFF575ecb), // set background color
@@ -133,27 +139,27 @@ class _ChatDoctorRegState extends State<ChatDoctorReg> {
               ),
               child: Text('        Back       '),
             ),
-            SizedBox(
-                width: width_ * 0.15), // add some spacing between the buttons
-            ElevatedButton(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ,
-                //   ),
-                // );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(width_ * 0.3, 50),
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('         Next         '),
-            ),
+            // SizedBox(
+            //     width: width_ * 0.15), // add some spacing between the buttons
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => NutritionistBookAppointment(),
+            //       ),
+            //     );
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     minimumSize: Size(width_ * 0.3, 50),
+            //     primary: Color(0xFF575ecb), // set background color
+            //     onPrimary: Colors.white, // set text color
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            //   child: Text('         Next         '),
+            // ),
           ],
         ));
   }

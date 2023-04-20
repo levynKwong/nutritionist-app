@@ -4,6 +4,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 
 class ColorChangingButton extends StatefulWidget {
   final Color defaultColor;
@@ -82,7 +83,6 @@ class _selectionDateState extends State<selectionDate> {
 
   TimeButton(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.68),
       child: Column(
         children: [
           Row(
@@ -160,11 +160,6 @@ class _selectionDateState extends State<selectionDate> {
           topTitle(width_, height_),
           topSubTitle(width_, height_),
           calendar(width_, height_),
-          Container(
-            margin: EdgeInsets.only(top: height_ * 0.3, right: width_ * 0.55),
-            child: Text5(text: 'SLOTS AVAILABLE :'),
-          ),
-          TimeButton(width_, height_),
           buttons(height_, width_),
         ],
       ),
@@ -254,12 +249,12 @@ class _selectionDateState extends State<selectionDate> {
                 width: width_ * 0.15), // add some spacing between the buttons
             ElevatedButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => NutritionistBookAppointment(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => paymentAppointment(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(width_ * 0.3, 50),
@@ -277,7 +272,7 @@ class _selectionDateState extends State<selectionDate> {
 
   Widget calendar(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.2),
+      margin: EdgeInsets.only(top: height_ * 0.16),
       child: Padding(
         padding: const EdgeInsets.all(0),
         child: Column(
@@ -285,7 +280,7 @@ class _selectionDateState extends State<selectionDate> {
             Container(
               child: TableCalendar(
                 locale: 'en_US',
-                rowHeight: 43,
+                rowHeight: height_ * 0.052, //43
                 headerStyle:
                     HeaderStyle(formatButtonVisible: true, titleCentered: true),
                 selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
@@ -301,6 +296,13 @@ class _selectionDateState extends State<selectionDate> {
               ),
             ),
             Text5(text: 'Selected day: ${_selectedDay.toLocal()}'),
+            SizedBox(height: height_ * 0.06),
+            Container(
+              margin: EdgeInsets.only(right: width_ * 0.45),
+              child: Text5(text: 'SLOTS AVAILABLE :'),
+            ),
+            SizedBox(height: height_ * 0.04),
+            TimeButton(width_, height_),
           ],
         ),
       ),

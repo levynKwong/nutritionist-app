@@ -95,10 +95,10 @@ class _ParentAuthState extends State<ParentAuth> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () => Navigator.pop(context),
-                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.arrow_back),
+                      //   onPressed: () => Navigator.pop(context),
+                      // ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal:
