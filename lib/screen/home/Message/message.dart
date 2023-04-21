@@ -42,20 +42,21 @@ class _messageState extends State<message> {
               style: TextStyle(color: Color.fromARGB(255, 1, 1, 1)),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
+                fillColor: Color.fromARGB(255, 107, 150, 231),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(40),
                   borderSide: BorderSide.none,
                 ),
                 hintText: 'Search here',
-                prefixIcon: Icon(Icons.search, size: 30, color: Colors.black),
+                prefixIcon: Icon(Icons.search,
+                    size: width_ * 0.08, color: Colors.black),
                 contentPadding: EdgeInsets.symmetric(vertical: height_ * 0.01),
               ),
             ),
           ),
           IconButton(
             icon: Icon(Icons.add_circle_outline,
-                size: 30, color: Color.fromARGB(255, 61, 67, 163)),
+                size: width_ * 0.08, color: Color.fromARGB(255, 61, 67, 163)),
             onPressed: () {
               popUpButton();
             },
