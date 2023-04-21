@@ -3,6 +3,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/customer_widget.dart/sixDigitCode.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class confirmationNutritionist extends StatefulWidget {
   const confirmationNutritionist({Key? key}) : super(key: key);
@@ -22,6 +23,14 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
   String? gender;
   late String _filePath;
   final addressController = TextEditingController();
+  final List<TextEditingController> _textControllers =
+      List.generate(6, (_) => TextEditingController());
+
+  @override
+  void dispose() {
+    _textControllers.forEach((controller) => controller.dispose());
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -33,6 +42,28 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
+    bool validateCode(String enteredCode, List<String> expectedCodes) {
+      for (String expectedCode in expectedCodes) {
+        if (enteredCode == expectedCode) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    List<String> expectedCodes = [
+      "123456",
+      "832547",
+      "789012",
+      "345678",
+      "901234",
+      "567890",
+      "234567",
+      "890123",
+      "456789",
+      "123456",
+      "678901"
+    ];
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -117,7 +148,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                                     text: 'Enter your 6-digit code below: ',
                                   ),
                                   SizedBox(height: height_ * 0.06),
-                                  CouponCodeInput(),
+                                  confirmationCode(width_, height_),
                                   SizedBox(height: height_ * 0.04),
                                 ],
                               ),
@@ -130,7 +161,31 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 0),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  // Get the entered code from the text fields
+                                  String enteredCode = _textControllers
+                                      .map((controller) => controller.text)
+                                      .join("");
+
+                                  if (validateCode(
+                                      enteredCode, expectedCodes)) {
+                                    // Navigate to the home screen if the entered code is valid
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Home(),
+                                      ),
+                                    );
+                                  } else {
+                                    // Show an error message if the entered code is invalid
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            'Invalid code. Please try again.'),
+                                      ),
+                                    );
+                                  }
+                                },
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.12,
@@ -169,6 +224,34 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget confirmationCode(double width_, double height_) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (int i = 0; i < 6; i++)
+          SizedBox(
+            width: width_ * 0.12,
+            height: height_ * 0.08,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width_ * 0.009),
+              child: TextField(
+                controller: _textControllers[i],
+                maxLength: 1,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  counterText: "",
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: height_ * 0.025),
+                ),
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
