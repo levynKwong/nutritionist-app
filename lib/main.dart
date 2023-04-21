@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       // home: EmailVerificationCode(
       //   email: '',
       // ),
-      home: nutritionistAdditionalDetail(),
+      home: NutritionistAdditionalDetail(),
     );
   }
 }
