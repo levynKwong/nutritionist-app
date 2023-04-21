@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
@@ -10,7 +11,21 @@ import 'package:meal_aware/screen/auth/term_and_condition.dart';
 
 class EmailVerificationCode extends StatefulWidget {
   final String email;
-  EmailVerificationCode({Key? key, required this.email}) : super(key: key);
+  final String fullname;
+  final String username;
+  final String age;
+  final String phonenumber;
+  final String userType;
+
+  EmailVerificationCode({
+    Key? key,
+    required this.email,
+    required this.fullname,
+    required this.username,
+    required this.age,
+    required this.phonenumber,
+    required this.userType,
+  }) : super(key: key);
 
   @override
   _EmailVerificationCodeState createState() => _EmailVerificationCodeState();
@@ -20,7 +35,6 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
   bool isEmailVerified = false;
   bool canResendEmail = false;
   Timer? timer;
-  @override
   @override
   void initState() {
     super.initState();
@@ -60,6 +74,14 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
         MaterialPageRoute(
           builder: (context) => Terms_and_condition(),
         ),
+      );
+      saveUser(
+        widget.email,
+        widget.fullname,
+        widget.username,
+        widget.age,
+        widget.phonenumber,
+        widget.userType,
       );
     }
   }

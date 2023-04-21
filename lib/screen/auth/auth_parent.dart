@@ -575,7 +575,7 @@ class _ParentAuthState extends State<ParentAuth> {
               password: password,
             )
             .then((value) => {
-                  saveUser(fullname, username, email, age, phonenumber),
+                  // saveUser(fullname, username, email, age, phonenumber),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -584,7 +584,13 @@ class _ParentAuthState extends State<ParentAuth> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmailVerificationCode(email: email),
+                      builder: (context) => EmailVerificationCode(
+                          email: email,
+                          fullname: fullname,
+                          username: username,
+                          age: age,
+                          phonenumber: phonenumber,
+                          userType: _selectedUserType!),
                     ),
                   ),
                 });
@@ -613,28 +619,5 @@ class _ParentAuthState extends State<ParentAuth> {
         });
       }
     }
-  }
-
-  void saveUser(String fullname, String username, String email, String age,
-      String phonenumber) async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
-    Map<String, dynamic> userData = {
-      'fullname': fullname,
-      'username': username,
-      'email': email,
-      'age': age,
-      'phoneNumber': phonenumber,
-    };
-
-    if (_selectedUserType == 'Patient') {
-      userData['coin'] = 0;
-    }
-
-    await FirebaseFirestore.instance
-        .collection(_selectedUserType!)
-        .doc(uid)
-        .set(userData);
   }
 }

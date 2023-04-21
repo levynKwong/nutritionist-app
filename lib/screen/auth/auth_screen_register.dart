@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
@@ -563,7 +564,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
-                  saveUser(fullname, username, email, age, phonenumber),
+                  // saveUser(fullname, username, email, age, phonenumber,
+                  //     _selectedUserType!),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -583,8 +585,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              EmailVerificationCode(email: email),
+                          builder: (context) => EmailVerificationCode(
+                              email: email,
+                              fullname: fullname,
+                              username: username,
+                              age: age,
+                              phonenumber: phonenumber,
+                              userType: _selectedUserType!),
                         ),
                       ),
                     }
@@ -614,28 +621,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
       }
     }
-  }
-
-  void saveUser(String fullname, String username, String email, String age,
-      String phonenumber) async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
-    Map<String, dynamic> userData = {
-      'fullname': fullname,
-      'username': username,
-      'email': email,
-      'age': age,
-      'phoneNumber': phonenumber,
-    };
-
-    if (_selectedUserType == 'Patient') {
-      userData['coin'] = 0;
-    }
-
-    await FirebaseFirestore.instance
-        .collection(_selectedUserType!)
-        .doc(uid)
-        .set(userData);
   }
 }
