@@ -6,6 +6,8 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 
+import '../../../ChatScreen/ChatScreen.dart';
+
 class randomChat extends StatefulWidget {
   const randomChat({Key? key});
 
@@ -86,13 +88,33 @@ class _randomChatState extends State<randomChat> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            child: const Text('          Find Random User         '),
+            child: const Text('Find Random User'),
           ),
           const SizedBox(height: 20),
-          if (randomUser != null)
-            Text7(
-              text: 'uid: ${randomUser!.id}\nname: ${randomUser!['username']}',
-            ),
+          randomUser == null
+              ? const SizedBox.shrink()
+              : ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatScreen(
+                          userId: randomUser!['fullname'],
+                          userName: randomUser!['username'],
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(width_ * 0.3, 50),
+                    primary: const Color(0xFF575ecb), // set background color
+                    onPrimary: Colors.white, // set text color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: const Text('Chat with Random User'),
+                ),
         ],
       ),
     );
@@ -172,7 +194,7 @@ class _randomChatState extends State<randomChat> {
                       text:
                           'If you want to change the date of your appointment in the future, contact your nutritionist'),
                 ),
-                SizedBox(height: height_ * 0.15),
+                SizedBox(height: height_ * 0.07),
                 FindRandomUser(width_, height_),
               ],
             ),
