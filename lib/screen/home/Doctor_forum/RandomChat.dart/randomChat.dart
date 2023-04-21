@@ -1,16 +1,41 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 
 class randomChat extends StatefulWidget {
-  const randomChat({super.key});
+  const randomChat({Key? key});
 
   @override
   State<randomChat> createState() => _randomChatState();
 }
 
 class _randomChatState extends State<randomChat> {
+  final collectionRef = FirebaseFirestore.instance.collection('Patient');
+  late QuerySnapshot usersSnapshot;
+  DocumentSnapshot<Map<String, dynamic>>? randomUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getUsersSnapshot();
+  }
+
+  Future<void> getUsersSnapshot() async {
+    usersSnapshot = await collectionRef.get();
+  }
+
+  void getRandomUser() {
+    final int randomIndex = Random().nextInt(usersSnapshot.docs.length);
+    setState(() {
+      randomUser = usersSnapshot.docs[randomIndex]
+          as DocumentSnapshot<Map<String, dynamic>>?;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -41,6 +66,33 @@ class _randomChatState extends State<randomChat> {
               child: NotificationWidget(),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget FindRandomUser(double width_, double height_) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: getRandomUser,
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(width_ * 0.3, 50),
+              primary: const Color(0xFF575ecb), // set background color
+              onPrimary: Colors.white, // set text color
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: const Text('          Find Random User         '),
+          ),
+          const SizedBox(height: 20),
+          if (randomUser != null)
+            Text7(
+              text: 'uid: ${randomUser!.id}\nname: ${randomUser!['username']}',
+            ),
         ],
       ),
     );
@@ -183,26 +235,5 @@ class _randomChatState extends State<randomChat> {
         buttons(height_, width_)
       ]),
     );
-  }
-
-  FindRandomUser(double width_, double height_) {
-    return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () => Navigator.pop(context),
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-          child: Text('          Find Random User         '),
-        ),
-      ],
-    ));
   }
 }
