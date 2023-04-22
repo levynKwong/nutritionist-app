@@ -153,8 +153,8 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                 SizedBox(height: height_ * 0.01),
                 SingleChildScrollView(
                   child: SizedBox(
-                    height: height_ * 0.66,
-                    width: width_ * 0.9,
+                    height: height_ * 0.65,
+                    width: width_ * 0.93,
                     child: Stack(
                       children: [
                         Container(
@@ -188,24 +188,23 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                                   ),
                                   SizedBox(height: height_ * 0.025),
                                   Text3(
-                                    text:
-                                        'An Email has been sent to us for confirmation,\n\ Please wait for the an email',
-                                  ),
-                                  SizedBox(height: height_ * 0.025),
+                                      text:
+                                          'After you have mailed us your Professional Qualification Certificate.\n\ \n\Your information will be checked and verified by our team. '),
+                                  SizedBox(height: height_ * 0.015),
                                   Text3(
                                     text:
                                         'A 6-digit code will be sent to your email. ',
                                   ),
-                                  SizedBox(height: height_ * 0.025),
+                                  SizedBox(height: height_ * 0.015),
                                   Text3(
                                     text:
                                         'It will take up to 3 working days for response. ',
                                   ),
-                                  SizedBox(height: height_ * 0.07),
+                                  SizedBox(height: height_ * 0.03),
                                   Text7(
                                     text: 'Enter your 6-digit code below: ',
                                   ),
-                                  SizedBox(height: height_ * 0.06),
+                                  SizedBox(height: height_ * 0.03),
                                   confirmationCode(width_, height_),
                                   SizedBox(height: height_ * 0.04),
                                 ],

@@ -48,14 +48,25 @@ class MyApp extends StatelessWidget {
       // home: EmailVerificationCode(
       //   email: '',
       // ),
-      home: NutritionistAdditionalDetail(
+      // home: NutritionistAdditionalDetail(
+      //     email: '',
+      //     fullname: '',
+      //     username: '',
+      //     age: '',
+      //     phonenumber: '',
+      //     userType: ''),
+      home: confirmationNutritionist(
           email: '',
           fullname: '',
           username: '',
           age: '',
           phonenumber: '',
-          userType: ''),
-      // home: confirmationNutritionist(),
+          userType: '',
+          address: '',
+          specialization: '',
+          customSpecialization: '',
+          workExperience: '',
+          gender: ''),
     );
   }
 }
