@@ -31,7 +31,7 @@ class _NutritionistAdditionalDetailState
 
   String? _selectedSpecialization;
   bool _showCustomSpecializationField = false;
-  String? _customSpecialization;
+  String? _customSpecialization = '';
   String? experience;
   String? gender;
   late String _filePath;
@@ -281,7 +281,21 @@ class _NutritionistAdditionalDetailState
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          confirmationNutritionist(),
+                                          confirmationNutritionist(
+                                        email: email,
+                                        fullname: fullname,
+                                        username: username,
+                                        age: age,
+                                        phonenumber: phonenumber,
+                                        userType: userType,
+                                        address: addressController.text,
+                                        specialization:
+                                            _selectedSpecialization!,
+                                        customSpecialization:
+                                            _customSpecialization!,
+                                        workExperience: experience!,
+                                        gender: gender!,
+                                      ),
                                     ),
                                   );
                                 },

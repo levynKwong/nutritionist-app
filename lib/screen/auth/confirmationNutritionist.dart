@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/customer_widget.dart/sixDigitCode.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
@@ -6,23 +7,80 @@ import 'package:file_picker/file_picker.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 
 class confirmationNutritionist extends StatefulWidget {
-  const confirmationNutritionist({Key? key}) : super(key: key);
+  final String email,
+      fullname,
+      username,
+      age,
+      phonenumber,
+      userType,
+      address,
+      specialization,
+      customSpecialization,
+      workExperience,
+      gender;
+  const confirmationNutritionist(
+      {Key? key,
+      required this.email,
+      required this.fullname,
+      required this.username,
+      required this.age,
+      required this.phonenumber,
+      required this.userType,
+      required this.address,
+      required this.specialization,
+      required this.customSpecialization,
+      required this.workExperience,
+      required this.gender})
+      : super(key: key);
 
   @override
   State<confirmationNutritionist> createState() =>
-      _confirmationNutritionistState();
+      _confirmationNutritionistState(
+          email,
+          fullname,
+          username,
+          age,
+          phonenumber,
+          userType,
+          address,
+          specialization,
+          customSpecialization,
+          workExperience,
+          gender);
 }
 
 class _confirmationNutritionistState extends State<confirmationNutritionist> {
   final _formKey = GlobalKey<FormState>();
-
-  String? _selectedSpecialization;
-  bool _showCustomSpecializationField = false;
-  String? _customSpecialization;
-  String? experience;
-  String? gender;
-  late String _filePath;
-  final addressController = TextEditingController();
+  final String email,
+      fullname,
+      username,
+      age,
+      phonenumber,
+      userType,
+      address,
+      specialization,
+      customSpecialization,
+      workExperience,
+      gender;
+  _confirmationNutritionistState(
+      this.email,
+      this.fullname,
+      this.username,
+      this.age,
+      this.phonenumber,
+      this.userType,
+      this.address,
+      this.specialization,
+      this.customSpecialization,
+      this.workExperience,
+      this.gender);
+  // String? _selectedSpecialization;
+  // bool _showCustomSpecializationField = false;
+  // String? _customSpecialization;
+  // String? experience;
+  // String? gender;
+  // late String _filePath;
+  // final addressController = TextEditingController();
   final List<TextEditingController> _textControllers =
       List.generate(6, (_) => TextEditingController());
 
@@ -32,11 +90,11 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _filePath = ''; // initialize _filePath with an empty string
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _filePath = ''; // initialize _filePath with an empty string
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +227,18 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
 
                                   if (validateCode(
                                       enteredCode, expectedCodes)) {
+                                    saveNutritionist(
+                                        fullname,
+                                        username,
+                                        email,
+                                        age,
+                                        phonenumber,
+                                        userType,
+                                        address,
+                                        specialization,
+                                        customSpecialization,
+                                        workExperience,
+                                        gender);
                                     // Navigate to the home screen if the entered code is valid
                                     Navigator.push(
                                       context,

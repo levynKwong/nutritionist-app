@@ -20,3 +20,37 @@ Future<void> saveUser(String fullname, String username, String email,
 
   await FirebaseFirestore.instance.collection(userType).doc(uid).set(userData);
 }
+
+Future<void> saveNutritionist(
+    String fullname,
+    String username,
+    String email,
+    String age,
+    String phonenumber,
+    String userType,
+    String address,
+    String specialization,
+    String customSpecialization,
+    String workExperience,
+    String gender) async {
+  final User? user = FirebaseAuth.instance.currentUser;
+  final uid = user!.uid;
+
+  Map<String, dynamic> userData = {
+    'fullname': fullname,
+    'username': username,
+    'email': email,
+    'age': age,
+    'phoneNumber': phonenumber,
+    'address': address,
+    'specialization': specialization,
+    'customSpecialization': customSpecialization,
+    'gender': gender,
+  };
+
+  if (userType == 'Patient') {
+    userData['coin'] = 0;
+  }
+
+  await FirebaseFirestore.instance.collection(userType).doc(uid).set(userData);
+}
