@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:file_picker/file_picker.dart';
 
 class NutritionistAdditionalDetail extends StatefulWidget {
-  const NutritionistAdditionalDetail({Key? key}) : super(key: key);
+  final String email, fullname, username, age, phonenumber, userType;
+  const NutritionistAdditionalDetail(
+      {Key? key,
+      required this.email,
+      required this.fullname,
+      required this.username,
+      required this.age,
+      required this.phonenumber,
+      required this.userType})
+      : super(key: key);
 
   @override
   State<NutritionistAdditionalDetail> createState() =>
-      _NutritionistAdditionalDetailState();
+      _NutritionistAdditionalDetailState(
+          email, fullname, username, age, phonenumber, userType);
 }
 
 class _NutritionistAdditionalDetailState
     extends State<NutritionistAdditionalDetail> {
   final _formKey = GlobalKey<FormState>();
+  final String email, fullname, username, age, phonenumber, userType;
+  _NutritionistAdditionalDetailState(this.email, this.fullname, this.username,
+      this.age, this.phonenumber, this.userType);
 
   String? _selectedSpecialization;
   bool _showCustomSpecializationField = false;
@@ -262,7 +276,15 @@ class _NutritionistAdditionalDetailState
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 0),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          confirmationNutritionist(),
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.12,

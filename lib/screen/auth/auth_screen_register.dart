@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/auth_screen.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
+import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
@@ -576,7 +577,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NutritionistAdditionalDetail(),
+                          builder: (context) => NutritionistAdditionalDetail(
+                              email: email,
+                              fullname: fullname,
+                              username: username,
+                              age: age,
+                              phonenumber: phonenumber,
+                              userType: _selectedUserType!),
                         ),
                       ),
                     }
