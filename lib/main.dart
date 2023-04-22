@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: RegisterScreen(),
-      // home: AuthScreen(),
+      home: AuthScreen(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
       // home: Home(),
@@ -55,18 +55,18 @@ class MyApp extends StatelessWidget {
       //     age: '',
       //     phonenumber: '',
       //     userType: ''),
-      home: confirmationNutritionist(
-          email: '',
-          fullname: '',
-          username: '',
-          age: '',
-          phonenumber: '',
-          userType: '',
-          address: '',
-          specialization: '',
-          customSpecialization: '',
-          workExperience: '',
-          gender: ''),
+      // home: confirmationNutritionist(
+      //     email: '',
+      //     fullname: '',
+      //     username: '',
+      //     age: '',
+      //     phonenumber: '',
+      //     userType: '',
+      //     address: '',
+      //     specialization: '',
+      //     customSpecialization: '',
+      //     workExperience: '',
+      //     gender: ''),
     );
   }
 }

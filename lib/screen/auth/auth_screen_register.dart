@@ -323,7 +323,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                                "^\\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]\\s*")
                                             .hasMatch(value)) {
                                           return ("Please Enter a valid email");
                                         }
@@ -565,8 +565,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
-                  // saveUser(fullname, username, email, age, phonenumber,
-                  //     _selectedUserType!),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
