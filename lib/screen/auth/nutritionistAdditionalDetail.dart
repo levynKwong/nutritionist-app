@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
+import 'package:meal_aware/screen/auth/redirectEmail.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:file_picker/file_picker.dart';
 
 class NutritionistAdditionalDetail extends StatefulWidget {
   final String email, fullname, username, age, phonenumber, userType;
@@ -34,14 +36,8 @@ class _NutritionistAdditionalDetailState
   String? _customSpecialization = '';
   String? experience;
   String? gender;
-  late String _filePath;
-  final addressController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _filePath = ''; // initialize _filePath with an empty string
-  }
+  final addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +74,7 @@ class _NutritionistAdditionalDetailState
                 SizedBox(height: height_ * 0.01),
                 SingleChildScrollView(
                   child: SizedBox(
-                    height: height_ * 0.66,
+                    height: height_ * 0.7,
                     width: width_ * 0.9,
                     child: Stack(
                       children: [
@@ -240,30 +236,20 @@ class _NutritionistAdditionalDetailState
                                     },
                                   ),
                                   SizedBox(height: height_ * 0.02),
-                                  Text4(
-                                    text:
-                                        'Professional Qualification (Certificate)',
-                                  ),
+                                  TextWithLink(),
                                   SizedBox(height: height_ * 0.01),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      final result =
-                                          await FilePicker.platform.pickFiles();
-                                      if (result != null) {
-                                        setState(() {
-                                          _filePath = result.files.single.path!;
-                                        });
-                                      }
+                                  TextButton(
+                                    onPressed: () {
+                                      popUpButton(width_, height_);
                                     },
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Color(0xFF575ecb)),
+                                    child: Text(
+                                      'Click here to follow instructions, making sure your eligibility',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                      ),
                                     ),
-                                    child: Text('Select File'),
                                   ),
                                   SizedBox(height: height_ * 0.01),
-                                  if (_filePath.isNotEmpty) Text(_filePath),
                                   SizedBox(height: height_ * 0.06),
                                 ],
                               ),
@@ -337,6 +323,36 @@ class _NutritionistAdditionalDetailState
           ],
         ),
       ),
+    );
+  }
+
+  Future<dynamic> popUpButton(double width_, double height_) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          title: Text("make sure you follow this instruction for eligibility:"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text2(
+                  text:
+                      'Send your Professional qualification certificate on mealawareness@gmail.com'),
+              SizedBox(height: height_ * 0.03),
+              Text2(
+                  text:
+                      'make sure you are using the same email you used to register on the app'),
+              SizedBox(height: height_ * 0.03),
+              Text2(
+                  text:
+                      'We do not store any of your personal information, once you are verified you will be able to use the app'),
+            ],
+          ),
+        );
+      },
     );
   }
 }
