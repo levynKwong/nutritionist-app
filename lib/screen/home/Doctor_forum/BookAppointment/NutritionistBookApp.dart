@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
@@ -14,6 +16,27 @@ class NutritionistBookAppointment extends StatefulWidget {
 
 class _NutritionistBookAppointmentState
     extends State<NutritionistBookAppointment> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<User> _users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getUsers();
+  }
+
+  void _getUsers() async {
+    QuerySnapshot snapshot = await _firestore.collection('Nutritionist').get();
+
+    List<User> users = snapshot.docs
+        .map((doc) => User.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
+
+    setState(() {
+      _users = users;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -83,44 +106,6 @@ class _NutritionistBookAppointmentState
     );
   }
 
-  NutritionistService(double width_, double height_) {
-    return Container(
-      child: Column(
-        children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => (selectionDate()),
-                ),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: height_ * 0.032, horizontal: width_ * 0.07),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'images/nutritionist.png',
-                    width: width_ * 0.2,
-                    height: height_ * 0.06,
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  Text7(text: 'Nutritionist'),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Box(double width_, double height_) {
     return Container(
       margin: EdgeInsets.only(
@@ -144,28 +129,205 @@ class _NutritionistBookAppointmentState
                   color: Color.fromARGB(255, 207, 207, 207).withOpacity(0.3),
                   spreadRadius: 3,
                   blurRadius: 2,
-                  offset: Offset(0, 4),
+                  offset: Offset(0, 1),
                 ),
               ],
             ),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    NutritionistService(width_, height_),
-                    SizedBox(height: height_ * 0.02),
-                    NutritionistService(width_, height_),
-                    SizedBox(height: height_ * 0.02),
-                    NutritionistService(width_, height_),
-                    SizedBox(height: height_ * 0.02),
-                    NutritionistService(width_, height_),
-                    SizedBox(height: height_ * 0.02),
-                    NutritionistService(width_, height_),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _users.isEmpty
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: _users.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                print('pressed');
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                  vertical: height_ * 0.010,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: height_ * 0.014,
+                                  horizontal: width_ * 0.07,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: width_ * 0.06,
+                                      backgroundImage: NetworkImage(
+                                        //  _users[index].photoUrl,
+                                        'https://th.bing.com/th/id/R.62325205054ee42cbd441c7036a7e3ec?rik=RHdJrVUP%2b%2b8klA&pid=ImgRaw&r=0',
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: width_ * 0.05,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Dr ' + _users[index].username,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width_ * 0.045,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: height_ * 0.01,
+                                        ),
+                                        Text(
+                                          _users[index].address,
+                                          style: TextStyle(
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            fontSize: width_ * 0.04,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: height_ * 0.01,
+                                        ),
+                                        Text(
+                                          _users[index].specialization,
+                                          style: TextStyle(
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            fontSize: width_ * 0.04,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: height_ * 0.01,
+                                        ),
+                                        Row(
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      width_ *
+                                                                          0.03),
+                                                        ),
+                                                        title: Text('Review'),
+                                                        content: Text('Dr. ' +
+                                                            _users[index]
+                                                                .username +
+                                                            ' is a ' +
+                                                            _users[index]
+                                                                .specialization +
+                                                            '\n\n' +
+                                                            'Contact no: ' +
+                                                            _users[index]
+                                                                .phoneNumber +
+                                                            '\n\n' +
+                                                            'Email: ' +
+                                                            _users[index]
+                                                                .email),
+                                                        actions: [
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  Text('Close'))
+                                                        ],
+                                                      );
+                                                    });
+                                              },
+                                              child: Text(
+                                                'review',
+                                                style: TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: width_ * 0.15,
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      width_ *
+                                                                          0.03),
+                                                        ),
+                                                        title:
+                                                            Text('More info'),
+                                                        content: Text('Dr. ' +
+                                                            _users[index]
+                                                                .username +
+                                                            ' is a ' +
+                                                            _users[index]
+                                                                .specialization +
+                                                            '\n\n' +
+                                                            'Contact no: ' +
+                                                            _users[index]
+                                                                .phoneNumber +
+                                                            '\n\n' +
+                                                            'Email: ' +
+                                                            _users[index]
+                                                                .email),
+                                                        actions: [
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  Text('Close'))
+                                                        ],
+                                                      );
+                                                    });
+                                              },
+                                              child: Text(
+                                                'More info',
+                                                style: TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ],
               ),
             ),
           ),
@@ -194,5 +356,31 @@ class _NutritionistBookAppointmentState
             ),
           ],
         ));
+  }
+}
+
+class User {
+  final String username;
+  final String address;
+  final String email;
+  final String phoneNumber;
+  final String specialization;
+  final String customSpecialization;
+  User(
+      {required this.username,
+      required this.address,
+      required this.email,
+      required this.phoneNumber,
+      required this.specialization,
+      required this.customSpecialization});
+
+  factory User.fromMap(Map<String, dynamic> data) {
+    return User(
+        username: data['username'],
+        address: data['address'],
+        email: data['email'],
+        phoneNumber: data['phoneNumber'],
+        specialization: data['specialization'],
+        customSpecialization: data['customSpecialization']);
   }
 }
