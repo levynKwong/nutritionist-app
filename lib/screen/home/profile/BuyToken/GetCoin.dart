@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
@@ -14,7 +16,37 @@ class GetCoin extends StatefulWidget {
 }
 
 class _GetCoinState extends State<GetCoin> {
+  final List<TextEditingController> _textControllers =
+      List.generate(6, (_) => TextEditingController());
+
   int selectedRadio = 0;
+  Future<bool> validateCodeAndUpdateExpectedCodes(String enteredCode) async {
+    final CollectionReference codesCollection =
+        FirebaseFirestore.instance.collection('couponCodes');
+
+    try {
+      // Get the document reference for the entered code
+      final QuerySnapshot codesSnapshot =
+          await codesCollection.where('code', isEqualTo: enteredCode).get();
+      final DocumentReference? enteredCodeRef = codesSnapshot.docs.isNotEmpty
+          ? codesSnapshot.docs.first.reference
+          : null;
+
+      if (enteredCodeRef != null) {
+        // Delete the entered code document from the collection
+        await enteredCodeRef.delete();
+        print('Removed $enteredCode from expected codes');
+        return true; // Code is valid and has been removed from expected codes
+      } else {
+        print(
+            'Error: $enteredCode does not exist in expected codes collection');
+        return false; // Code is invalid
+      }
+    } catch (e) {
+      print('Error removing $enteredCode from expected codes: $e');
+      return false; // Code is invalid due to error
+    }
+  }
 
   @override
   void initState() {
@@ -77,7 +109,7 @@ class _GetCoinState extends State<GetCoin> {
               left: width_ * 0.1,
               right: width_ * 0.1,
             ),
-            child: CouponCodeInput(),
+            child: confirmationCode(width_, height_),
           ),
 
           TermsofUse(height_, width_),
@@ -114,8 +146,16 @@ class _GetCoinState extends State<GetCoin> {
             SizedBox(
                 width: width_ * 0.15), // add some spacing between the buttons
             ElevatedButton(
-              onPressed: () {
-                // add onPressed function
+              onPressed: () async {
+                String enteredCode = _textControllers
+                    .map((controller) => controller.text)
+                    .join("");
+
+                if (await validateCodeAndUpdateExpectedCodes(enteredCode)) {
+                  _updateUserCoinCount(1);
+                } else {
+                  // Code is invalid, handle accordingly
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF575ecb), // set background color
@@ -200,5 +240,67 @@ class _GetCoinState extends State<GetCoin> {
         ),
       ],
     );
+  }
+
+  Widget confirmationCode(double width_, double height_) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (int i = 0; i < 6; i++)
+          SizedBox(
+            width: width_ * 0.12,
+            height: height_ * 0.08,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width_ * 0.009),
+              child: TextField(
+                controller: _textControllers[i],
+                maxLength: 1,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  counterText: "",
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: height_ * 0.025),
+                ),
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _updateUserCoinCount(int coinsToAdd) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+    // Get the user document reference
+    final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
+
+    try {
+      // Use a transaction to update the user's coin count
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        // Get the current user document snapshot
+        final userSnapshot = await transaction.get(userDoc);
+
+        // Get the current coin count
+        final currentCoins = userSnapshot.data()!['coins'] ?? 0;
+
+        // Calculate the new coin count
+        final newCoins = currentCoins + coinsToAdd;
+
+        // Update the user document with the new coin count
+        transaction.update(userDoc, {'coin': newCoins});
+      });
+
+      // Show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Coins added successfully!')),
+      );
+    } catch (e) {
+      // Show an error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error adding coins: $e')),
+      );
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
@@ -74,15 +75,37 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
       this.customSpecialization,
       this.workExperience,
       this.gender);
-  // String? _selectedSpecialization;
-  // bool _showCustomSpecializationField = false;
-  // String? _customSpecialization;
-  // String? experience;
-  // String? gender;
-  // late String _filePath;
-  // final addressController = TextEditingController();
+
   final List<TextEditingController> _textControllers =
       List.generate(6, (_) => TextEditingController());
+
+  Future<bool> validateCodeAndUpdateExpectedCodes(String enteredCode) async {
+    final CollectionReference codesCollection =
+        FirebaseFirestore.instance.collection('confirmationCode');
+
+    try {
+      // Get the document reference for the entered code
+      final QuerySnapshot codesSnapshot =
+          await codesCollection.where('code', isEqualTo: enteredCode).get();
+      final DocumentReference? enteredCodeRef = codesSnapshot.docs.isNotEmpty
+          ? codesSnapshot.docs.first.reference
+          : null;
+
+      if (enteredCodeRef != null) {
+        // Delete the entered code document from the collection
+        await enteredCodeRef.delete();
+        print('Removed $enteredCode from expected codes');
+        return true; // Code is valid and has been removed from expected codes
+      } else {
+        print(
+            'Error: $enteredCode does not exist in expected codes collection');
+        return false; // Code is invalid
+      }
+    } catch (e) {
+      print('Error removing $enteredCode from expected codes: $e');
+      return false; // Code is invalid due to error
+    }
+  }
 
   @override
   void dispose() {
@@ -218,14 +241,14 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 0),
                               child: GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   // Get the entered code from the text fields
                                   String enteredCode = _textControllers
                                       .map((controller) => controller.text)
                                       .join("");
 
-                                  if (validateCode(
-                                      enteredCode, expectedCodes)) {
+                                  if (await validateCodeAndUpdateExpectedCodes(
+                                      enteredCode)) {
                                     saveNutritionist(
                                         fullname,
                                         username,
