@@ -165,7 +165,7 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
                                           ),
                                           TextSpan(
                                             text:
-                                                '"App" means the Nutritionist App.\n"User" means any person who uses the App.\n"Content" means all information, text, graphics, images, videos, and other material that is provided through the App.\n"Nutritionist" means any person who provides nutritional advice through the App.\n\n',
+                                                'In these terms and conditions, the following definitions apply:\"App\" means the Nutritionist App."User" means any person who uses the App."Content" means all information, text, graphics, images, videos, and other material that is provided through the App."Nutritionist" means any person who provides nutritional advice through the App.\n\n',
                                             style: TextStyle(fontSize: 16.0),
                                           ),
                                           TextSpan(
@@ -177,7 +177,7 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
                                           ),
                                           TextSpan(
                                             text:
-                                                'The App is intended for informational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment. The Nutritionist App does not provide medical advice, and any information or content provided through the App should not be considered medical advice.\nThe App is available only to individuals who are at least 18 years old. If you are under 18 years old, you may not use the App.\n\n',
+                                                'The App is intended for informational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment.\n\nBy using our app you represent and warrant that (a) you are 18 years of age or older and you agree to be bound by this Agreement; (b) if you are under 18 years of age, you have obtained verifiable consent from a parent or legal guardian; and (c) your use of the App does not violate any applicable law or regulation. Your access to the App may be terminated without warning if the Operator believes, in its sole discretion, that you are under the age of 18 years and have not obtained verifiable consent from a parent or legal guardian. If you are a parent or legal guardian and you provide your consent to your child’s use of the App, you agree to be bound by this Agreement in respect to your child’s use of the App.\n\n',
                                             style: TextStyle(fontSize: 16.0),
                                           ),
                                           TextSpan(
@@ -227,6 +227,42 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
                                             style: TextStyle(fontSize: 16.0),
                                           ),
                                           TextSpan(
+                                            text: 'INTELLECTUAL PROPERTY\n',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'All content provided through the App is owned by the Nutritionist App or its licensors and is protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or use any content provided through the App without the Nutritionist App\'s prior written consent.\n\n',
+                                            style: TextStyle(fontSize: 16.0),
+                                          ),
+                                          TextSpan(
+                                            text: 'LIMITATION OF LIABILITY\n',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'The Nutritionist App is not liable for any damages or injuries arising from the use of the App or any content or services provided through the App. The Nutritionist App is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from the use of the App.\n\n',
+                                            style: TextStyle(fontSize: 16.0),
+                                          ),
+                                          TextSpan(
+                                            text: 'INDEMNIFICATION\n',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'You agree to indemnify and hold harmless the Nutritionist App, its officers, directors, employees, and agents from any claims, damages, or expenses arising from your use of the App or any content or services provided through the App.\n\n',
+                                            style: TextStyle(fontSize: 16.0),
+                                          ),
+                                          TextSpan(
                                             text: 'GOVERNING LAW\n',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -236,6 +272,19 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
                                           TextSpan(
                                             text:
                                                 'These terms and conditions are governed by the laws of the state in which the Nutritionist App is headquartered.\n\n',
+                                            style: TextStyle(fontSize: 16.0),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'MODIFICATION OF TERMS AND CONDITIONS\n',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'The Nutritionist App may modify these terms and conditions at any time, and any such modification will be effective immediately upon posting on the App. Your continued use of the App after any modification constitutes your acceptance of the modified terms.\n\n',
                                             style: TextStyle(fontSize: 16.0),
                                           ),
                                         ],

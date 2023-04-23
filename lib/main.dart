@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: RegisterScreen(),
-      // home: AuthScreen(),
+      home: AuthScreen(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
       // home: Home(),
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       // home: test_home(),
       // home: DoctorForum(),
       // home: NotificationWidget(),
-      home: GetCoin(),
+      // home: GetCoin(),
       // home: EmailVerificationCode(
       //   email: '',
       // ),

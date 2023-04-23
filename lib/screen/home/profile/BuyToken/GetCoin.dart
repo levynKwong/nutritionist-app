@@ -299,7 +299,7 @@ class _GetCoinState extends State<GetCoin> {
     } catch (e) {
       // Show an error message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error adding coins: $e')),
+        SnackBar(content: Text('Code already used: $e')),
       );
     }
   }
