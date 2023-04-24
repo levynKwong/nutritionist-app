@@ -371,6 +371,9 @@ class _AuthScreenState extends State<AuthScreen> {
         setState(() {
           _isLoading = true;
         });
+
+        await Future.delayed(Duration(seconds: 1)); // Simulate a delay
+
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user != null) {
@@ -392,7 +395,25 @@ class _AuthScreenState extends State<AuthScreen> {
             _isLoading = false;
           });
         }
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
+    Stack(
+      children: [
+        // Your existing login form code goes here
+
+        // Display a CircularProgressIndicator if _isLoading is true
+        if (_isLoading)
+          Container(
+            color: Colors.black54,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ],
+    );
   }
 }

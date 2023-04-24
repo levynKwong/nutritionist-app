@@ -53,7 +53,7 @@ class Text3 extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width * 0.045,
+            fontSize: MediaQuery.of(context).size.width * 0.044,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),

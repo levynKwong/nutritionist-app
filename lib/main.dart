@@ -6,6 +6,7 @@ import 'package:meal_aware/screen/auth/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/NutritionistChat.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
@@ -38,9 +39,10 @@ class MyApp extends StatelessWidget {
       // home: AuthScreen(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
-      // home: Home(),
+      home: Home(),
       // home: BookAppointmentService(),
-      home: NutritionistBookAppointment(),
+      // home: NutritionistBookAppointment(),
+      // home: NutritionistChat()
       // home: ChatDoctorReg(),
       // home: token_top(),
       // home: test_home(),

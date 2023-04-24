@@ -6,6 +6,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'package:meal_aware/screen/customer_widget.dart/sixDigitCode.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class GetCoin extends StatefulWidget {
@@ -84,7 +85,7 @@ class _GetCoinState extends State<GetCoin> {
           ),
           Container(
             margin: EdgeInsets.only(
-              bottom: height_ * 0.15,
+              bottom: height_ * 0.17,
               left: width_ * 0.1,
               right: width_ * 0.1,
             ),
@@ -95,23 +96,33 @@ class _GetCoinState extends State<GetCoin> {
           ),
           Container(
             margin: EdgeInsets.only(
-              top: height_ * 0.14,
+              top: height_ * 0.03,
               left: width_ * 0.1,
               right: width_ * 0.1,
             ),
-            child: Text4(
+            child: Text3(
               text: 'Enter Your Coupon Code:',
             ),
           ),
           Container(
             margin: EdgeInsets.only(
-              top: height_ * 0.65,
+              top: height_ * 0.57,
               left: width_ * 0.1,
               right: width_ * 0.1,
             ),
             child: confirmationCode(width_, height_),
           ),
-
+          Container(
+            margin: EdgeInsets.only(
+              top: height_ * 0.48,
+              left: width_ * 0.1,
+              right: width_ * 0.1,
+            ),
+            child: Text5(
+              text:
+                  'After confirmation, please wait for your coin to be updated, while it is updating you can go to your Home Screen',
+            ),
+          ),
           TermsofUse(height_, width_),
           buttons(height_, width_)
         ],
@@ -154,7 +165,9 @@ class _GetCoinState extends State<GetCoin> {
                 if (await validateCodeAndUpdateExpectedCodes(enteredCode)) {
                   _updateUserCoinCount(1);
                 } else {
-                  // Code is invalid, handle accordingly
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Code already used')),
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -283,7 +296,7 @@ class _GetCoinState extends State<GetCoin> {
         final userSnapshot = await transaction.get(userDoc);
 
         // Get the current coin count
-        final currentCoins = userSnapshot.data()!['coins'] ?? 0;
+        final currentCoins = userSnapshot.data()!['coin'] ?? 0;
 
         // Calculate the new coin count
         final newCoins = currentCoins + coinsToAdd;

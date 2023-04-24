@@ -365,22 +365,34 @@ class User {
   final String email;
   final String phoneNumber;
   final String specialization;
-  final String customSpecialization;
-  User(
-      {required this.username,
-      required this.address,
-      required this.email,
-      required this.phoneNumber,
-      required this.specialization,
-      required this.customSpecialization});
+
+  User({
+    required this.username,
+    required this.address,
+    required this.email,
+    required this.phoneNumber,
+    required this.specialization,
+  });
 
   factory User.fromMap(Map<String, dynamic> data) {
+    String Specialization;
+    if (data['specialization'] == '1') {
+      Specialization = 'Sport Nutritionist';
+    } else if (data['specialization'] == '2') {
+      Specialization = 'Pediatric Nutritionist';
+    } else if (data['specialization'] == '3') {
+      Specialization = 'Clinical Nutritionist';
+    } else if (data['specialization'] == '4') {
+      Specialization = 'General Nutritionist';
+    } else {
+      Specialization = data['customSpecialization'];
+    }
     return User(
-        username: data['username'],
-        address: data['address'],
-        email: data['email'],
-        phoneNumber: data['phoneNumber'],
-        specialization: data['specialization'],
-        customSpecialization: data['customSpecialization']);
+      username: data['username'],
+      address: data['address'],
+      email: data['email'],
+      phoneNumber: data['phoneNumber'],
+      specialization: Specialization,
+    );
   }
 }

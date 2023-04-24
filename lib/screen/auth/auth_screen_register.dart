@@ -601,6 +601,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     }
                 });
+        setState(() {
+          _isLoading = false;
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           setState(() {
