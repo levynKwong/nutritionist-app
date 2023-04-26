@@ -132,20 +132,6 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
       return false;
     }
 
-    List<String> expectedCodes = [
-      "123456",
-      "832547",
-      "789012",
-      "345678",
-      "901234",
-      "567890",
-      "234567",
-      "890123",
-      "456789",
-      "123456",
-      "678901"
-    ];
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

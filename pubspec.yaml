@@ -44,6 +44,7 @@ dependencies:
   file_picker: ^5.2.10
   http: ^0.13.3
   url_launcher: ^6.1.10
+  flutter_inappwebview: any
   
 
 dev_dependencies:

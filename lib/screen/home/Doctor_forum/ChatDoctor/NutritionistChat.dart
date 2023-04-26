@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/WebViewScreen.dart';
 
 class NutritionistChat extends StatefulWidget {
   const NutritionistChat({super.key});
@@ -147,7 +148,15 @@ class _NutritionistChatState extends State<NutritionistChat> {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                print('pressed');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => WebViewScreen(
+                                        url:
+                                            'https://docs.google.com/forms/d/e/1FAIpQLSeDKt0gHqp4sfbkwbGixqzpLtBWIJEEGQl78r98IO7Y5oieLQ/viewform?usp=sf_link',
+                                        email: _users[index].email),
+                                  ),
+                                );
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(
