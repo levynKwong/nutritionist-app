@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart'
 import 'package:meal_aware/screen/home/Message/message.dart';
 import 'package:meal_aware/screen/home/profile/profilePage.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -39,47 +40,53 @@ class _HomeState extends State<Home> {
           topRightCounter()
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF989efd), // Set background color here
-            icon: Icon(
-              Icons.book,
-              color: Colors.black,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFF989efd), // set navigation bar background color
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8)
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: GNav(
+              gap: 8,
+              activeColor: Colors.white,
+              iconSize: 24,
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              duration: Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.white.withOpacity(0.1),
+              tabBorderRadius: 15,
+              tabActiveBorder: Border.all(color: Colors.white, width: 1),
+              curve: Curves.easeOutExpo,
+              tabs: [
+                GButton(
+                  icon: Icons.book,
+                  text: 'Journal',
+                ),
+                GButton(
+                  icon: Icons.message,
+                  text: 'Message',
+                ),
+                GButton(
+                  icon: Icons.face,
+                  text: 'Doctor Forum',
+                ),
+                GButton(
+                  icon: Icons.person,
+                  text: 'Profile',
+                ),
+              ],
+              selectedIndex: _currentIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
             ),
-            label: 'Journal',
           ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF989efd),
-            icon: Icon(
-              Icons.message,
-              color: Colors.black,
-            ),
-            label: 'Message',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF989efd),
-            icon: Icon(
-              Icons.face,
-              color: Colors.black,
-            ),
-            label: 'Doctor Forum',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF989efd),
-            icon: Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
-            label: 'Profile',
-          ),
-        ],
+        ),
       ),
     );
   }
