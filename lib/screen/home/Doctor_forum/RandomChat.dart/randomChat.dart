@@ -113,7 +113,7 @@ class _randomChatState extends State<randomChat> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  child: const Text('Chat with Random User'),
+                  child: const Text('Found One!'),
                 ),
         ],
       ),

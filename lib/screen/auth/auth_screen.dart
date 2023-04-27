@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/auth_screen_register.dart';
@@ -5,6 +6,7 @@ import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/forgotPassword.dart';
 // import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   AuthScreen({Key? key});
@@ -377,11 +379,31 @@ class _AuthScreenState extends State<AuthScreen> {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user != null) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const Home()),
-            (_) => false,
-          );
+          // Check the role of the user
+          final patientDoc = await FirebaseFirestore.instance
+              .collection('Patient')
+              .doc(credential.user!.uid)
+              .get();
+          final nutritionistDoc = await FirebaseFirestore.instance
+              .collection('Nutritionist')
+              .doc(credential.user!.uid)
+              .get();
+
+          if (patientDoc.exists) {
+            // Redirect to the patient screen
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+              (_) => false,
+            );
+          } else if (nutritionistDoc.exists) {
+            // Redirect to the nutritionist screen
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const NutritionistHome()),
+              (_) => false,
+            );
+          }
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
@@ -401,19 +423,5 @@ class _AuthScreenState extends State<AuthScreen> {
         });
       }
     }
-    Stack(
-      children: [
-        // Your existing login form code goes here
-
-        // Display a CircularProgressIndicator if _isLoading is true
-        if (_isLoading)
-          Container(
-            color: Colors.black54,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-      ],
-    );
   }
 }

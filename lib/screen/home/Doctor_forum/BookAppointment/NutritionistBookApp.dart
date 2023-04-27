@@ -148,9 +148,7 @@ class _NutritionistBookAppointmentState
                           itemCount: _users.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
-                              onTap: () {
-                                print('pressed');
-                              },
+                              onTap: () {},
                               child: Container(
                                 margin: EdgeInsets.symmetric(
                                   vertical: height_ * 0.010,
@@ -170,7 +168,7 @@ class _NutritionistBookAppointmentState
                                       radius: width_ * 0.06,
                                       backgroundImage: NetworkImage(
                                         //  _users[index].photoUrl,
-                                        'https://th.bing.com/th/id/R.62325205054ee42cbd441c7036a7e3ec?rik=RHdJrVUP%2b%2b8klA&pid=ImgRaw&r=0',
+                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
                                       ),
                                     ),
                                     SizedBox(

@@ -21,16 +21,16 @@ class _profileState extends State<profile> {
   @override
   void initState() {
     super.initState();
-    // getCoin().then((coin) {
-    //   setState(() {
-    //     _coin = coin;
-    //   });
-    // });
-    // getUserName().then((username) {
-    //   setState(() {
-    //     _username = username;
-    //   });
-    // });
+    getCoin().then((coin) {
+      setState(() {
+        _coin = coin;
+      });
+    });
+    getUserName().then((username) {
+      setState(() {
+        _username = username;
+      });
+    });
   }
 
   @override
@@ -506,31 +506,31 @@ class _profileState extends State<profile> {
         ),
       );
 
-  // Future<int> getCoin() async {
-  //   final User? user = FirebaseAuth.instance.currentUser;
-  //   final uid = user!.uid;
+  Future<int> getCoin() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
 
-  //   final docSnapshot =
-  //       await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
 
-  //   if (docSnapshot.exists) {
-  //     return docSnapshot.get('coin');
-  //   } else {
-  //     return 0;
-  //   }
-  // }
+    if (docSnapshot.exists) {
+      return docSnapshot.get('coin');
+    } else {
+      return 0;
+    }
+  }
 
-  // Future<String> getUserName() async {
-  //   final User? user = FirebaseAuth.instance.currentUser;
-  //   final uid = user!.uid;
+  Future<String> getUserName() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
 
-  //   final docSnapshot =
-  //       await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
 
-  //   if (docSnapshot.exists) {
-  //     return docSnapshot.get('username');
-  //   } else {
-  //     return 'Username';
-  //   }
-  // }
+    if (docSnapshot.exists) {
+      return docSnapshot.get('username');
+    } else {
+      return 'Username';
+    }
+  }
 }

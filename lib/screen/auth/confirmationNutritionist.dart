@@ -6,6 +6,7 @@ import 'package:meal_aware/screen/customer_widget.dart/sixDigitCode.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class confirmationNutritionist extends StatefulWidget {
   final String email,
@@ -251,7 +252,8 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Home(),
+                                        builder: (context) =>
+                                            NutritionistHome(),
                                       ),
                                     );
                                   } else {

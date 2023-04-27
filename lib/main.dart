@@ -16,6 +16,7 @@ import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
@@ -37,9 +38,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: RegisterScreen(),
       // home: AuthScreen(),
+      home: NutritionistHome(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
-      home: Home(),
+      // home: Home(),
       // home: BookAppointmentService(),
       // home: NutritionistBookAppointment(),
       // home: NutritionistChat()

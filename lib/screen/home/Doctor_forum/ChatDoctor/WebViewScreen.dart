@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/newScreen.dart';
+
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url;
@@ -50,7 +51,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   void _onFormSubmitted() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => newScreen(),
+      builder: (context) => paymentChat(),
     ));
   }
 }
