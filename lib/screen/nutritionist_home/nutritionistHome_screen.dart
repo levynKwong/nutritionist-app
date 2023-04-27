@@ -7,6 +7,7 @@ import 'package:meal_aware/screen/home/profile/profilePage.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/dashboard.dart';
+import 'package:meal_aware/screen/nutritionist_home/message/messageNutritionist.dart';
 
 class NutritionistHome extends StatefulWidget {
   const NutritionistHome({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _NutritionistHomeState extends State<NutritionistHome> {
   int _currentIndex = 0;
   final screens = [
     dashboard(),
-    Center(child: Text('test2')),
+    messageClient(),
     Center(child: Text('test3')),
     Center(child: Text('test4')),
   ];
