@@ -18,7 +18,7 @@ class _dashboardState extends State<dashboard> {
     return Container(
       child: Column(
         children: [
-          appBar(width_),
+          appBar(width_, height_),
           SizedBox(
             height: height_ * 0.0,
           ),
@@ -490,7 +490,7 @@ class _dashboardState extends State<dashboard> {
     );
   }
 
-  AppBar appBar(double width_) {
+  AppBar appBar(double width_, double height_) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -509,7 +509,7 @@ class _dashboardState extends State<dashboard> {
             color: Colors.black,
           ),
           onPressed: () {
-            popUpButton(context);
+            popUpButton(context, width_, height_);
           },
         ),
         IconButton(
@@ -525,14 +525,22 @@ class _dashboardState extends State<dashboard> {
     );
   }
 
-  Future<dynamic> popUpButton(BuildContext context) {
+  Future<dynamic> popUpButton(
+      BuildContext context, double width_, double height_) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           content: Container(
-            height: 400,
-            width: 300,
+            height: height_ * 0.45,
+            width: width_ * 0.8,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+            ),
             child: TableCalendar(
               focusedDay: DateTime.now(),
               firstDay: DateTime.utc(2022, 1, 1),
