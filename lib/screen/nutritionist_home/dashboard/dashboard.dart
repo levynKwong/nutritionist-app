@@ -509,7 +509,7 @@ class _dashboardState extends State<dashboard> {
             color: Colors.black,
           ),
           onPressed: () {
-            popUpButton();
+            popUpButton(context);
           },
         ),
         IconButton(
@@ -525,18 +525,22 @@ class _dashboardState extends State<dashboard> {
     );
   }
 
-  Future<dynamic> popUpButton() {
+  Future<dynamic> popUpButton(BuildContext context) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          title: Text("Calender :"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [Text('put calender here, optional')],
+          content: Container(
+            height: 400,
+            width: 300,
+            child: TableCalendar(
+              focusedDay: DateTime.now(),
+              firstDay: DateTime.utc(2022, 1, 1),
+              lastDay: DateTime.utc(2024, 12, 31),
+              calendarFormat: CalendarFormat.month,
+              startingDayOfWeek: StartingDayOfWeek.sunday,
+              // Add any additional calendar properties here
+            ),
           ),
         );
       },
