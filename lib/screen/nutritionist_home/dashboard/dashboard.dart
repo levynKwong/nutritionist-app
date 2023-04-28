@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class dashboard extends StatefulWidget {
   const dashboard({super.key});
@@ -60,22 +61,25 @@ class _dashboardState extends State<dashboard> {
             ),
             Row(
               children: [
-                Container(
-                  margin: EdgeInsets.only(right: width_ * 0.08),
-                  child: Text(
-                    'Pending Plan',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: width_ * 0.054,
-                      fontWeight: FontWeight.bold,
-                    ),
+                SizedBox(width: width_ * 0.03),
+                // margin: EdgeInsets.only(right: width_ * 0.065),
+                Text(
+                  'Pending Plan',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: width_ * 0.054,
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
+                SizedBox(
+                  width: width_ * 0.03,
                 ),
                 Container(
                   child: Column(
                     children: [
                       Row(
                         children: [
+                          SizedBox(width: double.minPositive),
                           Text(
                             'Plan Type',
                             style: TextStyle(
@@ -142,7 +146,8 @@ class _dashboardState extends State<dashboard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 8),
+                                  padding:
+                                      EdgeInsets.only(left: width_ * 0.008),
                                   child: Text(
                                     'Appointment',
                                     style: TextStyle(fontSize: width_ * 0.035),
@@ -157,7 +162,7 @@ class _dashboardState extends State<dashboard> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: width_ * 0.003,
+                                  width: width_ * 0.006,
                                 ),
                               ],
                             ),
@@ -170,7 +175,7 @@ class _dashboardState extends State<dashboard> {
               ],
             ),
             SizedBox(
-              height: height_ * 0.02,
+              height: height_ * 0.01,
             ),
             Container(
               margin: EdgeInsets.only(left: width_ * 0.05),
@@ -215,18 +220,18 @@ class _dashboardState extends State<dashboard> {
               ),
             ),
             Container(
-              height: height_ * 0.39,
+              height: height_ * 0.36,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
                     Text(
                       'Date',
-                      style: TextStyle(fontSize: width_ * 1),
+                      style: TextStyle(fontSize: width_ * 0.06),
                     ),
                     Text(
                       'Time',
-                      style: TextStyle(fontSize: width_ * 1),
+                      style: TextStyle(fontSize: width_ * 0.06),
                     ),
                   ],
                 ),
@@ -246,7 +251,7 @@ class _dashboardState extends State<dashboard> {
           Row(
             children: [
               SizedBox(
-                width: width_ * 0.034,
+                width: width_ * 0.04,
               ),
               MaterialButton(
                   onPressed: () {},
@@ -259,8 +264,8 @@ class _dashboardState extends State<dashboard> {
                   child: Row(
                     children: [
                       Container(
-                        width: width_ * 0.05, // set desired width of image
-                        height: height_ * 0.023, // set desired height of image
+                        width: width_ * 0.07, // set desired width of image
+                        height: height_ * 0.035, // set desired height of image
                         child: Image.asset(
                           'images/appointment.png', // path to local image file
                           fit: BoxFit
@@ -268,15 +273,15 @@ class _dashboardState extends State<dashboard> {
                         ),
                       ),
                       SizedBox(
-                        width: width_ * 0.02,
+                        width: width_ * 0.05,
                       ),
                       Column(
                         children: [
                           Text(
-                            'Today\'s Appointments',
+                            'Text Message',
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.03,
+                              fontSize: width_ * 0.035,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -289,7 +294,7 @@ class _dashboardState extends State<dashboard> {
                             ),
                           ),
                           Text(
-                            'Total: 20',
+                            'Total: 28',
                             style: TextStyle(
                               color: Color.fromARGB(255, 125, 125, 125),
                               fontSize: width_ * 0.04,
@@ -323,7 +328,7 @@ class _dashboardState extends State<dashboard> {
                         ),
                       ),
                       SizedBox(
-                        width: width_ * 0.045,
+                        width: width_ * 0.05,
                       ),
                       Column(
                         children: [
@@ -380,7 +385,7 @@ class _dashboardState extends State<dashboard> {
                     children: [
                       Container(
                         width: width_ * 0.07, // set desired width of image
-                        height: height_ * 0.03, // set desired height of image
+                        height: height_ * 0.035, // set desired height of image
                         child: Image.asset(
                           'images/file.png', // path to local image file
                           fit: BoxFit
@@ -393,7 +398,7 @@ class _dashboardState extends State<dashboard> {
                       Column(
                         children: [
                           Text(
-                            'Pending Plan',
+                            'Text Message',
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: width_ * 0.035,
@@ -504,7 +509,7 @@ class _dashboardState extends State<dashboard> {
             color: Colors.black,
           ),
           onPressed: () {
-            // Add your code here for calendar icon action
+            popUpButton();
           },
         ),
         IconButton(
@@ -517,6 +522,24 @@ class _dashboardState extends State<dashboard> {
           },
         ),
       ],
+    );
+  }
+
+  Future<dynamic> popUpButton() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          title: Text("Calender :"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [Text('put calender here, optional')],
+          ),
+        );
+      },
     );
   }
 }
