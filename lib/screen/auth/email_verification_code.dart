@@ -76,9 +76,9 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
         ),
       );
       saveUser(
-        widget.email,
         widget.fullname,
         widget.username,
+        widget.email,
         widget.age,
         widget.phonenumber,
         widget.userType,

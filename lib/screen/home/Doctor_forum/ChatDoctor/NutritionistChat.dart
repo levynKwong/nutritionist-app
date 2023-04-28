@@ -16,19 +16,38 @@ class NutritionistChat extends StatefulWidget {
 
 class _NutritionistChatState extends State<NutritionistChat> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<User> _users = [];
-
+  List<User1> _users = [];
+  String _email = '';
   @override
   void initState() {
     super.initState();
     _getUsers();
+    getEmail().then((email) {
+      setState(() {
+        _email = email;
+      });
+    });
+  }
+
+  Future<String> getEmail() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('email');
+    } else {
+      return 'email';
+    }
   }
 
   void _getUsers() async {
     QuerySnapshot snapshot = await _firestore.collection('Nutritionist').get();
 
-    List<User> users = snapshot.docs
-        .map((doc) => User.fromMap(doc.data() as Map<String, dynamic>))
+    List<User1> users = snapshot.docs
+        .map((doc) => User1.fromMap(doc.data() as Map<String, dynamic>))
         .toList();
 
     setState(() {
@@ -154,7 +173,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                     builder: (context) => WebViewScreen(
                                         url:
                                             'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                        email: _users[index].email),
+                                        email: _email),
                                   ),
                                 );
                               },
@@ -366,14 +385,14 @@ class _NutritionistChatState extends State<NutritionistChat> {
   }
 }
 
-class User {
+class User1 {
   final String username;
   final String address;
   final String email;
   final String phoneNumber;
   final String specialization;
 
-  User({
+  User1({
     required this.username,
     required this.address,
     required this.email,
@@ -381,7 +400,7 @@ class User {
     required this.specialization,
   });
 
-  factory User.fromMap(Map<String, dynamic> data) {
+  factory User1.fromMap(Map<String, dynamic> data) {
     String Specialization;
     if (data['specialization'] == '1') {
       Specialization = 'Sport Nutritionist';
@@ -394,7 +413,7 @@ class User {
     } else {
       Specialization = data['customSpecialization'];
     }
-    return User(
+    return User1(
       username: data['username'],
       address: data['address'],
       email: data['email'],

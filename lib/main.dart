@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: RegisterScreen(),
-      // home: AuthScreen(),
-      home: NutritionistHome(),
+      home: AuthScreen(),
+      // home: NutritionistHome(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
       // home: Home(),

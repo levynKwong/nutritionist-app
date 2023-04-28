@@ -12,6 +12,7 @@ Future<void> saveUser(String fullname, String username, String email,
     'email': email,
     'age': age,
     'phoneNumber': phonenumber,
+    'joinDate': DateTime.now(),
   };
 
   if (userType == 'Patient') {
@@ -46,6 +47,7 @@ Future<void> saveNutritionist(
     'specialization': specialization,
     'customSpecialization': customSpecialization,
     'gender': gender,
+    'joinDate': DateTime.now(),
   };
 
   if (userType == 'Patient') {
