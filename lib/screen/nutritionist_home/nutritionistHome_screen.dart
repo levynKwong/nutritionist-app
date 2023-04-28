@@ -7,7 +7,9 @@ import 'package:meal_aware/screen/home/profile/profilePage.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/dashboard.dart';
+import 'package:meal_aware/screen/nutritionist_home/form/form.dart';
 import 'package:meal_aware/screen/nutritionist_home/message/messageNutritionist.dart';
+import 'package:meal_aware/screen/nutritionist_home/profile/profilePageNutritionist.dart';
 
 class NutritionistHome extends StatefulWidget {
   const NutritionistHome({Key? key}) : super(key: key);
@@ -21,8 +23,10 @@ class _NutritionistHomeState extends State<NutritionistHome> {
   final screens = [
     dashboard(),
     messageClient(),
-    Center(child: Text('test3')),
-    Center(child: Text('test4')),
+    form(
+        url:
+            'https://docs.google.com/forms/d/1MESMGRewhTBSFpwVxISOy7dpYpO4V3Ve71sMQKEyqSY/edit'),
+    profileNutritionist(),
   ];
 
   @override
@@ -66,8 +70,8 @@ class _NutritionistHomeState extends State<NutritionistHome> {
                   text: 'Message',
                 ),
                 GButton(
-                  icon: Icons.face,
-                  text: 'Doctor Forum',
+                  icon: Icons.format_list_bulleted,
+                  text: 'Form',
                 ),
                 GButton(
                   icon: Icons.person,
