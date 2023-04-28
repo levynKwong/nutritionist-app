@@ -105,7 +105,7 @@ class DoctorForum extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(width_ * 0.0),
         image: DecorationImage(
-          image: AssetImage('images/heart.png'),
+          image: AssetImage('images/heart2.png'),
           fit: BoxFit.cover,
         ),
       ),
