@@ -37,11 +37,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: RegisterScreen(),
-      // home: AuthScreen(),
+      home: AuthScreen(),
+      // home: ChatScreen('2345254','test'),
       // home: NutritionistHome(),
       // home: const ParentAuth(),
       // home: Terms_and_condition()
-      home: Home(),
+      // home: Home(),
       // home: BookAppointmentService(),
       // home: NutritionistBookAppointment(),
       // home: NutritionistChat()

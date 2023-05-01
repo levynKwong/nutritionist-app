@@ -2,6 +2,7 @@ import 'dart:math' show Random;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
@@ -98,9 +99,9 @@ class _randomChatState extends State<randomChat> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatScreen(
-                          userId: randomUser!['fullname'],
-                          userName: randomUser!['username'],
+                        builder: (context) => ChatDetail(
+                          friendUid: randomUser!['uid'],
+                          friendName: randomUser!['username'],
                         ),
                       ),
                     );
