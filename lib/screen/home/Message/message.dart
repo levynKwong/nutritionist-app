@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/ChatScreen/ChatListScreen.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
@@ -18,6 +20,8 @@ class _messageState extends State<message> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -25,6 +29,7 @@ class _messageState extends State<message> {
           background(),
           topTitle(width_, height_),
           searchBar(width_, height_),
+          ChatListScreen(),
         ],
       ),
     );
