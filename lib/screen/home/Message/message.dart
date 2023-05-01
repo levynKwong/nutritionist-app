@@ -29,7 +29,7 @@ class _messageState extends State<message> {
           background(),
           topTitle(width_, height_),
           searchBar(width_, height_),
-          ChatListScreen(),
+          ChatList(),
         ],
       ),
     );
