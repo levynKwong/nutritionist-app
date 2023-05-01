@@ -23,6 +23,7 @@ class _ChatDetailState extends State<ChatDetail> {
   final String friendUid;
   final String friendName;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+  bool isTextFieldInFocus = false;
   var chatDocId;
   _ChatDetailState(this.friendUid, this.friendName);
   @override
@@ -69,14 +70,15 @@ class _ChatDetailState extends State<ChatDetail> {
             });
           }
 
-          // if (snapshot.connectionState == ConnectionState.waiting) {
-          //   return Container(
-          //     color: Colors.white,
-          //     child: Center(
-          //       child: CircularProgressIndicator(),
-          //     ),
-          //   );
-          // }
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              !isTextFieldInFocus) {
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
 
           if (snapshot.hasData) {
             return Scaffold(
@@ -150,6 +152,16 @@ class _ChatDetailState extends State<ChatDetail> {
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
                               child: TextFormField(
+                                onTap: () {
+                                  setState(() {
+                                    isTextFieldInFocus = true;
+                                  });
+                                },
+                                onFieldSubmitted: (_) {
+                                  setState(() {
+                                    isTextFieldInFocus = false;
+                                  });
+                                },
                                 controller: messageController,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 3,
