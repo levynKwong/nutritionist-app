@@ -1,6 +1,7 @@
 import 'dart:math' show Random;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
@@ -24,7 +25,7 @@ class _randomChatState extends State<randomChat> {
   @override
   void initState() {
     super.initState();
-    getUsersSnapshot();
+    getUsersSnapshot().then((value) => getRandomUser());
   }
 
   Future<void> getUsersSnapshot() async {
@@ -32,9 +33,12 @@ class _randomChatState extends State<randomChat> {
   }
 
   void getRandomUser() {
-    final int randomIndex = Random().nextInt(usersSnapshot.docs.length);
+    final availableUsers = List.from(usersSnapshot.docs);
+    availableUsers.removeWhere(
+        (user) => user.id == FirebaseAuth.instance.currentUser!.uid);
+    final randomIndex = Random().nextInt(availableUsers.length);
     setState(() {
-      randomUser = usersSnapshot.docs[randomIndex]
+      randomUser = availableUsers[randomIndex]
           as DocumentSnapshot<Map<String, dynamic>>?;
     });
   }
@@ -80,7 +84,21 @@ class _randomChatState extends State<randomChat> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-            onPressed: getRandomUser,
+            onPressed: () {
+              final previousUser = randomUser;
+              getRandomUser();
+              if (randomUser != null && randomUser != previousUser) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatDetail(
+                      friendUid: randomUser!['uid'],
+                      friendName: randomUser!['username'],
+                    ),
+                  ),
+                );
+              }
+            },
             style: ElevatedButton.styleFrom(
               minimumSize: Size(width_ * 0.3, 50),
               primary: const Color(0xFF575ecb), // set background color
@@ -91,31 +109,6 @@ class _randomChatState extends State<randomChat> {
             ),
             child: const Text('Find Random User'),
           ),
-          const SizedBox(height: 20),
-          randomUser == null
-              ? const SizedBox.shrink()
-              : ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatDetail(
-                          friendUid: randomUser!['uid'],
-                          friendName: randomUser!['username'],
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(width_ * 0.3, 50),
-                    primary: const Color(0xFF575ecb), // set background color
-                    onPrimary: Colors.white, // set text color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  child: const Text('Found One!'),
-                ),
         ],
       ),
     );
