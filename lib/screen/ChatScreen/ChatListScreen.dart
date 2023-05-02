@@ -17,8 +17,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
     return Container(
-      margin: EdgeInsets.only(top: 200, left: 20, right: 20),
+      margin: EdgeInsets.only(
+          top: height_ * 0.21, left: width_ * 0.025, right: width_ * 0.025),
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('chats')
@@ -92,22 +95,26 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
                   return Card(
                     child: Container(
-                      width: 300, // Set a fixed width for the container
+                      color: Color.fromARGB(255, 242, 243, 251),
+                      width:
+                          width_ * 0.2, // Set a fixed width for the container
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundImage:
                               NetworkImage('https://i.pravatar.cc/150?img=3'),
                         ),
-                        title: Text(friendName),
+                        title: Row(children: [
+                          Text(friendName),
+                          SizedBox(width: width_ * 0.4),
+                          Text(
+                            DateFormat.jm().format(lastMessageTime!),
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ]),
                         subtitle: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(lastMessage),
-                            SizedBox(width: 150),
-                            Text(
-                              DateFormat.jm().format(lastMessageTime!),
-                              style: TextStyle(color: Colors.grey),
-                            ),
                           ],
                         ),
                         onTap: () {
