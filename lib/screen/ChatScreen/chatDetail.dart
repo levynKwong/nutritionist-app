@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
 
@@ -29,22 +29,43 @@ class _ChatDetailState extends State<ChatDetail> {
   @override
   void initState() {
     super.initState();
-    chats
-        .where('users', isEqualTo: {friendUid: null, currentUserId: null})
-        .limit(1)
-        .get()
-        .then(
-          (QuerySnapshot querySnapshot) {
-            if (querySnapshot.docs.isNotEmpty) {
-              chatDocId = querySnapshot.docs.single.id;
-            } else {
-              chats.add({
-                'users': {currentUserId: null, friendUid: null}
-              }).then((value) => chatDocId = value);
-            }
-          },
-        )
-        .catchError((error) {});
+    _getChatDocId();
+  }
+
+  Future<void> _getChatDocId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final chatDocId = prefs.getString('chatDocId');
+
+    if (chatDocId != null) {
+      setState(() {
+        this.chatDocId = chatDocId;
+      });
+    } else {
+      final snapshot = await chats
+          .where('users', whereIn: [
+            [currentUserId, friendUid],
+            [friendUid, currentUserId],
+          ])
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        final docId = snapshot.docs.single.id;
+        setState(() {
+          this.chatDocId = docId;
+        });
+        prefs.setString('chatDocId', docId);
+      } else {
+        final docRef = await chats.add({
+          'users': [currentUserId, friendUid]
+        });
+        final docId = docRef.id;
+        setState(() {
+          this.chatDocId = docId;
+        });
+        prefs.setString('chatDocId', docId);
+      }
+    }
   }
 
   @override
@@ -204,11 +225,24 @@ class _ChatDetailState extends State<ChatDetail> {
 
   void sendMessage(String msg) {
     if (msg == '') return;
-    chats.doc(chatDocId).collection('messages').add({
+
+    // Get the chat document reference
+    final chatRef =
+        FirebaseFirestore.instance.collection('chats').doc(chatDocId);
+
+    // Add the message to the messages collection in the chat document
+    chatRef.collection('messages').add({
       'createdOn': FieldValue.serverTimestamp(),
       'uid': currentUserId,
-      'msg': msg
+      'msg': msg,
     }).then((value) {
+      // Update the lastMessage and lastMessageTime fields in the chat document
+      chatRef.update({
+        'lastMessage': msg,
+        'lastMessageTime': FieldValue.serverTimestamp(),
+      });
+
+      // Clear the message input field
       messageController.text = '';
     });
   }
