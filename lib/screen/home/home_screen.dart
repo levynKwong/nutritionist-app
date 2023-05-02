@@ -55,11 +55,10 @@ class _HomeState extends State<Home> {
               activeColor: Colors.white,
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              duration: Duration(milliseconds: 400),
+              duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: 15,
               tabActiveBorder: Border.all(color: Colors.white, width: 1),
-              curve: Curves.easeOutExpo,
               tabs: [
                 GButton(
                   icon: Icons.book,
