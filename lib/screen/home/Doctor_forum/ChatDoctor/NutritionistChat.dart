@@ -17,6 +17,7 @@ class NutritionistChat extends StatefulWidget {
 
 class _NutritionistChatState extends State<NutritionistChat> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   List<User1> _users = [];
   String _email = '';
   @override
@@ -126,6 +127,8 @@ class _NutritionistChatState extends State<NutritionistChat> {
   }
 
   Box(double width_, double height_) {
+    List<User1> shuffledUsers = _users.toList()..shuffle();
+    shuffledUsers = shuffledUsers.toSet().toList();
     return Container(
       margin: EdgeInsets.only(
         top: height_ * 0.21,
@@ -164,9 +167,8 @@ class _NutritionistChatState extends State<NutritionistChat> {
                       : ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: _users.length,
+                          itemCount: shuffledUsers.length,
                           itemBuilder: (BuildContext context, int index) {
-                            List shuffledUsers = _users.toList()..shuffle();
                             final user = shuffledUsers[index];
                             return GestureDetector(
                               onTap: () {
