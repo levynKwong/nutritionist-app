@@ -111,11 +111,10 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             style: TextStyle(color: Colors.grey),
                           ),
                         ]),
-                        subtitle: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(lastMessage),
-                          ],
+                        subtitle: Text(
+                          lastMessage,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         onTap: () {
                           Navigator.push(

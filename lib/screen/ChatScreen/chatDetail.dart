@@ -34,7 +34,6 @@ class _ChatDetailState extends State<ChatDetail> {
 
   Future<void> _getChatDocId() async {
     final prefs = await SharedPreferences.getInstance();
-    final chatDocId = prefs.getString('chatDocId');
 
     if (chatDocId != null) {
       setState(() {
