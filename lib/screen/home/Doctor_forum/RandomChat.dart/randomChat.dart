@@ -32,15 +32,21 @@ class _randomChatState extends State<randomChat> {
     usersSnapshot = await collectionRef.get();
   }
 
+  Set<String> selectedUserIds = Set<String>();
+
+  DocumentSnapshot<Map<String, dynamic>>? previousUser;
+
   void getRandomUser() {
     final availableUsers = List.from(usersSnapshot.docs);
-    availableUsers.removeWhere(
-        (user) => user.id == FirebaseAuth.instance.currentUser!.uid);
+    availableUsers.removeWhere((user) =>
+        user.id == FirebaseAuth.instance.currentUser!.uid ||
+        user == previousUser);
     final randomIndex = Random().nextInt(availableUsers.length);
     setState(() {
       randomUser = availableUsers[randomIndex]
           as DocumentSnapshot<Map<String, dynamic>>?;
     });
+    previousUser = randomUser;
   }
 
   @override

@@ -1,16 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/WebViewScreen.dart';
 
 class paymentChat extends StatefulWidget {
-  const paymentChat({super.key});
+  final String nutritionistId;
+
+  const paymentChat({Key? key, required this.nutritionistId}) : super(key: key);
 
   @override
-  State<paymentChat> createState() => _paymentChatState();
+  State<paymentChat> createState() => _paymentChatState(nutritionistId);
 }
 
 class _paymentChatState extends State<paymentChat> {
+  String nutritionistId;
+  _paymentChatState(this.nutritionistId);
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  String _email = '';
+  @override
+  void initState() {
+    super.initState();
+
+    getEmail().then((email) {
+      setState(() {
+        _email = email;
+      });
+    });
+  }
+
+  Future<String> getEmail() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+
+    final docSnapshot =
+        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('email');
+    } else {
+      return 'email';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -50,8 +87,10 @@ class _paymentChatState extends State<paymentChat> {
     return Container(
       margin: EdgeInsets.only(bottom: height_ * 0.74, left: width_ * 0.05),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text5(text: 'payment screen'),
+          topRightCounter(),
         ],
       ),
     );
@@ -114,7 +153,46 @@ class _paymentChatState extends State<paymentChat> {
         ),
         SizedBox(width: width_ * 0.1),
         ElevatedButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(width_ * 0.03),
+                  ),
+                  title: Text('Confirm Payment'),
+                  content: Text(
+                      'Confirm your payment, 1 coin will be deducted from your account'),
+                  actions: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Close'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => WebViewScreen(
+                                    url:
+                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                                    email: _email),
+                              ),
+                            );
+                            deductCoin(context, nutritionistId);
+                          },
+                          child: Text('Confirm'),
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }),
           style: ElevatedButton.styleFrom(
             minimumSize: Size(width_ * 0.3, 50),
             primary: Color(0xFF575ecb), // set background color
@@ -142,7 +220,7 @@ class _paymentChatState extends State<paymentChat> {
 
   Widget content(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.18),
+      margin: EdgeInsets.only(top: height_ * 0.20),
       child: Column(
         children: [
           Container(

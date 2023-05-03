@@ -6,6 +6,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/WebViewScreen.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
 
 class NutritionistChat extends StatefulWidget {
   const NutritionistChat({super.key});
@@ -168,14 +169,18 @@ class _NutritionistChatState extends State<NutritionistChat> {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => WebViewScreen(
-                                        url:
-                                            'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                        email: _email),
-                                  ),
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => paymentChat(
+                                              nutritionistId: _users[index].uid,
+                                            ))
+
+                                    //   WebViewScreen(
+                                    //       url:
+                                    //           'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                                    //       email: _email),
+                                    // ),
+                                    );
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(
@@ -391,6 +396,7 @@ class User1 {
   final String email;
   final String phoneNumber;
   final String specialization;
+  final String uid;
 
   User1({
     required this.username,
@@ -398,6 +404,7 @@ class User1 {
     required this.email,
     required this.phoneNumber,
     required this.specialization,
+    required this.uid,
   });
 
   factory User1.fromMap(Map<String, dynamic> data) {
@@ -419,6 +426,7 @@ class User1 {
       email: data['email'],
       phoneNumber: data['phoneNumber'],
       specialization: Specialization,
+      uid: data['uid'],
     );
   }
 }

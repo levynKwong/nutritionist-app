@@ -30,6 +30,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xFF989efd),
         title: Text('Google Form'),
+        automaticallyImplyLeading: false,
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(url: Uri.parse(urlWithEmail)),
@@ -50,8 +51,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
   }
 
   void _onFormSubmitted() {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => paymentChat(),
-    ));
+    //   Navigator.of(context).push(MaterialPageRoute(
+    //     builder: (context) => paymentChat(),
+    //   ));
   }
 }
