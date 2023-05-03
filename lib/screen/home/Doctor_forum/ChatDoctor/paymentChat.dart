@@ -10,16 +10,20 @@ import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/WebViewScreen.dar
 
 class paymentChat extends StatefulWidget {
   final String nutritionistId;
-
-  const paymentChat({Key? key, required this.nutritionistId}) : super(key: key);
+  final String nutritionistName;
+  const paymentChat(
+      {Key? key, required this.nutritionistId, required this.nutritionistName})
+      : super(key: key);
 
   @override
-  State<paymentChat> createState() => _paymentChatState(nutritionistId);
+  State<paymentChat> createState() =>
+      _paymentChatState(nutritionistId, nutritionistName);
 }
 
 class _paymentChatState extends State<paymentChat> {
   String nutritionistId;
-  _paymentChatState(this.nutritionistId);
+  String nutritionistName;
+  _paymentChatState(this.nutritionistId, this.nutritionistName);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String _email = '';
@@ -179,9 +183,12 @@ class _paymentChatState extends State<paymentChat> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => WebViewScreen(
-                                    url:
-                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                    email: _email),
+                                  url:
+                                      'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                                  email: _email,
+                                  nutritionistId: nutritionistId,
+                                  nutritionistName: nutritionistName,
+                                ),
                               ),
                             );
                             deductCoin(context, nutritionistId);

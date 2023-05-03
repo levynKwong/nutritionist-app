@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // Deduct 1 coin from the current user's account and create a new payment document
-void deductCoin(BuildContext context, String nutritionistId) async {
+void deductCoin(
+  BuildContext context,
+  String nutritionistId,
+) async {
   User? user = _auth.currentUser;
   if (user != null) {
     String userId = user.uid;

@@ -177,6 +177,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                     MaterialPageRoute(
                                         builder: (context) => paymentChat(
                                               nutritionistId: user.uid,
+                                              nutritionistName: user.username,
                                             )));
                               },
                               child: Container(
