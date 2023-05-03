@@ -166,21 +166,16 @@ class _NutritionistChatState extends State<NutritionistChat> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: _users.length,
                           itemBuilder: (BuildContext context, int index) {
+                            List shuffledUsers = _users.toList()..shuffle();
+                            final user = shuffledUsers[index];
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => paymentChat(
-                                              nutritionistId: _users[index].uid,
-                                            ))
-
-                                    //   WebViewScreen(
-                                    //       url:
-                                    //           'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                    //       email: _email),
-                                    // ),
-                                    );
+                                              nutritionistId: user.uid,
+                                            )));
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(
@@ -212,7 +207,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Dr ' + _users[index].username,
+                                          'Dr ' + user.username,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: width_ * 0.045,
@@ -223,7 +218,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                           height: height_ * 0.01,
                                         ),
                                         Text(
-                                          _users[index].address,
+                                          user.address,
                                           style: TextStyle(
                                             color: Color.fromARGB(255, 0, 0, 0),
                                             fontSize: width_ * 0.04,
@@ -233,7 +228,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                           height: height_ * 0.01,
                                         ),
                                         Text(
-                                          _users[index].specialization,
+                                          user.specialization,
                                           style: TextStyle(
                                             color: Color.fromARGB(255, 0, 0, 0),
                                             fontSize: width_ * 0.04,
@@ -261,19 +256,15 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                                         ),
                                                         title: Text('Review'),
                                                         content: Text('Dr. ' +
-                                                            _users[index]
-                                                                .username +
+                                                            user.username +
                                                             ' is a ' +
-                                                            _users[index]
-                                                                .specialization +
+                                                            user.specialization +
                                                             '\n\n' +
                                                             'Contact no: ' +
-                                                            _users[index]
-                                                                .phoneNumber +
+                                                            user.phoneNumber +
                                                             '\n\n' +
                                                             'Email: ' +
-                                                            _users[index]
-                                                                .email),
+                                                            user.email),
                                                         actions: [
                                                           TextButton(
                                                               onPressed: () {
@@ -315,19 +306,15 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                                         title:
                                                             Text('More info'),
                                                         content: Text('Dr. ' +
-                                                            _users[index]
-                                                                .username +
+                                                            user.username +
                                                             ' is a ' +
-                                                            _users[index]
-                                                                .specialization +
+                                                            user.specialization +
                                                             '\n\n' +
                                                             'Contact no: ' +
-                                                            _users[index]
-                                                                .phoneNumber +
+                                                            user.phoneNumber +
                                                             '\n\n' +
                                                             'Email: ' +
-                                                            _users[index]
-                                                                .email),
+                                                            user.email),
                                                         actions: [
                                                           TextButton(
                                                               onPressed: () {
