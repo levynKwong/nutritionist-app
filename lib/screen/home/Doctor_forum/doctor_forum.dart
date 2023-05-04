@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
 
@@ -21,15 +23,31 @@ class DoctorForum extends StatelessWidget {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
+      appBar: AppBar(
+        title: Text("Doctor's Forum"),
+        backgroundColor: getColor(),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          NotificationWidget(),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          background(),
-          _buildTitleBar(width_, height_),
-          _buildImage(width_, height_),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: height_ * 0.05,
+          SizedBox(height: height_ * 0.07),
+          Container(
+            width: double.infinity,
+            height: height_ * 0.3,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/doctor_forum.png'),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          SizedBox(height: height_ * 0.05),
+          Container(
+            padding: EdgeInsets.only(left: width_ * 0.05, right: width_ * 0.05),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -91,22 +109,6 @@ class DoctorForum extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildImage(double width_, double height_) {
-    return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.18, left: width_ * 0.1, right: width_ * 0.1),
-      width: width_ * 0.9,
-      height: height_ * 0.30,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(width_ * 0.0),
-        image: DecorationImage(
-          image: AssetImage('images/heart2.png'),
-          fit: BoxFit.cover,
         ),
       ),
     );

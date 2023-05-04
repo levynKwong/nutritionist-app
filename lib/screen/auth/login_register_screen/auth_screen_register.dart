@@ -1,19 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/login.dart';
-import 'package:meal_aware/screen/auth/auth_parent.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/auth_parent.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 
-class ParentAuth extends StatefulWidget {
-  ParentAuth({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _ParentAuthState createState() => _ParentAuthState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _ParentAuthState extends State<ParentAuth> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final choiceController = TextEditingController();
   final fullnameController = TextEditingController();
@@ -91,14 +91,6 @@ class _ParentAuthState extends State<ParentAuth> {
                                       fontSize: width_ * 0.04,
                                     ),
                                   ),
-                                  SizedBox(height: height_ * 0.02),
-                                  Text(
-                                    'Since you are under 18, you need to have \n\a parent or a guardian to register you.',
-                                    style: TextStyle(
-                                      fontSize: width_ * 0.05,
-                                      color: Color.fromARGB(255, 197, 51, 40),
-                                    ),
-                                  ),
                                   // add additional widgets here if needed
                                 ],
                               ),
@@ -115,7 +107,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                   children: [
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
-                                        labelText: 'Patient',
+                                        labelText: 'Patient | Nutritionist',
                                         prefixIcon: Icon(Icons.account_circle),
                                         border: OutlineInputBorder(),
                                       ),
@@ -124,6 +116,10 @@ class _ParentAuthState extends State<ParentAuth> {
                                         DropdownMenuItem(
                                           value: 'Patient',
                                           child: Text('Patient'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'Nutritionist',
+                                          child: Text('Nutritionist'),
                                         ),
                                       ],
                                       onChanged: (String? newValue) {
@@ -141,31 +137,44 @@ class _ParentAuthState extends State<ParentAuth> {
                                     SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
-                                        labelText: 'Enter the age of the child',
+                                        labelText: 'Age Range',
                                         prefixIcon: Icon(Icons.date_range),
                                         border: OutlineInputBorder(),
                                       ),
                                       value: _selectedAge,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '4',
-                                          child: Text('1-5'),
+                                          value: '1',
+                                          child: Text('1-18'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '5',
-                                          child: Text('6-10'),
+                                          value: '2',
+                                          child: Text('19-50'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '6',
-                                          child: Text('11-15'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '7',
-                                          child: Text('16-18'),
+                                          value: '3',
+                                          child: Text('50+'),
                                         ),
                                       ],
                                       onChanged: (String? newValue) {
                                         // Do something with the new value
+                                        if (newValue == '1') {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ParentAuth()),
+                                          );
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'You are under 18. you need to have a parent or a guardian to register you.'),
+                                              duration: Duration(seconds: 4),
+                                            ),
+                                          );
+                                        }
 
                                         setState(() {
                                           _selectedAge = newValue;
@@ -182,8 +191,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                     TextFormField(
                                       controller: fullnameController,
                                       decoration: InputDecoration(
-                                        labelText:
-                                            'Enter the child\'s\ Full Name',
+                                        labelText: 'Full Name',
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
@@ -201,8 +209,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                     TextFormField(
                                       controller: usernameController,
                                       decoration: InputDecoration(
-                                        labelText:
-                                            'Enter the child\'s\ Username',
+                                        labelText: 'Username',
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
@@ -233,7 +240,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                                "^\\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]\\s*")
                                             .hasMatch(value)) {
                                           return ("Please Enter a valid email");
                                         }
@@ -244,7 +251,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                     TextFormField(
                                       controller: phonenumberController,
                                       decoration: InputDecoration(
-                                        labelText: 'Your PhoneNumber',
+                                        labelText: 'PhoneNumber',
                                         prefixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(),
                                       ),
@@ -276,6 +283,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         if (!regex.hasMatch(value)) {
                                           return ("Enter (6 to 32 Characters) valid password");
                                         }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.02),
@@ -294,6 +302,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         if (value != passwordController.text) {
                                           return ("Passwords do not match");
                                         }
+                                        return null;
                                       },
                                     ),
                                   ],
@@ -313,14 +322,7 @@ class _ParentAuthState extends State<ParentAuth> {
                           SizedBox(height: height_ * 0.01),
                           GestureDetector(
                             onTap: () {
-                              register(
-                                fullnameController.text,
-                                usernameController.text,
-                                emailController.text,
-                                _selectedAge ?? '',
-                                phonenumberController.text,
-                                passwordController.text,
-                              );
+                              //  Handle the tap event.
                             },
                             child: Text(
                               'Terms and Conditions',
@@ -412,25 +414,45 @@ class _ParentAuthState extends State<ParentAuth> {
               password: password,
             )
             .then((value) => {
-                  // saveUser(fullname, username, email, age, phonenumber),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const DoctorForum()),
                       (_) => false),
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EmailVerificationCode(
-                          email: email,
-                          fullname: fullname,
-                          username: username,
-                          age: age,
-                          phonenumber: phonenumber,
-                          userType: _selectedUserType!),
-                    ),
-                  ),
+                  if (_selectedUserType == 'Nutritionist')
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NutritionistAdditionalDetail(
+                              email: email,
+                              fullname: fullname,
+                              username: username,
+                              age: age,
+                              phonenumber: phonenumber,
+                              userType: _selectedUserType!),
+                        ),
+                      ),
+                    }
+                  else if (_selectedUserType == 'Patient')
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EmailVerificationCode(
+                              email: email,
+                              fullname: fullname,
+                              username: username,
+                              age: age,
+                              phonenumber: phonenumber,
+                              userType: _selectedUserType!),
+                        ),
+                      ),
+                    }
                 });
+        setState(() {
+          _isLoading = false;
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           setState(() {

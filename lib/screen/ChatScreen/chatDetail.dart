@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
@@ -113,7 +114,7 @@ class _ChatDetailState extends State<ChatDetail> {
                     Text('${widget.friendName}'),
                   ],
                 ),
-                backgroundColor: Color(0xFF989efd),
+                backgroundColor: getColor(),
                 actions: [
                   IconButton(
                     icon: Icon(Icons.report),

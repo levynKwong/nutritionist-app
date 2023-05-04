@@ -11,14 +11,14 @@ import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatListScreenNut
 
 import '../Doctor_forum/RandomChat.dart/randomChat.dart';
 
-class message extends StatefulWidget {
-  const message({super.key});
+class messageNutritionist extends StatefulWidget {
+  const messageNutritionist({super.key});
 
   @override
-  State<message> createState() => _messageState();
+  State<messageNutritionist> createState() => _messageNutritionistState();
 }
 
-class _messageState extends State<message> {
+class _messageNutritionistState extends State<messageNutritionist> {
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -56,7 +56,7 @@ class _messageState extends State<message> {
         ),
         child: Stack(
           children: [
-            ChatListScreen(),
+            ChatListScreenNutritionist(),
           ],
         ),
       ),

@@ -6,7 +6,7 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/auth/auth_screen_register.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 
 class EmailVerificationCode extends StatefulWidget {

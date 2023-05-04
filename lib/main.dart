@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:meal_aware/screen/auth/auth_parent.dart';
-import 'package:meal_aware/screen/auth/login.dart';
-import 'package:meal_aware/screen/auth/auth_screen_register.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/auth_parent.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';

@@ -21,7 +21,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
     final double height_ = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.only(
-          top: height_ * 0.21, left: width_ * 0.025, right: width_ * 0.025),
+          top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('chats')

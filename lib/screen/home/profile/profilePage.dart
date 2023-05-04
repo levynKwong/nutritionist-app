@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/login.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
 
@@ -43,11 +43,7 @@ class _profileState extends State<profile> {
           width: double.infinity,
           height: height_ * 1.8,
           child: Stack(
-            children: [
-              background(),
-              topContent(height_, width_),
-              Content(width_, height_)
-            ],
+            children: [topContent(height_, width_), Content(width_, height_)],
           ),
         ),
       ),
@@ -375,7 +371,7 @@ class _profileState extends State<profile> {
                 ),
               ),
               VerticalDivider(
-                color: Color(0xFFd9f2ff),
+                color: Color.fromARGB(255, 146, 146, 146),
                 thickness: 1,
                 width: 8,
               ),

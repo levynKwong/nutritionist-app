@@ -1,19 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/login.dart';
-import 'package:meal_aware/screen/auth/auth_parent.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
+import 'package:meal_aware/screen/auth/login_register_screen/auth_parent.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
 
-class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class ParentAuth extends StatefulWidget {
+  ParentAuth({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _ParentAuthState createState() => _ParentAuthState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _ParentAuthState extends State<ParentAuth> {
   final _formKey = GlobalKey<FormState>();
   final choiceController = TextEditingController();
   final fullnameController = TextEditingController();
@@ -91,6 +91,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       fontSize: width_ * 0.04,
                                     ),
                                   ),
+                                  SizedBox(height: height_ * 0.02),
+                                  Text(
+                                    'Since you are under 18, you need to have \n\a parent or a guardian to register you.',
+                                    style: TextStyle(
+                                      fontSize: width_ * 0.05,
+                                      color: Color.fromARGB(255, 197, 51, 40),
+                                    ),
+                                  ),
                                   // add additional widgets here if needed
                                 ],
                               ),
@@ -107,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   children: [
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
-                                        labelText: 'Patient | Nutritionist',
+                                        labelText: 'Patient',
                                         prefixIcon: Icon(Icons.account_circle),
                                         border: OutlineInputBorder(),
                                       ),
@@ -116,10 +124,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         DropdownMenuItem(
                                           value: 'Patient',
                                           child: Text('Patient'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: 'Nutritionist',
-                                          child: Text('Nutritionist'),
                                         ),
                                       ],
                                       onChanged: (String? newValue) {
@@ -137,44 +141,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
-                                        labelText: 'Age Range',
+                                        labelText: 'Enter the age of the child',
                                         prefixIcon: Icon(Icons.date_range),
                                         border: OutlineInputBorder(),
                                       ),
                                       value: _selectedAge,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '1',
-                                          child: Text('1-18'),
+                                          value: '4',
+                                          child: Text('1-5'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '2',
-                                          child: Text('19-50'),
+                                          value: '5',
+                                          child: Text('6-10'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '3',
-                                          child: Text('50+'),
+                                          value: '6',
+                                          child: Text('11-15'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '7',
+                                          child: Text('16-18'),
                                         ),
                                       ],
                                       onChanged: (String? newValue) {
                                         // Do something with the new value
-                                        if (newValue == '1') {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ParentAuth()),
-                                          );
-
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  'You are under 18. you need to have a parent or a guardian to register you.'),
-                                              duration: Duration(seconds: 4),
-                                            ),
-                                          );
-                                        }
 
                                         setState(() {
                                           _selectedAge = newValue;
@@ -191,7 +182,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     TextFormField(
                                       controller: fullnameController,
                                       decoration: InputDecoration(
-                                        labelText: 'Full Name',
+                                        labelText:
+                                            'Enter the child\'s\ Full Name',
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
@@ -209,7 +201,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     TextFormField(
                                       controller: usernameController,
                                       decoration: InputDecoration(
-                                        labelText: 'Username',
+                                        labelText:
+                                            'Enter the child\'s\ Username',
                                         prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
@@ -240,7 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                "^\\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]\\s*")
+                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                             .hasMatch(value)) {
                                           return ("Please Enter a valid email");
                                         }
@@ -251,7 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     TextFormField(
                                       controller: phonenumberController,
                                       decoration: InputDecoration(
-                                        labelText: 'PhoneNumber',
+                                        labelText: 'Your PhoneNumber',
                                         prefixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(),
                                       ),
@@ -283,7 +276,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (!regex.hasMatch(value)) {
                                           return ("Enter (6 to 32 Characters) valid password");
                                         }
-                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.02),
@@ -302,7 +294,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (value != passwordController.text) {
                                           return ("Passwords do not match");
                                         }
-                                        return null;
                                       },
                                     ),
                                   ],
@@ -322,7 +313,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(height: height_ * 0.01),
                           GestureDetector(
                             onTap: () {
-                              //  Handle the tap event.
+                              register(
+                                fullnameController.text,
+                                usernameController.text,
+                                emailController.text,
+                                _selectedAge ?? '',
+                                phonenumberController.text,
+                                passwordController.text,
+                              );
                             },
                             child: Text(
                               'Terms and Conditions',
@@ -414,45 +412,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
+                  // saveUser(fullname, username, email, age, phonenumber),
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const DoctorForum()),
                       (_) => false),
-                  if (_selectedUserType == 'Nutritionist')
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NutritionistAdditionalDetail(
-                              email: email,
-                              fullname: fullname,
-                              username: username,
-                              age: age,
-                              phonenumber: phonenumber,
-                              userType: _selectedUserType!),
-                        ),
-                      ),
-                    }
-                  else if (_selectedUserType == 'Patient')
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EmailVerificationCode(
-                              email: email,
-                              fullname: fullname,
-                              username: username,
-                              age: age,
-                              phonenumber: phonenumber,
-                              userType: _selectedUserType!),
-                        ),
-                      ),
-                    }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EmailVerificationCode(
+                          email: email,
+                          fullname: fullname,
+                          username: username,
+                          age: age,
+                          phonenumber: phonenumber,
+                          userType: _selectedUserType!),
+                    ),
+                  ),
                 });
-        setState(() {
-          _isLoading = false;
-        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           setState(() {
