@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
-import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/email_verification_code.dart';
@@ -34,124 +31,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      // Set scaffold's background color to transparent
-      body: Container(
-        // Wrap the body in a container to add a gradient background
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF5e8eea),
-              Color.fromARGB(255, 214, 225, 249),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -50,
-              right: -130,
-              child: Container(
-                width: 250,
-                height: 250,
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(0, 81, 100, 153),
-                      Color(0xFFe884d0),
-                    ],
-                    radius: 1,
-                    center: Alignment(1, -1),
-                  ),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: -40,
-              left: -100,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(255, 255, 255, 255),
-                      Color(0xFF9553ac),
-                    ],
-                    radius: 1,
-                    center: Alignment(-1, 1),
-                  ),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Text(
-                    'MeA',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: MediaQuery.of(context).size.width * 0.20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  Text(
-                    'MealAware Company Ltd',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: MediaQuery.of(context).size.width * 0.05,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  Form(
-                    key: _formKey,
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Stack(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(height: height_ * 0.05),
+                Container(
+                  color: Colors.transparent,
+                  child: Column(
+                    children: [
+                      Text(
+                        'MeA',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 99, 144, 228),
+                          fontSize: width_ * 0.20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: height_ * 0.01),
+                      Text(
+                        'MealAware Company Ltd',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 128, 164, 231),
+                          fontSize: width_ * 0.05,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: height_ * 0.02),
+                      Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.all(16.0),
-                            padding: EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                              // border: Border.all(
-                              //   color: Color.fromARGB(255, 136, 136, 136),
-                              //   width: 3.0,
-                              // ),
-                              color: Color.fromARGB(183, 214, 228, 239),
-                              borderRadius: BorderRadius.circular(50.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(255, 207, 207, 207)
-                                      .withOpacity(0.3),
-                                  spreadRadius: 3,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.001),
-                                    Text(
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.0),
+                            child: Container(
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
                                       'Register',
                                       style: TextStyle(
                                         fontSize:
@@ -160,22 +83,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.009),
-                                    Text(
-                                      'Create an account to continue',
-                                      style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.04,
-                                      ),
+                                  ),
+                                  SizedBox(height: height_ * 0.02),
+                                  Text(
+                                    'Create an account to continue',
+                                    style: TextStyle(
+                                      fontSize: width_ * 0.04,
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                  ),
+                                  // add additional widgets here if needed
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: height_ * 0.02),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                width_ * 0.08, 0, width_ * 0.08, 0),
+                            child: Form(
+                              key: _formKey,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Patient | Nutritionist',
@@ -205,10 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Age Range',
@@ -261,10 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     TextFormField(
                                       controller: fullnameController,
                                       decoration: InputDecoration(
@@ -282,10 +205,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     TextFormField(
                                       controller: usernameController,
                                       decoration: InputDecoration(
@@ -306,10 +226,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     TextFormField(
                                       controller: emailController,
                                       decoration: InputDecoration(
@@ -330,10 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     TextFormField(
                                       controller: phonenumberController,
                                       decoration: InputDecoration(
@@ -352,10 +266,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     TextFormField(
                                       obscureText: true,
                                       controller: passwordController,
@@ -375,10 +286,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
+                                    SizedBox(height: height_ * 0.02),
                                     TextFormField(
                                       controller: confirmpasswordController,
                                       obscureText: true,
@@ -397,157 +305,98 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    Text(
-                                      'By pressing "submit" you agree to our',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.03,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        //  Handle the tap event.
-                                      },
-                                      child: Text(
-                                        'Terms and Conditions',
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 196, 20, 20),
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.04,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.male,
-                                          color: Colors.grey,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.13,
-                                        ),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.1),
-                                        Icon(
-                                          Icons.female,
-                                          color: Colors.grey,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.13,
-                                        ),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.1),
-                                        Icon(
-                                          Icons.transgender,
-                                          color: Colors.grey,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.13,
-                                        ),
-                                      ],
-                                    ),
                                   ],
                                 ),
                               ),
                             ),
                           ),
-                          Center(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    register(
-                                      fullnameController.text,
-                                      usernameController.text,
-                                      emailController.text,
-                                      _selectedAge ?? '',
-                                      phonenumberController.text,
-                                      passwordController.text,
-                                    );
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.12,
-                                    height: MediaQuery.of(context).size.width *
-                                        0.12,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(50.0),
-                                      child: Icon(
-                                        Icons.chevron_right,
-                                        color: Colors.black,
-                                      ),
-                                    ),
+                          SizedBox(height: height_ * 0.02),
+                          Text(
+                            'By pressing "submit" you agree to our',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.03,
+                            ),
+                          ),
+                          SizedBox(height: height_ * 0.01),
+                          GestureDetector(
+                            onTap: () {
+                              //  Handle the tap event.
+                            },
+                            child: Text(
+                              'Terms and Conditions',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 196, 20, 20),
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.04,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: height_ * 0.02),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                width_ * 0.08, 0, width_ * 0.08, 0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                register(
+                                  fullnameController.text,
+                                  usernameController.text,
+                                  emailController.text,
+                                  _selectedAge ?? '',
+                                  phonenumberController.text,
+                                  passwordController.text,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(
+                                    0xFF6889c6), // sets the background color of the button
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: height_ * 0.06,
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontSize: width_ * 0.05,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
                           ),
+                          SizedBox(height: height_ * 0.01),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => (Login()),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'or back to login',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 25, 25, 25),
+                                fontSize: width_ * 0.040,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: height_ * 0.02),
                         ],
-                      ),
-                    ),
+                      )
+                    ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => (Login()),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'or back to login',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: MediaQuery.of(context).size.width * 0.045,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
