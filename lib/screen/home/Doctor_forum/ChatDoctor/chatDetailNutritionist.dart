@@ -22,7 +22,8 @@ class ChatDetailNutritionist extends StatefulWidget {
 
 class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   final messageController = TextEditingController();
-  CollectionReference chats = FirebaseFirestore.instance.collection('chats');
+  CollectionReference chats =
+      FirebaseFirestore.instance.collection('chatNutritionist');
   final String friendUid;
   final String friendName;
 
@@ -79,7 +80,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     final double width_ = MediaQuery.of(context).size.width;
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection("chats")
+            .collection("chatNutritionist")
             .doc(chatDocId)
             .collection("messages")
             .orderBy("createdOn", descending: true)
@@ -244,8 +245,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     if (msg == '') return;
 
     // Get the chat document reference
-    final chatRef =
-        FirebaseFirestore.instance.collection('chats').doc(chatDocId);
+    final chatRef = FirebaseFirestore.instance
+        .collection('chatNutritionist')
+        .doc(chatDocId);
 
     // Add the message to the messages collection in the chat document
     chatRef.collection('messages').add({

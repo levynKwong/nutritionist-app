@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/ChatScreen/ChatListScreen.dart';
-import 'package:meal_aware/screen/ChatScreen/ChatListScreenNutritionist.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatListScreenNutritionist.dart';
 
 class messageClient extends StatefulWidget {
   const messageClient({super.key});
@@ -24,8 +24,8 @@ class _messageClientState extends State<messageClient> {
             height: height_ * 0.01,
           ),
           searchBar(width_, height_),
-          ChatListScreen(),
-          ChatListScreenNutritionist(),
+          // ChatListScreenNutritionist(),
+          // ChatListScreen(),
         ],
       ),
     );

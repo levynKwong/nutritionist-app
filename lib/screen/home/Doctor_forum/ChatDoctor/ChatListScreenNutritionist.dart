@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 import 'dart:async';
 
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/chatDetailNutritionist.dart';
+
 class ChatListScreenNutritionist extends StatefulWidget {
   const ChatListScreenNutritionist({Key? key}) : super(key: key);
 
@@ -23,10 +25,10 @@ class _ChatListScreenNutritionistState
     final double height_ = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.only(
-          top: height_ * 0.21, left: width_ * 0.025, right: width_ * 0.025),
+          top: height_ * 0.36, left: width_ * 0.025, right: width_ * 0.025),
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('chats')
+            .collection('chatNutritionist')
             .where('users', arrayContains: currentUserId)
             .orderBy('lastMessageTime', descending: true)
             .snapshots(),
@@ -106,8 +108,8 @@ class _ChatListScreenNutritionistState
                               NetworkImage('https://i.pravatar.cc/150?img=3'),
                         ),
                         title: Row(children: [
-                          Text("Dr " + friendName),
-                          SizedBox(width: width_ * 0.4),
+                          Text('Dr ' + friendName),
+                          SizedBox(width: width_ * 0.35),
                           Text(
                             DateFormat.jm().format(lastMessageTime!),
                             style: TextStyle(color: Colors.grey),
@@ -122,7 +124,7 @@ class _ChatListScreenNutritionistState
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ChatDetail(
+                              builder: (context) => ChatDetailNutritionist(
                                 friendUid: friendUid,
                                 friendName: friendName,
                               ),
