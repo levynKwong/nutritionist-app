@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/login.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
-import 'package:meal_aware/screen/auth/auth_screen.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
@@ -137,7 +137,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AuthScreen(),
+                builder: (context) => Login(),
               ),
             );
           },

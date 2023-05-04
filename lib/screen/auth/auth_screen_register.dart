@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/auth/login.dart';
 import 'package:meal_aware/screen/auth/auth_parent.dart';
 import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
@@ -531,7 +531,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => (AuthScreen()),
+                          builder: (context) => (Login()),
                         ),
                       );
                     },

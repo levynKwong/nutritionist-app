@@ -1,470 +1,417 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
-import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
-import 'package:meal_aware/screen/auth/auth_screen.dart';
+import 'package:meal_aware/screen/auth/auth_screen_register.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
+import 'package:meal_aware/screen/auth/forgotPassword.dart';
+// import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
-class profile extends StatefulWidget {
-  const profile({super.key});
+class Login extends StatefulWidget {
+  Login({Key? key});
 
   @override
-  State<profile> createState() => _profileState();
+  State<Login> createState() => _LoginState();
 }
 
-class _profileState extends State<profile> {
+class _LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isLoading = false;
+
+  String error = "";
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          height: height_ * 1.4,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              background(),
-              cover(width_, height_),
-              topTitle(height_, width_),
-              buildProfileHeader(width_, height_),
-              topRow(width_, height_),
-              dividingLine1(width_, height_, 0.46),
-              bottomRow(width_, height_),
-              dividingLine1(width_, height_, 0.21),
-              selector(height_, width_),
-              dividingLine2(width_, height_, 1.22),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget logout(double height_) => Container(
-        margin: EdgeInsets.only(top: height_ * 0.014),
-        child: TextButton.icon(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AuthScreen(),
-              ),
-            );
-          },
-          icon: Icon(Icons.power_settings_new,
-              color: Colors.red), // Add your icon here
-          label: Text(
-            'Logout',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 233, 58, 58),
-            ),
-          ),
-        ),
-      );
-
-  Widget selector(double height_, double width_) => Container(
-        margin: EdgeInsets.only(
-            top: height_ * 0.6, left: width_ * 0.12, right: width_ * 0.1),
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all<Size>(
-                  Size(width_ * 0.8, height_ * 0.07),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'images/tokenIcon.png',
-                    height: height_ * 0.1,
-                    width: width_ * 0.1,
-                  ),
-                  SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Buy Token',
-                    style: TextStyle(
-                      fontSize: width_ * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all<Size>(
-                  Size(width_ * 0.8, height_ * 0.07),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'images/tokenIcon.png',
-                    height: height_ * 0.1,
-                    width: width_ * 0.1,
-                  ),
-                  SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Purchase History',
-                    style: TextStyle(
-                      fontSize: width_ * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            divider(),
-            list(height_, width_, 'Age', '18-50', 0.37, 0.11),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Gender', 'Female', 0.28, 0.11),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Country', 'Moderately Active', 0.08, 0.11),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Height', '1m 70cm', 0.26, 0.11),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Current Body Weight', '60kg', 0.02, 0.114),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Target Body Weight', '55kg', 0.04, 0.114),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'No of Meal per day', '3', 0.12, 0.114),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Body Goal', 'Muscle Gain', 0.12, 0.114),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Activity Level', 'Moderately Active', 0.001,
-                0.05),
-            SizedBox(width: height_ * 0.2),
-            list(height_, width_, 'Dietary Preference\n\or restrictions ',
-                'Vegetarian', 0.02, 0.05),
-            SizedBox(width: height_ * 0.2),
-            logout(height_),
-          ],
-        ),
-      );
-  Widget list(double height_, double width_, String text1, String text2,
-      double space1, double space2) {
-    return SingleChildScrollView(
-      child: Row(
-        children: [
-          // SizedBox(width: height_ * 0.1),
-          Text(
-            text1,
-            style: TextStyle(
-                fontSize: width_ * 0.05,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-          SizedBox(width: width_ * space1),
-          TextButton(
-            onPressed: () {},
-            child: Row(
+    return
+        // Set scaffold's background color to transparent
+        SafeArea(
+      child: MaterialApp(
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: Stack(
               children: [
-                Text(
-                  text2,
-                  style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 86, 86, 86)),
-                ),
-                SizedBox(width: width_ * space2),
-                Icon(Icons.arrow_forward_ios,
-                    color: Color.fromARGB(255, 86, 86, 86),
-                    size: width_ * 0.04),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget topTitle(double height_, double width_) {
-    return Container(
-      margin: EdgeInsets.only(bottom: height_ * 1.15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Profile',
-            style: TextStyle(
-                fontSize: width_ * 0.06,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          SizedBox(height: height_ * 0.01),
-          Text(
-            'Your Name',
-            style: TextStyle(
-                fontSize: width_ * 0.1,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          SizedBox(height: height_ * 0.01),
-          Text(
-            'Username',
-            style: TextStyle(
-                fontSize: width_ * 0.05,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 132, 132, 132)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget cover(double width_, double height_) => Positioned(
-        top: height_ * -0.50,
-        right: width_ * -0.06,
-        child: Container(
-          width: width_ * 1.1,
-          height: height_ * 1.1,
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              colors: [
-                Color(0xFF9584ff),
-                Color(0xFF8ce4ff),
-              ],
-              radius: 1,
-              center: Alignment(0, 1),
-            ),
-            shape: BoxShape.circle,
-          ),
-        ),
-      );
-
-  Widget buildProfileHeader(double width_, double height_) => Column(
-        children: [
-          SizedBox(height: width_ * 0.44),
-          Stack(
-            children: [
-              buildProfileImage(width_, height_),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
+                Container(
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey[300],
+                    image: DecorationImage(
+                      image: AssetImage("images/doctor_holdingPhone.png"),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment(0, -1),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height:
+                            MediaQuery.of(context).padding.top + kToolbarHeight,
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).padding.top),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              'WELCOME,',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 255, 255,
+                                    255), // The color of the text
+                                fontSize: 25.0, // The size of the text
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.001),
+                      Text(
+                        'MeA',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 99, 144, 228),
+                          fontSize: MediaQuery.of(context).size.width * 0.20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        'MealAware Company Ltd',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 128, 164, 231),
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.04),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.57,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(16.0),
+                              padding: EdgeInsets.all(16.0),
+                              decoration: BoxDecoration(
+                                // border: Border.all(
+                                //   color: Color.fromARGB(255, 136, 136, 136),
+                                //   width: 3.0,
+                                // ),
+                                color: Color.fromARGB(183, 214, 228, 239),
+                                borderRadius: BorderRadius.circular(50.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 207, 207, 207)
+                                        .withOpacity(0.3),
+                                    spreadRadius: 3,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
+                                  Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.08,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                  Text(
+                                    'To your account to continue',
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.03),
+                                  Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          controller: emailController,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          onSaved: (newValue) {
+                                            emailController.text = newValue!;
+                                          },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please Enter Your Email';
+                                            }
+                                            if (!RegExp(
+                                                    '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+                                                .hasMatch(value)) {
+                                              return 'Please enter a valid email';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: 'Email',
+                                            prefixIcon: Icon(Icons.email),
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02),
+                                        TextFormField(
+                                          controller: passwordController,
+                                          autofocus: false,
+                                          obscureText: true,
+                                          onSaved: (newValue) {
+                                            passwordController.text = newValue!;
+                                          },
+                                          validator: (value) {
+                                            RegExp regex = RegExp(r'^.{6,32}$');
+                                            if (value!.isEmpty) {
+                                              return 'Password is required for login';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Password must be between 6 and 32 characters';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: 'Password',
+                                            prefixIcon: Icon(Icons.lock),
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    (ForgotPasswordScreen()),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'forgot password?',
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.04,
+                                              color: Color.fromARGB(
+                                                  255, 199, 53, 43),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.02),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.male,
+                                        color: Colors.grey,
+                                        size:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1),
+                                      Icon(
+                                        Icons.female,
+                                        color: Colors.grey,
+                                        size:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1),
+                                      Icon(
+                                        Icons.transgender,
+                                        color: Colors.grey,
+                                        size:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                ],
+                              ),
+                            ),
+                            Center(
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      login(emailController.text,
+                                          passwordController.text);
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.12,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.12,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: InkWell(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        child: Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => (RegisterScreen()),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'or Sign Up with',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 25, 25, 25),
+                            fontSize: MediaQuery.of(context).size.width * 0.045,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
-      );
+        ),
+      ),
+    );
+  }
 
-  Widget buildProfileImage(double width_, double height_) => CircleAvatar(
-        radius: width_ * 0.18,
-        backgroundColor: Color.fromARGB(255, 130, 130, 130),
-        child: CircleAvatar(
-          radius: width_ * 0.16,
-          backgroundColor: Colors.white,
-          backgroundImage: NetworkImage('https://picsum.photos/250?image=9'),
-        ),
-      );
+  void login(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(() {
+          _isLoading = true;
+        });
 
-  Widget topRow(double width_, double height_) => Container(
-        margin: EdgeInsets.only(
-            bottom: height_ * 0.55, left: width_ * 0.1, right: width_ * 0.1),
-        child: IntrinsicHeight(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      'Age',
-                      style: title,
-                    ),
-                    SizedBox(height: height_ * 0.01),
-                    Text(
-                      '20',
-                      style: subtitle,
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: height_ * 0.01),
-              VerticalDivider(
-                color: Color(0xFFd9f2ff),
-                thickness: 1,
-                width: 8,
-              ),
-              SizedBox(height: height_ * 0.01),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      'Status',
-                      style: title,
-                    ),
-                    SizedBox(height: height_ * 0.01),
-                    Text(
-                      'Patient',
-                      style: subtitle,
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: height_ * 0.01),
-              VerticalDivider(
-                color: Color(0xFFd9f2ff),
-                thickness: 1,
-                width: 8,
-              ),
-              SizedBox(height: height_ * 0.01),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      'Gender',
-                      style: title,
-                    ),
-                    SizedBox(height: height_ * 0.01),
-                    Text(
-                      'Female',
-                      style: subtitle,
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+        await Future.delayed(Duration(seconds: 1)); // Simulate a delay
 
-  Widget bottomRow(double width_, double height_) => Container(
-        margin: EdgeInsets.only(
-          bottom: height_ * 0.34,
-          left: width_ * 0.1,
-          right: width_ * 0.1,
-        ),
-        child: IntrinsicHeight(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Row(
-                        children: [
-                          SizedBox(width: width_ * 0.04),
-                          Image.asset(
-                            'images/token_.png',
-                            width: width_ * 0.08,
-                            height: height_ * 0.08,
-                            fit: BoxFit.scaleDown,
-                          ),
-                          SizedBox(width: width_ * 0.04),
-                          Text(
-                            'Token',
-                            style: title,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: height_ * 0.0001),
-                    Center(
-                      child: Text(
-                        '1',
-                        style: subtitle,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: width_ * 0.04),
-              VerticalDivider(
-                color: Color(0xFFd9f2ff),
-                thickness: 1,
-                width: 8,
-              ),
-              SizedBox(width: width_ * 0.04),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Row(
-                        children: [
-                          SizedBox(width: width_ * 0.04),
-                          Image.asset(
-                            'images/token_.png',
-                            width: width_ * 0.08,
-                            height: height_ * 0.08,
-                            fit: BoxFit.scaleDown,
-                          ),
-                          SizedBox(width: width_ * 0.04),
-                          Text(
-                            'Orders',
-                            style: title,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: height_ * 0.0001),
-                    Center(
-                      child: Text(
-                        '1',
-                        style: subtitle,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        if (credential.user != null) {
+          // Check the role of the user
+          final patientDoc = await FirebaseFirestore.instance
+              .collection('Patient')
+              .doc(credential.user!.uid)
+              .get();
+          final nutritionistDoc = await FirebaseFirestore.instance
+              .collection('Nutritionist')
+              .doc(credential.user!.uid)
+              .get();
 
-  Widget dividingLine1(double width_, double height_, double height) =>
-      Container(
-        margin: EdgeInsets.only(
-          bottom: height_ * height,
-          left: width_ * 0.1,
-          right: width_ * 0.1,
-        ),
-        child: Divider(
-          color: Color(0xFFd9f2ff),
-          thickness: 1,
-        ),
-      );
-  Widget dividingLine2(double width_, double height_, double height) =>
-      Container(
-        margin: EdgeInsets.only(
-          top: height_ * height,
-          left: width_ * 0.1,
-          right: width_ * 0.1,
-        ),
-        child: Divider(
-          color: Color.fromARGB(255, 112, 112, 112),
-          thickness: 1,
-        ),
-      );
-  TextStyle title = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-    decoration: TextDecoration.none,
-  );
-
-  TextStyle subtitle = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.normal,
-    color: Color.fromARGB(255, 0, 0, 0),
-    decoration: TextDecoration.none,
-  );
+          if (patientDoc.exists) {
+            // Redirect to the patient screen
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+              (_) => false,
+            );
+          } else if (nutritionistDoc.exists) {
+            // Redirect to the nutritionist screen
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const NutritionistHome()),
+              (_) => false,
+            );
+          }
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Invalid Email or Password'),
+              duration: const Duration(seconds: 3),
+            ),
+          );
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
 }
