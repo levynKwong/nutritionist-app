@@ -57,7 +57,6 @@ class _LoginState extends State<Login> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: height_ * 0.01),
                       Text(
                         'MealAware Company Ltd',
                         style: TextStyle(
@@ -80,7 +79,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(height: height_ * 0.02),
+                      SizedBox(height: height_ * 0.01),
                       Column(
                         children: [
                           Padding(
@@ -95,9 +94,7 @@ class _LoginState extends State<Login> {
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.08,
+                                        fontSize: width_ * 0.08,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -107,7 +104,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                          SizedBox(height: height_ * 0.05),
+                          SizedBox(height: height_ * 0.015),
                           Container(
                             padding: EdgeInsets.fromLTRB(
                                 width_ * 0.08, 0, width_ * 0.08, 0),
