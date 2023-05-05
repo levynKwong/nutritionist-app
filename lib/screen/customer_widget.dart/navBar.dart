@@ -88,6 +88,19 @@ class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         IconButton(
             icon: Icon(
+              Icons.more_time,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return TimeAvailability();
+                },
+              );
+            }),
+        IconButton(
+            icon: Icon(
               Icons.calendar_today,
               color: Color.fromARGB(255, 255, 255, 255),
             ),
@@ -139,4 +152,62 @@ Future<dynamic> popUpButton(BuildContext context) {
       );
     },
   );
+}
+
+class TimeAvailability extends StatefulWidget {
+  @override
+  _TimeAvailabilityState createState() => _TimeAvailabilityState();
+}
+
+class _TimeAvailabilityState extends State<TimeAvailability> {
+  List<bool> _timesAvailable = List.generate(12, (_) => true);
+  Color _activeColor = getColor();
+  Color _inactiveColor = Colors.grey;
+
+  void _toggleTimeAvailability(int index) {
+    setState(() {
+      _timesAvailable[index] = !_timesAvailable[index];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Time Availability'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(12, (index) {
+            final time = TimeOfDay(hour: index + 6, minute: 0);
+            final formattedTime = time.format(context);
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(formattedTime),
+                Switch(
+                  value: _timesAvailable[index],
+                  activeColor: _activeColor,
+                  inactiveThumbColor: _inactiveColor,
+                  onChanged: (value) {
+                    _toggleTimeAvailability(index);
+                  },
+                ),
+              ],
+            );
+          }),
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.red, // change the color here
+          ),
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
 }

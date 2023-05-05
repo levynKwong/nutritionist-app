@@ -16,25 +16,36 @@ class _dashboardState extends State<dashboard> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        appBar: appBarTopCal(
-          titleText: 'DashBoard',
-        ), // add the AppBar
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: height_ * 0.1,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: appBarTopCal(titleText: 'Dashboard'),
+      body: Stack(
+        children: [
+          // Image.asset(
+          //   'images/dashboard_background.png', // path to local image file
+          //   fit: BoxFit
+          //       .cover, // specify how the image should be resized to fit into the available space
+          //   width: width_,
+          //   height: height_,
+          // ),
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height_ * 0.02,
+                  ),
+                  info(width_, height_),
+                  SizedBox(
+                    height: height_ * 0.02,
+                  ),
+                  info2(width_, height_),
+                  client(width_, height_),
+                ],
               ),
-              info(width_, height_),
-              SizedBox(
-                height: height_ * 0.1,
-              ),
-              client(width_, height_),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -260,13 +271,13 @@ class _dashboardState extends State<dashboard> {
               SizedBox(
                 width: width_ * 0.04,
               ),
-              MaterialButton(
+              Expanded(
+                child: MaterialButton(
                   onPressed: () {},
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   color: Color.fromARGB(255, 255, 255, 255),
-                  minWidth: width_ * 0.40,
                   height: height_ * 0.10,
                   child: Row(
                     children: [
@@ -275,8 +286,8 @@ class _dashboardState extends State<dashboard> {
                         height: height_ * 0.035, // set desired height of image
                         child: Image.asset(
                           'images/appointment.png', // path to local image file
-                          fit: BoxFit
-                              .cover, // specify how the image should be resized to fit into the available space
+                          fit: BoxFit.cover,
+                          // specify how the image should be resized to fit into the available space
                         ),
                       ),
                       SizedBox(
@@ -311,82 +322,91 @@ class _dashboardState extends State<dashboard> {
                         ],
                       )
                     ],
-                  )),
+                  ),
+                ),
+              ),
               SizedBox(
                 width: width_ * 0.03,
               ),
-              MaterialButton(
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  minWidth: width_ * 0.44,
-                  height: height_ * 0.10,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width_ * 0.07, // set desired width of image
-                        height: height_ * 0.03, // set desired height of image
-                        child: Image.asset(
-                          'images/add-group.png', // path to local image file
-                          fit: BoxFit
-                              .cover, // specify how the image should be resized to fit into the available space
+              Expanded(
+                child: MaterialButton(
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    height: height_ * 0.10,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: width_ * 0.07, // set desired width of image
+                          height: height_ * 0.03, // set desired height of image
+                          child: Image.asset(
+                            'images/add-group.png', // path to local image file
+                            fit: BoxFit.cover,
+                            // specify how the image should be resized to fit into the available space
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: width_ * 0.05,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'New Client',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.035,
-                              fontWeight: FontWeight.bold,
+                        SizedBox(
+                          width: width_ * 0.05,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'New Client',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: width_ * 0.035,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            '10',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.05,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              '10',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: width_ * 0.05,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'This month',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 125, 125, 125),
-                              fontSize: width_ * 0.04,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              'This month',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 125, 125, 125),
+                                fontSize: width_ * 0.04,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
+                          ],
+                        )
+                      ],
+                    )),
+              ),
               SizedBox(
                 width: width_ * 0.04,
               ),
             ],
-          ),
-          SizedBox(
-            height: height_ * 0.02,
-          ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget info2(double width_, double height_) {
+    return Container(
+      child: Column(
+        children: [
           Row(
             children: [
               SizedBox(
                 width: width_ * 0.04,
               ),
-              MaterialButton(
+              Expanded(
+                child: MaterialButton(
                   onPressed: () {},
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   color: Color.fromARGB(255, 255, 255, 255),
-                  minWidth: width_ * 0.44,
                   height: height_ * 0.10,
                   child: Row(
                     children: [
@@ -394,68 +414,13 @@ class _dashboardState extends State<dashboard> {
                         width: width_ * 0.07, // set desired width of image
                         height: height_ * 0.035, // set desired height of image
                         child: Image.asset(
-                          'images/file.png', // path to local image file
-                          fit: BoxFit
-                              .cover, // specify how the image should be resized to fit into the available space
-                        ),
-                      ),
-                      SizedBox(
-                        width: width_ * 0.05,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Text Message',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.035,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '10',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.05,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Total: 28',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 125, 125, 125),
-                              fontSize: width_ * 0.04,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
-              SizedBox(
-                width: width_ * 0.03,
-              ),
-              MaterialButton(
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  minWidth: width_ * 0.44,
-                  height: height_ * 0.10,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width_ * 0.07, // set desired width of image
-                        height: height_ * 0.03, // set desired height of image
-                        child: Image.asset(
                           'images/customer.png', // path to local image file
-                          fit: BoxFit
-                              .cover, // specify how the image should be resized to fit into the available space
+                          fit: BoxFit.cover,
+                          // specify how the image should be resized to fit into the available space
                         ),
                       ),
                       SizedBox(
-                        width: width_ * 0.05,
+                        width: width_ * 0.03,
                       ),
                       Column(
                         children: [
@@ -476,7 +441,7 @@ class _dashboardState extends State<dashboard> {
                             ),
                           ),
                           Text(
-                            'left ',
+                            'Left',
                             style: TextStyle(
                               color: Color.fromARGB(255, 125, 125, 125),
                               fontSize: width_ * 0.04,
@@ -486,7 +451,66 @@ class _dashboardState extends State<dashboard> {
                         ],
                       )
                     ],
-                  )),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: width_ * 0.03,
+              ),
+              Expanded(
+                child: MaterialButton(
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    height: height_ * 0.10,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: width_ * 0.07, // set desired width of image
+                          height:
+                              height_ * 0.035, // set desired height of image
+                          child: Image.asset(
+                            'images/customer.png', // path to local image file
+                            fit: BoxFit.cover,
+                            // specify how the image should be resized to fit into the available space
+                          ),
+                        ),
+                        SizedBox(
+                          width: width_ * 0.03,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Client Countert',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: width_ * 0.035,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '10',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: width_ * 0.05,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Left',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 125, 125, 125),
+                                fontSize: width_ * 0.04,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+              ),
               SizedBox(
                 width: width_ * 0.04,
               ),

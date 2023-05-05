@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Message/message.dart';
@@ -36,41 +37,41 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     return Scaffold(
       body: Stack(
         children: [
-          background(),
           screens[_currentIndex],
         ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF989efd), // set navigation bar background color
+          color: getColor(), // set navigation bar background color
           boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8)
           ],
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(
+                horizontal: width_ * 0.02, vertical: height_ * 0.01),
             child: GNav(
-              gap: 8,
+              gap: width_ * 0.01,
               activeColor: Colors.white,
-              iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              duration: Duration(milliseconds: 400),
+              iconSize: width_ * 0.07,
+              padding: EdgeInsets.symmetric(
+                  horizontal: width_ * 0.02, vertical: height_ * 0.01),
+              duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
-              tabBorderRadius: 15,
+              tabBorderRadius: width_ * 0.03,
               tabActiveBorder: Border.all(color: Colors.white, width: 1),
-              curve: Curves.easeOutExpo,
               tabs: [
                 GButton(
                   icon: Icons.home,
-                  text: 'Home',
+                  text: 'Dashboard',
                 ),
                 GButton(
                   icon: Icons.message,
-                  text: 'Message',
+                  text: 'Message Friend',
                 ),
                 GButton(
-                  icon: Icons.format_list_bulleted,
+                  icon: Icons.list,
                   text: 'Form',
                 ),
                 GButton(
