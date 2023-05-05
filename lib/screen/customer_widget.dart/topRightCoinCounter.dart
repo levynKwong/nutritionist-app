@@ -58,7 +58,7 @@ class _topRightCounterState extends State<topRightCounter> {
     final double height_ = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.only(
-        top: height_ * 0.04,
+        top: height_ * 0.02,
         // left: width_ * 0.8,
         right: width_ * 0.02,
       ),

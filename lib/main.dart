@@ -19,6 +19,7 @@ import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
+import 'screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
 
 void main() async {
@@ -37,53 +38,54 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // home: RegisterScreen(),
-        // home: Login(),
-        // home: ChatScreen('2345254','test'),
-        // home: NutritionistHome(),
-        // home: const ParentAuth(),
-        // home: Terms_and_condition()
-        // home: Home(),
-        // home: BookAppointmentService(),
-        // home: NutritionistBookAppointment(),
-        // home: NutritionistChat()
-        // home: ChatDoctorReg(),
-        // home: token_top(),
-        // home: test_home(),
-        // home: DoctorForum(),
-        // home: NotificationWidget(),
-        // home: GetCoin(),
-        home: paymentChat(
-      nutritionistId: '',
-      nutritionistName: '',
-    )
-        // home: EmailVerificationCode(
-        //   email: '',
-        //   age: '',
-        //   fullname: '',
-        //   phonenumber: '',
-        //   userType: '',
-        //   username: '',
-        // ),
-        // home: NutritionistAdditionalDetail(
-        //     email: '',
-        //     fullname: '',
-        //     username: '',
-        //     age: '',
-        //     phonenumber: '',
-        //     userType: ''),
-        //   home: confirmationNutritionist(
-        //       email: '',
-        //       fullname: '',
-        //       username: '',
-        //       age: '',
-        //       phonenumber: '',
-        //       userType: '',
-        //       address: '',
-        //       specialization: '',
-        //       customSpecialization: '',
-        //       workExperience: '',
-        //       gender: ''),
-        );
+      // home: RegisterScreen(),
+      home: Login(),
+      // home: ChatScreen('2345254','test'),
+      // home: NutritionistHome(),
+      // home: const ParentAuth(),
+      // home: Terms_and_condition()
+      // home: Home(),
+      // home: BookAppointmentService(),
+      // home: NutritionistBookAppointment(),
+      // home: NutritionistChat()
+      // home: ChatDoctorReg(),
+      // home: token_top(),
+      // home: test_home(),
+      // home: DoctorForum(),
+      // home: NotificationWidget(),
+      // home: SelectionDate(),
+      // home: GetCoin(),
+      //     home: paymentChat(
+      //   nutritionistId: '',
+      //   nutritionistName: '',
+      // )
+      // home: EmailVerificationCode(
+      //   email: '',
+      //   age: '',
+      //   fullname: '',
+      //   phonenumber: '',
+      //   userType: '',
+      //   username: '',
+      // ),
+      // home: NutritionistAdditionalDetail(
+      //     email: '',
+      //     fullname: '',
+      //     username: '',
+      //     age: '',
+      //     phonenumber: '',
+      //     userType: ''),
+      //   home: confirmationNutritionist(
+      //       email: '',
+      //       fullname: '',
+      //       username: '',
+      //       age: '',
+      //       phonenumber: '',
+      //       userType: '',
+      //       address: '',
+      //       specialization: '',
+      //       customSpecialization: '',
+      //       workExperience: '',
+      //       gender: ''),
+    );
   }
 }

@@ -1,632 +1,311 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 
-import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
-import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
-import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
-
-class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class ColorChangingButton extends StatefulWidget {
+  final Color defaultColor;
+  final Color selectedColor;
+  final String text;
+  final Function onPressed;
+  final dynamic value;
+  final dynamic groupValue;
+  const ColorChangingButton({
+    Key? key,
+    required this.defaultColor,
+    required this.selectedColor,
+    required this.text,
+    required this.onPressed,
+    required this.value,
+    required this.groupValue,
+  }) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _ColorChangingButtonState createState() => _ColorChangingButtonState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final choiceController = TextEditingController();
-  final fullnameController = TextEditingController();
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final ageController = TextEditingController();
-  final phonenumberController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmpasswordController = TextEditingController();
-
-  String error = "";
-  bool _isLoading = false;
-  String? _selectedUserType;
-  String? _selectedAge;
-
+class _ColorChangingButtonState extends State<ColorChangingButton> {
+  bool _isSelected = false;
+  String? _selectedText;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      // Set scaffold's background color to transparent
-      body: Container(
-        // Wrap the body in a container to add a gradient background
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF5e8eea),
-              Color.fromARGB(255, 214, 225, 249),
+    final isSelected = widget.value == widget.groupValue;
+    _isSelected = isSelected;
+    final color = _isSelected ? widget.selectedColor : widget.defaultColor;
+
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          widget.onPressed(widget.value);
+        });
+      },
+      child: Text(widget.text),
+      style: ElevatedButton.styleFrom(
+        primary: color,
+      ),
+    );
+  }
+}
+
+class selectionDate extends StatefulWidget {
+  const selectionDate({super.key});
+
+  @override
+  State<selectionDate> createState() => _selectionDateState();
+}
+
+class _selectionDateState extends State<selectionDate> {
+  int? _selectedValue;
+
+  DateTime today = DateTime.now();
+  late CalendarFormat _calendarFormat;
+  late DateTime _selectedDay;
+  late DateTime _focusedDay;
+
+  @override
+  void initState() {
+    super.initState();
+    final now = DateTime.now();
+    _focusedDay = DateTime(now.year, now.month, now.day);
+    _selectedDay = _focusedDay;
+    _calendarFormat = CalendarFormat.month;
+  }
+
+  void _onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      _selectedDay = day;
+      _focusedDay = focusedDay; // You also need to update the focused day
+    });
+  }
+
+  TimeButton(double width_, double height_) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ColorChangingButton(
+                defaultColor: Color(0xFF8F8F8F),
+                selectedColor: Color(0xFF676ef1),
+                text: '8.00',
+                onPressed: (value) {
+                  setState(() {
+                    _selectedValue = value;
+                  });
+                },
+                value: 1,
+                groupValue: _selectedValue,
+              ),
+              SizedBox(width: width_ * 0.05),
+              ColorChangingButton(
+                defaultColor: Color(0xFF8F8F8F),
+                selectedColor: Color(0xFF676ef1),
+                text: '9.30',
+                onPressed: (value) {
+                  setState(() {
+                    _selectedValue = value;
+                  });
+                },
+                value: 2,
+                groupValue: _selectedValue,
+              ),
+              SizedBox(width: width_ * 0.05),
+              ColorChangingButton(
+                defaultColor: Color(0xFF8F8F8F),
+                selectedColor: Color(0xFF676ef1),
+                text: '11.00',
+                onPressed: (value) {
+                  setState(() {
+                    _selectedValue = value;
+                  });
+                },
+                value: 3,
+                groupValue: _selectedValue,
+              ),
             ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
           ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -50,
-              right: -130,
-              child: Container(
-                width: 250,
-                height: 250,
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(0, 81, 100, 153),
-                      Color(0xFFe884d0),
-                    ],
-                    radius: 1,
-                    center: Alignment(1, -1),
-                  ),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: -40,
-              left: -100,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(255, 255, 255, 255),
-                      Color(0xFF9553ac),
-                    ],
-                    radius: 1,
-                    center: Alignment(-1, 1),
-                  ),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Text(
-                    'MeA',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: MediaQuery.of(context).size.width * 0.20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  Text(
-                    'MealAware Company Ltd',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: MediaQuery.of(context).size.width * 0.05,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  Form(
-                    key: _formKey,
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Stack(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(16.0),
-                            padding: EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                              // border: Border.all(
-                              //   color: Color.fromARGB(255, 136, 136, 136),
-                              //   width: 3.0,
-                              // ),
-                              color: Color.fromARGB(183, 214, 228, 239),
-                              borderRadius: BorderRadius.circular(50.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(255, 207, 207, 207)
-                                      .withOpacity(0.3),
-                                  spreadRadius: 3,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.001),
-                                    Text(
-                                      'Register',
-                                      style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.08,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.009),
-                                    Text(
-                                      'Create an account to continue',
-                                      style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.04,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Patient | Nutritionist',
-                                        prefixIcon: Icon(Icons.account_circle),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      value: _selectedUserType,
-                                      items: [
-                                        DropdownMenuItem(
-                                          value: 'Patient',
-                                          child: Text('Patient'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: 'Nutritionist',
-                                          child: Text('Nutritionist'),
-                                        ),
-                                      ],
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          _selectedUserType = newValue;
-                                        });
-                                      },
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please select your user type';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Age Range',
-                                        prefixIcon: Icon(Icons.date_range),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      value: _selectedAge,
-                                      items: [
-                                        DropdownMenuItem(
-                                          value: '1',
-                                          child: Text('1-18'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '2',
-                                          child: Text('19-50'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '3',
-                                          child: Text('50+'),
-                                        ),
-                                      ],
-                                      onChanged: (String? newValue) {
-                                        // Do something with the new value
-                                        if (newValue == '1') {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           ParentAuth()),
-                                          // );
-
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  'You are under 18. you need to have a parent or a guardian to register you.'),
-                                              duration: Duration(seconds: 4),
-                                            ),
-                                          );
-                                        }
-
-                                        setState(() {
-                                          _selectedAge = newValue;
-                                        });
-                                      },
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please select your age range';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    TextFormField(
-                                      controller: fullnameController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Full Name',
-                                        prefixIcon: Icon(Icons.person),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Please enter your full name';
-                                        } else if (!RegExp(r"^[a-zA-Z\s]+$")
-                                            .hasMatch(value)) {
-                                          return 'Please enter a valid name';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    TextFormField(
-                                      controller: usernameController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Username',
-                                        prefixIcon: Icon(Icons.person),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return ("Please enter a username");
-                                        }
-                                        // reg expression for email validation
-                                        if (!RegExp(
-                                                "^(?=.{3,8})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
-                                            .hasMatch(value)) {
-                                          return ("Please Enter a valid username (3 to 8 Characters)");
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    TextFormField(
-                                      controller: emailController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Email',
-                                        prefixIcon: Icon(Icons.email),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return ("Please Enter Your Email");
-                                        }
-                                        // reg expression for email validation
-                                        if (!RegExp(
-                                                "^\\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]\\s*")
-                                            .hasMatch(value)) {
-                                          return ("Please Enter a valid email");
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    TextFormField(
-                                      controller: phonenumberController,
-                                      decoration: InputDecoration(
-                                        labelText: 'PhoneNumber',
-                                        prefixIcon: Icon(Icons.phone),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter a phone number';
-                                        }
-                                        if (!RegExp(r'^\+?[0-9]{7,9}$')
-                                            .hasMatch(value)) {
-                                          return 'Please enter a valid phone number';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    TextFormField(
-                                      obscureText: true,
-                                      controller: passwordController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Password',
-                                        prefixIcon: Icon(Icons.lock),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      validator: (value) {
-                                        RegExp regex = new RegExp(r'^.{6,32}$');
-                                        if (value!.isEmpty) {
-                                          return ("Password is required for registration");
-                                        }
-                                        if (!regex.hasMatch(value)) {
-                                          return ("Enter (6 to 32 Characters) valid password");
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    TextFormField(
-                                      controller: confirmpasswordController,
-                                      obscureText: true,
-                                      decoration: InputDecoration(
-                                        labelText: 'Confirm Password',
-                                        prefixIcon: Icon(Icons.lock),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return ("Please confirm your password");
-                                        }
-                                        if (value != passwordController.text) {
-                                          return ("Passwords do not match");
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    Text(
-                                      'By pressing "submit" you agree to our',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.03,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        //  Handle the tap event.
-                                      },
-                                      child: Text(
-                                        'Terms and Conditions',
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 196, 20, 20),
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.04,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.male,
-                                          color: Colors.grey,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.13,
-                                        ),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.1),
-                                        Icon(
-                                          Icons.female,
-                                          color: Colors.grey,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.13,
-                                        ),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.1),
-                                        Icon(
-                                          Icons.transgender,
-                                          color: Colors.grey,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.13,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    register(
-                                      fullnameController.text,
-                                      usernameController.text,
-                                      emailController.text,
-                                      _selectedAge ?? '',
-                                      phonenumberController.text,
-                                      passwordController.text,
-                                    );
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.12,
-                                    height: MediaQuery.of(context).size.width *
-                                        0.12,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(50.0),
-                                      child: Icon(
-                                        Icons.chevron_right,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  TextButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => (Login()),
-                      //   ),
-                      // );
-                    },
-                    child: Text(
-                      'or back to login',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: MediaQuery.of(context).size.width * 0.045,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          SizedBox(height: height_ * 0.05),
+          Container(
+            child: (() {
+              switch (_selectedValue) {
+                case 1:
+                  return Text('Selected time: 8.00');
+                case 2:
+                  return Text('Selected time: 9.30');
+                case 3:
+                  return Text('Selected time: 11.00');
+                default:
+                  return Text('Selected time: ');
+              }
+            })(),
+          ),
+        ],
       ),
     );
   }
 
-  void register(String fullname, String username, String email, String age,
-      String phonenumber, String password) async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-        final credential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-              email: email,
-              password: password,
-            )
-            .then((value) => {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DoctorForum()),
-                      (_) => false),
-                  if (_selectedUserType == 'Nutritionist')
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NutritionistAdditionalDetail(
-                              email: email,
-                              fullname: fullname,
-                              username: username,
-                              age: age,
-                              phonenumber: phonenumber,
-                              userType: _selectedUserType!),
-                        ),
-                      ),
-                    }
-                  else if (_selectedUserType == 'Patient')
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EmailVerificationCode(
-                              email: email,
-                              fullname: fullname,
-                              username: username,
-                              age: age,
-                              phonenumber: phonenumber,
-                              userType: _selectedUserType!),
-                        ),
-                      ),
-                    }
-                });
-        setState(() {
-          _isLoading = false;
-        });
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          setState(() {
-            _isLoading = false;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('The password provided is too weak.'),
-                duration: Duration(seconds: 3)));
-          });
-        } else if (e.code == 'email-already-in-use') {
-          setState(() {
-            _isLoading = false;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('The account already exists for that email.'),
-                duration: Duration(seconds: 3)));
-          });
-        }
-      } catch (e) {
-        setState(() {
-          _isLoading = false;
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('An unexpected error occurred, please try again'),
-              duration: Duration(seconds: 3)));
-        });
-      }
-    }
+  @override
+  Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          background(),
+          topTitle(width_, height_),
+          topSubTitle(width_, height_),
+          calendar(width_, height_),
+          buttons(height_, width_),
+        ],
+      ),
+    );
+  }
+
+  topTitle(double width_, double height_) {
+    return Container(
+      margin: EdgeInsets.only(bottom: height_ * 0.82, left: width_ * 0.05),
+      child: Row(
+        children: [
+          Text6(text: 'Select Date and Time'),
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: NotificationWidget(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  topSubTitle(double width_, double height_) {
+    return Container(
+      margin: EdgeInsets.only(bottom: height_ * 0.74, left: width_ * 0.05),
+      child: Row(
+        children: [
+          Text5(text: 'Select the time to visit Dr.Amelia'),
+        ],
+      ),
+    );
+  }
+
+  NutritionistService(double width_, double height_) {
+    return Container(
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {
+              print('Button pressed');
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: height_ * 0.032, horizontal: width_ * 0.07),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'images/nutritionist.png',
+                    width: width_ * 0.2,
+                    height: height_ * 0.06,
+                  ),
+                  SizedBox(height: height_ * 0.01),
+                  Text7(text: 'Nutritionist'),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buttons(double height_, double width_) {
+    return Container(
+        margin: EdgeInsets.only(top: height_ * 0.9),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(width_ * 0.3, 50),
+                primary: Color(0xFF575ecb), // set background color
+                onPrimary: Colors.white, // set text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: Text('        Back       '),
+            ),
+            SizedBox(
+                width: width_ * 0.15), // add some spacing between the buttons
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => paymentAppointment(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(width_ * 0.3, 50),
+                primary: Color(0xFF575ecb), // set background color
+                onPrimary: Colors.white, // set text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: Text('         Next         '),
+            ),
+          ],
+        ));
+  }
+
+  Widget calendar(double width_, double height_) {
+    return Container(
+      margin: EdgeInsets.only(top: height_ * 0.16),
+      child: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Container(
+              child: TableCalendar(
+                locale: 'en_US',
+                rowHeight: height_ * 0.052, //43
+                headerStyle:
+                    HeaderStyle(formatButtonVisible: true, titleCentered: true),
+                selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
+                onDaySelected: _onDaySelected,
+                focusedDay: _focusedDay,
+                firstDay: DateTime.utc(2010, 10, 16),
+                lastDay: DateTime.utc(2030, 3, 14),
+                calendarStyle: CalendarStyle(
+                  defaultTextStyle: const TextStyle(color: Colors.black),
+                  todayTextStyle:
+                      const TextStyle(color: Color.fromARGB(255, 54, 82, 244)),
+                ),
+              ),
+            ),
+            Text5(text: 'Selected day: ${_selectedDay.toLocal()}'),
+            SizedBox(height: height_ * 0.06),
+            Container(
+              margin: EdgeInsets.only(right: width_ * 0.45),
+              child: Text5(text: 'SLOTS AVAILABLE :'),
+            ),
+            SizedBox(height: height_ * 0.04),
+            TimeButton(width_, height_),
+          ],
+        ),
+      ),
+    );
   }
 }

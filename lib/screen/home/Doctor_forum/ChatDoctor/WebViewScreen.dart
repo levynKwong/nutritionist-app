@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/chatDetailNutritionist.dart';
 
@@ -46,7 +47,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF989efd),
+        backgroundColor: getColor(),
         title: Text('Google Form'),
         automaticallyImplyLeading: false,
       ),

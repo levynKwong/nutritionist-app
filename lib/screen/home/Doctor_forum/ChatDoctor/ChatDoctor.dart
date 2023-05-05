@@ -19,7 +19,7 @@ class _ChatDoctorRegState extends State<ChatDoctorReg> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarTopSearch(titleText: 'Chat with your Doctor'),
+      appBar: appBarTop(titleText: 'Chat with your Doctor'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -80,7 +80,7 @@ NutritionistService(double width_, double height_, context) {
                 vertical: height_ * 0.06, horizontal: width_ * 0.06),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: Color.fromARGB(146, 87, 95, 203),
+              color: Color.fromARGB(94, 87, 95, 203),
             ),
             child: Column(
               children: [
