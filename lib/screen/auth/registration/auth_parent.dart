@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/auth_parent.dart';
-import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
+import 'package:meal_aware/screen/auth/login/login.dart';
+
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
-import 'package:meal_aware/screen/auth/email_verification_code.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 
 class ParentAuth extends StatefulWidget {
   ParentAuth({Key? key}) : super(key: key);

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/auth_screen_register.dart';
-import 'package:meal_aware/screen/auth/forgotPassword.dart';
+
+import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
+import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
@@ -188,8 +190,8 @@ class _LoginState extends State<Login> {
                                           passwordController.text);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: Color(
-                                          0xFF6889c6), // sets the background color of the button
+                                      primary:
+                                          getColor(), // sets the background color of the button
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
-import 'package:meal_aware/screen/auth/redirectEmail.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/redirectEmail.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 

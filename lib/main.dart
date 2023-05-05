@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/auth_parent.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/auth_screen_register.dart';
-import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
-import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
+import 'package:meal_aware/screen/auth/login/login.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/NutritionistChat.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
-import 'package:meal_aware/screen/auth/email_verification_code.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/NutritionistBookApp.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
@@ -54,6 +53,11 @@ class MyApp extends StatelessWidget {
       // home: GetCoin(),
       // home: EmailVerificationCode(
       //   email: '',
+      //   age: '',
+      //   fullname: '',
+      //   phonenumber: '',
+      //   userType: '',
+      //   username: '',
       // ),
       // home: NutritionistAdditionalDetail(
       //     email: '',

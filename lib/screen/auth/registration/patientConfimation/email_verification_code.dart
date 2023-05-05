@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/auth_screen_register.dart';
+
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 
 class EmailVerificationCode extends StatefulWidget {
@@ -115,7 +116,7 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
         left: width_ * 0.1,
         right: width_ * 0.1,
       ),
-      child: Image.asset('images/email_verification.png'),
+      child: Image.asset('images/email_verification.jpg'),
     );
   }
 

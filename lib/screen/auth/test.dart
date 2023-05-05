@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/login.dart';
-import 'package:meal_aware/screen/auth/login_register_screen/auth_parent.dart';
-import 'package:meal_aware/screen/auth/confirmationNutritionist.dart';
-import 'package:meal_aware/screen/auth/nutritionistAdditionalDetail.dart';
+
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
-import 'package:meal_aware/screen/auth/email_verification_code.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -233,12 +232,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       onChanged: (String? newValue) {
                                         // Do something with the new value
                                         if (newValue == '1') {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ParentAuth()),
-                                          );
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //       builder: (context) =>
+                                          //           ParentAuth()),
+                                          // );
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
@@ -528,12 +527,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => (Login()),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => (Login()),
+                      //   ),
+                      // );
                     },
                     child: Text(
                       'or back to login',
