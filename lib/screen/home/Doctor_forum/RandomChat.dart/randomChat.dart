@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
@@ -54,32 +56,26 @@ class _randomChatState extends State<randomChat> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          background(),
-          topTitle(width_, height_),
-          topSubTitle(width_, height_),
-          content(width_, height_),
-          bottomContent(width_, height_)
-        ],
-      ),
-    );
-  }
-
-  topTitle(double width_, double height_) {
-    return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.82, left: width_ * 0.05),
-      child: Row(
-        children: [
-          Text6(text: 'Chat with friends'),
-          Expanded(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: NotificationWidget(),
-            ),
+      appBar: appBarTop(titleText: 'Chat with friends'),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: height_ * 0.02),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: width_ * 0.05),
+                  Text5(text: 'Chat with a random person'),
+                ],
+              ),
+              SizedBox(height: height_ * 0.05),
+              content(width_, height_),
+              bottomContent(width_, height_),
+              SizedBox(height: height_ * 0.1),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -120,17 +116,6 @@ class _randomChatState extends State<randomChat> {
     );
   }
 
-  topSubTitle(double width_, double height_) {
-    return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.74, left: width_ * 0.05),
-      child: Row(
-        children: [
-          Text5(text: 'Chat with a random person'),
-        ],
-      ),
-    );
-  }
-
   Container buttons(double height_, double width_) {
     return Container(
         child: Row(
@@ -154,7 +139,6 @@ class _randomChatState extends State<randomChat> {
 
   Widget content(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.18),
       child: Column(
         children: [
           Container(
@@ -162,7 +146,7 @@ class _randomChatState extends State<randomChat> {
             child: Column(
               children: [
                 Text(
-                  'Read before pressing on the coin',
+                  'Read before pressing on Button',
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.052,
                     fontWeight: FontWeight.bold,
@@ -176,7 +160,7 @@ class _randomChatState extends State<randomChat> {
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'With 1 Coin you are only paying half of the price, this makes sure that your appointment has been reserved'),
+                          'Before you start chatting, please keep in mind that this is a public platform and that you should always be respectful and kind to others.'),
                 ),
                 SizedBox(height: height_ * 0.03),
                 Container(
@@ -184,7 +168,7 @@ class _randomChatState extends State<randomChat> {
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'If you want to change the date of your appointment in the future, contact your nutritionist'),
+                          'Be mindful of your words and actions when chatting with others. Remember, we are all here to help and connect with one another as we may share similar issues.'),
                 ),
                 SizedBox(height: height_ * 0.03),
                 Container(
@@ -192,7 +176,7 @@ class _randomChatState extends State<randomChat> {
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'If you want to change the date of your appointment in the future, contact your nutritionist'),
+                          'If you are being harassed or bullied, please report the user immediately.'),
                 ),
                 SizedBox(height: height_ * 0.07),
                 FindRandomUser(width_, height_),
@@ -204,55 +188,11 @@ class _randomChatState extends State<randomChat> {
     );
   }
 
-  Center TermsofUse(double height_, double width_) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                // Navigate to Terms of Use page
-              },
-              child: Text(
-                'Terms of Use',
-                style: TextStyle(
-                  color: Color(0xFF7B7B7B),
-                  // decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            Text(
-              ' | ',
-              style: TextStyle(
-                color: Color(0xFF7B7B7B),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // Navigate to Privacy Policy page
-              },
-              child: Text(
-                'Privacy Policy',
-                style: TextStyle(
-                  color: Color(0xFF7B7B7B),
-                  // decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget bottomContent(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.77),
       child: Column(children: [
         SizedBox(height: height_ * 0.04),
-        TermsofUse(height_, width_),
+        termNcondition(),
         SizedBox(height: height_ * 0.035),
         buttons(height_, width_)
       ]),

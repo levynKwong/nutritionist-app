@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
@@ -17,15 +18,17 @@ class _paymentAppointmentState extends State<paymentAppointment> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          background(),
-          topTitle(width_, height_),
-          topSubTitle(width_, height_),
-          content(width_, height_),
-          bottomContent(width_, height_)
-        ],
+      appBar: appBarTop(titleText: 'Doctor\'s Forum'),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            background(),
+            topTitle(width_, height_),
+            topSubTitle(width_, height_),
+            content(width_, height_),
+            bottomContent(width_, height_)
+          ],
+        ),
       ),
     );
   }

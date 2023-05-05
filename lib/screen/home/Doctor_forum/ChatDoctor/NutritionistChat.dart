@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
@@ -63,65 +64,29 @@ class _NutritionistChatState extends State<NutritionistChat> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          background(),
-          topTitle(width_, height_),
-          topSubTitle(width_, height_),
-          searchBar(width_, height_),
-          Box(width_, height_),
-          buttons(height_, width_)
-        ],
-      ),
-    );
-  }
-
-  topTitle(double width_, double height_) {
-    return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.82, left: width_ * 0.05),
-      child: Row(
-        children: [
-          Text6(text: 'Nutritionist'),
-          Expanded(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: NotificationWidget(),
-            ),
+      appBar: appBarTopSearch(titleText: 'Chat with your Doctor'),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: height_ * 0.02),
+              topSubTitle(width_, height_),
+              Box(width_, height_),
+              buttons(height_, width_)
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
   topSubTitle(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.74, left: width_ * 0.05),
       child: Row(
         children: [
+          SizedBox(width: width_ * 0.05),
           Text5(text: 'Here are our valued Nutritionist'),
         ],
-      ),
-    );
-  }
-
-  searchBar(width_, height_) {
-    return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.16, left: width_ * 0.05, right: width_ * 0.05),
-      height: height_ * 0.042,
-      child: TextField(
-        style: TextStyle(color: Color.fromARGB(255, 1, 1, 1)),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color.fromARGB(255, 255, 255, 255),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide.none,
-          ),
-          hintText: 'Search here for category',
-          prefixIcon: Icon(Icons.search, size: 30, color: Colors.black),
-          contentPadding: EdgeInsets.symmetric(vertical: height_ * 0.01),
-        ),
       ),
     );
   }
@@ -130,21 +95,16 @@ class _NutritionistChatState extends State<NutritionistChat> {
     List<User1> shuffledUsers = _users.toList()..shuffle();
     shuffledUsers = shuffledUsers.toSet().toList();
     return Container(
-      margin: EdgeInsets.only(
-        top: height_ * 0.21,
-        left: width_ * 0.001,
-        right: width_ * 0.001,
-      ),
       child: Form(
         // key: _formKey,
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.68,
+          height: MediaQuery.of(context).size.height * 0.71,
           width: MediaQuery.of(context).size.width * 1.4,
           child: Container(
             margin: EdgeInsets.all(16.0),
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Color.fromARGB(104, 214, 228, 239),
+              color: Color.fromARGB(146, 87, 95, 203),
               borderRadius: BorderRadius.circular(20.0),
               boxShadow: [
                 BoxShadow(
@@ -359,24 +319,23 @@ class _NutritionistChatState extends State<NutritionistChat> {
 
   Container buttons(double height_, double width_) {
     return Container(
-        margin: EdgeInsets.only(top: height_ * 0.9),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(width_ * 0.3, 50),
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('        Back       '),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          ],
-        ));
+          ),
+          child: Text('        Back       '),
+        ),
+      ],
+    ));
   }
 }
 

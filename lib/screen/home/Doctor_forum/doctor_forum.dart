@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
@@ -23,14 +24,7 @@ class DoctorForum extends StatelessWidget {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Doctor's Forum"),
-        backgroundColor: getColor(),
-        automaticallyImplyLeading: false,
-        actions: <Widget>[
-          NotificationWidget(),
-        ],
-      ),
+      appBar: appBarTop(titleText: 'Doctor\'s Forum'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
