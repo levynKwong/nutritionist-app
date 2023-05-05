@@ -114,12 +114,6 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _filePath = ''; // initialize _filePath with an empty string
-  // }
-
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -134,175 +128,169 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        child: Stack(
-          children: [
-            background2(),
-            Column(
-              children: [
-                Container(),
-                SizedBox(height: height_ * 0.08),
-                Text(
-                  'MeA',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontSize: width_ * 0.20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: height_ * 0.01),
-                Text(
-                  'MealAware Company Ltd',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontSize: width_ * 0.05,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: height_ * 0.01),
-                SingleChildScrollView(
-                  child: SizedBox(
-                    height: height_ * 0.65,
-                    width: width_ * 0.93,
-                    child: Stack(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(height: height_ * 0.05),
+                Container(
+                    color: Colors.transparent,
+                    child: Column(
                       children: [
-                        Container(
-                          margin: EdgeInsets.all(16.0),
-                          padding: EdgeInsets.all(16.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color.fromARGB(255, 136, 136, 136),
-                              width: 3.0,
-                            ),
-                            color: Color.fromARGB(183, 214, 228, 239),
-                            borderRadius: BorderRadius.circular(50.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(255, 207, 207, 207)
-                                    .withOpacity(0.3),
-                                spreadRadius: 3,
-                                blurRadius: 2,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
+                        Text(
+                          'MeA',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 99, 144, 228),
+                            fontSize: width_ * 0.20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: Form(
-                            key: _formKey,
-                            child: SingleChildScrollView(
+                        ),
+                        SizedBox(height: height_ * 0.01),
+                        Text(
+                          'MealAware Company Ltd',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 128, 164, 231),
+                            fontSize: width_ * 0.05,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: height_ * 0.06),
+                        Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Center(
+                                    child: Container(
+                                      child: Text(
+                                        'Confirmation',
+                                        style: TextStyle(
+                                          fontSize: width_ * 0.08,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   SizedBox(height: height_ * 0.02),
-                                  Text1(
-                                    text: 'Confirmation',
+                                  Center(
+                                    child: Text(
+                                      'Confirm your account to continue',
+                                      style: TextStyle(
+                                        fontSize: width_ * 0.04,
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(height: height_ * 0.025),
-                                  Text3(
+                                  Center(
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: width_ * 0.05),
+                                      child: Text3(
+                                          text:
+                                              'After you have mailed us your Professional Qualification Certificate.\n\ \n\Your information will be checked and verified by our team. '),
+                                    ),
+                                  ),
+                                  SizedBox(height: height_ * 0.015),
+                                  Center(
+                                    child: Text3(
                                       text:
-                                          'After you have mailed us your Professional Qualification Certificate.\n\ \n\Your information will be checked and verified by our team. '),
-                                  SizedBox(height: height_ * 0.015),
-                                  Text3(
-                                    text:
-                                        'A 6-digit code will be sent to your email. ',
+                                          'A 6-digit code will be sent to your email. ',
+                                    ),
                                   ),
                                   SizedBox(height: height_ * 0.015),
-                                  Text3(
-                                    text:
-                                        'It will take up to 3 working days for response. ',
+                                  Center(
+                                    child: Text3(
+                                      text:
+                                          'It will take up to 3 working days for response. ',
+                                    ),
                                   ),
                                   SizedBox(height: height_ * 0.03),
-                                  Text7(
-                                    text: 'Enter your 6-digit code below: ',
+                                  Center(
+                                    child: Text7(
+                                      text: 'Enter your 6-digit code below: ',
+                                    ),
                                   ),
                                   SizedBox(height: height_ * 0.03),
-                                  confirmationCode(width_, height_),
+                                  Center(
+                                      child: confirmationCode(width_, height_)),
                                   SizedBox(height: height_ * 0.04),
+                                  // add additional widgets here if needed
                                 ],
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                        Center(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  // Get the entered code from the text fields
-                                  String enteredCode = _textControllers
-                                      .map((controller) => controller.text)
-                                      .join("");
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              width_ * 0.08, 0, width_ * 0.08, 0),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              String enteredCode = _textControllers
+                                  .map((controller) => controller.text)
+                                  .join("");
 
-                                  if (await validateCodeAndUpdateExpectedCodes(
-                                      enteredCode)) {
-                                    saveNutritionist(
-                                        fullname,
-                                        username,
-                                        email,
-                                        age,
-                                        phonenumber,
-                                        userType,
-                                        address,
-                                        specialization,
-                                        customSpecialization,
-                                        workExperience,
-                                        gender);
-                                    // Navigate to the home screen if the entered code is valid
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            NutritionistHome(),
-                                      ),
-                                    );
-                                  } else {
-                                    // Show an error message if the entered code is invalid
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                            'Invalid code. Please try again.'),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.12,
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.12,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        spreadRadius: 2,
-                                        blurRadius: 5,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
+                              if (await validateCodeAndUpdateExpectedCodes(
+                                  enteredCode)) {
+                                saveNutritionist(
+                                    fullname,
+                                    username,
+                                    email,
+                                    age,
+                                    phonenumber,
+                                    userType,
+                                    address,
+                                    specialization,
+                                    customSpecialization,
+                                    workExperience,
+                                    gender);
+                                // Navigate to the home screen if the entered code is valid
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NutritionistHome(),
                                   ),
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    child: Icon(
-                                      Icons.chevron_right,
-                                      color: Colors.black,
-                                    ),
+                                );
+                              } else {
+                                // Show an error message if the entered code is invalid
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text('Invalid code. Please try again.'),
                                   ),
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(
+                                  0xFF6889c6), // sets the background color of the button
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: height_ * 0.06,
+                              child: Text(
+                                'Confirm',
+                                style: TextStyle(
+                                  fontSize: width_ * 0.05,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                ),
+                    )),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

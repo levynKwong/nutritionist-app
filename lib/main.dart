@@ -66,18 +66,18 @@ class MyApp extends StatelessWidget {
       //     age: '',
       //     phonenumber: '',
       //     userType: ''),
-      // home: confirmationNutritionist(
-      //     email: '',
-      //     fullname: '',
-      //     username: '',
-      //     age: '',
-      //     phonenumber: '',
-      //     userType: '',
-      //     address: '',
-      //     specialization: '',
-      //     customSpecialization: '',
-      //     workExperience: '',
-      //     gender: ''),
+      //   home: confirmationNutritionist(
+      //       email: '',
+      //       fullname: '',
+      //       username: '',
+      //       age: '',
+      //       phonenumber: '',
+      //       userType: '',
+      //       address: '',
+      //       specialization: '',
+      //       customSpecialization: '',
+      //       workExperience: '',
+      //       gender: ''),
     );
   }
 }

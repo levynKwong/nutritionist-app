@@ -44,12 +44,14 @@ class _HomeState extends State<Home> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: EdgeInsets.symmetric(
+                horizontal: width_ * 0.02, vertical: height_ * 0.01),
             child: GNav(
-              gap: width_ * 0.02,
+              gap: width_ * 0.01,
               activeColor: Colors.white,
               iconSize: width_ * 0.07,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(
+                  horizontal: width_ * 0.02, vertical: height_ * 0.01),
               duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: width_ * 0.03,
