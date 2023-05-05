@@ -66,7 +66,11 @@ class _SelectionDateState extends State<SelectionDate> {
               SizedBox(
                 height: height_ * 0.02,
               ),
-              Text5(text: 'SLOTS AVAILABLE :')
+              Text5(text: 'SLOTS AVAILABLE :'),
+              SizedBox(
+                height: height_ * 0.02,
+              ),
+              buttons(height_, width_)
             ],
           ),
         ),
@@ -119,5 +123,46 @@ class _SelectionDateState extends State<SelectionDate> {
         ),
       ),
     );
+  }
+
+  Container buttons(double height_, double width_) {
+    return Container(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: Text('        Back       '),
+        ),
+        SizedBox(width: width_ * 0.15), // add some spacing between the buttons
+        ElevatedButton(
+          onPressed: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => paymentAppointment(),
+            //   ),
+            // );
+          },
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: Text('         Next         '),
+        ),
+      ],
+    ));
   }
 }

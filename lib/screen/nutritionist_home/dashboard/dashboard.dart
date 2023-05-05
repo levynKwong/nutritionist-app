@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class dashboard extends StatefulWidget {
@@ -15,19 +16,25 @@ class _dashboardState extends State<dashboard> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    return Container(
-      child: Column(
-        children: [
-          appBar(width_, height_),
-          SizedBox(
-            height: height_ * 0.0,
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBarTopCal(
+          titleText: 'DashBoard',
+        ), // add the AppBar
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: height_ * 0.1,
+              ),
+              info(width_, height_),
+              SizedBox(
+                height: height_ * 0.1,
+              ),
+              client(width_, height_),
+            ],
           ),
-          info(width_, height_),
-          SizedBox(
-            height: height_ * 0.0,
-          ),
-          client(width_, height_),
-        ],
+        ),
       ),
     );
   }
