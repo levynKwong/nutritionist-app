@@ -136,11 +136,9 @@ class _NutritionistBookAppointmentState
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            TimeAvailabilityScreen(
-                                              userId: '',
-                                              nutritionistId: user.uid,
-                                            )));
+                                        builder: (context) => SelectionDate(
+                                            nutritionistUid: user.uid,
+                                            nutritionistName: user.username)));
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(

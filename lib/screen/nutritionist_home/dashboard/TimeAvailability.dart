@@ -31,7 +31,7 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
 
   void _fetchData() async {
     final document = await FirebaseFirestore.instance
-        .collection('users')
+        .collection('timeAvailability')
         .doc(widget.userId)
         .get();
 
@@ -72,7 +72,10 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
   }
 
   void _updateFirestore() {
-    FirebaseFirestore.instance.collection('users').doc(widget.userId).set({
+    FirebaseFirestore.instance
+        .collection('timeAvailability')
+        .doc(widget.userId)
+        .set({
       'timesAvailable': _timesAvailable,
       'timesChecked': _timesChecked,
     }, SetOptions(merge: true));

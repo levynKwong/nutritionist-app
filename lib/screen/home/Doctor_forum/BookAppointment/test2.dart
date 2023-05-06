@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 
 class TimeAvailabilityScreen extends StatefulWidget {
   final String userId;
   final String nutritionistId;
+  final String date;
 
-  TimeAvailabilityScreen({required this.userId, required this.nutritionistId});
+  TimeAvailabilityScreen(
+      {required this.userId, required this.nutritionistId, required this.date});
 
   @override
-  _TimeAvailabilityScreenState createState() => _TimeAvailabilityScreenState();
+  _TimeAvailabilityScreenState createState() =>
+      _TimeAvailabilityScreenState(userId, nutritionistId, date);
 }
 
 class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
+  final String userId;
+  final String nutritionistId;
+  final String date;
+  _TimeAvailabilityScreenState(this.userId, this.nutritionistId, this.date);
   late Stream<List<bool>> _timeAvailabilityStream;
   List<bool> _selectedTimeSlots = [];
 
@@ -35,7 +44,13 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
 
   void _toggleSelection(int index) {
     setState(() {
-      _selectedTimeSlots[index] = !_selectedTimeSlots[index];
+      for (int i = 0; i < _selectedTimeSlots.length; i++) {
+        if (i == index) {
+          _selectedTimeSlots[i] = true;
+        } else {
+          _selectedTimeSlots[i] = false;
+        }
+      }
     });
   }
 
@@ -102,8 +117,10 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return Container(
+      child: Center(
         child: StreamBuilder<List<bool>>(
           stream: _timeAvailabilityStream,
           builder: (context, snapshot) {
@@ -132,12 +149,12 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                           final isSelected = _selectedTimeSlots[index];
                           final availableIndex =
                               _getAvailableTimeSlots(timeAvailable)[index];
-                          final timeSlot = 'Time ${availableIndex + 1}';
+                          final timeSlot = ' ${availableIndex + 1}:00';
                           return SizedBox(
-                            width: 100, // set width of button
+                            width: width_ * 0.3, // set width of button
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 4.0),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: width_ * 0.01),
                               child: ElevatedButton(
                                 onPressed: () {
                                   _toggleSelection(index);
@@ -147,7 +164,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                                       MaterialStateProperty.resolveWith(
                                     (states) {
                                       if (isSelected) {
-                                        return Colors.red;
+                                        return getColor();
                                       } else {
                                         return Colors.grey;
                                       }
@@ -167,16 +184,8 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      _confirmSelection(timeAvailable);
-                    },
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                  ),
+                  SizedBox(height: height_ * 0.01),
+                  buttons(height_, width_)
                 ],
               );
             }
@@ -184,5 +193,51 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
         ),
       ),
     );
+  }
+
+  Container buttons(double height_, double width_) {
+    return Container(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: Text('        Back       '),
+        ),
+        SizedBox(width: width_ * 0.15), // add some spacing between the buttons
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => paymentAppointment(
+                  nutritionistUid: nutritionistId,
+                  userId: userId,
+                  date: date,
+                  time: '$_selectedTimeSlots',
+                ),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(width_ * 0.3, 50),
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: Text('         Next         '),
+        ),
+      ],
+    ));
   }
 }

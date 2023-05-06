@@ -20,6 +20,7 @@ import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
 import 'screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+import 'screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 import 'screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
 
 void main() async {
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
       // home: DoctorForum(),
       // home: NotificationWidget(),
       // home: SelectionDate(),
+      // home: paymentAppointment(),
       // home: GetCoin(),
       //     home: paymentChat(
       //   nutritionistId: '',

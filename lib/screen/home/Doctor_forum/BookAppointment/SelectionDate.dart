@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/test2.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class SelectionDate extends StatefulWidget {
@@ -64,13 +66,20 @@ class _SelectionDateState extends State<SelectionDate> {
               topSubTitle(width_, height_),
               calendar(width_, height_),
               SizedBox(
-                height: height_ * 0.02,
+                height: height_ * 0.01,
               ),
               Text5(text: 'SLOTS AVAILABLE :'),
               SizedBox(
-                height: height_ * 0.02,
+                height: height_ * 0.01,
               ),
-              buttons(height_, width_)
+              SizedBox(
+                width: width_ * 1,
+                height: height_ * 0.35,
+                child: TimeAvailabilityScreen(
+                    userId: '',
+                    nutritionistId: nutritionistUid,
+                    date: '$_focusedDay'),
+              ),
             ],
           ),
         ),
@@ -104,7 +113,7 @@ class _SelectionDateState extends State<SelectionDate> {
                 headerStyle:
                     HeaderStyle(formatButtonVisible: true, titleCentered: true),
                 selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
-                onDaySelected: _onDaySelected,
+                // onDaySelected: _onDaySelected,
                 focusedDay: _focusedDay,
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 3, 14),
@@ -123,46 +132,5 @@ class _SelectionDateState extends State<SelectionDate> {
         ),
       ),
     );
-  }
-
-  Container buttons(double height_, double width_) {
-    return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () => Navigator.pop(context),
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-          child: Text('        Back       '),
-        ),
-        SizedBox(width: width_ * 0.15), // add some spacing between the buttons
-        ElevatedButton(
-          onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => paymentAppointment(),
-            //   ),
-            // );
-          },
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-          child: Text('         Next         '),
-        ),
-      ],
-    ));
   }
 }

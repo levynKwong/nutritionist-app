@@ -1,61 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 
 class paymentAppointment extends StatefulWidget {
-  const paymentAppointment({super.key});
+  final String nutritionistUid;
+  final String date;
+  final String time;
+  const paymentAppointment(
+      {super.key,
+      required this.nutritionistUid,
+      required this.date,
+      required this.time,
+      required String userId});
 
   @override
-  State<paymentAppointment> createState() => _paymentAppointmentState();
+  State<paymentAppointment> createState() =>
+      _paymentAppointmentState(nutritionistUid, date, time);
 }
 
 class _paymentAppointmentState extends State<paymentAppointment> {
+  final String date;
+  final String time;
+  final String nutritionistUid;
+  _paymentAppointmentState(this.nutritionistUid, this.date, this.time);
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: appBarTop(titleText: 'Doctor\'s Forum'),
+      appBar: appBarTopBack(titleText: 'Doctor\'s Forum'),
       body: SafeArea(
-        child: Stack(
-          children: [
-            background(),
-            topTitle(width_, height_),
-            topSubTitle(width_, height_),
-            content(width_, height_),
-            bottomContent(width_, height_)
-          ],
-        ),
-      ),
-    );
-  }
-
-  topTitle(double width_, double height_) {
-    return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.82, left: width_ * 0.05),
-      child: Row(
-        children: [
-          Text6(text: 'Book Appointment'),
-          Expanded(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: NotificationWidget(),
-            ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              topSubTitle(width_, height_),
+              NutritionistService(width_, height_),
+              SizedBox(height: height_ * 0.05),
+              content(width_, height_),
+              Column(
+                children: [
+                  Text(nutritionistUid),
+                  Text(date),
+                  Text(time),
+                ],
+              ),
+              bottomContent(width_, height_)
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
   topSubTitle(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(bottom: height_ * 0.74, left: width_ * 0.05),
+      margin: EdgeInsets.only(left: width_ * 0.05),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text5(text: 'payment screen'),
+          topRightCounter(),
         ],
       ),
     );
@@ -75,22 +85,13 @@ class _paymentAppointmentState extends State<paymentAppointment> {
               // );
             },
             child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: height_ * 0.07, horizontal: width_ * 0.07),
+              width: width_ * 0.9,
+              height: height_ * 0.25,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'images/nutritionist.png',
-                    width: width_ * 0.2,
-                    height: height_ * 0.06,
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  Text7(text: 'Nutritionist'),
-                ],
+                image: DecorationImage(
+                  image: AssetImage('images/pay.png'),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
@@ -118,7 +119,35 @@ class _paymentAppointmentState extends State<paymentAppointment> {
         ),
         SizedBox(width: width_ * 0.1),
         ElevatedButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(width_ * 0.03),
+                  ),
+                  title: Text('Confirm Payment'),
+                  content: Text(
+                      'Confirm your payment, 1 coin will be deducted from your account'),
+                  actions: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Close'),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('Confirm'),
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }),
           style: ElevatedButton.styleFrom(
             minimumSize: Size(width_ * 0.3, 50),
             primary: Color(0xFF575ecb), // set background color
@@ -146,7 +175,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
 
   Widget content(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.18),
       child: Column(
         children: [
           Container(
@@ -178,8 +206,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                       text:
                           'If you want to change the date of your appointment in the future, contact your nutritionist'),
                 ),
-                SizedBox(height: height_ * 0.05),
-                NutritionistService(width_, height_),
               ],
             ),
           ),
@@ -233,7 +259,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
 
   Widget bottomContent(double width_, double height_) {
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.77),
       child: Column(children: [
         SizedBox(height: height_ * 0.04),
         TermsofUse(height_, width_),
