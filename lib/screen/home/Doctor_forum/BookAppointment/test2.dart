@@ -30,6 +30,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
         return <bool>[];
       }
     });
+    _selectedTimeSlots = List<bool>.filled(0, false);
   }
 
   void _toggleSelection(int index) {
@@ -102,9 +103,6 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Time Availability'),
-      ),
       body: Center(
         child: StreamBuilder<List<bool>>(
           stream: _timeAvailabilityStream,
@@ -116,45 +114,57 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
               return CircularProgressIndicator();
             }
             final timeAvailable = snapshot.data!;
-            _selectedTimeSlots = List<bool>.filled(timeAvailable.length, false);
+            if (_selectedTimeSlots.length != timeAvailable.length) {
+              _selectedTimeSlots =
+                  List<bool>.filled(timeAvailable.length, false);
+            }
             if (timeAvailable.isEmpty) {
               return Text('No time slots available');
             } else {
               return Column(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: _getAvailableTimeSlots(timeAvailable).length,
-                      itemBuilder: (context, index) {
-                        final isSelected = _selectedTimeSlots[index];
-                        final availableIndex =
-                            _getAvailableTimeSlots(timeAvailable)[index];
-                        final timeSlot = 'Time ${availableIndex + 1}';
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              _toggleSelection(index);
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                (states) {
-                                  if (isSelected) {
-                                    return Colors.greenAccent;
-                                  } else {
-                                    return null;
-                                  }
+                    child: Wrap(
+                      runSpacing: 8.0, // set space between rows
+                      children: List.generate(
+                        _getAvailableTimeSlots(timeAvailable).length,
+                        (index) {
+                          final isSelected = _selectedTimeSlots[index];
+                          final availableIndex =
+                              _getAvailableTimeSlots(timeAvailable)[index];
+                          final timeSlot = 'Time ${availableIndex + 1}';
+                          return SizedBox(
+                            width: 100, // set width of button
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 4.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _toggleSelection(index);
                                 },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                    (states) {
+                                      if (isSelected) {
+                                        return Colors.red;
+                                      } else {
+                                        return Colors.grey;
+                                      }
+                                    },
+                                  ),
+                                  minimumSize:
+                                      MaterialStateProperty.all(Size(60, 30)),
+                                ),
+                                child: Text(
+                                  timeSlot,
+                                  style: TextStyle(fontSize: 14.0),
+                                ),
                               ),
                             ),
-                            child: Text(
-                              timeSlot,
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
