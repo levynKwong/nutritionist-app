@@ -46,9 +46,9 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
     setState(() {
       for (int i = 0; i < _selectedTimeSlots.length; i++) {
         if (i == index) {
-          _selectedTimeSlots[i] = true;
-        } else {
           _selectedTimeSlots[i] = false;
+        } else {
+          _selectedTimeSlots[i] = true;
         }
       }
     });
@@ -62,57 +62,6 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
       }
     }
     return availableTimeSlots;
-  }
-
-  void _confirmSelection(List<bool> timeAvailable) async {
-    final selectedTimeSlots = <int>[];
-    for (int i = 0; i < _selectedTimeSlots.length; i++) {
-      if (_selectedTimeSlots[i]) {
-        selectedTimeSlots.add(i);
-      }
-    }
-
-    if (selectedTimeSlots.isNotEmpty) {
-      final batch = FirebaseFirestore.instance.batch();
-
-      final timeSlotsRef = FirebaseFirestore.instance.collection('timeSlots');
-
-      for (final selectedTimeSlot in selectedTimeSlots) {
-        final index = _getAvailableTimeSlots(timeAvailable)[selectedTimeSlot];
-
-        batch.set(
-          timeSlotsRef.doc(),
-          {
-            'userId': widget.userId,
-            'nutritionistId': widget.nutritionistId,
-            'timeSlot': 'Time ${index + 1}',
-          },
-        );
-
-        timeAvailable[index] = false;
-      }
-
-      batch.update(
-        FirebaseFirestore.instance
-            .collection('timeAvailability')
-            .doc(widget.nutritionistId),
-        {'timesAvailable': timeAvailable},
-      );
-
-      await batch.commit();
-
-      setState(() {
-        _selectedTimeSlots = List<bool>.filled(timeAvailable.length, false);
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Selection confirmed!'),
-      ));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Please select at least one time slot!'),
-      ));
-    }
   }
 
   @override
@@ -149,7 +98,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                           final isSelected = _selectedTimeSlots[index];
                           final availableIndex =
                               _getAvailableTimeSlots(timeAvailable)[index];
-                          final timeSlot = ' ${availableIndex + 1}:00';
+                          final timeSlot = ' ${availableIndex + 6}:00';
                           return SizedBox(
                             width: width_ * 0.3, // set width of button
                             child: Padding(
@@ -164,9 +113,9 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                                       MaterialStateProperty.resolveWith(
                                     (states) {
                                       if (isSelected) {
-                                        return getColor();
-                                      } else {
                                         return Colors.grey;
+                                      } else {
+                                        return getColor();
                                       }
                                     },
                                   ),
@@ -222,7 +171,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                   nutritionistUid: nutritionistId,
                   userId: userId,
                   date: date,
-                  time: '$_selectedTimeSlots',
+                  timeAvailable: _selectedTimeSlots,
                 ),
               ),
             );

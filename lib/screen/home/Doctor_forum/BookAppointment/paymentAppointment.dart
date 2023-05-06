@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
@@ -6,28 +7,32 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class paymentAppointment extends StatefulWidget {
-  final String nutritionistUid;
-  final String date;
-  final String time;
-  const paymentAppointment(
+  String nutritionistUid;
+  String date;
+  List<bool> timeAvailable = [];
+  String userId;
+  paymentAppointment(
       {super.key,
       required this.nutritionistUid,
       required this.date,
-      required this.time,
-      required String userId});
+      required this.timeAvailable,
+      required this.userId});
 
   @override
   State<paymentAppointment> createState() =>
-      _paymentAppointmentState(nutritionistUid, date, time);
+      _paymentAppointmentState(nutritionistUid, date, timeAvailable, userId);
 }
 
 class _paymentAppointmentState extends State<paymentAppointment> {
-  final String date;
-  final String time;
-  final String nutritionistUid;
-  _paymentAppointmentState(this.nutritionistUid, this.date, this.time);
+  String date;
+  List<bool> timeAvailable = [];
+  String nutritionistUid;
+  String userId;
+  _paymentAppointmentState(
+      this.nutritionistUid, this.date, this.timeAvailable, this.userId);
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -43,13 +48,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
               NutritionistService(width_, height_),
               SizedBox(height: height_ * 0.05),
               content(width_, height_),
-              Column(
-                children: [
-                  Text(nutritionistUid),
-                  Text(date),
-                  Text(time),
-                ],
-              ),
               bottomContent(width_, height_)
             ],
           ),
@@ -76,14 +74,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       child: Column(
         children: [
           InkWell(
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => (selectionDate()),
-              //   ),
-              // );
-            },
+            onTap: () {},
             child: Container(
               width: width_ * 0.9,
               height: height_ * 0.25,
@@ -140,7 +131,15 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                           child: Text('Close'),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _confirmSelection(timeAvailable);
+                            Navigator.of(context).pop();
+                            deductCoin(context, nutritionistUid);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                          },
                           child: Text('Confirm'),
                         ),
                       ],
@@ -266,5 +265,68 @@ class _paymentAppointmentState extends State<paymentAppointment> {
         buttons(height_, width_)
       ]),
     );
+  }
+
+  void _confirmSelection(List<bool> timeAvailable) async {
+    List<bool> _selectedTimeSlots = [];
+
+    final selectedTimeSlots = <int>[];
+    for (int i = 0; i < timeAvailable.length; i++) {
+      if (timeAvailable[i]) {
+        selectedTimeSlots.add(i);
+      }
+    }
+
+    List<int> _getAvailableTimeSlots(List<bool> timeAvailable) {
+      final availableTimeSlots = <int>[];
+      for (int i = 0; i < timeAvailable.length; i++) {
+        if (timeAvailable[i]) {
+          availableTimeSlots.add(i);
+        }
+      }
+      return availableTimeSlots;
+    }
+
+    if (selectedTimeSlots.isNotEmpty) {
+      final batch = FirebaseFirestore.instance.batch();
+
+      final timeSlotsRef = FirebaseFirestore.instance.collection('timeSlots');
+
+      for (final selectedTimeSlot in selectedTimeSlots) {
+        final availableTimeSlots = _getAvailableTimeSlots(timeAvailable);
+        if (selectedTimeSlot < availableTimeSlots.length) {
+          final index = availableTimeSlots[selectedTimeSlot];
+
+          final docRef = await timeSlotsRef.add({
+            'userId': widget.userId,
+            'nutritionistId': widget.nutritionistUid,
+            'timeSlot': '${index + 6}:00',
+          });
+
+          timeAvailable[index] = false;
+        }
+      }
+
+      batch.update(
+        FirebaseFirestore.instance
+            .collection('timeAvailability')
+            .doc(widget.nutritionistUid),
+        {'timesAvailable': timeAvailable},
+      );
+
+      await batch.commit();
+
+      setState(() {
+        _selectedTimeSlots = List<bool>.filled(timeAvailable.length, false);
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Selection confirmed!'),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Please select at least one time slot!'),
+      ));
+    }
   }
 }

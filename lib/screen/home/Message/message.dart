@@ -29,7 +29,7 @@ class _messageState extends State<message> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: getColor(),
-        title: Text('Message Nutritionist'),
+        title: Text('Message your friend'),
         automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(

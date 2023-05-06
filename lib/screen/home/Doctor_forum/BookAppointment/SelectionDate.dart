@@ -3,9 +3,17 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/TimeSelection.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/test2.dart';
+
 import 'package:table_calendar/table_calendar.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+final User? user = _auth.currentUser;
+String userId = user!.uid;
 
 class SelectionDate extends StatefulWidget {
   final String nutritionistUid;
@@ -53,7 +61,7 @@ class _SelectionDateState extends State<SelectionDate> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarTop(
+      appBar: appBarTopBack(
         titleText: 'Book Appointment',
       ),
       body: SafeArea(

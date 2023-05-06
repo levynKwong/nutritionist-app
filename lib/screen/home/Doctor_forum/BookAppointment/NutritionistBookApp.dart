@@ -6,7 +6,6 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/test2.dart';
 
 class NutritionistBookAppointment extends StatefulWidget {
   const NutritionistBookAppointment({super.key});
