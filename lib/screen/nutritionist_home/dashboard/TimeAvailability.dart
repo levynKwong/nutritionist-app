@@ -100,6 +100,8 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
     if (_loading) {
       return Center(child: CircularProgressIndicator());
     }
@@ -123,7 +125,18 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
     }
 
     return AlertDialog(
-      title: Text('Time Availability'),
+      title: Column(
+        children: [
+          Text('Time Availability'),
+          SizedBox(
+            height: height_ * 0.01,
+          ),
+          Text(
+            'at midnight the values will be reset automatically if you put a tick on the checkbox.',
+            style: TextStyle(fontSize: width_ * 0.05, color: Colors.grey),
+          ),
+        ],
+      ),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -156,7 +169,7 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
       actions: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.red, // change the color here
+            primary: getColor(), // change the color here
           ),
           child: Text('Close'),
           onPressed: () {
