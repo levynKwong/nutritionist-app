@@ -7,6 +7,7 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatListScreenNutritionist.dart';
+import 'package:meal_aware/screen/nutritionist_home/message/ChatListScreenClient.dart';
 
 class messageClient extends StatefulWidget {
   const messageClient({super.key});
@@ -47,7 +48,7 @@ class _messageClientState extends State<messageClient> {
         ),
         child: Stack(
           children: [
-            ChatListScreenNutritionist(),
+            ChatListScreenClient(),
           ],
         ),
       ),

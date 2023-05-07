@@ -201,54 +201,54 @@ class _NutritionistBookAppointmentState
                                         ),
                                         Row(
                                           children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      width_ *
-                                                                          0.03),
-                                                        ),
-                                                        title: Text('Review'),
-                                                        content: Text('Dr. ' +
-                                                            user.username +
-                                                            ' is a ' +
-                                                            user.specialization +
-                                                            '\n\n' +
-                                                            'Contact no: ' +
-                                                            user.phoneNumber +
-                                                            '\n\n' +
-                                                            'Email: ' +
-                                                            user.email),
-                                                        actions: [
-                                                          TextButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child:
-                                                                  Text('Close'))
-                                                        ],
-                                                      );
-                                                    });
-                                              },
-                                              child: Text(
-                                                'review',
-                                                style: TextStyle(
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              ),
-                                            ),
+                                            // TextButton(
+                                            //   onPressed: () {
+                                            //     showDialog(
+                                            //         context: context,
+                                            //         builder:
+                                            //             (BuildContext context) {
+                                            //           return AlertDialog(
+                                            //             shape:
+                                            //                 RoundedRectangleBorder(
+                                            //               borderRadius:
+                                            //                   BorderRadius
+                                            //                       .circular(
+                                            //                           width_ *
+                                            //                               0.03),
+                                            //             ),
+                                            //             title: Text('Review'),
+                                            //             content: Text('Dr. ' +
+                                            //                 user.username +
+                                            //                 ' is a ' +
+                                            //                 user.specialization +
+                                            //                 '\n\n' +
+                                            //                 'Contact no: ' +
+                                            //                 user.phoneNumber +
+                                            //                 '\n\n' +
+                                            //                 'Email: ' +
+                                            //                 user.email),
+                                            //             actions: [
+                                            //               TextButton(
+                                            //                   onPressed: () {
+                                            //                     Navigator.pop(
+                                            //                         context);
+                                            //                   },
+                                            //                   child:
+                                            //                       Text('Close'))
+                                            //             ],
+                                            //           );
+                                            //         });
+                                            //   },
+                                            //   child: Text(
+                                            //     'review',
+                                            //     style: TextStyle(
+                                            //       decoration:
+                                            //           TextDecoration.underline,
+                                            //     ),
+                                            //   ),
+                                            // ),
                                             SizedBox(
-                                              width: width_ * 0.15,
+                                              width: width_ * 0.3,
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -276,7 +276,10 @@ class _NutritionistBookAppointmentState
                                                             user.phoneNumber +
                                                             '\n\n' +
                                                             'Email: ' +
-                                                            user.email),
+                                                            user.email +
+                                                            '\n\n' +
+                                                            'Gender: ' +
+                                                            user.gender),
                                                         actions: [
                                                           TextButton(
                                                               onPressed: () {
@@ -345,6 +348,7 @@ class User1 {
   final String phoneNumber;
   final String specialization;
   final String uid;
+  final String gender;
 
   User1({
     required this.username,
@@ -353,28 +357,40 @@ class User1 {
     required this.phoneNumber,
     required this.specialization,
     required this.uid,
+    required this.gender,
   });
 
   factory User1.fromMap(Map<String, dynamic> data) {
-    String Specialization;
+    String specialization;
     if (data['specialization'] == '1') {
-      Specialization = 'Sport Nutritionist';
+      specialization = 'Sport Nutritionist';
     } else if (data['specialization'] == '2') {
-      Specialization = 'Pediatric Nutritionist';
+      specialization = 'Pediatric Nutritionist';
     } else if (data['specialization'] == '3') {
-      Specialization = 'Clinical Nutritionist';
+      specialization = 'Clinical Nutritionist';
     } else if (data['specialization'] == '4') {
-      Specialization = 'General Nutritionist';
+      specialization = 'General Nutritionist';
     } else {
-      Specialization = data['customSpecialization'];
+      specialization = data['customSpecialization'];
     }
+
+    String gender;
+    if (data['gender'] == '10') {
+      gender = 'Male';
+    } else if (data['gender'] == '11') {
+      gender = 'Female';
+    } else {
+      gender = 'Non-Binary';
+    }
+
     return User1(
       username: data['username'],
       address: data['address'],
       email: data['email'],
       phoneNumber: data['phoneNumber'],
-      specialization: Specialization,
+      specialization: specialization,
       uid: data['uid'],
+      gender: gender,
     );
   }
 }

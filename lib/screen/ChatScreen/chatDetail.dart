@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
@@ -116,11 +118,9 @@ class _ChatDetailState extends State<ChatDetail> {
                 ),
                 backgroundColor: getColor(),
                 actions: [
-                  IconButton(
-                    icon: Icon(Icons.report),
-                    onPressed: () {
-                      // handle report button press here
-                    },
+                  ReportButton(
+                    userId: userId,
+                    nutritionistId: friendUid,
                   ),
                 ],
               ),

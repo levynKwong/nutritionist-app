@@ -41,12 +41,12 @@ class appBarTopSearch extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: getColor(),
       automaticallyImplyLeading: false,
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {
-            // TODO: Implement search functionality
-          },
-        ),
+        // IconButton(
+        //   icon: Icon(Icons.search),
+        //   onPressed: () {
+        //     // TODO: Implement search functionality
+        //   },
+        // ),
         NotificationWidget(),
       ],
     );

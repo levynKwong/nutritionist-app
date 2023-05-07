@@ -8,23 +8,24 @@ import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
 
-class ChatDetailNutritionist extends StatefulWidget {
+class ChatDetailClient extends StatefulWidget {
   final friendUid;
   final friendName;
 
-  const ChatDetailNutritionist({Key? key, this.friendUid, this.friendName})
+  const ChatDetailClient({Key? key, this.friendUid, this.friendName})
       : super(key: key);
 
   @override
-  State<ChatDetailNutritionist> createState() =>
-      _ChatDetailNutritionistState(friendUid, friendName);
+  State<ChatDetailClient> createState() =>
+      _ChatDetailClientState(friendUid, friendName);
 }
 
-class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
+class _ChatDetailClientState extends State<ChatDetailClient> {
   final messageController = TextEditingController();
   CollectionReference chats =
       FirebaseFirestore.instance.collection('chatNutritionist');
@@ -34,7 +35,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
   bool isTextFieldInFocus = false;
   var chatDocId;
-  _ChatDetailNutritionistState(this.friendUid, this.friendName);
+  _ChatDetailClientState(this.friendUid, this.friendName);
   @override
   void initState() {
     super.initState();
@@ -122,7 +123,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Home(),
+                        builder: (context) => NutritionistHome(),
                       ),
                     )
                   },
@@ -134,7 +135,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                           NetworkImage('https://i.pravatar.cc/150?img=3'),
                     ),
                     SizedBox(width: width_ * 0.03),
-                    Text('Dr ' + '${widget.friendName}'),
+                    Text('${widget.friendName}'),
                   ],
                 ),
                 backgroundColor: getColor(),
@@ -296,40 +297,30 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   }
 
   void moreInfo() async {
-    final nutritionistSnapshot = await FirebaseFirestore.instance
-        .collection('Nutritionist')
+    final patientSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
         .where('uid', isEqualTo: friendUid)
         .limit(1)
         .get();
-    if (nutritionistSnapshot.docs.isNotEmpty) {
-      final nutritionistData = nutritionistSnapshot.docs.first.data();
-      final username = nutritionistData['username'];
-      final email = nutritionistData['email'];
-      final address = nutritionistData['address'];
-      final phoneNumber = nutritionistData['phoneNumber'];
-      var specialization = nutritionistData['specialization'];
-      var gender = nutritionistData['gender'];
-      final customSpecialization = nutritionistData['customSpecialization'];
+    if (patientSnapshot.docs.isNotEmpty) {
+      final patientData = patientSnapshot.docs.first.data();
+      final username = patientData['username'];
+      final fullname = patientData['fullname'];
+      final email = patientData['email'];
+      var age = patientData['age'];
+      final phoneNumber = patientData['phoneNumber'];
 
       // Check the value of the specialization field and assign a human-readable label
-      if (specialization == '1') {
-        specialization = 'Sport Nutritionist';
-      } else if (specialization == '2') {
-        specialization = 'Pediatric Nutritionist';
-      } else if (specialization == '3') {
-        specialization = 'Clinical Nutritionist';
-      } else if (specialization == '4') {
-        specialization = 'General Nutritionist';
-      } else {
-        specialization = customSpecialization;
+      if (age == '1') {
+        age = '1111';
+      } else if (age == '2') {
+        age = '1111';
+      } else if (age == '3') {
+        age = '1111';
+      } else if (age == '4') {
+        age = '11111';
       }
-      if (gender == '10') {
-        gender = 'Male';
-      } else if (gender == '11') {
-        gender = 'Female';
-      } else if (gender == '12') {
-        gender = 'Non-Binary';
-      }
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -346,17 +337,29 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('UserName: Dr $username'),
+                  Text('Username: $username'),
+                  Text(''),
+                  Text('Fullname: $fullname'),
                   Text(''),
                   Text('Email: $email'),
                   Text(''),
-                  Text('Address of work: $address'),
-                  Text(''),
                   Text('Phone: $phoneNumber'),
                   Text(''),
-                  Text('Specialization: $specialization'),
+                  Text('Age: $age'),
                   Text(''),
-                  Text('Gender: $gender'),
+                  Text('Height: '),
+                  Text(''),
+                  Text('Gender: '),
+                  Text(''),
+                  Text('CurrentBody Weight: '),
+                  Text(''),
+                  Text('Number of meal per day: '),
+                  Text(''),
+                  Text('Body goal: '),
+                  Text(''),
+                  Text('Activity level: '),
+                  Text(''),
+                  Text('Dietary Preference or restriction: '),
                 ],
               ),
             ),

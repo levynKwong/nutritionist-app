@@ -33,12 +33,6 @@ class _messageNutritionistState extends State<messageNutritionist> {
         automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // TODO: Implement search functionality
-            },
-          ),
-          IconButton(
             icon: Icon(Icons.add_circle_outline),
             onPressed: () {
               popUpButton();
