@@ -120,7 +120,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 actions: [
                   ReportButton(
                     userId: userId,
-                    nutritionistId: friendUid,
+                    friendId: friendUid,
                   ),
                 ],
               ),

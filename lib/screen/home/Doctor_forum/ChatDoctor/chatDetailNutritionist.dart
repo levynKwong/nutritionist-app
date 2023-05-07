@@ -167,7 +167,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                   ),
                   ReportButton(
                     userId: userId,
-                    nutritionistId: friendUid,
+                    friendId: friendUid,
                   ),
                 ],
               ),

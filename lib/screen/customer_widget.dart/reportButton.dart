@@ -6,9 +6,9 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 class ReportButton extends StatefulWidget {
   final String userId;
-  final String nutritionistId;
+  final String friendId;
 
-  ReportButton({required this.userId, required this.nutritionistId});
+  ReportButton({required this.userId, required this.friendId});
 
   @override
   _ReportButtonState createState() => _ReportButtonState();
@@ -144,7 +144,7 @@ class _ReportButtonState extends State<ReportButton> {
                           _formKey.currentState!.save();
                           final reportData = {
                             'userId': widget.userId,
-                            'nutritionistId': widget.nutritionistId,
+                            'nutritionistId': widget.friendId,
                             'reason': _reason,
                             'anonymous': _anonymous,
                             'timestamp': FieldValue.serverTimestamp(),
