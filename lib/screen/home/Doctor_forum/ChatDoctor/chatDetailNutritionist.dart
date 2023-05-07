@@ -35,10 +35,65 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   bool isTextFieldInFocus = false;
   var chatDocId;
   _ChatDetailNutritionistState(this.friendUid, this.friendName);
+  bool sendButtonEnabled = true;
   @override
   void initState() {
     super.initState();
     _getChatDocId();
+    queryPayments(userId, friendUid);
+  }
+
+  Future<Map<String, dynamic>> queryPayments(
+      String uid, String nutritionistId) async {
+    Map<String, dynamic> result = {};
+    CollectionReference paymentsRef =
+        FirebaseFirestore.instance.collection('payments');
+
+    QuerySnapshot querySnapshot = await paymentsRef
+        .where('uid', isEqualTo: uid)
+        .where('nutritionistid', isEqualTo: nutritionistId)
+        .where('date',
+            isGreaterThanOrEqualTo:
+                DateTime.now().subtract(Duration(minutes: 5)))
+        .orderBy('date')
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      result['firstDate'] = querySnapshot.docs.first.get('date').toDate();
+      DateTime firstDate = result['firstDate'];
+      DateTime latestDate = querySnapshot.docs.last.get('date').toDate();
+      if (latestDate.difference(firstDate).inMinutes > 5) {
+        latestDate = DateTime.now();
+        print(
+            'It has been more than 1 minute since the first payment was made.');
+      }
+
+      result['latestDate'] = latestDate;
+      result['payments'] = querySnapshot.docs.map((doc) => doc.data()).toList();
+    }
+
+    await FirebaseFirestore.instance
+        .collection('payments')
+        .where('uid', isEqualTo: uid)
+        .where('nutritionistid', isEqualTo: nutritionistId)
+        .orderBy('date')
+        .limit(1)
+        .get()
+        .then((value) => print(
+            'Index creation successful for payments collection with uid and nutritionistid fields'));
+
+    if (result.containsKey('latestDate') &&
+        DateTime.now().difference(result['latestDate']).inMinutes > 5) {
+      setState(() {
+        sendButtonEnabled = false;
+      });
+    } else {
+      setState(() {
+        sendButtonEnabled = true;
+      });
+    }
+
+    return result;
   }
 
   Future<void> _getChatDocId() async {
@@ -248,14 +303,39 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                             )),
                         SizedBox(width: 15),
                         CircleAvatar(
-                          backgroundColor: Color(0xFF575dcb),
+                          backgroundColor: sendButtonEnabled == true
+                              ? Color(0xFF575dcb)
+                              : Colors.grey,
                           radius: 22.5,
                           child: IconButton(
                             onPressed: () {
-                              sendMessage(messageController.text);
+                              if (sendButtonEnabled == true) {
+                                sendMessage(messageController.text);
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Payment Required"),
+                                      content: Text(
+                                          "Please make a payment to unlock this feature."),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text("OK"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             },
-                            icon: const Icon(Icons.send_rounded),
-                            color: Colors.white,
+                            icon: Icon(
+                              Icons.send_rounded,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ]),
@@ -278,6 +358,37 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         .collection('chatNutritionist')
         .doc(chatDocId);
 
+    // Check if it's been more than 1 minute since the last payment
+    queryPayments(userId, friendUid).then((result) {
+      if (result.containsKey('latestDate') &&
+          DateTime.now().difference(result['latestDate']).inMinutes > 1) {
+        // Disable the send button
+        setState(() {
+          sendButtonEnabled = false;
+        });
+        // Prompt user to pay
+        // You can use a dialog or navigate to a payment screen
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Payment Required"),
+              content: Text("Please make a payment to unlock this feature."),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
+    });
+
     // Add the message to the messages collection in the chat document
     chatRef.collection('messages').add({
       'createdOn': FieldValue.serverTimestamp(),
@@ -292,6 +403,52 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
       // Clear the message input field
       messageController.text = '';
+
+      // Check if it's been more than 1 minute since the last payment
+      queryPayments(userId, friendUid).then((result) {
+        if (result.containsKey('latestDate') &&
+            DateTime.now().difference(result['latestDate']).inMinutes > 1) {
+          // Disable the send button
+          setState(() {
+            sendButtonEnabled = false;
+          });
+          // Prompt user to pay
+          // You can use a dialog or navigate to a payment screen
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Payment Required"),
+                content: Text("Please make a payment to unlock this feature."),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+          return;
+        }
+        // Check if it's been more than 1 minute since the last message was sent
+        if (result.containsKey('firstDate') &&
+            DateTime.now().difference(result['firstDate']).inMinutes > 5) {
+          // Disable the send button
+          setState(() {
+            sendButtonEnabled = true;
+          });
+        } else {
+          // Enable the send button
+          setState(() {
+            sendButtonEnabled = false;
+          });
+        }
+      });
+    }).catchError((error) {
+      print('Error sending message: $error');
     });
   }
 
