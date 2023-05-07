@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -77,6 +78,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
   @override
   Widget build(BuildContext context) {
+    final double height_ = MediaQuery.of(context).size.height;
     final double width_ = MediaQuery.of(context).size.width;
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -132,8 +134,34 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                     Text('Dr ' + '${widget.friendName}'),
                   ],
                 ),
-                backgroundColor: Color(0xFF989efd),
+                backgroundColor: getColor(),
                 actions: [
+                  Container(
+                    height: height_ * 0.00,
+                    width: width_ * 0.15,
+                    margin: EdgeInsets.only(right: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: TextButton(
+                      child: Text(
+                        'More Info',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () {
+                        // handle more info button press here
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                      height: kToolbarHeight -
+                          height_ *
+                              0.05), // add a gap between AppBar and button
                   IconButton(
                     icon: Icon(Icons.report),
                     onPressed: () {

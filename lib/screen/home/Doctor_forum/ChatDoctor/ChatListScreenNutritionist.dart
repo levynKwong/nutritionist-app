@@ -53,68 +53,72 @@ class _ChatListScreenNutritionistState
             );
           }
 
-          return ListView.builder(
-            itemCount: docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              final doc = docs[index];
-              final friendUid = doc['users']
-                  .cast<String>()
-                  .firstWhere((uid) => uid != currentUserId, orElse: () => '');
-
-              final lastMessage = doc['lastMessage'];
-              final lastMessageTime = doc['lastMessageTime'] != null
-                  ? (doc['lastMessageTime'] as Timestamp).toDate()
-                  : null;
-
-              if (friendUid == null) {
-                return Container();
+          return FutureBuilder<QuerySnapshot>(
+            future: FirebaseFirestore.instance
+                .collection('Nutritionist')
+                .where(FieldPath.documentId,
+                    whereIn: docs.map((doc) {
+                      final friendUid = doc['users'].cast<String>().firstWhere(
+                          (uid) => uid != currentUserId,
+                          orElse: () => '');
+                      return friendUid;
+                    }).toList())
+                .get(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Card(
+                  child: ListTile(
+                    title: Text('Error'),
+                    subtitle: Text('Could not load name'),
+                  ),
+                );
               }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final docsNutritionist = snapshot.data!.docs;
 
-              return FutureBuilder<DocumentSnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection('Nutritionist')
-                    .doc(friendUid)
-                    .get(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<DocumentSnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Card(
-                      child: ListTile(
-                        title: Text('Error'),
-                        subtitle: Text('Could not load name'),
-                      ),
-                    );
-                  }
+              if (docsNutritionist.isEmpty) {
+                return Center(
+                  child: Text('No chats found'),
+                );
+              }
+              return ListView.builder(
+                itemCount: docsNutritionist.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final friendUid = docsNutritionist[index].id;
+                  final friendName = docsNutritionist[index]['username'];
+                  final lastMessage = docs.firstWhere(
+                    (doc) => doc['users'].contains(friendUid),
+                  )['lastMessage'];
 
-                  if (!snapshot.hasData) {
-                    return Card(
-                      child: ListTile(
-                        title: Text('Loading...'),
-                        subtitle: Text(''),
-                      ),
-                    );
-                  }
-
-                  final friendName = snapshot.data!['username'];
+                  final lastMessageTime = docs.firstWhere(
+                    (doc) => doc['users'].contains(friendUid),
+                  )['lastMessageTime'];
 
                   return Card(
                     child: Container(
                       color: Color.fromARGB(255, 242, 243, 251),
-                      width:
-                          width_ * 0.2, // Set a fixed width for the container
+                      width: width_ * 0.9, // Change the width to your liking
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundImage:
                               NetworkImage('https://i.pravatar.cc/150?img=3'),
                         ),
-                        title: Row(children: [
-                          Text('Dr ' + friendName),
-                          SizedBox(width: width_ * 0.35),
-                          Text(
-                            DateFormat.jm().format(lastMessageTime!),
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ]),
+                        title: Row(
+                          children: [
+                            Text('Dr ' + friendName),
+                            SizedBox(width: width_ * 0.35),
+                            Text(
+                              DateFormat.jm().format(lastMessageTime!
+                                  .toDate()), // convert Timestamp to DateTime
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
                         subtitle: Text(
                           lastMessage,
                           overflow: TextOverflow.ellipsis,
