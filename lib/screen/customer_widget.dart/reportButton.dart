@@ -158,7 +158,7 @@ class _ReportButtonState extends State<ReportButton> {
                               SnackBar(
                                 content: Text(
                                     'Report submitted successfully!\n\Please expect an email from us, our team will review your report and take action accordingly'),
-                                duration: Duration(seconds: 10),
+                                duration: Duration(seconds: 5),
                               ),
                             );
                           }).catchError((error) {
