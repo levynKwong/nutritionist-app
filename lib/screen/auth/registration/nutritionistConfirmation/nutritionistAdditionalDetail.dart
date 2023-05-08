@@ -290,19 +290,25 @@ class _NutritionistAdditionalDetailState
                                 width_ * 0.08, 0, width_ * 0.08, 0),
                             child: ElevatedButton(
                               onPressed: () {
-                                confirmationNutritionist(
-                                  email: email,
-                                  fullname: fullname,
-                                  username: username,
-                                  age: age,
-                                  phonenumber: phonenumber,
-                                  userType: userType,
-                                  address: addressController.text,
-                                  specialization: _selectedSpecialization!,
-                                  customSpecialization: _customSpecialization!,
-                                  workExperience: experience!,
-                                  gender: gender!,
-                                );
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            confirmationNutritionist(
+                                              email: email,
+                                              fullname: fullname,
+                                              username: username,
+                                              age: age,
+                                              phonenumber: phonenumber,
+                                              userType: userType,
+                                              address: addressController.text,
+                                              specialization:
+                                                  _selectedSpecialization!,
+                                              customSpecialization:
+                                                  _customSpecialization!,
+                                              workExperience: experience!,
+                                              gender: gender!,
+                                            )));
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Color(
