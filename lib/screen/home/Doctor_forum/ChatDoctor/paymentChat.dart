@@ -37,6 +37,18 @@ class _paymentChatState extends State<paymentChat> {
         _email = email;
       });
     });
+    checkIfPaymentExists();
+  }
+
+  Future<bool> checkIfPaymentExists() async {
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('payments')
+        .where('uid', isEqualTo: uid)
+        .where('nutritionistId', isEqualTo: nutritionistId)
+        .limit(1)
+        .get();
+    final List<DocumentSnapshot> documents = result.docs;
+    return documents.isNotEmpty;
   }
 
   Future<String> getEmail() async {
@@ -157,20 +169,42 @@ class _paymentChatState extends State<paymentChat> {
                           child: Text('Close'),
                         ),
                         TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => WebViewScreen(
-                                  url:
-                                      'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                  email: _email,
-                                  nutritionistId: nutritionistId,
-                                  nutritionistName: nutritionistName,
+                          onPressed: () async {
+                            bool paymentExists = await checkIfPaymentExists();
+                            if (paymentExists) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WebViewScreen(
+                                    url:
+                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                                    email: _email,
+                                    nutritionistId: nutritionistId,
+                                    nutritionistName: nutritionistName,
+                                  ),
                                 ),
-                              ),
-                            );
-                            deductCoin(context, nutritionistId);
+                              );
+                              deductCoin(context, nutritionistId);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Already added'),
+                                    content: Text(
+                                        'You have already added this nutritionist to your list, please go to your list to chat with them. If you have reached your subscription limit, please upgrade your subscription by going to the nutritionitst page, click on the send button that is locked and proceed to upgrade your subscription.'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('OK'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           },
                           child: Text('Confirm'),
                         ),
