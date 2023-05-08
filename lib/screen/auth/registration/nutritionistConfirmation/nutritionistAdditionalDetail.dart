@@ -330,6 +330,7 @@ class _NutritionistAdditionalDetailState
                               ),
                             ),
                           ),
+                          SizedBox(height: height_ * 0.05),
                         ],
                       )
                     ],

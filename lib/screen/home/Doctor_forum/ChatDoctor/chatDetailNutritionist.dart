@@ -104,6 +104,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         .collection('payments')
         .where('uid', isEqualTo: uid)
         .where('nutritionistId', isEqualTo: friendUid)
+        .where('status', isEqualTo: 1)
         .limit(1)
         .get()
         .then((QuerySnapshot querySnapshot) {
