@@ -172,20 +172,6 @@ class _paymentChatState extends State<paymentChat> {
                           onPressed: () async {
                             bool paymentExists = await checkIfPaymentExists();
                             if (paymentExists) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => WebViewScreen(
-                                    url:
-                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                    email: _email,
-                                    nutritionistId: nutritionistId,
-                                    nutritionistName: nutritionistName,
-                                  ),
-                                ),
-                              );
-                              deductCoin(context, nutritionistId);
-                            } else {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -204,6 +190,20 @@ class _paymentChatState extends State<paymentChat> {
                                   );
                                 },
                               );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WebViewScreen(
+                                    url:
+                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                                    email: _email,
+                                    nutritionistId: nutritionistId,
+                                    nutritionistName: nutritionistName,
+                                  ),
+                                ),
+                              );
+                              deductCoin(context, nutritionistId);
                             }
                           },
                           child: Text('Confirm'),

@@ -9,6 +9,7 @@ import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart'
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/WebViewScreen.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/chatDetailNutritionist.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class paymentChatNoForm extends StatefulWidget {
   final String nutritionistId;
@@ -161,10 +162,7 @@ class _paymentChatNoFormState extends State<paymentChatNoForm> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChatDetailNutritionist(
-                                      friendUid: nutritionistId,
-                                      friendName: nutritionistName)),
+                              MaterialPageRoute(builder: (context) => Home()),
                             );
                             deductCoin(context, nutritionistId);
                           },

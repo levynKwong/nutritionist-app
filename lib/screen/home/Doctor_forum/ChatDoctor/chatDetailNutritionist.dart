@@ -45,6 +45,12 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     });
   }
 
+  void _toggleButton2() {
+    setState(() {
+      sendButtonEnabled = true;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -317,6 +323,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                                     ),
                                                   ),
                                                 );
+                                                _toggleButton2();
                                               },
                                               child:
                                                   Text("Do you want to pay?"),
