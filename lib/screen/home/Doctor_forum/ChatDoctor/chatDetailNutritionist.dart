@@ -7,6 +7,8 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/paymentChatNoForm.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -37,23 +39,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   _ChatDetailNutritionistState(this.friendUid, this.friendName);
   bool sendButtonEnabled = true;
   // Timestamp? lastMessageTimestamp;
-
-  void checkPaymentStatus() {
-    FirebaseFirestore.instance
-        .collection('payments')
-        .where('uid', isEqualTo: uid)
-        .where('nutritionistId', isEqualTo: friendUid)
-        .where('date')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        FirebaseFirestore.instance
-            .collection('payments')
-            .doc(doc.id)
-            .update({'status': 0})
-            .then((value) => print('Payment Updated'))
-            .catchError((error) => print('Failed to update payment: $error'));
-      });
+  void _toggleButton() {
+    setState(() {
+      sendButtonEnabled = false;
     });
   }
 
@@ -100,6 +88,31 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         sendMessage('Hi, Please to meet you Dr $friendName');
       }
     }
+  }
+
+  void checkPaymentStatus() {
+    final now = DateTime.now();
+    final twoMinutesAgo = now.subtract(Duration(minutes: 2));
+
+    FirebaseFirestore.instance
+        .collection('payments')
+        .where('uid', isEqualTo: uid)
+        .where('nutritionistId', isEqualTo: friendUid)
+        .limit(1)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        DateTime paymentDate = DateTime.parse(doc['date'].toDate().toString());
+        if (paymentDate.isBefore(twoMinutesAgo)) {
+          FirebaseFirestore.instance
+              .collection('payments')
+              .doc(doc.id)
+              .update({'status': 0})
+              .then((value) => _toggleButton())
+              .catchError((error) => print('Failed to update payment: $error'));
+        }
+      });
+    });
   }
 
   @override
@@ -275,35 +288,61 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                               ? Color(0xFF575dcb)
                               : Colors.grey,
                           radius: 22.5,
-                          child: IconButton(
-                            onPressed: () {
-                              if (sendButtonEnabled == true) {
-                                sendMessage(messageController.text);
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("Payment Required"),
-                                      content: Text(
-                                          "Please make a payment to unlock this feature."),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text("OK"),
-                                        ),
-                                      ],
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  if (sendButtonEnabled == true) {
+                                    sendMessage(messageController.text);
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Payment Required"),
+                                          content: Text(
+                                              "Please make a payment to unlock this feature."),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        paymentChatNoForm(
+                                                      nutritionistId: friendUid,
+                                                      nutritionistName:
+                                                          friendName,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child:
+                                                  Text("Do you want to pay?"),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     );
-                                  },
-                                );
-                              }
-                            },
-                            icon: Icon(
-                              Icons.send_rounded,
-                              color: Colors.white,
-                            ),
+                                  }
+                                },
+                                icon: Visibility(
+                                  visible: sendButtonEnabled == true,
+                                  child: Icon(
+                                    Icons.send_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: sendButtonEnabled == false,
+                                child: Icon(
+                                  Icons.lock,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
                         )
                       ]),
