@@ -36,64 +36,32 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   var chatDocId;
   _ChatDetailNutritionistState(this.friendUid, this.friendName);
   bool sendButtonEnabled = true;
+  // Timestamp? lastMessageTimestamp;
+
+  void checkPaymentStatus() {
+    FirebaseFirestore.instance
+        .collection('payments')
+        .where('uid', isEqualTo: uid)
+        .where('nutritionistId', isEqualTo: friendUid)
+        .where('date')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        FirebaseFirestore.instance
+            .collection('payments')
+            .doc(doc.id)
+            .update({'status': 0})
+            .then((value) => print('Payment Updated'))
+            .catchError((error) => print('Failed to update payment: $error'));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _getChatDocId();
-    queryPayments(userId, friendUid);
-  }
-
-  Future<Map<String, dynamic>> queryPayments(
-      String uid, String nutritionistId) async {
-    Map<String, dynamic> result = {};
-    CollectionReference paymentsRef =
-        FirebaseFirestore.instance.collection('payments');
-
-    QuerySnapshot querySnapshot = await paymentsRef
-        .where('uid', isEqualTo: uid)
-        .where('nutritionistid', isEqualTo: nutritionistId)
-        .where('date',
-            isGreaterThanOrEqualTo:
-                DateTime.now().subtract(Duration(minutes: 5)))
-        .orderBy('date')
-        .get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      result['firstDate'] = querySnapshot.docs.first.get('date').toDate();
-      DateTime firstDate = result['firstDate'];
-      DateTime latestDate = querySnapshot.docs.last.get('date').toDate();
-      if (latestDate.difference(firstDate).inMinutes > 5) {
-        latestDate = DateTime.now();
-        print(
-            'It has been more than 1 minute since the first payment was made.');
-      }
-
-      result['latestDate'] = latestDate;
-      result['payments'] = querySnapshot.docs.map((doc) => doc.data()).toList();
-    }
-
-    await FirebaseFirestore.instance
-        .collection('payments')
-        .where('uid', isEqualTo: uid)
-        .where('nutritionistid', isEqualTo: nutritionistId)
-        .orderBy('date')
-        .limit(1)
-        .get()
-        .then((value) => print(
-            'Index creation successful for payments collection with uid and nutritionistid fields'));
-
-    if (result.containsKey('latestDate') &&
-        DateTime.now().difference(result['latestDate']).inMinutes > 5) {
-      setState(() {
-        sendButtonEnabled = false;
-      });
-    } else {
-      setState(() {
-        sendButtonEnabled = true;
-      });
-    }
-
-    return result;
+    checkPaymentStatus();
   }
 
   Future<void> _getChatDocId() async {
@@ -199,7 +167,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                         bottom: height_ * 0.01, top: height_ * 0.01),
                     child: Container(
                       height: height_ * 0.05,
-                      width: width_ * 0.2,
+                      width: width_ * 0.15,
                       margin: EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(231, 53, 63, 201),
@@ -207,7 +175,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                       ),
                       child: TextButton(
                         child: Text(
-                          'More Info',
+                          'Info',
                           style: TextStyle(
                             color: Color.fromARGB(255, 231, 231, 231),
                             fontSize: 12,
@@ -359,35 +327,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         .doc(chatDocId);
 
     // Check if it's been more than 1 minute since the last payment
-    queryPayments(userId, friendUid).then((result) {
-      if (result.containsKey('latestDate') &&
-          DateTime.now().difference(result['latestDate']).inMinutes > 1) {
-        // Disable the send button
-        setState(() {
-          sendButtonEnabled = false;
-        });
-        // Prompt user to pay
-        // You can use a dialog or navigate to a payment screen
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Payment Required"),
-              content: Text("Please make a payment to unlock this feature."),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("OK"),
-                ),
-              ],
-            );
-          },
-        );
-        return;
-      }
-    });
 
     // Add the message to the messages collection in the chat document
     chatRef.collection('messages').add({
@@ -403,52 +342,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
       // Clear the message input field
       messageController.text = '';
-
-      // Check if it's been more than 1 minute since the last payment
-      queryPayments(userId, friendUid).then((result) {
-        if (result.containsKey('latestDate') &&
-            DateTime.now().difference(result['latestDate']).inMinutes > 1) {
-          // Disable the send button
-          setState(() {
-            sendButtonEnabled = false;
-          });
-          // Prompt user to pay
-          // You can use a dialog or navigate to a payment screen
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Payment Required"),
-                content: Text("Please make a payment to unlock this feature."),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("OK"),
-                  ),
-                ],
-              );
-            },
-          );
-          return;
-        }
-        // Check if it's been more than 1 minute since the last message was sent
-        if (result.containsKey('firstDate') &&
-            DateTime.now().difference(result['firstDate']).inMinutes > 5) {
-          // Disable the send button
-          setState(() {
-            sendButtonEnabled = true;
-          });
-        } else {
-          // Enable the send button
-          setState(() {
-            sendButtonEnabled = false;
-          });
-        }
-      });
-    }).catchError((error) {
-      print('Error sending message: $error');
     });
   }
 

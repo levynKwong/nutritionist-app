@@ -145,7 +145,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                         bottom: height_ * 0.01, top: height_ * 0.01),
                     child: Container(
                       height: height_ * 0.05,
-                      width: width_ * 0.2,
+                      width: width_ * 0.15,
                       margin: EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(231, 53, 63, 201),
@@ -153,7 +153,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                       ),
                       child: TextButton(
                         child: Text(
-                          'More Info',
+                          'Info',
                           style: TextStyle(
                             color: Color.fromARGB(255, 231, 231, 231),
                             fontSize: 12,

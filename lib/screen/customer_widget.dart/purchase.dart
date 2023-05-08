@@ -30,7 +30,7 @@ void deductCoin(
           "nutritionistId": nutritionistId,
           "amount": 1,
           "date": DateTime.now(),
-          "status": "completed"
+          "status": 1,
         });
       } else {
         throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(

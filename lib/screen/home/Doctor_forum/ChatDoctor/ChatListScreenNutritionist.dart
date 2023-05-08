@@ -110,11 +110,14 @@ class _ChatListScreenNutritionistState
                         ),
                         title: Row(
                           children: [
-                            Text('Dr ' + friendName),
-                            SizedBox(width: width_ * 0.35),
+                            Expanded(
+                              child: Text(
+                                'Dr ' + friendName,
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
                             Text(
-                              DateFormat.jm().format(lastMessageTime!
-                                  .toDate()), // convert Timestamp to DateTime
+                              DateFormat.jm().format(lastMessageTime!.toDate()),
                               style: TextStyle(color: Colors.grey),
                             ),
                           ],
