@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/platformClient.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 
 class dashboard extends StatefulWidget {
@@ -44,6 +47,39 @@ class _dashboardState extends State<dashboard> {
         ],
       ),
     );
+  }
+
+  int _patientCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _getPatientCount();
+  }
+
+  Future<void> _getPatientCount() async {
+    int count = await countPatients();
+    setState(() {
+      _patientCount = count;
+    });
+  }
+
+  Future<int> countPatients() async {
+    int count = 0;
+
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Patient').get();
+    List<QueryDocumentSnapshot<Object?>> documents = querySnapshot.docs;
+
+    Set<String> uniqueIds = Set<String>();
+    for (QueryDocumentSnapshot<Object?> document in documents) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      String uid = data['uid'] as String;
+      uniqueIds.add(uid);
+    }
+
+    count = uniqueIds.length;
+    return count;
   }
 
   Widget client(double width_, double height_) {
@@ -316,7 +352,7 @@ class _dashboardState extends State<dashboard> {
                               ),
                             ),
                             Text(
-                              '10',
+                              ' $_patientCount',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontSize: width_ * 0.05,
