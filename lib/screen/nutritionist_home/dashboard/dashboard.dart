@@ -36,10 +36,6 @@ class _dashboardState extends State<dashboard> {
                     height: height_ * 0.02,
                   ),
                   info(width_, height_),
-                  SizedBox(
-                    height: height_ * 0.02,
-                  ),
-                  info2(width_, height_),
                   client(width_, height_),
                 ],
               ),
@@ -52,7 +48,7 @@ class _dashboardState extends State<dashboard> {
 
   Widget client(double width_, double height_) {
     return SizedBox(
-      height: height_ * 0.59,
+      height: height_ * 0.7,
       width: width_ * 1.3,
       child: Container(
         margin: EdgeInsets.all(width_ * 0.04),
@@ -106,71 +102,37 @@ class _dashboardState extends State<dashboard> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
-                            width: width_ * 0.1,
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.add),
-                            onPressed: () {
-                              print('Add plan');
-                            },
-                          )
                         ],
                       ),
-                      Row(
+                      Wrap(
+                        spacing: width_ * 0.01,
                         children: [
                           Container(
-                            width: width_ * 0.15,
-                            height: height_ * 0.023,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: width_ * 0.03,
+                              vertical: height_ * 0.00,
+                            ),
                             decoration: BoxDecoration(
                               color: Color.fromARGB(255, 184, 184, 184),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: width_ * 0.03),
-                                  child: Text(
-                                    'Text',
-                                    style: TextStyle(fontSize: width_ * 0.035),
-                                  ),
-                                ),
-                                Container(
-                                  width: width_ * 0.032,
-                                  height: height_ * 0.032,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width_ * 0.003,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: width_ * 0.01,
                           ),
                           Container(
-                            width: width_ * 0.27,
-                            height: height_ * 0.023,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: width_ * 0.008,
+                              vertical: height_ * 0.000,
+                            ),
                             decoration: BoxDecoration(
                               color: Color.fromARGB(255, 184, 184, 184),
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: width_ * 0.008),
-                                  child: Text(
-                                    'Appointment',
-                                    style: TextStyle(fontSize: width_ * 0.035),
-                                  ),
+                                Text(
+                                  'Appointment',
+                                  style: TextStyle(fontSize: width_ * 0.035),
                                 ),
+                                SizedBox(width: width_ * 0.006),
                                 Container(
                                   width: width_ * 0.032,
                                   height: height_ * 0.032,
@@ -179,14 +141,11 @@ class _dashboardState extends State<dashboard> {
                                     shape: BoxShape.circle,
                                   ),
                                 ),
-                                SizedBox(
-                                  width: width_ * 0.006,
-                                ),
                               ],
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -199,25 +158,30 @@ class _dashboardState extends State<dashboard> {
               margin: EdgeInsets.only(left: width_ * 0.05),
               child: Row(
                 children: [
-                  SizedBox(width: width_ * 0.03),
-                  Text(
-                    'Name',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      'Name',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    flex: 2,
                   ),
-                  SizedBox(width: width_ * 0.21),
-                  Text(
-                    'Status',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      'Status',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  SizedBox(width: width_ * 0.04),
-                  Text(
-                    'Due Date',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      'Due Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  SizedBox(width: width_ * 0.035),
-                  Text(
-                    'Time',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      'Time',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -242,16 +206,7 @@ class _dashboardState extends State<dashboard> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
-                  children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(fontSize: width_ * 0.06),
-                    ),
-                    Text(
-                      'Time',
-                      style: TextStyle(fontSize: width_ * 0.06),
-                    ),
-                  ],
+                  children: [],
                 ),
               ),
             )
@@ -285,7 +240,7 @@ class _dashboardState extends State<dashboard> {
                         width: width_ * 0.07, // set desired width of image
                         height: height_ * 0.035, // set desired height of image
                         child: Image.asset(
-                          'images/appointment.png', // path to local image file
+                          'images/customer.png', // path to local image file
                           fit: BoxFit.cover,
                           // specify how the image should be resized to fit into the available space
                         ),
@@ -296,7 +251,7 @@ class _dashboardState extends State<dashboard> {
                       Column(
                         children: [
                           Text(
-                            'Text Message',
+                            'Client Counter',
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: width_ * 0.035,
@@ -312,7 +267,7 @@ class _dashboardState extends State<dashboard> {
                             ),
                           ),
                           Text(
-                            'Total: 28',
+                            'Today',
                             style: TextStyle(
                               color: Color.fromARGB(255, 125, 125, 125),
                               fontSize: width_ * 0.04,
@@ -353,7 +308,7 @@ class _dashboardState extends State<dashboard> {
                         Column(
                           children: [
                             Text(
-                              'New Client',
+                              'Platform Client',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontSize: width_ * 0.035,
@@ -369,137 +324,7 @@ class _dashboardState extends State<dashboard> {
                               ),
                             ),
                             Text(
-                              'This month',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 125, 125, 125),
-                                fontSize: width_ * 0.04,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-              ),
-              SizedBox(
-                width: width_ * 0.04,
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget info2(double width_, double height_) {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: width_ * 0.04,
-              ),
-              Expanded(
-                child: MaterialButton(
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  height: height_ * 0.10,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width_ * 0.07, // set desired width of image
-                        height: height_ * 0.035, // set desired height of image
-                        child: Image.asset(
-                          'images/customer.png', // path to local image file
-                          fit: BoxFit.cover,
-                          // specify how the image should be resized to fit into the available space
-                        ),
-                      ),
-                      SizedBox(
-                        width: width_ * 0.03,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Client Counter',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.035,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '10',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.05,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Left',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 125, 125, 125),
-                              fontSize: width_ * 0.04,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: width_ * 0.03,
-              ),
-              Expanded(
-                child: MaterialButton(
-                    onPressed: () {},
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    height: height_ * 0.10,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: width_ * 0.07, // set desired width of image
-                          height:
-                              height_ * 0.035, // set desired height of image
-                          child: Image.asset(
-                            'images/customer.png', // path to local image file
-                            fit: BoxFit.cover,
-                            // specify how the image should be resized to fit into the available space
-                          ),
-                        ),
-                        SizedBox(
-                          width: width_ * 0.03,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Client Countert',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: width_ * 0.035,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '10',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: width_ * 0.05,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Left',
+                              'Total',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 125, 125, 125),
                                 fontSize: width_ * 0.04,
