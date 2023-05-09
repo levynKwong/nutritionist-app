@@ -282,10 +282,10 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                   hintText: 'Type a message',
                                   contentPadding: EdgeInsets.only(
                                       left: 15, bottom: 12, top: 15, right: 15),
-                                  suffixIcon: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.emoji_emotions),
-                                  ),
+                                  // suffixIcon: IconButton(
+                                  //   onPressed: () {},
+                                  //   icon: const Icon(Icons.emoji_emotions),
+                                  // ),
                                 ),
                               ),
                             )),
