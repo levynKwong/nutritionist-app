@@ -326,29 +326,3 @@ class _paymentAppointmentState extends State<paymentAppointment> {
     }
   }
 }
- // if (selectedTimeSlots.isNotEmpty) {
-    //   final batch = FirebaseFirestore.instance.batch();
-
-    //   final timeSlotsRef = FirebaseFirestore.instance.collection('timeSlots');
-
-    //   List<bool> newTimeAvailable =
-    //       List.from(timeAvailable); // Create a copy of timeAvailable
-
-    //   for (final selectedTimeSlot in selectedTimeSlots) {
-    //     final availableTimeSlots = _getAvailableTimeSlots(
-    //         newTimeAvailable); // Use the newTimeAvailable copy
-    //     if (selectedTimeSlot < availableTimeSlots.length) {
-    //       final index = availableTimeSlots[selectedTimeSlot];
-
-    //       final docRef = await timeSlotsRef.add({
-    //         'userId': widget.userId,
-    //         'nutritionistId': widget.nutritionistUid,
-    //         'timeSlot': '${index + 6}:00',
-    //       }).catchError((error) {
-    //         // Handle the error here.
-    //         print('Error while adding document: $error');
-    //       });
-
-    //       newTimeAvailable[index] = false; // Update newTimeAvailable
-    //     }
-    //   }
