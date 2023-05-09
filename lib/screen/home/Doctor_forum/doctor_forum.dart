@@ -4,7 +4,7 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/ChatDoctor.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/ChatDoctor.dart';
 
 import 'RandomChat.dart/randomChat.dart';
 

@@ -321,7 +321,19 @@ class _paymentAppointmentState extends State<paymentAppointment> {
         },
       );
     }
-
+    for (final timeSlot in selectedTimeSlots) {
+      final timeSlotDocRef =
+          FirebaseFirestore.instance.collection('pendingPlan').doc();
+      batch.set(
+        timeSlotDocRef,
+        {
+          'nutritionistId': nutritionistId,
+          'timeSlot': timeSlot,
+          'date': date,
+          'userId': userId,
+        },
+      );
+    }
     try {
       await batch.commit();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

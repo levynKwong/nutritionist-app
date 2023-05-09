@@ -7,7 +7,7 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/WebViewScreen.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/WebViewScreen.dart';
 
 class paymentChat extends StatefulWidget {
   final String nutritionistId;

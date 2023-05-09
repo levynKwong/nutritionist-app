@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 import 'dart:async';
 
-import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/chatDetailNutritionist.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);

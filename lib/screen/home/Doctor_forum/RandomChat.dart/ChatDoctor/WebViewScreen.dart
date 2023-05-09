@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
-import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/chatDetailNutritionist.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
-import 'package:meal_aware/screen/home/Doctor_forum/ChatDoctor/paymentChat.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChat.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url;

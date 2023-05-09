@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/pendingPlan.dart';
 import 'package:meal_aware/screen/customer_widget.dart/platformClient.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+import 'package:collection/collection.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
@@ -50,11 +53,13 @@ class _dashboardState extends State<dashboard> {
   }
 
   int _patientCount = 0;
+  int _ClientCount = 0;
 
   @override
   void initState() {
     super.initState();
     _getPatientCount();
+    _clientCounter();
   }
 
   Future<void> _getPatientCount() async {
@@ -62,6 +67,52 @@ class _dashboardState extends State<dashboard> {
     setState(() {
       _patientCount = count;
     });
+  }
+
+  Future<void> _clientCounter() async {
+    int count = await _countDocumentsForToday();
+    setState(() {
+      _ClientCount = count;
+    });
+  }
+
+  Future<int> _countDocumentsForToday() async {
+    // Create a reference to the pendingPlan collection
+    CollectionReference pendingPlan =
+        FirebaseFirestore.instance.collection('pendingPlan');
+
+    // Get today's date as a Timestamp object
+    DateTime today = DateTime.now().toUtc().add(Duration(hours: 4));
+    DateTime startOfDay = DateTime(
+      today.month,
+      today.day,
+      today.year,
+    );
+    DateTime endOfDay =
+        DateTime(today.year, today.month, today.day, 23, 59, 59);
+
+    Timestamp startOfToday = Timestamp.fromDate(startOfDay);
+    Timestamp endOfToday = Timestamp.fromDate(endOfDay);
+
+    QuerySnapshot querySnapshot = await pendingPlan
+        .where('nutritionistId', isEqualTo: userId)
+        .where('date', isGreaterThanOrEqualTo: startOfToday)
+        .where('date', isLessThanOrEqualTo: endOfToday)
+        .orderBy('date')
+        .get();
+
+    // Group the documents by id
+    Map<String, List<QueryDocumentSnapshot>> groupedDocs =
+        groupBy(querySnapshot.docs, (doc) => doc.get('nutritionistId'));
+
+    // Count the number of documents for each id
+    int count = 0;
+    groupedDocs.forEach((nutritionistId, docs) {
+      count += docs.length;
+    });
+
+    // Return the count
+    return count;
   }
 
   Future<int> countPatients() async {
@@ -191,41 +242,6 @@ class _dashboardState extends State<dashboard> {
               height: height_ * 0.01,
             ),
             Container(
-              margin: EdgeInsets.only(left: width_ * 0.05),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Name',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    flex: 2,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Status',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Due Date',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Time',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: height_ * 0.01,
-            ),
-            Container(
               height: height_ * 0.0,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -237,13 +253,10 @@ class _dashboardState extends State<dashboard> {
                 ),
               ),
             ),
-            Container(
-              height: height_ * 0.36,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [],
-                ),
+            SingleChildScrollView(
+              child: SizedBox(
+                height: height_ * 0.5, // Replace with your desired height
+                child: PendingPlanList(),
               ),
             )
           ],
@@ -295,7 +308,7 @@ class _dashboardState extends State<dashboard> {
                             ),
                           ),
                           Text(
-                            '10',
+                            '$_ClientCount',
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: width_ * 0.05,
@@ -446,4 +459,6 @@ class _dashboardState extends State<dashboard> {
       },
     );
   }
+
+  // Initialize Firebase
 }
