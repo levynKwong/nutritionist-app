@@ -39,7 +39,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
         return <bool>[];
       }
     });
-    _selectedTimeSlots = List<bool>.filled(0, false);
+    _selectedTimeSlots = List<bool>.filled(_selectedTimeSlots.length, false);
   }
 
   void _toggleSelection(int index) {
@@ -57,9 +57,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   List<int> _getAvailableTimeSlots(List<bool> timeAvailable) {
     final availableTimeSlots = <int>[];
     for (int i = 0; i < timeAvailable.length; i++) {
-      if (timeAvailable[i]) {
-        availableTimeSlots.add(i);
-      }
+      availableTimeSlots.add(i);
     }
     return availableTimeSlots;
   }
@@ -106,7 +104,10 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                                   vertical: 0, horizontal: width_ * 0.01),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  _toggleSelection(index);
+                                  if (timeAvailable[_getAvailableTimeSlots(
+                                      timeAvailable)[index]]) {
+                                    _toggleSelection(index);
+                                  }
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -115,7 +116,15 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                                       if (isSelected) {
                                         return Colors.grey;
                                       } else {
-                                        return getColor();
+                                        // If the corresponding boolean value in _selectedTimeSlots is false, disable the button and set its color to grey.
+                                        if (!timeAvailable[
+                                            _getAvailableTimeSlots(
+                                                timeAvailable)[index]]) {
+                                          return Color.fromARGB(
+                                              255, 168, 72, 72);
+                                        } else {
+                                          return getColor();
+                                        }
                                       }
                                     },
                                   ),

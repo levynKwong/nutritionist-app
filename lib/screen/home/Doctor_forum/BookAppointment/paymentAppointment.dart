@@ -181,6 +181,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             child: Column(
               children: [
                 Text(
+                  '$timeAvailable'
                   'Read before pressing on the coin',
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.052,
@@ -268,8 +269,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   }
 
   void _confirmSelection(List<bool> timeAvailable) async {
-    List<bool> _selectedTimeSlots = [];
-
     final selectedTimeSlots = <int>[];
     for (int i = 0; i < timeAvailable.length; i++) {
       if (timeAvailable[i]) {
@@ -277,56 +276,79 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       }
     }
 
-    List<int> _getAvailableTimeSlots(List<bool> timeAvailable) {
-      final availableTimeSlots = <int>[];
-      for (int i = 0; i < timeAvailable.length; i++) {
-        if (timeAvailable[i]) {
-          availableTimeSlots.add(i);
-        }
+    // List<int> _getAvailableTimeSlots(List<bool> timeAvailable) {
+    //   final availableTimeSlots = <int>[];
+    //   for (int i = 0; i < timeAvailable.length; i++) {
+    //     if (timeAvailable[i]) {
+    //       availableTimeSlots.add(i);
+    //     }
+    //   }
+    //   return availableTimeSlots;
+    // }
+
+    final batch = FirebaseFirestore.instance.batch();
+    final docRef = FirebaseFirestore.instance
+        .collection('timeAvailability')
+        .doc(widget.nutritionistUid);
+
+    // Fetch the current timesAvailable array from Firebase
+    final docSnapshot = await docRef.get();
+    final firebaseTimesAvailable =
+        List<bool>.from(docSnapshot.get('timesAvailable'));
+
+    // Update the timesAvailable array in Firebase
+    final updatedTimesAvailable = List<bool>.from(firebaseTimesAvailable);
+    for (int i = 0; i < timeAvailable.length; i++) {
+      if (timeAvailable[i] == true) {
+        // Keep the existing value in Firebase
+        updatedTimesAvailable[i] = firebaseTimesAvailable[i];
+      } else {
+        // Update the value in Firebase to false
+        updatedTimesAvailable[i] = false;
       }
-      return availableTimeSlots;
     }
 
-    if (selectedTimeSlots.isNotEmpty) {
-      final batch = FirebaseFirestore.instance.batch();
+    batch.update(
+      docRef,
+      {'timesAvailable': updatedTimesAvailable},
+    );
 
-      final timeSlotsRef = FirebaseFirestore.instance.collection('timeSlots');
-
-      for (final selectedTimeSlot in selectedTimeSlots) {
-        final availableTimeSlots = _getAvailableTimeSlots(timeAvailable);
-        if (selectedTimeSlot < availableTimeSlots.length) {
-          final index = availableTimeSlots[selectedTimeSlot];
-
-          final docRef = await timeSlotsRef.add({
-            'userId': widget.userId,
-            'nutritionistId': widget.nutritionistUid,
-            'timeSlot': '${index + 6}:00',
-          });
-
-          timeAvailable[index] = false;
-        }
-      }
-
-      batch.update(
-        FirebaseFirestore.instance
-            .collection('timeAvailability')
-            .doc(widget.nutritionistUid),
-        {'timesAvailable': timeAvailable},
-      );
-
+    try {
       await batch.commit();
-
-      setState(() {
-        _selectedTimeSlots = List<bool>.filled(timeAvailable.length, false);
-      });
-
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Selection confirmed!'),
       ));
-    } else {
+    } catch (e) {
+      print('Error while committing batch: $e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Please select at least one time slot!'),
+        content: Text('Error confirming selection'),
       ));
     }
   }
 }
+ // if (selectedTimeSlots.isNotEmpty) {
+    //   final batch = FirebaseFirestore.instance.batch();
+
+    //   final timeSlotsRef = FirebaseFirestore.instance.collection('timeSlots');
+
+    //   List<bool> newTimeAvailable =
+    //       List.from(timeAvailable); // Create a copy of timeAvailable
+
+    //   for (final selectedTimeSlot in selectedTimeSlots) {
+    //     final availableTimeSlots = _getAvailableTimeSlots(
+    //         newTimeAvailable); // Use the newTimeAvailable copy
+    //     if (selectedTimeSlot < availableTimeSlots.length) {
+    //       final index = availableTimeSlots[selectedTimeSlot];
+
+    //       final docRef = await timeSlotsRef.add({
+    //         'userId': widget.userId,
+    //         'nutritionistId': widget.nutritionistUid,
+    //         'timeSlot': '${index + 6}:00',
+    //       }).catchError((error) {
+    //         // Handle the error here.
+    //         print('Error while adding document: $error');
+    //       });
+
+    //       newTimeAvailable[index] = false; // Update newTimeAvailable
+    //     }
+    //   }
