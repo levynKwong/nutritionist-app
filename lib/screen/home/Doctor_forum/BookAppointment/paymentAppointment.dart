@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
@@ -181,7 +182,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             child: Column(
               children: [
                 Text(
-                  '$timeAvailable'
                   'Read before pressing on the coin',
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.052,
@@ -271,20 +271,11 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   void _confirmSelection(List<bool> timeAvailable) async {
     final selectedTimeSlots = <int>[];
     for (int i = 0; i < timeAvailable.length; i++) {
-      if (timeAvailable[i]) {
+      if (!timeAvailable[i]) {
+        // select only the false values
         selectedTimeSlots.add(i);
       }
     }
-
-    // List<int> _getAvailableTimeSlots(List<bool> timeAvailable) {
-    //   final availableTimeSlots = <int>[];
-    //   for (int i = 0; i < timeAvailable.length; i++) {
-    //     if (timeAvailable[i]) {
-    //       availableTimeSlots.add(i);
-    //     }
-    //   }
-    //   return availableTimeSlots;
-    // }
 
     final batch = FirebaseFirestore.instance.batch();
     final docRef = FirebaseFirestore.instance
@@ -312,6 +303,24 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       docRef,
       {'timesAvailable': updatedTimesAvailable},
     );
+
+    // Store the selected time slots in the timeSlots collection
+    final nutritionistId = widget.nutritionistUid;
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final date = DateTime.now();
+    for (final timeSlot in selectedTimeSlots) {
+      final timeSlotDocRef =
+          FirebaseFirestore.instance.collection('timeSlots').doc();
+      batch.set(
+        timeSlotDocRef,
+        {
+          'nutritionistId': nutritionistId,
+          'timeSlot': timeSlot,
+          'userId': userId,
+          'date': date,
+        },
+      );
+    }
 
     try {
       await batch.commit();
