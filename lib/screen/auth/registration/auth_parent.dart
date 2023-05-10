@@ -148,19 +148,19 @@ class _ParentAuthState extends State<ParentAuth> {
                                       value: _selectedAge,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '8',
+                                          value: '1',
                                           child: Text('1-5'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '9',
+                                          value: '2',
                                           child: Text('6-10'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '10',
+                                          value: '3',
                                           child: Text('11-15'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '11',
+                                          value: '4',
                                           child: Text('16-18'),
                                         ),
                                       ],

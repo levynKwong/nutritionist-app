@@ -21,10 +21,10 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   int _coin = 0;
   String _username = '';
-  String _age = '';
-  late String age = '';
+  String? _age;
+  // late String age = '';
 
-  String _gender = '';
+  String? _gender;
   late String gender;
   String _country = '';
   late String country;
@@ -43,62 +43,61 @@ class _profileState extends State<profile> {
   String _dietType = '';
   late String dietType;
 
-  void change() {
-    if (_age == '1') {
-      setState(() {
-        age = '1-18';
-      });
-    } else if (_age == '2') {
-      setState(() {
-        age = '19-24';
-      });
-    } else if (_age == '3') {
-      setState(() {
-        age = '25-34';
-      });
-    } else if (_age == '4') {
-      setState(() {
-        age = '35-44';
-      });
-    } else if (_age == '5') {
-      setState(() {
-        age = '45-54';
-      });
-    } else if (_age == '6') {
-      setState(() {
-        age = '55-64';
-      });
-    } else if (_age == '7') {
-      setState(() {
-        age = '65+';
-      });
-    } else if (_age == '8') {
-      setState(() {
-        age = '1-5';
-      });
-    } else if (_age == '9') {
-      setState(() {
-        age = '6-10';
-      });
-    } else if (_age == '10') {
-      setState(() {
-        age = '11-15';
-      });
-    } else if (_age == '11') {
-      setState(() {
-        age = '16-18';
-      });
-    }
-  }
+  // void change() {
+  //   if (_age == '1') {
+  //     setState(() {
+  //       age = '1-18';
+  //     });
+  //   } else if (_age == '2') {
+  //     setState(() {
+  //       age = '19-24';
+  //     });
+  //   } else if (_age == '3') {
+  //     setState(() {
+  //       age = '25-34';
+  //     });
+  //   } else if (_age == '4') {
+  //     setState(() {
+  //       age = '35-44';
+  //     });
+  //   } else if (_age == '5') {
+  //     setState(() {
+  //       age = '45-54';
+  //     });
+  //   } else if (_age == '6') {
+  //     setState(() {
+  //       age = '55-64';
+  //     });
+  //   } else if (_age == '7') {
+  //     setState(() {
+  //       age = '65+';
+  //     });
+  //   } else if (_age == '8') {
+  //     setState(() {
+  //       age = '1-5';
+  //     });
+  //   } else if (_age == '9') {
+  //     setState(() {
+  //       age = '6-10';
+  //     });
+  //   } else if (_age == '10') {
+  //     setState(() {
+  //       age = '11-15';
+  //     });
+  //   } else if (_age == '11') {
+  //     setState(() {
+  //       age = '16-18';
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
 
-    getAge().then((age) {
+    getAge().then((value) {
       setState(() {
-        _age = age;
-        change();
+        _age = value!;
       });
     });
 
@@ -515,35 +514,51 @@ class _profileState extends State<profile> {
   final List<DropdownMenuItem<String>> ageList = [
     DropdownMenuItem(
       value: '1',
-      child: Text('1-18'),
+      child: Text('1-5'),
     ),
     DropdownMenuItem(
       value: '2',
-      child: Text('19-24'),
+      child: Text('6-10'),
     ),
     DropdownMenuItem(
       value: '3',
-      child: Text('25-34'),
+      child: Text('11-15'),
     ),
     DropdownMenuItem(
       value: '4',
-      child: Text('35-44'),
+      child: Text('16-18'),
     ),
     DropdownMenuItem(
       value: '5',
-      child: Text('45-54'),
+      child: Text('6-18'),
     ),
     DropdownMenuItem(
       value: '6',
-      child: Text('55-64'),
+      child: Text('19-24'),
     ),
     DropdownMenuItem(
       value: '7',
+      child: Text('25-34'),
+    ),
+    DropdownMenuItem(
+      value: '8',
+      child: Text('35-44'),
+    ),
+    DropdownMenuItem(
+      value: '9',
+      child: Text('45-54'),
+    ),
+    DropdownMenuItem(
+      value: '10',
+      child: Text('55-64'),
+    ),
+    DropdownMenuItem(
+      value: '11',
       child: Text('65+'),
     ),
   ];
 
-  Future<String> getAge() async {
+  Future<String?> getAge() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
         .doc(userId)
@@ -552,7 +567,7 @@ class _profileState extends State<profile> {
     if (docSnapshot.exists) {
       return docSnapshot.get('age');
     } else {
-      return 'age';
+      return null;
     }
   }
 
@@ -581,23 +596,21 @@ class _profileState extends State<profile> {
               children: [
                 DropdownButton<String>(
                   value: _age,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _age = value!;
-                      change(); // Call the change function to update the age value
-
-                      // Update the "age" field in the "Patient" document in Firestore
-                      FirebaseFirestore.instance
-                          .collection('Patient')
-                          .doc(
-                              userId) // Replace "patientId" with the ID of the current patient
-                          .update({'age': value})
-                          .then((value) => print('Age updated'))
-                          .catchError(
-                              (error) => print('Failed to update age: $error'));
-                    });
-                  },
                   items: ageList,
+                  onChanged: (String? newValue) {
+                    // update the age value when the user selects an item
+                    setState(() {
+                      _age = newValue!;
+                    });
+                    FirebaseFirestore.instance
+                        .collection('Patient')
+                        .doc(
+                            userId) // Replace "patientId" with the ID of the current patient
+                        .update({'age': newValue})
+                        .then((value) => print('Age updated'))
+                        .catchError(
+                            (error) => print('Failed to update age: $error'));
+                  },
                 ),
               ],
             ),

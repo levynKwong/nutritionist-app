@@ -146,31 +146,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       value: _selectedAge,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '1',
+                                          value: '5',
                                           child: Text('1-18'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '2',
+                                          value: '6',
                                           child: Text('19-24'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '3',
+                                          value: '7',
                                           child: Text('25-34'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '4',
+                                          value: '8',
                                           child: Text('35-44'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '5',
+                                          value: '9',
                                           child: Text('45-54'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '6',
+                                          value: '10',
                                           child: Text('55-64'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '7',
+                                          value: '11',
                                           child: Text('65+'),
                                         ),
                                       ],
