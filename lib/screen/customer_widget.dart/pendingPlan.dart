@@ -126,8 +126,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
                 if (snapshot.hasData) {
                   String username = snapshot.data?.get('username');
                   return Text(
-                    "$username",
-                    style: TextStyle(fontSize: width_ * 0.04),
+                    "name: $username",
+                    style: TextStyle(fontSize: width_ * 0.045),
                   );
                 } else {
                   return Text("Loading...");
@@ -135,8 +135,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
               },
             ),
             Text(
-              "$timeString",
-              style: TextStyle(fontSize: width_ * 0.04),
+              "Time Slot: $timeString",
+              style: TextStyle(fontSize: width_ * 0.045),
             ),
             IconButton(
               icon: Icon(Icons.close),

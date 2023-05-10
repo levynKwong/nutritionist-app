@@ -57,32 +57,32 @@ class _profileState extends State<profile> {
 
     getAge().then((value) {
       setState(() {
-        _age = value!;
+        _age = value;
       });
     });
     getCountry().then((value) {
       setState(() {
-        _country = value!;
+        _country = value;
       });
     });
     getgender().then((value) {
       setState(() {
-        _gender = value!;
+        _gender = value;
       });
     });
     getActivityLevel().then((value) {
       setState(() {
-        _activityLevel = value!;
+        _activityLevel = value;
       });
     });
     getBodyGoal().then((value) {
       setState(() {
-        _bodyGoal = value!;
+        _bodyGoal = value;
       });
     });
     getDietaryPreferenceList().then((value) {
       setState(() {
-        _dietType = value!;
+        _dietType = value;
       });
     });
     getCoin().then((coin) {
@@ -101,22 +101,33 @@ class _profileState extends State<profile> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
         appBar: appBarTop(
           titleText: 'Profile',
         ),
         body: SingleChildScrollView(
-          child: SizedBox(
-            child: Column(
-              children: [
-                SizedBox(height: height_ * 0.01),
-                topContent(height_, width_),
-                SizedBox(height: height_ * 0.01),
-                buildProfileHeader(width_, height_),
-                SizedBox(height: height_ * 0.02),
-                Content(width_, height_)
-              ],
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/pattern_food.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SizedBox(
+              width: width_,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: height_ * 0.01),
+                  topContent(height_, width_),
+                  SizedBox(height: height_ * 0.01),
+                  buildProfileHeader(width_, height_),
+                  SizedBox(height: height_ * 0.02),
+                  Content(width_, height_)
+                ],
+              ),
             ),
           ),
         ),
@@ -951,7 +962,7 @@ class _profileState extends State<profile> {
                   onChanged: (String? newValue) {
                     // update the age value when the user selects an item
                     setState(() {
-                      _country = newValue!;
+                      _gender = newValue!;
                     });
                     FirebaseFirestore.instance
                         .collection('Patient')

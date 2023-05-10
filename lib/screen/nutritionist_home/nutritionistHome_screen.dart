@@ -10,7 +10,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/dashboard.dart';
 import 'package:meal_aware/screen/nutritionist_home/form/form.dart';
 import 'package:meal_aware/screen/nutritionist_home/message/messageNutritionist.dart';
-import 'package:meal_aware/screen/nutritionist_home/profile/profilePageNutritionist.dart';
+import 'package:meal_aware/screen/nutritionist_home/profile/profileNutritionist.dart';
 
 class NutritionistHome extends StatefulWidget {
   const NutritionistHome({Key? key}) : super(key: key);
