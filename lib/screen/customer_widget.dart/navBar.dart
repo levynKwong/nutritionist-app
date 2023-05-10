@@ -131,12 +131,19 @@ Future<dynamic> popUpButton(BuildContext context) {
         builder: (BuildContext context, BoxConstraints constraints) {
           final double width_ = constraints.maxWidth;
           final double height_ = constraints.maxHeight;
-          final double contentHeight = height_ * 0.45;
+          final double contentHeight = height_ * 0.5; // reduce by 10
           final double contentWidth = width_ * 0.8;
 
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
+            ),
+            contentPadding: EdgeInsets.only(
+              top: 20.0,
+              bottom:
+                  10.0, // set to the same amount as the reduction in contentHeight
+              left: 20.0,
+              right: 20.0,
             ),
             content: Container(
               height: contentHeight,

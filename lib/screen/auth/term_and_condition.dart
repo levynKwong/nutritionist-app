@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/patientAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 
@@ -269,7 +270,8 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Home(),
+                                  builder: (context) =>
+                                      PatientAdditionalDetail(),
                                 ),
                               );
                             }

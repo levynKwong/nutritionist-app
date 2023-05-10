@@ -168,7 +168,7 @@ class _dashboardState extends State<dashboard> {
                   'Pending Plan',
                   style: TextStyle(
                     color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: width_ * 0.054,
+                    fontSize: width_ * 0.04,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -185,7 +185,7 @@ class _dashboardState extends State<dashboard> {
                             'Plan Type',
                             style: TextStyle(
                               color: Color.fromARGB(255, 125, 125, 125),
-                              fontSize: width_ * 0.04,
+                              fontSize: width_ * 0.03,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -217,7 +217,7 @@ class _dashboardState extends State<dashboard> {
                               children: [
                                 Text(
                                   'Appointment',
-                                  style: TextStyle(fontSize: width_ * 0.035),
+                                  style: TextStyle(fontSize: width_ * 0.03),
                                 ),
                                 SizedBox(width: width_ * 0.006),
                                 Container(
@@ -240,6 +240,31 @@ class _dashboardState extends State<dashboard> {
             ),
             SizedBox(
               height: height_ * 0.01,
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'Username',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: width_ * 0.1,
+                  ),
+                  Text(
+                    'Time',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: width_ * 0.1,
+                  ),
+                  Text(
+                    'Remove',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: height_ * 0.0,
@@ -303,7 +328,7 @@ class _dashboardState extends State<dashboard> {
                             'Client Counter',
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.035,
+                              fontSize: width_ * 0.026,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -311,7 +336,7 @@ class _dashboardState extends State<dashboard> {
                             '$_ClientCount',
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: width_ * 0.05,
+                              fontSize: width_ * 0.03,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -319,7 +344,7 @@ class _dashboardState extends State<dashboard> {
                             'Today',
                             style: TextStyle(
                               color: Color.fromARGB(255, 125, 125, 125),
-                              fontSize: width_ * 0.04,
+                              fontSize: width_ * 0.03,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -360,7 +385,7 @@ class _dashboardState extends State<dashboard> {
                               'Platform Client',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: width_ * 0.035,
+                                fontSize: width_ * 0.026,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -368,7 +393,7 @@ class _dashboardState extends State<dashboard> {
                               ' $_patientCount',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: width_ * 0.05,
+                                fontSize: width_ * 0.03,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -376,7 +401,7 @@ class _dashboardState extends State<dashboard> {
                               'Total',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 125, 125, 125),
-                                fontSize: width_ * 0.04,
+                                fontSize: width_ * 0.03,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
