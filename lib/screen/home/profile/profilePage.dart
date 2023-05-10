@@ -22,75 +22,35 @@ class _profileState extends State<profile> {
   int _coin = 0;
   String _username = '';
   String? _age;
-  // late String age = '';
+
+  String? _country;
 
   String? _gender;
-  late String gender;
-  String _country = '';
-  late String country;
-  int _height = 0;
-  late String height;
-  int _currentBodyWeight = 0;
-  late String currentBodyWeight;
-  int _targetBodyWeight = 0;
-  late String targetBodyWeight;
-  int _noOfMeal = 0;
-  late String noOfMeal;
-  String _bodyGoal = '';
-  late String bodyGoal;
-  String _activityLevel = '';
-  late String activityLevel;
-  String _dietType = '';
-  late String dietType;
+  // late String gender;
+  // late String country;
 
-  // void change() {
-  //   if (_age == '1') {
-  //     setState(() {
-  //       age = '1-18';
-  //     });
-  //   } else if (_age == '2') {
-  //     setState(() {
-  //       age = '19-24';
-  //     });
-  //   } else if (_age == '3') {
-  //     setState(() {
-  //       age = '25-34';
-  //     });
-  //   } else if (_age == '4') {
-  //     setState(() {
-  //       age = '35-44';
-  //     });
-  //   } else if (_age == '5') {
-  //     setState(() {
-  //       age = '45-54';
-  //     });
-  //   } else if (_age == '6') {
-  //     setState(() {
-  //       age = '55-64';
-  //     });
-  //   } else if (_age == '7') {
-  //     setState(() {
-  //       age = '65+';
-  //     });
-  //   } else if (_age == '8') {
-  //     setState(() {
-  //       age = '1-5';
-  //     });
-  //   } else if (_age == '9') {
-  //     setState(() {
-  //       age = '6-10';
-  //     });
-  //   } else if (_age == '10') {
-  //     setState(() {
-  //       age = '11-15';
-  //     });
-  //   } else if (_age == '11') {
-  //     setState(() {
-  //       age = '16-18';
-  //     });
-  //   }
-  // }
+  String? _activityLevel;
+  String? _bodyGoal;
+  String? _dietType;
 
+  List<int> cmHeights = List.generate(
+      200,
+      (index) =>
+          index +
+          60); // Create a list of integers representing the available height options in centimeters
+
+  int? selectedCmHeight;
+  List<int> Weight = List.generate(
+      150,
+      (index) =>
+          index +
+          20); // Create a list of integers representing the available height options in centimeters
+
+  int? selectedWeight;
+  int? IdealselectedWeight;
+  List<int> IdealWeight = List.generate(150, (index) => index + 20);
+  int? MealPerDay;
+  List<int> meal = List.generate(10, (index) => index + 0);
   @override
   void initState() {
     super.initState();
@@ -100,7 +60,31 @@ class _profileState extends State<profile> {
         _age = value!;
       });
     });
-
+    getCountry().then((value) {
+      setState(() {
+        _country = value!;
+      });
+    });
+    getgender().then((value) {
+      setState(() {
+        _gender = value!;
+      });
+    });
+    getActivityLevel().then((value) {
+      setState(() {
+        _activityLevel = value!;
+      });
+    });
+    getBodyGoal().then((value) {
+      setState(() {
+        _bodyGoal = value!;
+      });
+    });
+    getDietaryPreferenceList().then((value) {
+      setState(() {
+        _dietType = value!;
+      });
+    });
     getCoin().then((coin) {
       setState(() {
         _coin = coin;
@@ -210,7 +194,6 @@ class _profileState extends State<profile> {
         ),
       );
   Widget logout(double height_) => Container(
-        margin: EdgeInsets.only(top: height_ * 0.03),
         child: TextButton.icon(
           onPressed: () {
             FirebaseAuth.instance.signOut();
@@ -318,6 +301,15 @@ class _profileState extends State<profile> {
             ),
             dividingLine2(width_, height_, 0),
             listAge(height_, width_),
+            listCountry(height_, width_),
+            listGender(height_, width_),
+            listHeight(height_, width_),
+            listweight(height_, width_),
+            listIdealweight(height_, width_),
+            listMealPerDay(height_, width_),
+            listActivityLevel(height_, width_),
+            listBodyGoal(height_, width_),
+            listDietaryPreference(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_, 0),
             logout(height_),
@@ -347,7 +339,36 @@ class _profileState extends State<profile> {
                   children: [
                     Text3(text: 'Age'),
                     SizedBox(height: height_ * 0.01),
-                    Text4(text: '20'),
+                    Text4(
+                      text: (() {
+                        switch (_age) {
+                          case '1':
+                            return '1-5';
+                          case '2':
+                            return '6-10';
+                          case '3':
+                            return '11-15';
+                          case '4':
+                            return '16-18';
+                          case '5':
+                            return '6-18';
+                          case '6':
+                            return '19-24';
+                          case '7':
+                            return '25-34';
+                          case '8':
+                            return '35-44';
+                          case '9':
+                            return '45-54';
+                          case '10':
+                            return '55-64';
+                          case '11':
+                            return '65+';
+                          default:
+                            return '';
+                        }
+                      }()),
+                    ),
                   ],
                 ),
               ),
@@ -375,7 +396,21 @@ class _profileState extends State<profile> {
                   children: [
                     Text3(text: 'Gender'),
                     SizedBox(height: height_ * 0.01),
-                    Text4(text: 'Female'),
+                    Text4(
+                      text: (() {
+                        switch (_gender) {
+                          case '1':
+                            return 'Male';
+                          case '2':
+                            return 'Female';
+                          case '3':
+                            return 'Non-binary';
+
+                          default:
+                            return '';
+                        }
+                      }()),
+                    ),
                   ],
                 ),
               ),
@@ -557,6 +592,107 @@ class _profileState extends State<profile> {
       child: Text('65+'),
     ),
   ];
+  final List<DropdownMenuItem<String>> countryList = [
+    DropdownMenuItem(
+      value: '1',
+      child: Text('Mauritius'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('Abroad'),
+    ),
+  ];
+  final List<DropdownMenuItem<String>> genderList = [
+    DropdownMenuItem(
+      value: '1',
+      child: Text('        Male'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('       Female'),
+    ),
+    DropdownMenuItem(
+      value: '3',
+      child: Text('   Non-Binary'),
+    ),
+  ];
+
+  final List<DropdownMenuItem<String>> activityLevelList = [
+    DropdownMenuItem(
+      value: '1',
+      child: Text('Sedentary'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('Light Active'),
+    ),
+    DropdownMenuItem(
+      value: '3',
+      child: Text('Moderately Active'),
+    ),
+    DropdownMenuItem(
+      value: '4',
+      child: Text('Very Active'),
+    ),
+    DropdownMenuItem(
+      value: '5',
+      child: Text('Extremely Active'),
+    ),
+  ];
+
+  final List<DropdownMenuItem<String>> BodyGoalList = [
+    DropdownMenuItem(
+      value: '1',
+      child: Text('Muscle Gain'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('Fat Loss'),
+    ),
+    DropdownMenuItem(
+      value: '3',
+      child: Text('Maintenance'),
+    ),
+    DropdownMenuItem(
+      value: '4',
+      child: Text('Rapid Weight Loss'),
+    ),
+  ];
+
+  final List<DropdownMenuItem<String>> DietaryPreferenceList = [
+    DropdownMenuItem(
+      value: '1',
+      child: Text('Vegetarian'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('Vegan'),
+    ),
+    DropdownMenuItem(
+      value: '3',
+      child: Text('Normal'),
+    ),
+    DropdownMenuItem(
+      value: '4',
+      child: Text('Gluten-free'),
+    ),
+    DropdownMenuItem(
+      value: '5',
+      child: Text('Paleo'),
+    ),
+    DropdownMenuItem(
+      value: '6',
+      child: Text('Keto'),
+    ),
+    DropdownMenuItem(
+      value: '7',
+      child: Text('Mediterranean'),
+    ),
+    DropdownMenuItem(
+      value: '8',
+      child: Text('Pescetarian'),
+    ),
+  ];
 
   Future<String?> getAge() async {
     final docSnapshot = await FirebaseFirestore.instance
@@ -566,6 +702,123 @@ class _profileState extends State<profile> {
 
     if (docSnapshot.exists) {
       return docSnapshot.get('age');
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> getCountry() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('Country');
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> getgender() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('gender');
+    } else {
+      return null;
+    }
+  }
+
+  Future<int?> getheight() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('Height');
+    } else {
+      return null;
+    }
+  }
+
+  Future<int?> getWeight() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('Weight');
+    } else {
+      return null;
+    }
+  }
+
+  Future<int?> getIdealWeight() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('IdealWeight');
+    } else {
+      return null;
+    }
+  }
+
+  Future<int?> getMealPerDay() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('MealPerDay');
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> getActivityLevel() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('selectedActivityLevel');
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> getBodyGoal() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('selectedBodyGoal');
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> getDietaryPreferenceList() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('dietaryPreference');
     } else {
       return null;
     }
@@ -607,6 +860,499 @@ class _profileState extends State<profile> {
                         .doc(
                             userId) // Replace "patientId" with the ID of the current patient
                         .update({'age': newValue})
+                        .then((value) => print('Age updated'))
+                        .catchError(
+                            (error) => print('Failed to update age: $error'));
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listCountry(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Country',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: _country,
+                  items: countryList,
+                  onChanged: (String? newValue) {
+                    // update the age value when the user selects an item
+                    setState(() {
+                      _country = newValue!;
+                    });
+                    FirebaseFirestore.instance
+                        .collection('Patient')
+                        .doc(
+                            userId) // Replace "patientId" with the ID of the current patient
+                        .update({'Country': newValue})
+                        .then((value) => print('Age updated'))
+                        .catchError(
+                            (error) => print('Failed to update age: $error'));
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listGender(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Gender',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: _gender,
+                  items: genderList,
+                  onChanged: (String? newValue) {
+                    // update the age value when the user selects an item
+                    setState(() {
+                      _country = newValue!;
+                    });
+                    FirebaseFirestore.instance
+                        .collection('Patient')
+                        .doc(
+                            userId) // Replace "patientId" with the ID of the current patient
+                        .update({'gender': newValue})
+                        .then((value) => print('Age updated'))
+                        .catchError(
+                            (error) => print('Failed to update age: $error'));
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listHeight(
+    double height_,
+    double width_,
+  ) {
+    return FutureBuilder<int?>(
+      future: getheight(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          selectedCmHeight =
+              snapshot.data ?? 0; // Set the initial value of selectedCmHeight
+        }
+        return Container(
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Height',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButton<int>(
+                      value: selectedCmHeight,
+                      items: cmHeights.map((int height) {
+                        return DropdownMenuItem<int>(
+                          value: height,
+                          child: Text("$height cm"),
+                        );
+                      }).toList(),
+                      onChanged: (int? newValue) {
+                        // update the height value when the user selects an item
+                        setState(() {
+                          selectedCmHeight = newValue!;
+                        });
+                        FirebaseFirestore.instance
+                            .collection('Patient')
+                            .doc(userId)
+                            .update({'Height': newValue})
+                            .then((value) => print('Height updated'))
+                            .catchError((error) =>
+                                print('Failed to update height: $error'));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget listweight(
+    double height_,
+    double width_,
+  ) {
+    return FutureBuilder<int?>(
+      future: getWeight(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          selectedWeight =
+              snapshot.data ?? 0; // Set the initial value of selectedCmHeight
+        }
+        return Container(
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Weight',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButton<int>(
+                      value: selectedWeight,
+                      items: Weight.map((int weight) {
+                        return DropdownMenuItem<int>(
+                          value: weight,
+                          child: Text("$weight kg"),
+                        );
+                      }).toList(),
+                      onChanged: (int? newValue) {
+                        // update the height value when the user selects an item
+                        setState(() {
+                          selectedWeight = newValue!;
+                        });
+                        FirebaseFirestore.instance
+                            .collection('Patient')
+                            .doc(userId)
+                            .update({'Weight': newValue})
+                            .then((value) => print('Height updated'))
+                            .catchError((error) =>
+                                print('Failed to update height: $error'));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget listIdealweight(
+    double height_,
+    double width_,
+  ) {
+    return FutureBuilder<int?>(
+      future: getIdealWeight(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          IdealselectedWeight =
+              snapshot.data ?? 0; // Set the initial value of selectedCmHeight
+        }
+        return Container(
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Ideal Weight',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButton<int>(
+                      value: IdealselectedWeight,
+                      items: IdealWeight.map((int IdealWeight) {
+                        return DropdownMenuItem<int>(
+                          value: IdealWeight,
+                          child: Text("$IdealWeight kg"),
+                        );
+                      }).toList(),
+                      onChanged: (int? newValue) {
+                        // update the height value when the user selects an item
+                        setState(() {
+                          IdealselectedWeight = newValue!;
+                        });
+                        FirebaseFirestore.instance
+                            .collection('Patient')
+                            .doc(userId)
+                            .update({'IdealWeight': newValue})
+                            .then((value) => print('Height updated'))
+                            .catchError((error) =>
+                                print('Failed to update height: $error'));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget listMealPerDay(
+    double height_,
+    double width_,
+  ) {
+    return FutureBuilder<int?>(
+      future: getMealPerDay(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          MealPerDay =
+              snapshot.data ?? 0; // Set the initial value of selectedCmHeight
+        }
+        return Container(
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Meal per day',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButton<int>(
+                      value: MealPerDay,
+                      items: meal.map((int meal) {
+                        return DropdownMenuItem<int>(
+                          value: meal,
+                          child: Text("$meal"),
+                        );
+                      }).toList(),
+                      onChanged: (int? newValue) {
+                        // update the height value when the user selects an item
+                        setState(() {
+                          MealPerDay = newValue!;
+                        });
+                        FirebaseFirestore.instance
+                            .collection('Patient')
+                            .doc(userId)
+                            .update({'MealPerDay': newValue})
+                            .then((value) => print('Height updated'))
+                            .catchError((error) =>
+                                print('Failed to update height: $error'));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget listActivityLevel(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Activity Level',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: _activityLevel,
+                  items: activityLevelList,
+                  onChanged: (String? newValue) {
+                    // update the age value when the user selects an item
+                    setState(() {
+                      _activityLevel = newValue!;
+                    });
+                    FirebaseFirestore.instance
+                        .collection('Patient')
+                        .doc(
+                            userId) // Replace "patientId" with the ID of the current patient
+                        .update({'selectedActivityLevel': newValue})
+                        .then((value) => print('Age updated'))
+                        .catchError(
+                            (error) => print('Failed to update age: $error'));
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listBodyGoal(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Body Goal',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: _bodyGoal,
+                  items: BodyGoalList,
+                  onChanged: (String? newValue) {
+                    // update the age value when the user selects an item
+                    setState(() {
+                      _bodyGoal = newValue!;
+                    });
+                    FirebaseFirestore.instance
+                        .collection('Patient')
+                        .doc(
+                            userId) // Replace "patientId" with the ID of the current patient
+                        .update({'selectedBodyGoal': newValue})
+                        .then((value) => print('Age updated'))
+                        .catchError(
+                            (error) => print('Failed to update age: $error'));
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listDietaryPreference(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Dietary preference or restriction',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: _dietType,
+                  items: DietaryPreferenceList,
+                  onChanged: (String? newValue) {
+                    // update the age value when the user selects an item
+                    setState(() {
+                      _dietType = newValue!;
+                    });
+                    FirebaseFirestore.instance
+                        .collection('Patient')
+                        .doc(
+                            userId) // Replace "patientId" with the ID of the current patient
+                        .update({'selectedBodyGoal': newValue})
                         .then((value) => print('Age updated'))
                         .catchError(
                             (error) => print('Failed to update age: $error'));
