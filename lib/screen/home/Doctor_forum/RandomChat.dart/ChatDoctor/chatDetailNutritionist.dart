@@ -102,7 +102,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
     FirebaseFirestore.instance
         .collection('payments')
-        .where('uid', isEqualTo: uid)
+        .where('uid', isEqualTo: userId)
         .where('nutritionistId', isEqualTo: friendUid)
         .where('status', isEqualTo: 1)
         .limit(1)

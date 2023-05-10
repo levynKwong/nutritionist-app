@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/TimeAvailability.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-User? user = FirebaseAuth.instance.currentUser;
-String uid = user!.uid;
 
 class appBarTop extends StatelessWidget implements PreferredSizeWidget {
   final String titleText;
@@ -101,7 +99,7 @@ class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return TimeAvailability(
-                    userId: uid,
+                    userId: userId,
                   );
                 },
               );

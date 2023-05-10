@@ -5,8 +5,10 @@ import 'package:meal_aware/screen/auth/login/login.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/divider.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class profile extends StatefulWidget {
@@ -19,9 +21,87 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   int _coin = 0;
   String _username = '';
+  String _age = '';
+  late String age = '';
+
+  String _gender = '';
+  late String gender;
+  String _country = '';
+  late String country;
+  int _height = 0;
+  late String height;
+  int _currentBodyWeight = 0;
+  late String currentBodyWeight;
+  int _targetBodyWeight = 0;
+  late String targetBodyWeight;
+  int _noOfMeal = 0;
+  late String noOfMeal;
+  String _bodyGoal = '';
+  late String bodyGoal;
+  String _activityLevel = '';
+  late String activityLevel;
+  String _dietType = '';
+  late String dietType;
+
+  void change() {
+    if (_age == '1') {
+      setState(() {
+        age = '1-18';
+      });
+    } else if (_age == '2') {
+      setState(() {
+        age = '19-24';
+      });
+    } else if (_age == '3') {
+      setState(() {
+        age = '25-34';
+      });
+    } else if (_age == '4') {
+      setState(() {
+        age = '35-44';
+      });
+    } else if (_age == '5') {
+      setState(() {
+        age = '45-54';
+      });
+    } else if (_age == '6') {
+      setState(() {
+        age = '55-64';
+      });
+    } else if (_age == '7') {
+      setState(() {
+        age = '65+';
+      });
+    } else if (_age == '8') {
+      setState(() {
+        age = '1-5';
+      });
+    } else if (_age == '9') {
+      setState(() {
+        age = '6-10';
+      });
+    } else if (_age == '10') {
+      setState(() {
+        age = '11-15';
+      });
+    } else if (_age == '11') {
+      setState(() {
+        age = '16-18';
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+    getAge().then((age) {
+      setState(() {
+        _age = age;
+        change();
+      });
+    });
+
     getCoin().then((coin) {
       setState(() {
         _coin = coin;
@@ -38,13 +118,23 @@ class _profileState extends State<profile> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          height: height_ * 1.8,
-          child: Stack(
-            children: [topContent(height_, width_), Content(width_, height_)],
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBarTop(
+          titleText: 'Profile',
+        ),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            child: Column(
+              children: [
+                SizedBox(height: height_ * 0.01),
+                topContent(height_, width_),
+                SizedBox(height: height_ * 0.01),
+                buildProfileHeader(width_, height_),
+                SizedBox(height: height_ * 0.02),
+                Content(width_, height_)
+              ],
+            ),
           ),
         ),
       ),
@@ -55,33 +145,23 @@ class _profileState extends State<profile> {
         width: double.infinity,
         child: Stack(
           children: [
-            cover(width_, height_),
             topTitle(height_, width_),
-            buildProfileHeader(width_, height_),
           ],
         ),
       );
   Widget topTitle(double height_, double width_) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(bottom: height_ * 1.55),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Profile',
-              style: TextStyle(
-                  fontSize: width_ * 0.06,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
             SizedBox(height: height_ * 0.01),
             Text(
               '$_username',
               style: TextStyle(
                   fontSize: width_ * 0.1,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color: Color.fromARGB(255, 0, 0, 0)),
             ),
             SizedBox(height: height_ * 0.01),
             Text(
@@ -100,7 +180,6 @@ class _profileState extends State<profile> {
   Widget buildProfileHeader(double width_, double height_) => Center(
         child: Column(
           children: [
-            SizedBox(height: width_ * 0.44),
             Stack(
               children: [
                 buildProfileImage(width_, height_),
@@ -121,8 +200,6 @@ class _profileState extends State<profile> {
       );
 
   Widget Content(double width_, double height_) => Container(
-        margin: EdgeInsets.only(top: height_ * 0.43),
-        width: double.infinity,
         child: Stack(
           children: [
             topRow(width_, height_),
@@ -188,7 +265,7 @@ class _profileState extends State<profile> {
                   Text(
                     'Buy Coin',
                     style: TextStyle(
-                      fontSize: width_ * 0.05,
+                      fontSize: width_ * 0.04,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -223,7 +300,7 @@ class _profileState extends State<profile> {
                   Text(
                     'Purchase History',
                     style: TextStyle(
-                      fontSize: width_ * 0.05,
+                      fontSize: width_ * 0.04,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -240,108 +317,12 @@ class _profileState extends State<profile> {
                 ],
               ),
             ),
-            divider(),
-            list(height_, width_, 'Age', '18-50'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Gender', 'Female'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Country', 'Mauritius'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Height', '1m 70cm'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Current Body Weight', '60kg'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Target Body Weight', '55kg'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'No of Meal per day', '3'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Body Goal', 'Muscle Gain'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Activity Level', 'Moderately \n\ Active'),
-            SizedBox(height: height_ * 0.02),
-            list(height_, width_, 'Dietary Preference\n\or restrictions ',
-                'Vegetarian'),
+            dividingLine2(width_, height_, 0),
+            listAge(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_, 0),
             logout(height_),
           ],
-        ),
-      );
-
-  Widget list(
-    double height_,
-    double width_,
-    String text1,
-    String text2,
-  ) {
-    return SingleChildScrollView(
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              text1,
-              style: TextStyle(
-                fontSize: width_ * 0.05,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Text(
-                        text2,
-                        style: TextStyle(
-                          fontSize: width_ * 0.04,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 86, 86, 86),
-                        ),
-                      ),
-                      SizedBox(width: width_ * 0.01),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color.fromARGB(255, 86, 86, 86),
-                          size: width_ * 0.04,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget cover(double width_, double height_) => Positioned(
-        top: height_ * -0.50,
-        right: width_ * -0.06,
-        child: Container(
-          width: width_ * 1.1,
-          height: height_ * 1.1,
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              colors: [
-                Color(0xFF9584ff),
-                Color(0xFF8ce4ff),
-              ],
-              radius: 1,
-              center: Alignment(0, 1),
-            ),
-            shape: BoxShape.circle,
-          ),
         ),
       );
 
@@ -372,7 +353,7 @@ class _profileState extends State<profile> {
                 ),
               ),
               VerticalDivider(
-                color: Color.fromARGB(255, 146, 146, 146),
+                color: Color.fromARGB(255, 86, 86, 86),
                 thickness: 1,
                 width: 8,
               ),
@@ -386,7 +367,7 @@ class _profileState extends State<profile> {
                 ),
               ),
               VerticalDivider(
-                color: Color(0xFFd9f2ff),
+                color: Color.fromARGB(255, 86, 86, 86),
                 thickness: 1,
                 width: 8,
               ),
@@ -442,7 +423,7 @@ class _profileState extends State<profile> {
               ),
               SizedBox(width: width_ * 0.04),
               VerticalDivider(
-                color: Color(0xFFd9f2ff),
+                color: Color.fromARGB(255, 86, 86, 86),
                 thickness: 1,
                 width: 8,
               ),
@@ -486,7 +467,7 @@ class _profileState extends State<profile> {
           right: width_ * 0.1,
         ),
         child: Divider(
-          color: Color(0xFFd9f2ff),
+          color: Color.fromARGB(255, 86, 86, 86),
           thickness: 1,
         ),
       );
@@ -498,7 +479,7 @@ class _profileState extends State<profile> {
           right: width_ * 0.1,
         ),
         child: Divider(
-          color: Color.fromARGB(255, 112, 112, 112),
+          color: Color.fromARGB(255, 86, 86, 86),
           thickness: 1,
         ),
       );
@@ -529,5 +510,100 @@ class _profileState extends State<profile> {
     } else {
       return 'Username';
     }
+  }
+
+  final List<DropdownMenuItem<String>> ageList = [
+    DropdownMenuItem(
+      value: '1',
+      child: Text('1-18'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('19-24'),
+    ),
+    DropdownMenuItem(
+      value: '3',
+      child: Text('25-34'),
+    ),
+    DropdownMenuItem(
+      value: '4',
+      child: Text('35-44'),
+    ),
+    DropdownMenuItem(
+      value: '5',
+      child: Text('45-54'),
+    ),
+    DropdownMenuItem(
+      value: '6',
+      child: Text('55-64'),
+    ),
+    DropdownMenuItem(
+      value: '7',
+      child: Text('65+'),
+    ),
+  ];
+
+  Future<String> getAge() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('age');
+    } else {
+      return 'age';
+    }
+  }
+
+  Widget listAge(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Age',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: _age,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _age = value!;
+                      change(); // Call the change function to update the age value
+
+                      // Update the "age" field in the "Patient" document in Firestore
+                      FirebaseFirestore.instance
+                          .collection('Patient')
+                          .doc(
+                              userId) // Replace "patientId" with the ID of the current patient
+                          .update({'age': value})
+                          .then((value) => print('Age updated'))
+                          .catchError(
+                              (error) => print('Failed to update age: $error'));
+                    });
+                  },
+                  items: ageList,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

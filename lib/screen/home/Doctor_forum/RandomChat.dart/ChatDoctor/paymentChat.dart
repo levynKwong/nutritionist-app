@@ -7,6 +7,7 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/WebViewScreen.dart';
 
 class paymentChat extends StatefulWidget {
@@ -43,7 +44,7 @@ class _paymentChatState extends State<paymentChat> {
   Future<bool> checkIfPaymentExists() async {
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('payments')
-        .where('uid', isEqualTo: uid)
+        .where('uid', isEqualTo: userId)
         .where('nutritionistId', isEqualTo: nutritionistId)
         .limit(1)
         .get();
