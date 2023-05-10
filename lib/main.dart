@@ -4,6 +4,7 @@ import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/patientAdditionalDetail.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/NutritionistChat.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: RegisterScreen(),
       home: Login(),
+      // home: PatientAdditionalDetail(),
       // home: ChatScreen('2345254','test'),
       // home: NutritionistHome(),
       // home: const ParentAuth(),

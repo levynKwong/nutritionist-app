@@ -151,11 +151,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         ),
                                         DropdownMenuItem(
                                           value: '2',
-                                          child: Text('19-50'),
+                                          child: Text('19-24'),
                                         ),
                                         DropdownMenuItem(
                                           value: '3',
-                                          child: Text('50+'),
+                                          child: Text('25-34'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '4',
+                                          child: Text('35-44'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '5',
+                                          child: Text('45-54'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '6',
+                                          child: Text('55-64'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: '7',
+                                          child: Text('65+'),
                                         ),
                                       ],
                                       onChanged: (String? newValue) {
