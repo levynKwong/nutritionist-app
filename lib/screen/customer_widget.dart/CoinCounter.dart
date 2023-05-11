@@ -58,7 +58,7 @@ class _CoinCounterState extends State<CoinCounter> {
     final double height_ = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.only(
-        bottom: height_ * 0.5,
+        // bottom: height_ * 0.5,
         left: width_ * 0.1,
         right: width_ * 0.1,
       ),

@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
-import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
-import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';

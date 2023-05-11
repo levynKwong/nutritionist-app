@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/pendingPlan.dart';
-import 'package:meal_aware/screen/customer_widget.dart/platformClient.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:collection/collection.dart';
 

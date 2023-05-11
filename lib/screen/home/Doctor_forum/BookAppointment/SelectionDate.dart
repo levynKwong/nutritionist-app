@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/TimeSelection.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 

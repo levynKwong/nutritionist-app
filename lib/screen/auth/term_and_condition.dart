@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/patientAdditionalDetail.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
-import 'package:meal_aware/screen/home/home_screen.dart';
 
 class Terms_and_condition extends StatefulWidget {
   const Terms_and_condition({super.key});

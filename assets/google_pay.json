@@ -24,12 +24,12 @@
       }
     }],
     "merchantInfo": {
-      "merchantId": "01234567890123456789",
-      "merchantName": "Example Merchant Name"
+      "merchantId": "BCR2DN4TZL2YNCIR",
+      "merchantName": "mealAware"
     },
     "transactionInfo": {
-      "countryCode": "US",
-      "currencyCode": "USD"
+      "countryCode": "MU",
+      "currencyCode": "MUR"
     }
   }
 }

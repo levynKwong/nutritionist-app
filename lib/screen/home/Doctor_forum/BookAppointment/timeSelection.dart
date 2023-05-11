@@ -161,9 +161,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -186,9 +184,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
             );
           },
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

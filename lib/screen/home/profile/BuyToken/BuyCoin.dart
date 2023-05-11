@@ -21,9 +21,8 @@ class _BuyCoinState extends State<BuyCoin> {
   void initState() {
     super.initState();
     selectedRadio = 0;
-    _googlePayConfigFuture = PaymentConfiguration.fromAsset(
-        'default_payment_profile_google_pay.json');
-    // checkPaymentAvailability();
+    _googlePayConfigFuture = PaymentConfiguration.fromAsset('google_pay.json');
+    // // checkPaymentAvailability();
   }
 
   setSelectedRadio(int val) {
@@ -41,33 +40,42 @@ class _BuyCoinState extends State<BuyCoin> {
       body: Stack(
         children: [
           background(),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: height_ * 0.04),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [topBar(width_, height_, context)], //correct
+          SingleChildScrollView(
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  topBar(width_, height_, context),
+                  CoinCounter(),
+                  SizedBox(
+                    height: height_ * 0.06,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: width_ * 0.1,
+                      right: width_ * 0.1,
+                    ),
+                    child: Text4(
+                      text:
+                          'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
+                    ),
+                  ),
+                  SizedBox(
+                    height: height_ * 0.06,
+                  ),
+                  selectionButton(height_, width_),
+                  SizedBox(
+                    height: height_ * 0.02,
+                  ),
+                  TermsofUse(height_, width_),
+                  SizedBox(
+                    height: height_ * 0.02,
+                  ),
+                  buttons(height_, width_),
+                ],
+              ),
             ),
           ),
-          CoinCounter(), //correct
-
-          SizedBox(
-            height: height_ * 0.0,
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              bottom: height_ * 0.15,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: Text4(
-              text:
-                  'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
-            ),
-          ),
-
-          selectionButton(height_, width_),
-          TermsofUse(height_, width_),
-          buttons(height_, width_)
         ],
       ),
     );
@@ -86,8 +94,10 @@ class _BuyCoinState extends State<BuyCoin> {
       debugPrint(paymentResult.toString());
     }
 
+    // final Future<PaymentConfiguration> _googlePayConfigFuture =
+    //     PaymentConfiguration.fromAsset(
+    //         'default_payment_profile_google_pay.json');
     return Container(
-      margin: EdgeInsets.only(top: height_ * 0.89),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -125,8 +135,8 @@ class _BuyCoinState extends State<BuyCoin> {
               );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color(0xFF575ecb),
-              onPrimary: Colors.white,
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF575ecb),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -141,8 +151,7 @@ class _BuyCoinState extends State<BuyCoin> {
   Center TermsofUse(double height_, double width_) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(
-            top: height_ * 0.65, left: width_ * 0.1, right: width_ * 0.1),
+        margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -185,7 +194,6 @@ class _BuyCoinState extends State<BuyCoin> {
   Widget selectionButton(double height_, double width_) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(top: height_ * 0.3),
         child: Container(
           width: width_ * 0.8,
           child: Column(

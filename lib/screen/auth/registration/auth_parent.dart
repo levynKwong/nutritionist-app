@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 
-import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 
@@ -276,6 +275,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         if (!regex.hasMatch(value)) {
                                           return ("Enter (6 to 32 Characters) valid password");
                                         }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.02),
@@ -294,6 +294,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         if (value != passwordController.text) {
                                           return ("Passwords do not match");
                                         }
+                                        return null;
                                       },
                                     ),
                                   ],
@@ -348,7 +349,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(
+                                backgroundColor: Color(
                                     0xFF6889c6), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),

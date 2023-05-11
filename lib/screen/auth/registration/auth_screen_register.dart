@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
@@ -176,7 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ],
                                       onChanged: (String? newValue) {
                                         // Do something with the new value
-                                        if (newValue == '1') {
+                                        if (newValue == '5') {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -277,7 +278,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter a phone number';
                                         }
-                                        if (!RegExp(r'^\+?[0-9]{7,9}$')
+                                        if (!RegExp(r'^\+?[0-9]{7,12}$')
                                             .hasMatch(value)) {
                                           return 'Please enter a valid phone number';
                                         }
@@ -368,7 +369,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(
+                                backgroundColor: Color(
                                     0xFF6889c6), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),

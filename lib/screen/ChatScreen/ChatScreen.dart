@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key, required this.userId, required this.userName})
@@ -55,6 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             // widget.chat.orderedMessages[index].time ??
                             "0") ?? 0).toString();
                     String formatedTime = time.substring(11, 16);
+                    return null;
                   }),
                 ),
               ),

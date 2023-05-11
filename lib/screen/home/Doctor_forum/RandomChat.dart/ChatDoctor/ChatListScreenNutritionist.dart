@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
-import 'dart:async';
 
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
@@ -105,8 +103,7 @@ class _ChatListScreenNutritionistState
                       width: width_ * 0.9, // Change the width to your liking
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage('https://i.pravatar.cc/150?img=3'),
+                          backgroundImage: AssetImage('images/photoCat.png'),
                         ),
                         title: Row(
                           children: [

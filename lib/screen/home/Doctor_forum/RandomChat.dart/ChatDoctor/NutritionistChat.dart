@@ -3,10 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/WebViewScreen.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChat.dart';
 
 class NutritionistChat extends StatefulWidget {
@@ -157,10 +153,8 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                   children: [
                                     CircleAvatar(
                                       radius: width_ * 0.06,
-                                      backgroundImage: NetworkImage(
-                                        //  _users[index].photoUrl,
-                                        'https://th.bing.com/th/id/R.62325205054ee42cbd441c7036a7e3ec?rik=RHdJrVUP%2b%2b8klA&pid=ImgRaw&r=0',
-                                      ),
+                                      backgroundImage:
+                                          AssetImage('images/photoCat.png'),
                                     ),
                                     SizedBox(
                                       width: width_ * 0.05,
@@ -328,9 +322,8 @@ class _NutritionistChatState extends State<NutritionistChat> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

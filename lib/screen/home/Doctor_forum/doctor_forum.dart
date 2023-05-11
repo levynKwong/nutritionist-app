@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
-import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/ChatDoctor.dart';
@@ -150,29 +147,27 @@ class DoctorForum extends StatelessWidget {
         child: ElevatedButton.icon(
           onPressed: () {
             // Check if the user is from Mauritius
-            if (userId != null) {
-              FirebaseFirestore.instance
-                  .collection('Patient')
-                  .doc(userId)
-                  .get()
-                  .then((doc) {
-                if (doc.exists && doc['Country'] == "1") {
-                  // Navigate to the BookAppointmentService screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BookAppointmentService(),
-                    ),
-                  );
-                } else {
-                  // Show a message indicating that the feature is only available to Mauritius
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content:
-                        Text('This feature is only available to Mauritius'),
-                  ));
-                }
-              });
-            }
+            FirebaseFirestore.instance
+                .collection('Patient')
+                .doc(userId)
+                .get()
+                .then((doc) {
+              if (doc.exists && doc['Country'] == "1") {
+                // Navigate to the BookAppointmentService screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookAppointmentService(),
+                  ),
+                );
+              } else {
+                // Show a message indicating that the feature is only available to Mauritius
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content:
+                      Text('This feature is only available to Mauritius'),
+                ));
+              }
+            });
           },
           icon: Icon(
             Icons.calendar_month_outlined,

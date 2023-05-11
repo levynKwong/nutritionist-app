@@ -172,7 +172,7 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
       actions: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: getColor(), // change the color here
+            backgroundColor: getColor(), // change the color here
           ),
           child: Text('Close'),
           onPressed: () {

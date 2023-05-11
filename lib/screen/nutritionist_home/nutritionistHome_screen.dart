@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
-import 'package:meal_aware/screen/home/Message/message.dart';
-import 'package:meal_aware/screen/home/profile/profilePage.dart';
-import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/dashboard.dart';
 import 'package:meal_aware/screen/nutritionist_home/form/form.dart';

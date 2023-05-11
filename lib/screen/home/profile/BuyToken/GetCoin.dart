@@ -5,8 +5,6 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
-import 'package:meal_aware/screen/customer_widget.dart/sixDigitCode.dart';
-import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class GetCoin extends StatefulWidget {
@@ -146,8 +144,7 @@ class _GetCoinState extends State<GetCoin> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
+                foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), // set text color
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -171,8 +168,7 @@ class _GetCoinState extends State<GetCoin> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
+                foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), // set text color
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),

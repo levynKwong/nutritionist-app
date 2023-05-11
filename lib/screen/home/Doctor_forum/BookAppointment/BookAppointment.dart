@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/NutritionistBookApp.dart';
 
@@ -90,7 +89,10 @@ NutritionistService(double width_, double height_, context) {
                   height: height_ * 0.06,
                 ),
                 SizedBox(height: height_ * 0.01),
-                Text7(text: 'Nutritionist'),
+                Text(
+                  'Nutritionist',
+                  style: TextStyle(fontSize: width_ * 0.05),
+                ),
               ],
             ),
           ),
@@ -108,9 +110,8 @@ Container buttons(double height_, double width_, context) {
       ElevatedButton(
         onPressed: () => Navigator.pop(context),
         style: ElevatedButton.styleFrom(
-          minimumSize: Size(width_ * 0.3, 50),
-          primary: Color(0xFF575ecb), // set background color
-          onPrimary: Colors.white, // set text color
+          foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+          minimumSize: Size(width_ * 0.3, 50), // set text color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

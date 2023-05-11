@@ -7,10 +7,7 @@ import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 
-import '../../../ChatScreen/ChatScreen.dart';
 
 class randomChat extends StatefulWidget {
   const randomChat({Key? key});
@@ -102,9 +99,7 @@ class _randomChatState extends State<randomChat> {
               }
             },
             style: ElevatedButton.styleFrom(
-              minimumSize: Size(width_ * 0.3, 50),
-              primary: const Color(0xFF575ecb), // set background color
-              onPrimary: Colors.white, // set text color
+              foregroundColor: Colors.white, backgroundColor: const Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -124,9 +119,7 @@ class _randomChatState extends State<randomChat> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(width_ * 0.3, 50),
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

@@ -67,15 +67,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                   child: Row(
                     children: [
-                      SizedBox(width: width_ * 0.06),
-                      Icon(Icons.email),
-                      SizedBox(width: width_ * 0.06),
                       Expanded(
                         child: TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
                             hintText: "Enter your email",
-                            border: InputBorder.none,
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.email),
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: height_ * 0.02),
                           ),
@@ -114,7 +112,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 SizedBox(height: height_ * 0.07),
                 Text(
-                  "Make sure that when you reset a new password, it must be at least 6 characters long. ",
+                  "Make sure that when you reset a new password, it must be at least 6 characters long else it will you give you permission to login. ",
                   style: TextStyle(
                     color: Color.fromARGB(255, 205, 57, 57),
                     fontSize: width_ * 0.04,

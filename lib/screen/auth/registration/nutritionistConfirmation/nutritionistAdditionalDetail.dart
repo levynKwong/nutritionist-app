@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/redirectEmail.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background_2.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 class NutritionistAdditionalDetail extends StatefulWidget {
@@ -311,7 +309,7 @@ class _NutritionistAdditionalDetailState
                                             )));
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(
+                                backgroundColor: Color(
                                     0xFF6889c6), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),

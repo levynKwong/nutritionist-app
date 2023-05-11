@@ -190,7 +190,7 @@ class _LoginState extends State<Login> {
                                           passwordController.text);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary:
+                                      backgroundColor:
                                           getColor(), // sets the background color of the button
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -252,7 +252,20 @@ class _LoginState extends State<Login> {
           _isLoading = true;
         });
 
-        await Future.delayed(Duration(seconds: 1)); // Simulate a delay
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CircularProgressIndicator(),
+                  Text("Loading..."),
+                ],
+              ),
+            );
+          },
+        );
 
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
@@ -271,14 +284,14 @@ class _LoginState extends State<Login> {
             // Redirect to the patient screen
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const Home()),
+              MaterialPageRoute(builder: (context) => Home()),
               (_) => false,
             );
           } else if (nutritionistDoc.exists) {
             // Redirect to the nutritionist screen
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const NutritionistHome()),
+              MaterialPageRoute(builder: (context) => NutritionistHome()),
               (_) => false,
             );
           }
@@ -299,6 +312,7 @@ class _LoginState extends State<Login> {
         setState(() {
           _isLoading = false;
         });
+        Navigator.pop(context); // Dismiss the dialog
       }
     }
   }
