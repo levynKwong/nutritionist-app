@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:pay/pay.dart';
 
 class BuyCoin extends StatefulWidget {
   const BuyCoin({super.key});
@@ -15,11 +16,14 @@ class BuyCoin extends StatefulWidget {
 
 class _BuyCoinState extends State<BuyCoin> {
   int selectedRadio = 0;
-
+  late final Future<PaymentConfiguration> _googlePayConfigFuture;
   @override
   void initState() {
     super.initState();
     selectedRadio = 0;
+    _googlePayConfigFuture = PaymentConfiguration.fromAsset(
+        'default_payment_profile_google_pay.json');
+    // checkPaymentAvailability();
   }
 
   setSelectedRadio(int val) {
@@ -69,47 +73,69 @@ class _BuyCoinState extends State<BuyCoin> {
     );
   }
 
-  Container buttons(double height_, double width_) {
+  Widget buttons(double height_, double width_) {
+    final _paymentItems = [
+      PaymentItem(
+        label: 'Total',
+        amount: '99.99',
+        status: PaymentItemStatus.final_price,
+      )
+    ];
+
+    void onGooglePayResult(paymentResult) {
+      debugPrint(paymentResult.toString());
+    }
+
     return Container(
-        margin: EdgeInsets.only(top: height_ * 0.89),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                // add onPressed function
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('        Pay       '),
-            ),
-            SizedBox(
-                width: width_ * 0.15), // add some spacing between the buttons
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GetCoin(),
+      margin: EdgeInsets.only(top: height_ * 0.89),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FutureBuilder<PaymentConfiguration>(
+            future: _googlePayConfigFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GooglePayButton(
+                  paymentConfiguration: snapshot.data!,
+                  paymentItems: _paymentItems,
+                  type: GooglePayButtonType.pay,
+                  margin: const EdgeInsets.only(top: 15.0),
+                  onPaymentResult: onGooglePayResult,
+                  loadingIndicator: const Center(
+                    child: CircularProgressIndicator(),
                   ),
                 );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF575ecb), // set background color
-                onPrimary: Colors.white, // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+              } else if (snapshot.hasError) {
+                print("Error: ${snapshot.error}");
+                return Text(
+                    'Error loading payment configuration: ${snapshot.error}');
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+          SizedBox(width: width_ * 0.15),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GetCoin(),
                 ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF575ecb),
+              onPrimary: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Text('Use Coupon'),
             ),
-          ],
-        ));
+            child: Text('Use Coupon'),
+          ),
+        ],
+      ),
+    );
   }
 
   Center TermsofUse(double height_, double width_) {

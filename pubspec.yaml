@@ -49,6 +49,9 @@ dependencies:
   flutter_chat_bubble: any
   uuid: ^3.0.5
   shared_preferences: ^2.1.0
+  pay: ^1.1.1
+
+ 
   
   
 
@@ -87,6 +90,7 @@ flutter:
   assets:
    
     - images/
+    - assets/
     
     
 
