@@ -50,23 +50,25 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
   }
 
   Future checkEmailVerified() async {
-    final user = FirebaseAuth.instance.currentUser!;
-    await user.reload();
-    isEmailVerified = user.emailVerified;
-    if (isEmailVerified) {
-      timer?.cancel();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Email confirmed'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Terms_and_condition(),
-        ),
-      );
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.reload();
+      isEmailVerified = user.emailVerified;
+      if (isEmailVerified) {
+        timer?.cancel();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Email confirmed'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Terms_and_condition(),
+          ),
+        );
+      }
     }
   }
 

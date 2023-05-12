@@ -453,6 +453,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               userType: _selectedUserType!),
                         ),
                       ),
+                      saveUser(email, fullname, username, age, phonenumber,
+                          _selectedUserType!, num),
                     }
                   else if (_selectedUserType == 'Patient')
                     {

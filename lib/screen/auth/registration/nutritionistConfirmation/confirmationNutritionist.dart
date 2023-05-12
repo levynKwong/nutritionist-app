@@ -72,7 +72,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
       this.customSpecialization,
       this.workExperience,
       this.gender);
-
+  int num = 1;
   final List<TextEditingController> _textControllers =
       List.generate(6, (_) => TextEditingController());
 
@@ -243,7 +243,8 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                                     specialization,
                                     customSpecialization,
                                     workExperience,
-                                    gender);
+                                    gender,
+                                    num);
                                 // Navigate to the home screen if the entered code is valid
                                 Navigator.push(
                                   context,

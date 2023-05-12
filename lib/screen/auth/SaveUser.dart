@@ -6,13 +6,12 @@ import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDat
 Future<void> saveUser(String fullname, String username, String email,
     String age, String phonenumber, String userType, int num) async {
   Map<String, dynamic> userData = {
+    'email': email,
     'fullname': fullname,
     'username': username,
-    'email': email,
     'age': age,
     'phoneNumber': phonenumber,
     'joinDate': DateTime.now(),
-    'uid': userId,
     'registrationProgress': num,
   };
 
@@ -37,7 +36,8 @@ Future<void> saveNutritionist(
     String specialization,
     String customSpecialization,
     String workExperience,
-    String gender) async {
+    String gender,
+    int num) async {
   final User? user = FirebaseAuth.instance.currentUser;
   final uid = user!.uid;
 
@@ -52,12 +52,8 @@ Future<void> saveNutritionist(
     'customSpecialization': customSpecialization,
     'gender': gender,
     'joinDate': DateTime.now(),
-    'uid': uid,
+    'registrationProgress': num,
   };
-
-  if (userType == 'Patient') {
-    userData['coin'] = 0;
-  }
 
   await FirebaseFirestore.instance.collection(userType).doc(uid).set(userData);
 }

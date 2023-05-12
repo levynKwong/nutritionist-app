@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/redirectEmail.dart';
@@ -53,24 +52,20 @@ class _NutritionistAdditionalDetailState
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.arrow_back),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          SizedBox(width: width_ * 0.16),
-                          Text(
-                            'MeA',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 99, 144, 228),
-                              fontSize: width_ * 0.20,
-                              fontWeight: FontWeight.bold,
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'MeA',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 99, 144, 228),
+                                fontSize: width_ * 0.20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(height: height_ * 0.01),
                       Text(
