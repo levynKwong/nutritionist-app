@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
-import 'package:meal_aware/screen/auth/login/test3.dart';
+
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
