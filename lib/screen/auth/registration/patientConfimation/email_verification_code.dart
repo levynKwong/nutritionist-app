@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/auth/SaveUser.dart';
+
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
