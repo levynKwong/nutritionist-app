@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/auth/registration/auth_parent.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
@@ -26,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final phonenumberController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
-
+  int num = 0;
   String error = "";
   bool _isLoading = false;
   String? _selectedUserType;
@@ -360,13 +361,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 register(
-                                  fullnameController.text,
-                                  usernameController.text,
-                                  emailController.text,
-                                  _selectedAge ?? '',
-                                  phonenumberController.text,
-                                  passwordController.text,
-                                );
+                                    fullnameController.text,
+                                    usernameController.text,
+                                    emailController.text,
+                                    _selectedAge ?? '',
+                                    phonenumberController.text,
+                                    passwordController.text,
+                                    num);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(
@@ -379,7 +380,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 alignment: Alignment.center,
                                 height: height_ * 0.06,
                                 child: Text(
-                                  'Login',
+                                  'Submit',
                                   style: TextStyle(
                                     fontSize: width_ * 0.05,
                                     color: Colors.white,
@@ -421,7 +422,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void register(String fullname, String username, String email, String age,
-      String phonenumber, String password) async {
+      String phonenumber, String password, int num) async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -458,15 +459,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EmailVerificationCode(
-                              email: email,
-                              fullname: fullname,
-                              username: username,
-                              age: age,
-                              phonenumber: phonenumber,
-                              userType: _selectedUserType!),
+                          builder: (context) =>
+                              EmailVerificationCode(email: email),
                         ),
                       ),
+                      saveUser(email, fullname, username, age, phonenumber,
+                          _selectedUserType!, num),
                     }
                 });
         setState(() {
@@ -499,3 +497,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 }
+// email: email,
+//                               fullname: fullname,
+//                               username: username,
+//                               age: age,
+//                               phonenumber: phonenumber,
+//                               userType: _selectedUserType!

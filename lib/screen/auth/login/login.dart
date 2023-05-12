@@ -3,7 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
+import 'package:meal_aware/screen/auth/login/test3.dart';
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
+import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
+import 'package:meal_aware/screen/auth/term_and_condition.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
@@ -20,11 +23,18 @@ class _LoginState extends State<Login> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
 
   String error = "";
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _formKey here
+    _formKey = GlobalKey<FormState>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -246,31 +256,32 @@ class _LoginState extends State<Login> {
   }
 
   void login(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      try {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isLoading = true;
         });
 
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CircularProgressIndicator(),
-                  Text("Loading..."),
-                ],
-              ),
-            );
-          },
-        );
+        setState(() {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text("Loading..."),
+                  ],
+                ),
+              );
+            },
+          );
+        });
 
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user != null) {
-          // Check the role of the user
           final patientDoc = await FirebaseFirestore.instance
               .collection('Patient')
               .doc(credential.user!.uid)
@@ -279,14 +290,33 @@ class _LoginState extends State<Login> {
               .collection('Nutritionist')
               .doc(credential.user!.uid)
               .get();
-
           if (patientDoc.exists) {
+            final registrationProgress =
+                patientDoc.data()?['registrationProgress'] ?? 0;
             // Redirect to the patient screen
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-              (_) => false,
-            );
+            if (registrationProgress == 0) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EmailVerificationCode(
+                          email: email,
+                        )),
+                (_) => false,
+              );
+            } else if (registrationProgress == 1) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Home()),
+                (_) => false,
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('There is an error that occured'),
+                  duration: const Duration(seconds: 3),
+                ),
+              );
+            }
           } else if (nutritionistDoc.exists) {
             // Redirect to the nutritionist screen
             Navigator.pushAndRemoveUntil(
@@ -294,26 +324,46 @@ class _LoginState extends State<Login> {
               MaterialPageRoute(builder: (context) => NutritionistHome()),
               (_) => false,
             );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('You are not authorized to access this app'),
+                duration: const Duration(seconds: 3),
+              ),
+            );
           }
         }
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Invalid Email or Password'),
-              duration: const Duration(seconds: 3),
-            ),
-          );
-          setState(() {
-            _isLoading = false;
-          });
-        }
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid Email or Password'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message ?? 'Something went wrong'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    } finally {
+      if (Navigator.canPop(context)) {
         Navigator.pop(context); // Dismiss the dialog
       }
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

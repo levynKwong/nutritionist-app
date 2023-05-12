@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
@@ -27,7 +28,7 @@ class _ParentAuthState extends State<ParentAuth> {
   bool _isLoading = false;
   String? _selectedUserType;
   String? _selectedAge;
-
+  int num = 0;
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -313,16 +314,7 @@ class _ParentAuthState extends State<ParentAuth> {
                           ),
                           SizedBox(height: height_ * 0.01),
                           GestureDetector(
-                            onTap: () {
-                              register(
-                                fullnameController.text,
-                                usernameController.text,
-                                emailController.text,
-                                _selectedAge ?? '',
-                                phonenumberController.text,
-                                passwordController.text,
-                              );
-                            },
+                            onTap: () {},
                             child: Text(
                               'Terms and Conditions',
                               style: TextStyle(
@@ -340,13 +332,13 @@ class _ParentAuthState extends State<ParentAuth> {
                             child: ElevatedButton(
                               onPressed: () {
                                 register(
-                                  fullnameController.text,
-                                  usernameController.text,
-                                  emailController.text,
-                                  _selectedAge ?? '',
-                                  phonenumberController.text,
-                                  passwordController.text,
-                                );
+                                    fullnameController.text,
+                                    usernameController.text,
+                                    emailController.text,
+                                    _selectedAge ?? '',
+                                    phonenumberController.text,
+                                    passwordController.text,
+                                    num);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(
@@ -359,7 +351,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                 alignment: Alignment.center,
                                 height: height_ * 0.06,
                                 child: Text(
-                                  'Login',
+                                  'Submit',
                                   style: TextStyle(
                                     fontSize: width_ * 0.05,
                                     color: Colors.white,
@@ -401,7 +393,7 @@ class _ParentAuthState extends State<ParentAuth> {
   }
 
   void register(String fullname, String username, String email, String age,
-      String phonenumber, String password) async {
+      String phonenumber, String password, int num) async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -423,14 +415,12 @@ class _ParentAuthState extends State<ParentAuth> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => EmailVerificationCode(
-                          email: email,
-                          fullname: fullname,
-                          username: username,
-                          age: age,
-                          phonenumber: phonenumber,
-                          userType: _selectedUserType!),
+                        email: email,
+                      ),
                     ),
                   ),
+                  saveUser(email, fullname, username, age, phonenumber,
+                      _selectedUserType!, num),
                 });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

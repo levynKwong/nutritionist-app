@@ -1,6 +1,7 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
+
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 
@@ -20,7 +21,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
   _PatientAdditionalDetailState();
   String? country;
   String? _selectedBodyGoal;
-
+  int num = 1;
   String? gender;
   String? _selectedActivityLevel;
   String? _DietaryPreference;
@@ -43,6 +44,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
 
   int? MealPerDay;
   List<int> meal = List.generate(10, (index) => index + 0);
+
   Future<void> updatePatientDataToFirestore(
     String? country,
     int? selectedCmHeight,
@@ -53,6 +55,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
     String? selectedActivityLevel,
     String? dietaryPreference,
     String? gender,
+    int num,
   ) async {
     try {
       await FirebaseFirestore.instance
@@ -68,7 +71,9 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
         'selectedActivityLevel': selectedActivityLevel,
         'dietaryPreference': dietaryPreference,
         'gender': gender,
+        'registrationProgress': num,
       });
+
       print("Data updated in Firestore");
     } catch (error) {
       print("Failed to update data: $error");
@@ -472,7 +477,8 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                     MealPerDay,
                                     _selectedActivityLevel,
                                     _DietaryPreference,
-                                    gender);
+                                    gender,
+                                    num);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(
