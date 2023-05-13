@@ -443,13 +443,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NutritionistAdditionalDetail(
-                              email: email,
-                              fullname: fullname,
-                              username: username,
-                              age: age,
-                              phonenumber: phonenumber,
-                              userType: _selectedUserType!),
+                          builder: (context) => NutritionistAdditionalDetail(),
                         ),
                       ),
                       saveUser(email, fullname, username, age, phonenumber,

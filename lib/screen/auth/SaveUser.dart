@@ -48,12 +48,6 @@ Future<void> saveUser(String email, String fullname, String username,
 }
 
 Future<void> saveNutritionistAdditionalDetail(
-    String fullname,
-    String username,
-    String email,
-    String age,
-    String phonenumber,
-    String userType,
     String address,
     String specialization,
     String customSpecialization,
@@ -61,11 +55,6 @@ Future<void> saveNutritionistAdditionalDetail(
     String gender,
     int num) async {
   Map<String, dynamic> userData = {
-    'fullname': fullname,
-    'username': username,
-    'email': email,
-    'age': age,
-    'phoneNumber': phonenumber,
     'address': address,
     'specialization': specialization,
     'customSpecialization': customSpecialization,
@@ -75,7 +64,17 @@ Future<void> saveNutritionistAdditionalDetail(
   };
 
   await FirebaseFirestore.instance
-      .collection(userType)
+      .collection('Nutritionist')
+      .doc(userId)
+      .set(userData, SetOptions(merge: true));
+}
+
+Future<void> progressRegistration(int num) async {
+  Map<String, dynamic> userData = {
+    'registrationProgress': num,
+  };
+  await FirebaseFirestore.instance
+      .collection('Nutritionist')
       .doc(userId)
       .set(userData, SetOptions(merge: true));
 }

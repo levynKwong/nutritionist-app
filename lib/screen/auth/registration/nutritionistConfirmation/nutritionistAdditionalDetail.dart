@@ -1,32 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/redirectEmail.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 class NutritionistAdditionalDetail extends StatefulWidget {
-  final String email, fullname, username, age, phonenumber, userType;
-  const NutritionistAdditionalDetail(
-      {Key? key,
-      required this.email,
-      required this.fullname,
-      required this.username,
-      required this.age,
-      required this.phonenumber,
-      required this.userType})
-      : super(key: key);
+  const NutritionistAdditionalDetail({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NutritionistAdditionalDetail> createState() =>
-      _NutritionistAdditionalDetailState(
-          email, fullname, username, age, phonenumber, userType);
+      _NutritionistAdditionalDetailState();
 }
 
 class _NutritionistAdditionalDetailState
     extends State<NutritionistAdditionalDetail> {
   final _formKey = GlobalKey<FormState>();
-  final String email, fullname, username, age, phonenumber, userType;
-  _NutritionistAdditionalDetailState(this.email, this.fullname, this.username,
-      this.age, this.phonenumber, this.userType);
+
+  _NutritionistAdditionalDetailState();
 
   String? _selectedSpecialization;
   bool _showCustomSpecializationField = false;
@@ -35,7 +27,7 @@ class _NutritionistAdditionalDetailState
   String? gender;
 
   final addressController = TextEditingController();
-
+  int num = 1;
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -186,19 +178,19 @@ class _NutritionistAdditionalDetailState
                                       value: experience,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '6',
+                                          value: '1',
                                           child: Text('1-2'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '7',
+                                          value: '2',
                                           child: Text('3-5'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '8',
+                                          value: '3',
                                           child: Text('5-10'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '9',
+                                          value: '4',
                                           child: Text('10+'),
                                         ),
                                       ],
@@ -217,15 +209,15 @@ class _NutritionistAdditionalDetailState
                                       value: gender,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '10',
+                                          value: '1',
                                           child: Text('Male'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '11',
+                                          value: '2',
                                           child: Text('Female'),
                                         ),
                                         DropdownMenuItem(
-                                          value: '12',
+                                          value: '3',
                                           child: Text('Non-Binary'),
                                         ),
                                       ],
@@ -287,22 +279,18 @@ class _NutritionistAdditionalDetailState
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            confirmationNutritionist(
-                                              email: email,
-                                              fullname: fullname,
-                                              username: username,
-                                              age: age,
-                                              phonenumber: phonenumber,
-                                              userType: userType,
-                                              address: addressController.text,
-                                              specialization:
-                                                  _selectedSpecialization!,
-                                              customSpecialization:
-                                                  _customSpecialization!,
-                                              workExperience: experience!,
-                                              gender: gender!,
-                                            )));
+                                            confirmationNutritionist()));
+                                saveNutritionistAdditionalDetail(
+                                    addressController.text,
+                                    _selectedSpecialization!,
+                                    _customSpecialization!,
+                                    experience!,
+                                    gender!,
+                                    num);
                               },
+                              //
+
+                              // final addressController = TextEditingController();
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(
                                     0xFF6889c6), // sets the background color of the button

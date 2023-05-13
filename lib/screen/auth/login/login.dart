@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
 
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
+import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
@@ -318,12 +320,30 @@ class _LoginState extends State<Login> {
               );
             }
           } else if (nutritionistDoc.exists) {
+            final NutritionistRegistrationProgress =
+                nutritionistDoc.data()?['registrationProgress'] ?? 0;
             // Redirect to the nutritionist screen
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => NutritionistHome()),
-              (_) => false,
-            );
+            if (NutritionistRegistrationProgress == 0) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NutritionistAdditionalDetail()),
+                (_) => false,
+              );
+            } else if (NutritionistRegistrationProgress == 1) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => confirmationNutritionist()),
+                (_) => false,
+              );
+            } else if (NutritionistRegistrationProgress == 2) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => NutritionistHome()),
+                (_) => false,
+              );
+            }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

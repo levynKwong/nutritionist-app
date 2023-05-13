@@ -5,74 +5,20 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class confirmationNutritionist extends StatefulWidget {
-  final String email,
-      fullname,
-      username,
-      age,
-      phonenumber,
-      userType,
-      address,
-      specialization,
-      customSpecialization,
-      workExperience,
-      gender;
-  const confirmationNutritionist(
-      {Key? key,
-      required this.email,
-      required this.fullname,
-      required this.username,
-      required this.age,
-      required this.phonenumber,
-      required this.userType,
-      required this.address,
-      required this.specialization,
-      required this.customSpecialization,
-      required this.workExperience,
-      required this.gender})
-      : super(key: key);
+  const confirmationNutritionist({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<confirmationNutritionist> createState() =>
-      _confirmationNutritionistState(
-          email,
-          fullname,
-          username,
-          age,
-          phonenumber,
-          userType,
-          address,
-          specialization,
-          customSpecialization,
-          workExperience,
-          gender);
+      _confirmationNutritionistState();
 }
 
 class _confirmationNutritionistState extends State<confirmationNutritionist> {
   final _formKey = GlobalKey<FormState>();
-  final String email,
-      fullname,
-      username,
-      age,
-      phonenumber,
-      userType,
-      address,
-      specialization,
-      customSpecialization,
-      workExperience,
-      gender;
-  _confirmationNutritionistState(
-      this.email,
-      this.fullname,
-      this.username,
-      this.age,
-      this.phonenumber,
-      this.userType,
-      this.address,
-      this.specialization,
-      this.customSpecialization,
-      this.workExperience,
-      this.gender);
-  int num = 1;
+
+  _confirmationNutritionistState();
+  int num = 2;
   final List<TextEditingController> _textControllers =
       List.generate(6, (_) => TextEditingController());
 
@@ -232,19 +178,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
 
                               if (await validateCodeAndUpdateExpectedCodes(
                                   enteredCode)) {
-                                saveNutritionistAdditionalDetail(
-                                    fullname,
-                                    username,
-                                    email,
-                                    age,
-                                    phonenumber,
-                                    userType,
-                                    address,
-                                    specialization,
-                                    customSpecialization,
-                                    workExperience,
-                                    gender,
-                                    num);
+                                progressRegistration(num);
                                 // Navigate to the home screen if the entered code is valid
                                 Navigator.push(
                                   context,
