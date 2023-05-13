@@ -283,8 +283,6 @@ class _LoginState extends State<Login> {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
 
-        print('credential.user.uid: ${credential.user?.uid}');
-
         if (credential.user != null) {
           final patientDoc = await FirebaseFirestore.instance
               .collection('Patient')

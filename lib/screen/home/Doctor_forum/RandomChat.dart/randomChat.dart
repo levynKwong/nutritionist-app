@@ -3,6 +3,8 @@ import 'dart:math' show Random;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
@@ -16,6 +18,8 @@ class randomChat extends StatefulWidget {
 }
 
 class _randomChatState extends State<randomChat> {
+  bool _currentAge = false;
+  bool _userAvailable = false;
   final collectionRef = FirebaseFirestore.instance.collection('Patient');
   late QuerySnapshot usersSnapshot;
   DocumentSnapshot<Map<String, dynamic>>? randomUser;
@@ -34,17 +38,97 @@ class _randomChatState extends State<randomChat> {
 
   DocumentSnapshot<Map<String, dynamic>>? previousUser;
 
-  void getRandomUser() {
+  void getRandomUser() async {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+    final currentAge = userDoc.data()?['age'];
+
+    if (currentAge == null) {
+      _currentAge = false;
+      print('Current age not found.');
+      return;
+    }
+    _currentAge = true;
     final availableUsers = List.from(usersSnapshot.docs);
     availableUsers.removeWhere((user) =>
         user.id == FirebaseAuth.instance.currentUser!.uid ||
-        user == previousUser);
+        user == previousUser ||
+        user.data()['age'] != currentAge);
+
+    if (availableUsers.isEmpty) {
+      _userAvailable = false;
+      print('No available users.');
+      return;
+    }
+    _userAvailable = true;
     final randomIndex = Random().nextInt(availableUsers.length);
     setState(() {
       randomUser = availableUsers[randomIndex]
           as DocumentSnapshot<Map<String, dynamic>>?;
     });
     previousUser = randomUser;
+  }
+
+  Widget noAvailableUsers() {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'No available users.',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: height_ * 0.05),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: getColor(), // Set the background color to blue
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget currentAgeNotFound() {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Current age not found.',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: height_ * 0.05),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: getColor(), // Set the background color to blue
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -83,18 +167,30 @@ class _randomChatState extends State<randomChat> {
         children: [
           ElevatedButton(
             onPressed: () {
-              final previousUser = randomUser;
-              getRandomUser();
-              if (randomUser != null && randomUser != previousUser) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ChatDetail(
-                //       friendUid: randomUser!['uid'],
-                //       friendName: randomUser!['username'],
-                //     ),
-                //   ),
-                // );
+              if (_currentAge == false) {
+                showDialog(
+                  context: context,
+                  builder: (context) => currentAgeNotFound(),
+                );
+              } else if (_userAvailable == false) {
+                showDialog(
+                  context: context,
+                  builder: (context) => noAvailableUsers(),
+                );
+              } else if (_currentAge == true && _userAvailable == true) {
+                final previousUser = randomUser;
+                getRandomUser();
+                if (randomUser != null && randomUser != previousUser) {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ChatDetail(
+                  //       friendUid: randomUser!['uid'],
+                  //       friendName: randomUser!['username'],
+                  //     ),
+                  //   ),
+                  // );
+                }
               }
             },
             style: ElevatedButton.styleFrom(
