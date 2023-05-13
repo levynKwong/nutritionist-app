@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
+
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 
 class PendingPlanList extends StatefulWidget {
@@ -39,7 +40,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
     Timestamp endOfToday = Timestamp.fromDate(endOfDay);
 
     QuerySnapshot querySnapshot = await pendingPlan
-        .where('nutritionistId', isEqualTo: nutritionistId)
+        .where('nutritionistId', isEqualTo: userId)
         .where('date', isGreaterThanOrEqualTo: startOfToday)
         .where('date', isLessThanOrEqualTo: endOfToday)
         .orderBy('date')

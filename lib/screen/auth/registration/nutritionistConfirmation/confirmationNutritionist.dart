@@ -232,7 +232,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
 
                               if (await validateCodeAndUpdateExpectedCodes(
                                   enteredCode)) {
-                                saveNutritionist(
+                                saveNutritionistAdditionalDetail(
                                     fullname,
                                     username,
                                     email,

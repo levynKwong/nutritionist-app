@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
+
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
@@ -164,7 +165,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                     ),
                   ),
                   ReportButton(
-                    userId: nutritionistId,
+                    userId: userId,
                     friendId: friendUid,
                   ),
                 ],

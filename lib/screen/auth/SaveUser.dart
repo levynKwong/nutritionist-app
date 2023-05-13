@@ -1,30 +1,53 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<void> saveUser(String fullname, String username, String email,
+// String _userId = '';
+
+// String get userId => _userId;
+
+// set userId(String value) {
+//   _userId = value;
+// }
+var userId = FirebaseAuth.instance.currentUser!.uid;
+
+Future<void> saveUser(String email, String fullname, String username,
     String age, String phonenumber, String userType, int num) async {
-  Map<String, dynamic> userData = {
-    'email': email,
-    'fullname': fullname,
-    'username': username,
-    'age': age,
-    'phoneNumber': phonenumber,
-    'joinDate': DateTime.now(),
-    'registrationProgress': num,
-  };
+  final firestore = FirebaseFirestore.instance;
+
+  // bool idsAreEqual;
 
   if (userType == 'Patient') {
-    userData['coin'] = 0;
-  }
+    Map<String, dynamic> userData = {
+      'email': email,
+      'fullname': fullname,
+      'username': username,
+      'age': age,
+      'phoneNumber': phonenumber,
+      'joinDate': DateTime.now(),
+      'registrationProgress': num,
+      'coin': 0,
+      'pid': userId,
+    };
 
-  await FirebaseFirestore.instance
-      .collection(userType)
-      .doc(userId)
-      .set(userData);
+    await firestore.collection('Patient').doc(userId).set(userData);
+  } else if (userType == 'Nutritionist') {
+    Map<String, dynamic> userData = {
+      'email': email,
+      'fullname': fullname,
+      'username': username,
+      'age': age,
+      'phoneNumber': phonenumber,
+      'joinDate': DateTime.now(),
+      'registrationProgress': num,
+      'nid': userId,
+    };
+
+    await firestore.collection('Nutritionist').doc(userId).set(userData);
+  }
 }
 
-Future<void> saveNutritionist(
+Future<void> saveNutritionistAdditionalDetail(
     String fullname,
     String username,
     String email,
@@ -53,6 +76,6 @@ Future<void> saveNutritionist(
 
   await FirebaseFirestore.instance
       .collection(userType)
-      .doc(nutritionistId)
-      .set(userData);
+      .doc(userId)
+      .set(userData, SetOptions(merge: true));
 }

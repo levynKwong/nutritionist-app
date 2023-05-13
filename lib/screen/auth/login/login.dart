@@ -278,9 +278,11 @@ class _LoginState extends State<Login> {
             },
           );
         });
-
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+
+        print('credential.user.uid: ${credential.user?.uid}');
+
         if (credential.user != null) {
           final patientDoc = await FirebaseFirestore.instance
               .collection('Patient')
@@ -298,9 +300,7 @@ class _LoginState extends State<Login> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EmailVerificationCode(
-                          email: email,
-                        )),
+                    builder: (context) => EmailVerificationCode(email: email)),
                 (_) => false,
               );
             } else if (registrationProgress == 1) {
@@ -312,7 +312,7 @@ class _LoginState extends State<Login> {
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('There is an error that occured'),
+                  content: Text('There is an error that occurred'),
                   duration: const Duration(seconds: 3),
                 ),
               );

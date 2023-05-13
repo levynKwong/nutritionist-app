@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
+
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChat.dart';
@@ -92,225 +93,174 @@ class _NutritionistChatState extends State<NutritionistChat> {
     List<User1> shuffledUsers = _users.toList()..shuffle();
     shuffledUsers = shuffledUsers.toSet().toList();
     return Container(
-      child: Form(
-        // key: _formKey,
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.71,
-          width: MediaQuery.of(context).size.width * 1.4,
-          child: Container(
-            margin: EdgeInsets.all(16.0),
-            padding: EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(146, 87, 95, 203),
-              borderRadius: BorderRadius.circular(20.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 207, 207, 207).withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 2,
-                  offset: Offset(0, 1),
-                ),
-              ],
-            ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _users.isEmpty
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: shuffledUsers.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final user = shuffledUsers[index];
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => paymentChat(
-                                              nutritionistName: user.username,
-                                            )));
-                              },
-                              child: Container(
-                                margin: EdgeInsets.symmetric(
-                                  vertical: height_ * 0.010,
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                  vertical: height_ * 0.014,
-                                  horizontal: width_ * 0.07,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: width_ * 0.06,
-                                      backgroundImage:
-                                          AssetImage('images/photoCat.png'),
-                                    ),
-                                    SizedBox(
-                                      width: width_ * 0.05,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Dr ' + user.username,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: width_ * 0.045,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height_ * 0.01,
-                                        ),
-                                        Text(
-                                          user.address,
-                                          style: TextStyle(
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                            fontSize: width_ * 0.04,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height_ * 0.01,
-                                        ),
-                                        Text(
-                                          user.specialization,
-                                          style: TextStyle(
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                            fontSize: width_ * 0.04,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height_ * 0.01,
-                                        ),
-                                        Row(
-                                          children: [
-                                            // TextButton(
-                                            //   onPressed: () {
-                                            //     showDialog(
-                                            //         context: context,
-                                            //         builder:
-                                            //             (BuildContext context) {
-                                            //           return AlertDialog(
-                                            //             shape:
-                                            //                 RoundedRectangleBorder(
-                                            //               borderRadius:
-                                            //                   BorderRadius
-                                            //                       .circular(
-                                            //                           width_ *
-                                            //                               0.03),
-                                            //             ),
-                                            //             title: Text('Review'),
-                                            //             content: Text('Dr. ' +
-                                            //                 user.username +
-                                            //                 ' is a ' +
-                                            //                 user.specialization +
-                                            //                 '\n\n' +
-                                            //                 'Contact no: ' +
-                                            //                 user.phoneNumber +
-                                            //                 '\n\n' +
-                                            //                 'Email: ' +
-                                            //                 user.email),
-                                            //             actions: [
-                                            //               TextButton(
-                                            //                   onPressed: () {
-                                            //                     Navigator.pop(
-                                            //                         context);
-                                            //                   },
-                                            //                   child:
-                                            //                       Text('Close'))
-                                            //             ],
-                                            //           );
-                                            //         });
-                                            //   },
-                                            //   child: Text(
-                                            //     'review',
-                                            //     style: TextStyle(
-                                            //       decoration:
-                                            //           TextDecoration.underline,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            SizedBox(
-                                              width: width_ * 0.3,
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      width_ *
-                                                                          0.03),
-                                                        ),
-                                                        title:
-                                                            Text('More info'),
-                                                        content: Text('Dr. ' +
-                                                            user.username +
-                                                            ' is a ' +
-                                                            user.specialization +
-                                                            '\n\n' +
-                                                            'Contact no: ' +
-                                                            user.phoneNumber +
-                                                            '\n\n' +
-                                                            'Email: ' +
-                                                            user.email +
-                                                            '\n\n' +
-                                                            'Gender: ' +
-                                                            user.gender),
-                                                        actions: [
-                                                          TextButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child:
-                                                                  Text('Close'))
-                                                        ],
-                                                      );
-                                                    });
-                                              },
-                                              child: Text(
-                                                'More info',
-                                                style: TextStyle(
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                ],
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.71,
+        width: MediaQuery.of(context).size.width * 1.4,
+        child: Container(
+          margin: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(146, 87, 95, 203),
+            borderRadius: BorderRadius.circular(20.0),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 207, 207, 207).withOpacity(0.3),
+                spreadRadius: 3,
+                blurRadius: 2,
+                offset: Offset(0, 1),
               ),
+            ],
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (_users.isEmpty)
+                  Center(
+                    child: CircularProgressIndicator(),
+                  )
+                else
+                  buildUserList(shuffledUsers, width_, height_),
+              ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildUserList(List<User1> users, double width_, double height_) {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: users.length,
+      separatorBuilder: (context, index) => Divider(),
+      itemBuilder: (BuildContext context, int index) {
+        final user = users[index];
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => paymentChat(
+                  nutritionistName: user.username,
+                ),
+              ),
+            );
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: height_ * 0.010,
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: height_ * 0.014,
+              horizontal: width_ * 0.07,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: width_ * 0.06,
+                  backgroundImage: AssetImage('images/photoCat.png'),
+                ),
+                SizedBox(
+                  width: width_ * 0.05,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Dr ' + user.username,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: width_ * 0.045,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                    SizedBox(
+                      height: height_ * 0.01,
+                    ),
+                    Text(
+                      user.address,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: width_ * 0.04,
+                      ),
+                    ),
+                    SizedBox(
+                      height: height_ * 0.01,
+                    ),
+                    Text(
+                      user.specialization,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: width_ * 0.04,
+                      ),
+                    ),
+                    SizedBox(
+                      height: height_ * 0.01,
+                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(width_ * 0.03),
+                                  ),
+                                  title: Text('More info'),
+                                  content: Text(
+                                    'Dr. ' +
+                                        user.username +
+                                        ' is a ' +
+                                        user.specialization +
+                                        '\n\n' +
+                                        'Contact no: ' +
+                                        user.phoneNumber +
+                                        '\n\n' +
+                                        'Email: ' +
+                                        user.email +
+                                        '\n\n' +
+                                        'Gender: ' +
+                                        user.gender,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Close'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            'More info',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

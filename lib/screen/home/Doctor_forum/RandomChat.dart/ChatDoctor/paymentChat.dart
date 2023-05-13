@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
+
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
@@ -40,7 +41,7 @@ class _paymentChatState extends State<paymentChat> {
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('payments')
         .where('uid', isEqualTo: userId)
-        .where('nutritionistId', isEqualTo: nutritionistId)
+        .where('nutritionistId', isEqualTo: userId)
         .limit(1)
         .get();
     final List<DocumentSnapshot> documents = result.docs;
@@ -88,7 +89,7 @@ class _paymentChatState extends State<paymentChat> {
             children: [
               topSubTitle(width_, height_),
               NutritionistService(width_, height_),
-              SizedBox(height: height_ * 0.05),
+              SizedBox(height: height_ * 0.02),
               content(width_, height_),
               bottomContent(width_, height_)
             ],
@@ -125,7 +126,7 @@ class _paymentChatState extends State<paymentChat> {
               // );
             },
             child: Container(
-              width: width_ * 0.9,
+              width: width_ * 0.35,
               height: height_ * 0.25,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -211,12 +212,12 @@ class _paymentChatState extends State<paymentChat> {
                                       url:
                                           'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
                                       email: _email,
-                                      nutritionistId: nutritionistId,
+                                      nutritionistId: userId,
                                       nutritionistName: nutritionistName,
                                     ),
                                   ),
                                 );
-                                deductCoin(context, nutritionistId);
+                                deductCoin(context, userId);
                               } else {
                                 showDialog(
                                   context: context,
@@ -281,7 +282,7 @@ class _paymentChatState extends State<paymentChat> {
                 Text(
                   'Read before pressing on the coin',
                   style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.052,
+                    fontSize: MediaQuery.of(context).size.width * 0.042,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 175, 67, 67),
                   ),

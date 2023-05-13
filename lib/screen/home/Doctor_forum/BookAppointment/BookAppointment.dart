@@ -91,7 +91,7 @@ NutritionistService(double width_, double height_, context) {
                 SizedBox(height: height_ * 0.01),
                 Text(
                   'Nutritionist',
-                  style: TextStyle(fontSize: width_ * 0.05),
+                  style: TextStyle(fontSize: width_ * 0.04),
                 ),
               ],
             ),

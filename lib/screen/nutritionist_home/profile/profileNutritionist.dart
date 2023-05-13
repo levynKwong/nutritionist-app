@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
+
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 
 class profileNutritionist extends StatefulWidget {
   const profileNutritionist({super.key});
@@ -427,7 +427,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String> getFullName() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {
@@ -440,7 +440,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getAge() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {
@@ -453,7 +453,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getgender() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {
@@ -466,7 +466,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getSpecialization() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {
@@ -479,7 +479,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getCustomSpecialization() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {
@@ -492,7 +492,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getAddress() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {
@@ -505,7 +505,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getPhoneNumber() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(nutritionistId)
+        .doc(userId)
         .get();
 
     if (docSnapshot.exists) {

@@ -162,7 +162,7 @@ class Text8 extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width * 0.042,
+            fontSize: MediaQuery.of(context).size.width * 0.04,
             // fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 0, 0, 0),
           ),
