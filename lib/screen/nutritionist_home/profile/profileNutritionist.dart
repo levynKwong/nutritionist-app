@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
@@ -424,12 +425,9 @@ class _profileNutritionistState extends State<profileNutritionist> {
   }
 
   Future<String> getFullName() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(uid)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {
@@ -442,7 +440,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getAge() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {
@@ -455,7 +453,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getgender() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {
@@ -468,7 +466,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getSpecialization() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {
@@ -481,7 +479,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getCustomSpecialization() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {
@@ -494,7 +492,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getAddress() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {
@@ -507,7 +505,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getPhoneNumber() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(nutritionistId)
         .get();
 
     if (docSnapshot.exists) {

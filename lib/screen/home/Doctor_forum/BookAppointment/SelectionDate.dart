@@ -5,13 +5,6 @@ import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/TimeSelectio
 
 import 'package:table_calendar/table_calendar.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
-final User? user = _auth.currentUser;
-String userId = user!.uid;
-
 class SelectionDate extends StatefulWidget {
   final String nutritionistUid;
   final String nutritionistName;

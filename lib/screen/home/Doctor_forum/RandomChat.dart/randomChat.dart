@@ -3,11 +3,10 @@ import 'dart:math' show Random;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
+
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-
 
 class randomChat extends StatefulWidget {
   const randomChat({Key? key});
@@ -87,19 +86,21 @@ class _randomChatState extends State<randomChat> {
               final previousUser = randomUser;
               getRandomUser();
               if (randomUser != null && randomUser != previousUser) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatDetail(
-                      friendUid: randomUser!['uid'],
-                      friendName: randomUser!['username'],
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => ChatDetail(
+                //       friendUid: randomUser!['uid'],
+                //       friendName: randomUser!['username'],
+                //     ),
+                //   ),
+                // );
               }
             },
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white, backgroundColor: const Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+              foregroundColor: Colors.white,
+              backgroundColor: const Color(0xFF575ecb),
+              minimumSize: Size(width_ * 0.3, 50), // set text color
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -119,7 +120,8 @@ class _randomChatState extends State<randomChat> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

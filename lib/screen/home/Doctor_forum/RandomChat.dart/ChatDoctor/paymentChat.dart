@@ -1,29 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/WebViewScreen.dart';
 
 class paymentChat extends StatefulWidget {
-  final String nutritionistId;
   final String nutritionistName;
-  const paymentChat(
-      {Key? key, required this.nutritionistId, required this.nutritionistName})
+  const paymentChat({Key? key, required this.nutritionistName})
       : super(key: key);
 
   @override
-  State<paymentChat> createState() =>
-      _paymentChatState(nutritionistId, nutritionistName);
+  State<paymentChat> createState() => _paymentChatState(nutritionistName);
 }
 
 class _paymentChatState extends State<paymentChat> {
-  String nutritionistId;
   String nutritionistName;
-  _paymentChatState(this.nutritionistId, this.nutritionistName);
+  _paymentChatState(this.nutritionistName);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String _email = '';
@@ -50,12 +47,27 @@ class _paymentChatState extends State<paymentChat> {
     return documents.isNotEmpty;
   }
 
-  Future<String> getEmail() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
+  Future<int?> getCoinValue() async {
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
+    if (documentSnapshot.exists) {
+      dynamic coinValue = documentSnapshot.get('coin');
+      if (coinValue is int) {
+        return coinValue;
+      } else if (coinValue is String) {
+        return int.tryParse(coinValue);
+      }
+    }
+    return 0;
+  }
 
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+  Future<String> getEmail() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
     if (docSnapshot.exists) {
       return docSnapshot.get('email');
@@ -136,7 +148,8 @@ class _paymentChatState extends State<paymentChat> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -168,6 +181,7 @@ class _paymentChatState extends State<paymentChat> {
                         TextButton(
                           onPressed: () async {
                             bool paymentExists = await checkIfPaymentExists();
+
                             if (paymentExists) {
                               showDialog(
                                 context: context,
@@ -188,19 +202,41 @@ class _paymentChatState extends State<paymentChat> {
                                 },
                               );
                             } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => WebViewScreen(
-                                    url:
-                                        'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                    email: _email,
-                                    nutritionistId: nutritionistId,
-                                    nutritionistName: nutritionistName,
+                              int? checkBalance = await getCoinValue();
+                              if (checkBalance! > 0) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => WebViewScreen(
+                                      url:
+                                          'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                                      email: _email,
+                                      nutritionistId: nutritionistId,
+                                      nutritionistName: nutritionistName,
+                                    ),
                                   ),
-                                ),
-                              );
-                              deductCoin(context, nutritionistId);
+                                );
+                                deductCoin(context, nutritionistId);
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Insufficient coins'),
+                                      content: Text(
+                                          'You do not have enough coins to make this payment, please purchase more coins.'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text('OK'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             }
                           },
                           child: Text('Confirm'),
@@ -211,7 +247,8 @@ class _paymentChatState extends State<paymentChat> {
                 );
               }),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

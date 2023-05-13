@@ -69,60 +69,57 @@ class _GetCoinState extends State<GetCoin> {
       body: Stack(
         children: [
           background(),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: height_ * 0.04),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [topBar(width_, height_, context)], //correct
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: height_ * 0.04),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    topBar(width_, height_, context),
+                    CoinCounter(),
+                    SizedBox(height: height_ * 0.02),
+                    Container(
+                      child: Text4(
+                        text:
+                            'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
+                      ),
+                    ),
+                    SizedBox(height: height_ * 0.02),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: width_ * 0.1,
+                      ),
+                      child: Text3(
+                        text: 'Enter Your Coupon Code:',
+                      ),
+                    ),
+                    SizedBox(height: height_ * 0.02),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: width_ * 0.1,
+                      ),
+                      child: confirmationCode(width_, height_),
+                    ),
+                    SizedBox(height: height_ * 0.02),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: width_ * 0.1,
+                      ),
+                      child: Text5(
+                        text:
+                            'After confirmation, please wait for your coin to be updated, while it is updating you can go to your Home Screen',
+                      ),
+                    ),
+                    SizedBox(height: height_ * 0.02),
+                    TermsofUse(height_, width_),
+                    SizedBox(height: height_ * 0.02),
+                    buttons(height_, width_),
+                  ],
+                ),
+              ),
             ),
           ),
-          CoinCounter(), //correct
-
-          SizedBox(
-            height: height_ * 0.0,
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              bottom: height_ * 0.17,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: Text4(
-              text:
-                  'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: height_ * 0.03,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: Text3(
-              text: 'Enter Your Coupon Code:',
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: height_ * 0.57,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: confirmationCode(width_, height_),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: height_ * 0.48,
-              left: width_ * 0.1,
-              right: width_ * 0.1,
-            ),
-            child: Text5(
-              text:
-                  'After confirmation, please wait for your coin to be updated, while it is updating you can go to your Home Screen',
-            ),
-          ),
-          TermsofUse(height_, width_),
-          buttons(height_, width_)
         ],
       ),
     );
@@ -130,60 +127,58 @@ class _GetCoinState extends State<GetCoin> {
 
   Container buttons(double height_, double width_) {
     return Container(
-        margin: EdgeInsets.only(top: height_ * 0.89),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BuyCoin(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BuyCoin(),
               ),
-              child: Text('    Back   '),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Color(0xFF575ecb), // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            SizedBox(
-                width: width_ * 0.15), // add some spacing between the buttons
-            ElevatedButton(
-              onPressed: () async {
-                String enteredCode = _textControllers
-                    .map((controller) => controller.text)
-                    .join("");
+          ),
+          child: Text('    Back   '),
+        ),
+        SizedBox(width: width_ * 0.15), // add some spacing between the buttons
+        ElevatedButton(
+          onPressed: () async {
+            String enteredCode =
+                _textControllers.map((controller) => controller.text).join("");
 
-                if (await validateCodeAndUpdateExpectedCodes(enteredCode)) {
-                  _updateUserCoinCount(1);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Code already used')),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), // set text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text('Confirm'),
+            if (await validateCodeAndUpdateExpectedCodes(enteredCode)) {
+              _updateUserCoinCount(1);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Code already used')),
+              );
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Color(0xFF575ecb), // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          ],
-        ));
+          ),
+          child: Text('Confirm'),
+        ),
+      ],
+    ));
   }
 
   Center TermsofUse(double height_, double width_) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(
-            top: height_ * 0.65, left: width_ * 0.1, right: width_ * 0.1),
+        margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

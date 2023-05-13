@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/UserIdNutritionistId/userIdNutritionistid.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChat.dart';
@@ -29,11 +30,10 @@ class _NutritionistChatState extends State<NutritionistChat> {
   }
 
   Future<String> getEmail() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
     if (docSnapshot.exists) {
       return docSnapshot.get('email');
@@ -46,7 +46,8 @@ class _NutritionistChatState extends State<NutritionistChat> {
     QuerySnapshot snapshot = await _firestore.collection('Nutritionist').get();
 
     List<User1> users = snapshot.docs
-        .map((doc) => User1.fromMap(doc.data() as Map<String, dynamic>))
+        .map((nutritionistId) =>
+            User1.fromMap(nutritionistId.data() as Map<String, dynamic>))
         .toList();
 
     setState(() {
@@ -132,7 +133,6 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => paymentChat(
-                                              nutritionistId: user.uid,
                                               nutritionistName: user.username,
                                             )));
                               },
@@ -341,7 +341,7 @@ class User1 {
   final String email;
   final String phoneNumber;
   final String specialization;
-  final String uid;
+
   final String gender;
 
   User1({
@@ -350,7 +350,6 @@ class User1 {
     required this.email,
     required this.phoneNumber,
     required this.specialization,
-    required this.uid,
     required this.gender,
   });
 
@@ -383,7 +382,6 @@ class User1 {
       email: data['email'],
       phoneNumber: data['phoneNumber'],
       specialization: specialization,
-      uid: data['uid'],
       gender: gender,
     );
   }
