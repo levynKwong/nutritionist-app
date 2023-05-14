@@ -189,7 +189,7 @@ class DoctorForum extends StatelessWidget {
                   fontWeight: FontWeight.w500),
               children: <TextSpan>[
                 TextSpan(
-                  text: 'Available 9:00 to 11:00 a.m',
+                  text: 'Available only in Mauritius',
                   style: TextStyle(
                       color: _textColour,
                       fontSize: width_ * 0.035,

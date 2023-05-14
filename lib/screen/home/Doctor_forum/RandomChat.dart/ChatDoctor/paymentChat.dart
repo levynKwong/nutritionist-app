@@ -11,17 +11,20 @@ import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart'
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/WebViewScreen.dart';
 
 class paymentChat extends StatefulWidget {
+  final String nid;
   final String nutritionistName;
-  const paymentChat({Key? key, required this.nutritionistName})
+  const paymentChat(
+      {Key? key, required this.nutritionistName, required this.nid})
       : super(key: key);
 
   @override
-  State<paymentChat> createState() => _paymentChatState(nutritionistName);
+  State<paymentChat> createState() => _paymentChatState(nutritionistName, nid);
 }
 
 class _paymentChatState extends State<paymentChat> {
   String nutritionistName;
-  _paymentChatState(this.nutritionistName);
+  String nid;
+  _paymentChatState(this.nutritionistName, this.nid);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String _email = '';
@@ -40,8 +43,8 @@ class _paymentChatState extends State<paymentChat> {
   Future<bool> checkIfPaymentExists() async {
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('payments')
-        .where('uid', isEqualTo: userId)
-        .where('nutritionistId', isEqualTo: userId)
+        .where('nid', isEqualTo: nid)
+        .where('pid', isEqualTo: userId)
         .limit(1)
         .get();
     final List<DocumentSnapshot> documents = result.docs;
@@ -212,12 +215,12 @@ class _paymentChatState extends State<paymentChat> {
                                       url:
                                           'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
                                       email: _email,
-                                      nutritionistId: userId,
+                                      nid: nid,
                                       nutritionistName: nutritionistName,
                                     ),
                                   ),
                                 );
-                                deductCoin(context, userId);
+                                deductCoin(context, nid);
                               } else {
                                 showDialog(
                                   context: context,

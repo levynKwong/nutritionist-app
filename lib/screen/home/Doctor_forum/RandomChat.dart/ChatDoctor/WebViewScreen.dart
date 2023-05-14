@@ -4,34 +4,32 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
-
 class WebViewScreen extends StatefulWidget {
   final String url;
   final String email;
-  final String nutritionistId;
+  final String nid;
   final String nutritionistName;
 
   const WebViewScreen(
       {Key? key,
       required this.url,
       required this.email,
-      required this.nutritionistId,
+      required this.nid,
       required this.nutritionistName})
       : super(key: key);
 
   @override
   State<WebViewScreen> createState() =>
-      _WebViewScreenState(url, email, nutritionistId, nutritionistName);
+      _WebViewScreenState(url, email, nid, nutritionistName);
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
-  final String nutritionistId;
+  final String nid;
   final String nutritionistName;
   final String url;
   final String email;
   bool _formSubmitted = false;
-  _WebViewScreenState(
-      this.url, this.email, this.nutritionistId, this.nutritionistName);
+  _WebViewScreenState(this.url, this.email, this.nid, this.nutritionistName);
   @override
   Widget build(BuildContext context) {
     // Construct the URL of the Google Form with the email parameter
@@ -73,7 +71,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
       _formSubmitted = true;
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ChatDetailNutritionist(
-              friendUid: nutritionistId, friendName: nutritionistName)));
+              friendUid: nid, friendName: nutritionistName)));
     }
   }
 }

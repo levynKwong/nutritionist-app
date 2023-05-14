@@ -8,7 +8,7 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // Deduct 1 coin from the current user's account and create a new payment document
 void deductCoin(
   BuildContext context,
-  String nutritionistId,
+  String nid,
 ) async {
   User? user = _auth.currentUser;
   if (user != null) {
@@ -25,8 +25,8 @@ void deductCoin(
         transaction.update(userRef, {"coin": coins - 1});
         // Create a new payment document in the "payments" collection
         transaction.set(paymentRef, {
-          "uid": userId,
-          "nutritionistId": nutritionistId,
+          "pid": userId,
+          "nid": nid,
           "amount": 1,
           "date": DateTime.now(),
           "status": 1,

@@ -76,7 +76,7 @@ NutritionistService(double width_, double height_, context) {
           },
           child: Container(
             padding: EdgeInsets.symmetric(
-                vertical: height_ * 0.06, horizontal: width_ * 0.06),
+                vertical: height_ * 0.06, horizontal: width_ * 0.07),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: Color.fromARGB(94, 87, 95, 203),
@@ -91,7 +91,7 @@ NutritionistService(double width_, double height_, context) {
                 SizedBox(height: height_ * 0.01),
                 Text(
                   'Nutritionist',
-                  style: TextStyle(fontSize: width_ * 0.04),
+                  style: TextStyle(fontSize: width_ * 0.045),
                 ),
               ],
             ),

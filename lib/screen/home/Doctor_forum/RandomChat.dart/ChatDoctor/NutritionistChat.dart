@@ -47,8 +47,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
     QuerySnapshot snapshot = await _firestore.collection('Nutritionist').get();
 
     List<User1> users = snapshot.docs
-        .map((nutritionistId) =>
-            User1.fromMap(nutritionistId.data() as Map<String, dynamic>))
+        .map((nid) => User1.fromMap(nid.data() as Map<String, dynamic>))
         .toList();
 
     setState(() {
@@ -144,6 +143,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
               context,
               MaterialPageRoute(
                 builder: (context) => paymentChat(
+                  nid: user.nid,
                   nutritionistName: user.username,
                 ),
               ),
@@ -231,7 +231,8 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                         user.email +
                                         '\n\n' +
                                         'Gender: ' +
-                                        user.gender,
+                                        user.gender +
+                                        user.nid,
                                   ),
                                   actions: [
                                     TextButton(
@@ -291,7 +292,7 @@ class User1 {
   final String email;
   final String phoneNumber;
   final String specialization;
-
+  final String nid;
   final String gender;
 
   User1({
@@ -300,6 +301,7 @@ class User1 {
     required this.email,
     required this.phoneNumber,
     required this.specialization,
+    required this.nid,
     required this.gender,
   });
 
@@ -332,6 +334,7 @@ class User1 {
       email: data['email'],
       phoneNumber: data['phoneNumber'],
       specialization: specialization,
+      nid: data['nid'],
       gender: gender,
     );
   }

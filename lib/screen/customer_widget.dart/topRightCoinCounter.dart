@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class topRightCounter extends StatefulWidget {
   const topRightCounter({super.key});
@@ -15,11 +17,28 @@ class _topRightCounterState extends State<topRightCounter> {
   @override
   void initState() {
     super.initState();
-    getCoin().then((coin) {
+    getCachedCoin().then((coin) {
       setState(() {
         _coin = coin;
       });
+      // Now fetch the updated value from Firebase in the background
+      getCoin().then((newCoin) {
+        setState(() {
+          _coin = newCoin;
+        });
+      }).catchError((error) {
+        // Handle error when Firebase fails to fetch data
+        print('Error fetching coin value from Firebase: $error');
+      });
+    }).catchError((error) {
+      // Handle error when Shared Preferences fails to fetch data
+      print('Error fetching cached coin value: $error');
     });
+  }
+
+  Future<int> getCachedCoin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('coin') ?? 0;
   }
 
   FutureBuilder<int> getCoinWidget() {
@@ -29,6 +48,10 @@ class _topRightCounterState extends State<topRightCounter> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Show a CircularProgressIndicator while waiting for the data to load
           return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          // Handle error when fetching data from Firebase
+          print('Error fetching coin value from Firebase: ${snapshot.error}');
+          return Text('Error loading coin value');
         } else {
           // The data has loaded, so return the result
           int coin = snapshot.data ?? 0;
@@ -39,16 +62,27 @@ class _topRightCounterState extends State<topRightCounter> {
   }
 
   Future<int> getCoin() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? cachedCoin = prefs.getInt('coin');
 
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    try {
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('Patient')
+          .doc(userId)
+          .get();
 
-    if (docSnapshot.exists) {
-      return docSnapshot.get('coin');
-    } else {
-      return 0;
+      if (docSnapshot.exists) {
+        int coin = docSnapshot.get('coin');
+        // cache the value using shared preferences
+        await prefs.setInt('coin', coin);
+        return coin;
+      } else {
+        return cachedCoin ?? 0;
+      }
+    } catch (error) {
+      // Handle error when Firebase fails to fetch data
+      print('Error fetching coin value from Firebase: $error');
+      return cachedCoin ?? 0;
     }
   }
 

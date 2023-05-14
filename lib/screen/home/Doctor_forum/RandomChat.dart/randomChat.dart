@@ -72,10 +72,12 @@ class _randomChatState extends State<randomChat> {
     }
 
     final randomIndex = Random().nextInt(sameAgeUsers.length);
-    setState(() {
-      randomUser =
-          sameAgeUsers[randomIndex] as DocumentSnapshot<Map<String, dynamic>>?;
-    });
+    if (mounted) {
+      setState(() {
+        randomUser = sameAgeUsers[randomIndex]
+            as DocumentSnapshot<Map<String, dynamic>>?;
+      });
+    }
   }
 
   Widget noAvailableUsers() {
@@ -216,20 +218,6 @@ class _randomChatState extends State<randomChat> {
       ),
     );
   }
-
-  // if (_currentAge == false) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => currentAgeNotFound(),
-  //   );
-  // } else if (_userAvailable == false) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => noAvailableUsers(),
-  //   );
-  // } else
-
-  // if (_currentAge == true && _userAvailable == true) {
 
   Container buttons(double height_, double width_) {
     return Container(

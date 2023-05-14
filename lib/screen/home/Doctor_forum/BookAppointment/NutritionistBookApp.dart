@@ -384,7 +384,7 @@ class User1 {
       email: data['email'],
       phoneNumber: data['phoneNumber'],
       specialization: specialization,
-      uid: data['uid'],
+      uid: data['nid'],
       gender: gender,
     );
   }
