@@ -77,65 +77,67 @@ class _ChatListScreenState extends State<ChatListScreen>
         .where(FieldPath.documentId, whereIn: friendUids)
         .get();
 
-    setState(() {
-      _docs = docs;
-      _docsNutritionist = nutritionistSnapshot.docs;
-    });
-  }
+    if (mounted) {
+      setState(() {
+        _docs = docs;
+        _docsNutritionist = nutritionistSnapshot.docs;
+      });
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    super.build(context); // required for AutomaticKeepAliveClientMixin
-    final double width_ = MediaQuery.of(context).size.width;
-    final double height_ = MediaQuery.of(context).size.height;
-    return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
-      child: _docsNutritionist.isEmpty
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: _docsNutritionist.length,
-              itemBuilder: (BuildContext context, int index) {
-                final friendUid = _docsNutritionist[index].id;
-                final friendName = _docsNutritionist[index]['username'];
-                final lastMessage = _docs.firstWhere(
-                  (doc) => doc['users'].contains(friendUid),
-                )['lastMessage'];
+    @override
+    Widget build(BuildContext context) {
+      super.build(context); // required for AutomaticKeepAliveClientMixin
+      final double width_ = MediaQuery.of(context).size.width;
+      final double height_ = MediaQuery.of(context).size.height;
+      return Container(
+        margin: EdgeInsets.only(
+            top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
+        child: _docsNutritionist.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: _docsNutritionist.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final friendUid = _docsNutritionist[index].id;
+                  final friendName = _docsNutritionist[index]['username'];
+                  final lastMessage = _docs.firstWhere(
+                    (doc) => doc['users'].contains(friendUid),
+                  )['lastMessage'];
 
-                final lastMessageTime = _docs.firstWhere(
-                  (doc) => doc['users'].contains(friendUid),
-                )['lastMessageTime'];
-                return Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://i.pravatar.cc/150?img=3'),
-                    ),
-                    title: Text(friendName),
-                    subtitle: Text(lastMessage),
-                    trailing: Text(
-                      lastMessageTime != null
-                          ? DateFormat.jm().format(lastMessageTime.toDate())
-                          : '',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => ChatDetail(
-                            friendUid: friendUid,
-                            friendName: friendName,
+                  final lastMessageTime = _docs.firstWhere(
+                    (doc) => doc['users'].contains(friendUid),
+                  )['lastMessageTime'];
+                  return Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage:
+                            NetworkImage('https://i.pravatar.cc/150?img=3'),
+                      ),
+                      title: Text(friendName),
+                      subtitle: Text(lastMessage),
+                      trailing: Text(
+                        lastMessageTime != null
+                            ? DateFormat.jm().format(lastMessageTime.toDate())
+                            : '',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ChatDetail(
+                              friendUid: friendUid,
+                              friendName: friendName,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-    );
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+      );
+    }
   }
 }
 

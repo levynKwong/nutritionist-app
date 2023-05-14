@@ -5,7 +5,7 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChatNoForm.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -160,12 +160,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Home(),
-                      ),
-                    )
+                    Navigator.pop(context),
                   },
                 ),
                 title: Row(
