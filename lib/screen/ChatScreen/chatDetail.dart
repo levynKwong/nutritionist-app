@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
-import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
@@ -160,10 +160,35 @@ class _ChatDetailState extends State<ChatDetail> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Row(children: [
-                        // IconButton(
-                        //   onPressed: () {},
-                        //   icon: const Icon(Icons.add),
-                        // ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Not Available"),
+                                  content: Text(
+                                      "For the security of our users, this feature is not available."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("Close"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.add),
+                          color: const Color.fromARGB(
+                              255, 0, 0, 0), // Change the button color to blue
+                          disabledColor: Colors
+                              .grey, // Change the button color when it's disabled
+                          // Disable the button and display "not available"
+                          tooltip: "This button is not available",
+                        ),
                         Container(
                             width: MediaQuery.of(context).size.width - 125,
                             child: Card(

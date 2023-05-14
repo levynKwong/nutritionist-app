@@ -156,6 +156,18 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
                     ),
                   ],
                 ),
+                ElevatedButton(
+                  ///////////////////////////////////////////////////////////////////////////////
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Terms_and_condition(),
+                      ),
+                    );
+                  },
+                  child: Text('Go to Terms and Conditions'),
+                ),
                 SizedBox(height: height_ * 0.02),
                 TextButton(
                   onPressed: () {
