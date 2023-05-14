@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
-import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
@@ -13,132 +11,140 @@ class ChatListScreen extends StatefulWidget {
   _ChatListScreenState createState() => _ChatListScreenState();
 }
 
-class _ChatListScreenState extends State<ChatListScreen>
-    with AutomaticKeepAliveClientMixin<ChatListScreen> {
-  late SharedPreferences _prefs;
-  List<String> _cachedFriendNames = [];
-  List<DocumentSnapshot> _docs = [];
-  List<DocumentSnapshot> _docsNutritionist = [];
+class _ChatListScreenState extends State<ChatListScreen> {
+  final currentUserId = FirebaseAuth.instance.currentUser?.uid;
 
   @override
-  bool get wantKeepAlive => true;
+  Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return Container(
+      margin: EdgeInsets.only(
+          top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
+      child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('chats')
+            .where('users', arrayContains: currentUserId)
+            .orderBy('lastMessageTime', descending: true)
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Something went wrong'),
+            );
+          }
 
-  @override
-  void initState() {
-    super.initState();
-    _initPrefs();
-    _loadData();
-  }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-  Future<void> _initPrefs() async {
-    _prefs = await SharedPreferences.getInstance();
-    final cachedFriendNamesJson = _prefs.getString('cachedFriendNames');
-    if (cachedFriendNamesJson != null) {
-      setState(() {
-        _cachedFriendNames =
-            List<String>.from(jsonDecode(cachedFriendNamesJson));
-      });
-    }
-  }
+          final docs = snapshot.data!.docs;
 
-  Future<void> _cacheFriendNames(List<String> friendNames) async {
-    setState(() {
-      _cachedFriendNames = friendNames;
-    });
-    await _prefs.setString('cachedFriendNames', jsonEncode(friendNames));
-  }
+          if (docs.isEmpty) {
+            return Center(
+              child: Text('No chats found'),
+            );
+          }
 
-  List<String> _getCachedFriendNames(List<String> friendUids) {
-    final Map<String, String> friendUidToName = Map.fromIterables(
-      _cachedFriendNames.map((name) => name.split('###')[0]),
-      _cachedFriendNames,
-    );
-    return friendUids
-        .map((uid) => friendUidToName[uid] ?? 'Unknown User')
-        .toList();
-  }
+          return FutureBuilder<QuerySnapshot>(
+            future: FirebaseFirestore.instance
+                .collection('Patient')
+                .where(FieldPath.documentId,
+                    whereIn: docs.map((doc) {
+                      final friendUid = doc['users'].cast<String>().firstWhere(
+                          (uid) => uid != currentUserId,
+                          orElse: () => '');
+                      return friendUid;
+                    }).toList())
+                .get(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Card(
+                  child: ListTile(
+                    title: Text('Error'),
+                    subtitle: Text('Could not load name'),
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final docsNutritionist = snapshot.data!.docs;
 
-  Future<void> _loadData() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('chats')
-        .where('users', arrayContains: userId)
-        .orderBy('lastMessageTime', descending: true)
-        .get();
-
-    final docs = snapshot.docs;
-
-    final friendUids = docs
-        .map((doc) =>
-            doc['users'].cast<String>().firstWhere((uid) => uid != userId))
-        .toList();
-
-    final nutritionistSnapshot = await FirebaseFirestore.instance
-        .collection('Patient')
-        .where(FieldPath.documentId, whereIn: friendUids)
-        .get();
-
-    if (mounted) {
-      setState(() {
-        _docs = docs;
-        _docsNutritionist = nutritionistSnapshot.docs;
-      });
-    }
-
-    @override
-    Widget build(BuildContext context) {
-      super.build(context); // required for AutomaticKeepAliveClientMixin
-      final double width_ = MediaQuery.of(context).size.width;
-      final double height_ = MediaQuery.of(context).size.height;
-      return Container(
-        margin: EdgeInsets.only(
-            top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
-        child: _docsNutritionist.isEmpty
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                itemCount: _docsNutritionist.length,
+              if (docsNutritionist.isEmpty) {
+                return Center(
+                  child: Text('No chats found'),
+                );
+              }
+              return ListView.builder(
+                itemCount: docsNutritionist.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final friendUid = _docsNutritionist[index].id;
-                  final friendName = _docsNutritionist[index]['username'];
-                  final lastMessage = _docs.firstWhere(
+                  final friendUid = docsNutritionist[index].id;
+                  final friendName = docsNutritionist[index]['username'];
+                  final lastMessage = docs.firstWhere(
                     (doc) => doc['users'].contains(friendUid),
                   )['lastMessage'];
 
-                  final lastMessageTime = _docs.firstWhere(
+                  final lastMessageTime = docs.firstWhere(
                     (doc) => doc['users'].contains(friendUid),
                   )['lastMessageTime'];
+
                   return Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('https://i.pravatar.cc/150?img=3'),
-                      ),
-                      title: Text(friendName),
-                      subtitle: Text(lastMessage),
-                      trailing: Text(
-                        lastMessageTime != null
-                            ? DateFormat.jm().format(lastMessageTime.toDate())
-                            : '',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => ChatDetail(
-                              friendUid: friendUid,
-                              friendName: friendName,
+                    child: Container(
+                      color: Color.fromARGB(255, 242, 243, 251),
+                      width: width_ * 0.9, // Change the width to your liking
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage('https://i.pravatar.cc/150?img=3'),
+                        ),
+                        title: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                friendName,
+                                textAlign: TextAlign.left,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                            Text(
+                              lastMessageTime != null
+                                  ? DateFormat.jm()
+                                      .format(lastMessageTime.toDate())
+                                  : '',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        subtitle: Text(
+                          lastMessage,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatDetail(
+                                friendUid: friendUid,
+                                friendName: friendName,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
-              ),
-      );
-    }
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }
-
-/// A cache for storing and retrieving friend names.
