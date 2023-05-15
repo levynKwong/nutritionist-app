@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // set userId(String value) {
 //   _userId = value;
 // }
-var userId = FirebaseAuth.instance.currentUser!.uid;
+final userId = FirebaseAuth.instance.currentUser!.uid;
 
 Future<void> saveUser(String email, String fullname, String username,
     String age, String phonenumber, String userType, int num) async {

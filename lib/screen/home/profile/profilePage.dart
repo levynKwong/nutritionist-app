@@ -8,7 +8,7 @@ import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class profile extends StatefulWidget {
@@ -20,7 +20,7 @@ class profile extends StatefulWidget {
 
 class _profileState extends State<profile> {
   int _coin = 0;
-  String _username = '';
+  String? _username;
   String? _age;
 
   String? _country;
@@ -65,7 +65,7 @@ class _profileState extends State<profile> {
         _country = value;
       });
     });
-    getgender().then((value) {
+    getGender().then((value) {
       setState(() {
         _gender = value;
       });
@@ -90,9 +90,9 @@ class _profileState extends State<profile> {
         _coin = coin;
       });
     });
-    getUserName().then((username) {
+    getUserName().then((value) {
       setState(() {
-        _username = username;
+        _username = value;
       });
     });
   }
@@ -204,16 +204,12 @@ class _profileState extends State<profile> {
           ],
         ),
       );
-  clearCache() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
 
   Widget logout(double height_) => Container(
         child: TextButton.icon(
           onPressed: () async {
             FirebaseAuth.instance.signOut();
-            await clearCache(); // Clear the cache when logging out
+
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -538,61 +534,35 @@ class _profileState extends State<profile> {
       );
 
   Future<int> getCoin() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
-    // Check if the coin value is stored in shared preferences
-    if (prefs.containsKey('coin')) {
-      // Return the cached value
-      return prefs.getInt('coin') ?? 0;
+    int coin;
+    if (docSnapshot.exists) {
+      coin = docSnapshot.get('coin');
     } else {
-      // Coin value not found in shared preferences, fetch it from Firestore
-      final User? user = FirebaseAuth.instance.currentUser;
-      final uid = user!.uid;
-
-      final docSnapshot =
-          await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
-
-      int coin;
-      if (docSnapshot.exists) {
-        coin = docSnapshot.get('coin');
-      } else {
-        coin = 0;
-      }
-
-      // Cache the coin value in shared preferences
-      await prefs.setInt('coin', coin);
-
-      return coin;
+      coin = 0;
     }
+
+    return coin;
   }
 
   Future<String> getUserName() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
-    // Check if the username is stored in shared preferences
-    if (prefs.containsKey('username')) {
-      // Return the cached value
-      return prefs.getString('username') ?? 'Username';
+    String? username;
+    if (docSnapshot.exists) {
+      username = docSnapshot.get('username');
     } else {
-      // Username not found in shared preferences, fetch it from Firestore
-      final User? user = FirebaseAuth.instance.currentUser;
-      final uid = user!.uid;
-
-      final docSnapshot =
-          await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
-
-      String username;
-      if (docSnapshot.exists) {
-        username = docSnapshot.get('username');
-      } else {
-        username = 'Username';
-      }
-
-      // Cache the username in shared preferences
-      await prefs.setString('username', username);
-
-      return username;
+      username = 'Username';
     }
+
+    return username ?? 'Username';
   }
 
   final List<DropdownMenuItem<String>> ageList = [
@@ -744,87 +714,51 @@ class _profileState extends State<profile> {
   ];
 
   Future<String?> getAge() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
-    // Check if the age is stored in shared preferences
-    if (prefs.containsKey('age')) {
-      // Return the cached value
-      return prefs.getString('age');
+    String? age;
+    if (docSnapshot.exists) {
+      age = docSnapshot.get('age');
     } else {
-      // Age not found in shared preferences, fetch it from Firestore
-      final docSnapshot = await FirebaseFirestore.instance
-          .collection('Patient')
-          .doc(userId)
-          .get();
-
-      String? age;
-      if (docSnapshot.exists) {
-        age = docSnapshot.get('age');
-      } else {
-        age = null;
-      }
-
-      // Cache the age in shared preferences
-      await prefs.setString('age', age ?? '');
-
-      return age;
+      age = null;
     }
+
+    return age;
   }
 
   Future<String?> getCountry() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
-    // Check if the country is stored in shared preferences
-    if (prefs.containsKey('country')) {
-      // Return the cached value
-      return prefs.getString('country');
+    String? country;
+    if (docSnapshot.exists) {
+      country = docSnapshot.get('Country');
     } else {
-      // Country not found in shared preferences, fetch it from Firestore
-      final docSnapshot = await FirebaseFirestore.instance
-          .collection('Patient')
-          .doc(userId)
-          .get();
-
-      String? country;
-      if (docSnapshot.exists) {
-        country = docSnapshot.get('Country');
-      } else {
-        country = null;
-      }
-
-      // Cache the country in shared preferences
-      await prefs.setString('country', country ?? '');
-
-      return country;
+      country = null;
     }
+
+    return country;
   }
 
-  Future<String?> getgender() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<String?> getGender() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
-    // Check if the gender is stored in shared preferences
-    if (prefs.containsKey('gender')) {
-      // Return the cached value
-      return prefs.getString('gender');
+    String? gender;
+    if (docSnapshot.exists) {
+      gender = docSnapshot.get('gender');
     } else {
-      // Gender not found in shared preferences, fetch it from Firestore
-      final docSnapshot = await FirebaseFirestore.instance
-          .collection('Patient')
-          .doc(userId)
-          .get();
-
-      String? gender;
-      if (docSnapshot.exists) {
-        gender = docSnapshot.get('gender');
-      } else {
-        gender = null;
-      }
-
-      // Cache the gender in shared preferences
-      await prefs.setString('gender', gender ?? '');
-
-      return gender;
+      gender = null;
     }
+
+    return gender;
   }
 
   Future<int?> getheight() async {
@@ -880,14 +814,6 @@ class _profileState extends State<profile> {
   }
 
   Future<String?> getActivityLevel() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // Check if the value is already cached in SharedPreferences
-    final cachedValue = prefs.getString('activityLevel');
-    if (cachedValue != null) {
-      return cachedValue;
-    }
-
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
         .doc(userId)
@@ -895,12 +821,6 @@ class _profileState extends State<profile> {
 
     if (docSnapshot.exists) {
       final activityLevel = docSnapshot.get('selectedActivityLevel') as String?;
-
-      // Cache the retrieved value in SharedPreferences
-      if (activityLevel != null) {
-        await prefs.setString('activityLevel', activityLevel);
-      }
-
       return activityLevel;
     } else {
       return null;
@@ -972,10 +892,6 @@ class _profileState extends State<profile> {
                       _age = newValue; // Update _age with the new value
                     }).catchError(
                             (error) => print('Failed to update age: $error'));
-
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString('age', newValue ?? '');
                   },
                 ),
               ],
@@ -1025,10 +941,6 @@ class _profileState extends State<profile> {
                       _country = newValue; // Update _country with the new value
                     }).catchError((error) =>
                             print('Failed to update country: $error'));
-
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString('country', newValue ?? '');
                   },
                 ),
               ],
@@ -1078,10 +990,6 @@ class _profileState extends State<profile> {
                       _gender = newValue; // Update _gender with the new value
                     }).catchError((error) =>
                             print('Failed to update gender: $error'));
-
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString('gender', newValue ?? '');
                   },
                 ),
               ],
@@ -1384,10 +1292,6 @@ class _profileState extends State<profile> {
                           newValue; // Update _activityLevel with the new value
                     }).catchError((error) =>
                             print('Failed to update activity level: $error'));
-
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString('activityLevel', newValue ?? '');
                   },
                 ),
               ],
@@ -1422,28 +1326,23 @@ class _profileState extends State<profile> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 DropdownButton<String>(
-                  value: _bodyGoal,
-                  items: BodyGoalList,
-                  onChanged: (String? newValue) async {
-                    setState(() {
-                      _bodyGoal = newValue;
-                    });
+                    value: _bodyGoal,
+                    items: BodyGoalList,
+                    onChanged: (String? newValue) async {
+                      setState(() {
+                        _bodyGoal = newValue;
+                      });
 
-                    await FirebaseFirestore.instance
-                        .collection('Patient')
-                        .doc(userId)
-                        .update({'bodyGoal': newValue}).then((value) {
-                      print('Body Goal updated');
-                      _bodyGoal =
-                          newValue; // Update _bodyGoal with the new value
-                    }).catchError((error) =>
-                            print('Failed to update body goal: $error'));
-
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString('bodyGoal', newValue ?? '');
-                  },
-                ),
+                      await FirebaseFirestore.instance
+                          .collection('Patient')
+                          .doc(userId)
+                          .update({'bodyGoal': newValue}).then((value) {
+                        print('Body Goal updated');
+                        _bodyGoal =
+                            newValue; // Update _bodyGoal with the new value
+                      }).catchError((error) =>
+                              print('Failed to update body goal: $error'));
+                    }),
               ],
             ),
           ),
@@ -1493,10 +1392,6 @@ class _profileState extends State<profile> {
                       // ignore: invalid_return_type_for_catch_error
                     }).catchError((error) => print(
                             'Failed to update dietary preference: $error'));
-
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString('dietaryPreference', newValue ?? '');
                   },
                 ),
               ],
