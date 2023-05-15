@@ -31,18 +31,18 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
       200,
       (index) =>
           index +
-          60); // Create a list of integers representing the available height options in centimeters
+          0); // Create a list of integers representing the available height options in centimeters
 
   int? selectedCmHeight;
   List<int> Weight = List.generate(
       150,
       (index) =>
           index +
-          20); // Create a list of integers representing the available height options in centimeters
+          0); // Create a list of integers representing the available height options in centimeters
 
   int? selectedWeight;
   int? IdealselectedWeight;
-  List<int> IdealWeight = List.generate(150, (index) => index + 20);
+  List<int> IdealWeight = List.generate(150, (index) => index + 0);
 
   int? MealPerDay;
   List<int> meal = List.generate(10, (index) => index + 0);
