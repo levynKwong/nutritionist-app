@@ -124,7 +124,7 @@ class _dashboardState extends State<dashboard> {
     Set<String> uniqueIds = Set<String>();
     for (QueryDocumentSnapshot<Object?> document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      String uid = data['pid'] as String;
+      String uid = data['uid'] as String;
       uniqueIds.add(uid);
     }
 
