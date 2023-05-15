@@ -119,7 +119,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 backgroundColor: getColor(),
                 actions: [
                   ReportButton(
-                    userId: userId,
+                    userId: currentId,
                     friendId: friendUid,
                   ),
                 ],

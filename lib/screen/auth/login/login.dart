@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
 
@@ -295,6 +296,9 @@ class _LoginState extends State<Login> {
           if (patientDoc.exists) {
             final registrationProgress =
                 patientDoc.data()?['registrationProgress'] ?? 0;
+            final pid = patientDoc.data()?['pid'];
+            final uid = credential.user!.uid;
+            currentId = pid ?? uid;
             // Redirect to the patient screen
             if (registrationProgress == 0) {
               Navigator.pushAndRemoveUntil(
@@ -320,7 +324,9 @@ class _LoginState extends State<Login> {
           } else if (nutritionistDoc.exists) {
             final NutritionistRegistrationProgress =
                 nutritionistDoc.data()?['registrationProgress'] ?? 0;
-            // Redirect to the nutritionist screen
+            final nid = nutritionistDoc.data()?['nid'];
+            final uid = credential.user!.uid;
+            currentId = nid ?? uid;
             if (NutritionistRegistrationProgress == 0) {
               Navigator.pushAndRemoveUntil(
                 context,

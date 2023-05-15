@@ -23,7 +23,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('chats')
-            .where('users', arrayContains: userId)
+            .where('users', arrayContains: currentId)
             .orderBy('lastMessageTime', descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -52,9 +52,9 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 .collection('Patient')
                 .where(FieldPath.documentId,
                     whereIn: docs.map((doc) {
-                      final friendUid = doc['users']
-                          .cast<String>()
-                          .firstWhere((pid) => pid != userId, orElse: () => '');
+                      final friendUid = doc['users'].cast<String>().firstWhere(
+                          (pid) => pid != currentId,
+                          orElse: () => '');
                       return friendUid;
                     }).toList())
                 .get(),

@@ -550,7 +550,7 @@ class _profileState extends State<profile> {
   Future<String> getUserName() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -712,7 +712,7 @@ class _profileState extends State<profile> {
   Future<String?> getAge() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -725,7 +725,7 @@ class _profileState extends State<profile> {
   Future<String?> getCountry() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     String? country;
@@ -741,7 +741,7 @@ class _profileState extends State<profile> {
   Future<String?> getGender() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     String? gender;
@@ -757,7 +757,7 @@ class _profileState extends State<profile> {
   Future<int?> getheight() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -770,7 +770,7 @@ class _profileState extends State<profile> {
   Future<int?> getWeight() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -783,7 +783,7 @@ class _profileState extends State<profile> {
   Future<int?> getIdealWeight() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -796,7 +796,7 @@ class _profileState extends State<profile> {
   Future<int?> getMealPerDay() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -809,7 +809,7 @@ class _profileState extends State<profile> {
   Future<String?> getActivityLevel() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -823,7 +823,7 @@ class _profileState extends State<profile> {
   Future<String?> getBodyGoal() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -836,7 +836,7 @@ class _profileState extends State<profile> {
   Future<String?> getDietaryPreferenceList() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -880,7 +880,7 @@ class _profileState extends State<profile> {
                     FirebaseFirestore.instance
                         .collection('Patient')
                         .doc(
-                            userId) // Replace "patientId" with the ID of the current patient
+                            currentId) // Replace "patientId" with the ID of the current patient
                         .update({'age': newValue})
                         .then((value) => print('Age updated'))
                         .catchError(
@@ -928,7 +928,7 @@ class _profileState extends State<profile> {
 
                     await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(userId)
+                        .doc(currentId)
                         .update({'Country': newValue}).then((value) {
                       print('Country updated');
                       _country = newValue; // Update _country with the new value
@@ -977,7 +977,7 @@ class _profileState extends State<profile> {
 
                     await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(userId)
+                        .doc(currentId)
                         .update({'gender': newValue}).then((value) {
                       print('Gender updated');
                       _gender = newValue; // Update _gender with the new value
@@ -1038,7 +1038,7 @@ class _profileState extends State<profile> {
                         });
                         FirebaseFirestore.instance
                             .collection('Patient')
-                            .doc(userId)
+                            .doc(currentId)
                             .update({'Height': newValue})
                             .then((value) => print('Height updated'))
                             .catchError((error) =>
@@ -1100,7 +1100,7 @@ class _profileState extends State<profile> {
                         });
                         FirebaseFirestore.instance
                             .collection('Patient')
-                            .doc(userId)
+                            .doc(currentId)
                             .update({'Weight': newValue})
                             .then((value) => print('Height updated'))
                             .catchError((error) =>
@@ -1162,7 +1162,7 @@ class _profileState extends State<profile> {
                         });
                         FirebaseFirestore.instance
                             .collection('Patient')
-                            .doc(userId)
+                            .doc(currentId)
                             .update({'IdealWeight': newValue})
                             .then((value) => print('Height updated'))
                             .catchError((error) =>
@@ -1224,7 +1224,7 @@ class _profileState extends State<profile> {
                         });
                         FirebaseFirestore.instance
                             .collection('Patient')
-                            .doc(userId)
+                            .doc(currentId)
                             .update({'MealPerDay': newValue})
                             .then((value) => print('Height updated'))
                             .catchError((error) =>
@@ -1274,7 +1274,7 @@ class _profileState extends State<profile> {
 
                     await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(userId)
+                        .doc(currentId)
                         .update({'activityLevel': newValue}).then((value) {
                       print('Activity Level updated');
                       _activityLevel =
@@ -1324,7 +1324,7 @@ class _profileState extends State<profile> {
 
                       await FirebaseFirestore.instance
                           .collection('Patient')
-                          .doc(userId)
+                          .doc(currentId)
                           .update({'bodyGoal': newValue}).then((value) {
                         print('Body Goal updated');
                         _bodyGoal =
@@ -1373,7 +1373,7 @@ class _profileState extends State<profile> {
 
                     await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(userId)
+                        .doc(currentId)
                         .update({'dietaryPreference': newValue}).then((value) {
                       print('Dietary Preference updated');
                       _dietType =

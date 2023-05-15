@@ -427,7 +427,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String> getFullName() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -440,7 +440,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getAge() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -453,7 +453,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getgender() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -466,7 +466,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getSpecialization() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -479,7 +479,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getCustomSpecialization() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -492,7 +492,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getAddress() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {
@@ -505,7 +505,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   Future<String?> getPhoneNumber() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {

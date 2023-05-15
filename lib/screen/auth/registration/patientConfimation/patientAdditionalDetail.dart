@@ -62,7 +62,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
     try {
       await FirebaseFirestore.instance
           .collection('Patient')
-          .doc(userId)
+          .doc(currentId)
           .update({
         'Country': country,
         'Height': selectedCmHeight?.toInt(),

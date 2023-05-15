@@ -44,7 +44,7 @@ class _paymentChatState extends State<paymentChat> {
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('payments')
         .where('nid', isEqualTo: nid)
-        .where('pid', isEqualTo: userId)
+        .where('pid', isEqualTo: currentId)
         .limit(1)
         .get();
     final List<DocumentSnapshot> documents = result.docs;
@@ -54,7 +54,7 @@ class _paymentChatState extends State<paymentChat> {
   Future<int?> getCoinValue() async {
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
     if (documentSnapshot.exists) {
       dynamic coinValue = documentSnapshot.get('coin');
@@ -70,7 +70,7 @@ class _paymentChatState extends State<paymentChat> {
   Future<String> getEmail() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {

@@ -1,20 +1,14 @@
-// import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
 
-// String _userId = '';
-
-// String get userId => _userId;
-
-// set userId(String value) {
-//   _userId = value;
-// }
 final userId = FirebaseAuth.instance.currentUser!.uid;
+// this currentId is used to put current User ID
+String currentId = '';
 
 String generateNewUserId() {
   final random = Random();
-  const int userIdLength = 10;
+  const int userIdLength = 25;
   const String validChars =
       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
@@ -34,7 +28,7 @@ Future<void> saveUser(String email, String fullname, String username,
 
   DocumentSnapshot userSnapshot;
   bool userIdExists = false;
-  String currentId = userId;
+  currentId = userId;
 
   if (userType == 'Patient') {
     userSnapshot = await firestore.collection('Patient').doc(currentId).get();
@@ -98,7 +92,7 @@ Future<void> saveNutritionistAdditionalDetail(
 
   await FirebaseFirestore.instance
       .collection('Nutritionist')
-      .doc(userId)
+      .doc(currentId)
       .set(userData, SetOptions(merge: true));
 }
 
@@ -108,6 +102,6 @@ Future<void> progressRegistration(int num) async {
   };
   await FirebaseFirestore.instance
       .collection('Nutritionist')
-      .doc(userId)
+      .doc(currentId)
       .set(userData, SetOptions(merge: true));
 }

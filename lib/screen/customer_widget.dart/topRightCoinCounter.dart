@@ -68,7 +68,7 @@ class _topRightCounterState extends State<topRightCounter> {
     try {
       final docSnapshot = await FirebaseFirestore.instance
           .collection('Patient')
-          .doc(userId)
+          .doc(currentId)
           .get();
 
       if (docSnapshot.exists) {

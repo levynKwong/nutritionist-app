@@ -40,7 +40,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
     Timestamp endOfToday = Timestamp.fromDate(endOfDay);
 
     QuerySnapshot querySnapshot = await pendingPlan
-        .where('nutritionistId', isEqualTo: userId)
+        .where('nutritionistId', isEqualTo: currentId)
         .where('date', isGreaterThanOrEqualTo: startOfToday)
         .where('date', isLessThanOrEqualTo: endOfToday)
         .orderBy('date')

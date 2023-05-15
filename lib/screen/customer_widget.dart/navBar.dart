@@ -100,7 +100,7 @@ class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return TimeAvailability(
-                    userId: userId,
+                    userId: currentId,
                   );
                 },
               );

@@ -33,7 +33,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
   Future<String> getEmail() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
 
     if (docSnapshot.exists) {

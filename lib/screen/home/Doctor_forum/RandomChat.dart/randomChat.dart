@@ -38,7 +38,7 @@ class _randomChatState extends State<randomChat> {
   Future<void> getRandomUser() async {
     final userDoc = await FirebaseFirestore.instance
         .collection('Patient')
-        .doc(userId)
+        .doc(currentId)
         .get();
     final currentAge = userDoc.data()?['age'];
 
@@ -60,7 +60,7 @@ class _randomChatState extends State<randomChat> {
     }
 
     final sameAgeUsers = availableUsers
-        .where((user) => user.get('age') == currentAge && user.id != userId)
+        .where((user) => user.get('age') == currentAge && user.id != currentId)
         .toList();
 
     if (sameAgeUsers.isEmpty) {

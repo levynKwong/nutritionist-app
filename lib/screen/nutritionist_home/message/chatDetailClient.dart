@@ -165,7 +165,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                     ),
                   ),
                   ReportButton(
-                    userId: userId,
+                    userId: currentId,
                     friendId: friendUid,
                   ),
                 ],

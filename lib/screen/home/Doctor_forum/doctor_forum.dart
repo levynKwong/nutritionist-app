@@ -151,7 +151,7 @@ class DoctorForum extends StatelessWidget {
             // Check if the user is from Mauritius
             FirebaseFirestore.instance
                 .collection('Patient')
-                .doc(userId)
+                .doc(currentId)
                 .get()
                 .then((doc) {
               if (doc.exists && doc['Country'] == "1") {
