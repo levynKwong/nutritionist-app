@@ -285,12 +285,12 @@ class _LoginState extends State<Login> {
             .signInWithEmailAndPassword(email: email, password: password);
 
         if (credential.user != null) {
-          final patientDoc = await FirebaseFirestore.instance
-              .collection('Patient')
-              .doc(credential.user!.uid)
-              .get();
           final nutritionistDoc = await FirebaseFirestore.instance
               .collection('Nutritionist')
+              .doc(credential.user!.uid)
+              .get();
+          final patientDoc = await FirebaseFirestore.instance
+              .collection('Patient')
               .doc(credential.user!.uid)
               .get();
           if (patientDoc.exists) {
@@ -351,8 +351,9 @@ class _LoginState extends State<Login> {
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('You are not authorized to access this app'),
-                duration: const Duration(seconds: 3),
+                content: Text(
+                    'You are not authorized to access this app or you did not use a valid email to register'),
+                duration: const Duration(seconds: 6),
               ),
             );
           }

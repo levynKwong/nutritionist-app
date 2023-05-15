@@ -45,7 +45,10 @@ class _NutritionistBookAppointmentState
   }
 
   void _getUsers() async {
-    QuerySnapshot snapshot = await _firestore.collection('Nutritionist').get();
+    QuerySnapshot snapshot = await _firestore
+        .collection('Nutritionist')
+        .where('registrationProgress', isEqualTo: 2)
+        .get();
 
     List<User1> users = snapshot.docs
         .map((doc) => User1.fromMap(doc.data() as Map<String, dynamic>))
