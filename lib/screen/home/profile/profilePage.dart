@@ -792,15 +792,30 @@ class _profileState extends State<profile> {
   }
 
   Future<String?> getgender() async {
-    final docSnapshot = await FirebaseFirestore.instance
-        .collection('Patient')
-        .doc(userId)
-        .get();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (docSnapshot.exists) {
-      return docSnapshot.get('gender');
+    // Check if the gender is stored in shared preferences
+    if (prefs.containsKey('gender')) {
+      // Return the cached value
+      return prefs.getString('gender');
     } else {
-      return null;
+      // Gender not found in shared preferences, fetch it from Firestore
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('Patient')
+          .doc(userId)
+          .get();
+
+      String? gender;
+      if (docSnapshot.exists) {
+        gender = docSnapshot.get('gender');
+      } else {
+        gender = null;
+      }
+
+      // Cache the gender in shared preferences
+      await prefs.setString('gender', gender ?? '');
+
+      return gender;
     }
   }
 
@@ -1027,19 +1042,23 @@ class _profileState extends State<profile> {
                 DropdownButton<String>(
                   value: _gender,
                   items: genderList,
-                  onChanged: (String? newValue) {
-                    // update the age value when the user selects an item
+                  onChanged: (String? newValue) async {
                     setState(() {
-                      _gender = newValue!;
+                      _gender = newValue;
                     });
-                    FirebaseFirestore.instance
+
+                    await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(
-                            userId) // Replace "patientId" with the ID of the current patient
-                        .update({'gender': newValue})
-                        .then((value) => print('Age updated'))
-                        .catchError(
-                            (error) => print('Failed to update age: $error'));
+                        .doc(userId)
+                        .update({'gender': newValue}).then((value) {
+                      print('Gender updated');
+                      _gender = newValue; // Update _gender with the new value
+                    }).catchError((error) =>
+                            print('Failed to update gender: $error'));
+
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString('gender', newValue ?? '');
                   },
                 ),
               ],
