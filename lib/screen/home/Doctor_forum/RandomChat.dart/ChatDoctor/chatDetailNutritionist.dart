@@ -160,7 +160,12 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () => {
-                    Navigator.pop(context),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    )
                   },
                 ),
                 title: Row(
