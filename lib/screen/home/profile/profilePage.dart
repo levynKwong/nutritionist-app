@@ -764,15 +764,30 @@ class _profileState extends State<profile> {
   }
 
   Future<String?> getCountry() async {
-    final docSnapshot = await FirebaseFirestore.instance
-        .collection('Patient')
-        .doc(userId)
-        .get();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (docSnapshot.exists) {
-      return docSnapshot.get('Country');
+    // Check if the country is stored in shared preferences
+    if (prefs.containsKey('country')) {
+      // Return the cached value
+      return prefs.getString('country');
     } else {
-      return null;
+      // Country not found in shared preferences, fetch it from Firestore
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('Patient')
+          .doc(userId)
+          .get();
+
+      String? country;
+      if (docSnapshot.exists) {
+        country = docSnapshot.get('Country');
+      } else {
+        country = null;
+      }
+
+      // Cache the country in shared preferences
+      await prefs.setString('country', country ?? '');
+
+      return country;
     }
   }
 
@@ -959,19 +974,23 @@ class _profileState extends State<profile> {
                 DropdownButton<String>(
                   value: _country,
                   items: countryList,
-                  onChanged: (String? newValue) {
-                    // update the age value when the user selects an item
+                  onChanged: (String? newValue) async {
                     setState(() {
-                      _country = newValue!;
+                      _country = newValue;
                     });
-                    FirebaseFirestore.instance
+
+                    await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(
-                            userId) // Replace "patientId" with the ID of the current patient
-                        .update({'Country': newValue})
-                        .then((value) => print('Age updated'))
-                        .catchError(
-                            (error) => print('Failed to update age: $error'));
+                        .doc(userId)
+                        .update({'Country': newValue}).then((value) {
+                      print('Country updated');
+                      _country = newValue; // Update _country with the new value
+                    }).catchError((error) =>
+                            print('Failed to update country: $error'));
+
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString('country', newValue ?? '');
                   },
                 ),
               ],
