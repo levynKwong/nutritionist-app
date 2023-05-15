@@ -20,7 +20,7 @@ class profile extends StatefulWidget {
 
 class _profileState extends State<profile> {
   int _coin = 0;
-  String? _username;
+  String _username = '';
   String? _age;
 
   String? _country;
@@ -548,14 +548,14 @@ class _profileState extends State<profile> {
   }
 
   Future<String> getUserName() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(userId)
+        .get();
 
     if (docSnapshot.exists) {
-      return docSnapshot.get('username');
+      final username = docSnapshot.get('username');
+      return username != null ? username : 'Username';
     } else {
       return 'Username';
     }

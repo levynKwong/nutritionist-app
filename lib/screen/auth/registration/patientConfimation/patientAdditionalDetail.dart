@@ -65,7 +65,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
           .doc(userId)
           .update({
         'Country': country,
-        'Height': selectedWeight?.toInt(),
+        'Height': selectedCmHeight?.toInt(),
         'Weight': selectedWeight?.toInt(),
         'IdealWeight': IdealselectedWeight?.toInt(),
         'selectedBodyGoal': selectedBodyGoal,
