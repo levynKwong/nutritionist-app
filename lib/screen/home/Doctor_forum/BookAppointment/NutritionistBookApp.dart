@@ -243,9 +243,9 @@ class _NutritionistBookAppointmentState
                                             //     ),
                                             //   ),
                                             // ),
-                                            SizedBox(
-                                              width: width_ * 0.3,
-                                            ),
+                                            // SizedBox(
+                                            //   width: width_ * 0.3,
+                                            // ),
                                             TextButton(
                                               onPressed: () {
                                                 showDialog(
