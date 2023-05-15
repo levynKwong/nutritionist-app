@@ -123,7 +123,8 @@ class _paymentChatNoFormState extends State<paymentChatNoForm> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -168,7 +169,8 @@ class _paymentChatNoFormState extends State<paymentChatNoForm> {
                 );
               }),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

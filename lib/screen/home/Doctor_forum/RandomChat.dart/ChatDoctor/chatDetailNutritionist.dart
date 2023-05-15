@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChatNoForm.dart';
@@ -11,6 +15,7 @@ import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
+import 'dart:async';
 
 class ChatDetailNutritionist extends StatefulWidget {
   final friendUid;
@@ -36,24 +41,19 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   var chatDocId;
   _ChatDetailNutritionistState(this.friendUid, this.friendName);
   bool sendButtonEnabled = true;
-  // Timestamp? lastMessageTimestamp;
-  void _toggleButton() {
-    setState(() {
-      sendButtonEnabled = false;
-    });
-  }
-
-  void _toggleButton2() {
-    setState(() {
-      sendButtonEnabled = true;
-    });
-  }
 
   @override
   void initState() {
     super.initState();
     _getChatDocId();
-    checkPaymentStatus();
+    checkStatus();
+    startPaymentStatusChecker();
+  }
+
+  void _toggleButton(bool enabled) {
+    setState(() {
+      sendButtonEnabled = enabled;
+    });
   }
 
   Future<void> _getChatDocId() async {
@@ -94,29 +94,62 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     }
   }
 
-  void checkPaymentStatus() {
-    final now = DateTime.now();
-    final twoMinutesAgo = now.subtract(Duration(minutes: 2));
-
+  void checkStatus() {
     FirebaseFirestore.instance
         .collection('payments')
-        .where('uid', isEqualTo: currentId)
-        .where('nutritionistId', isEqualTo: friendUid)
+        .where('pid', isEqualTo: currentId)
+        .where('nid', isEqualTo: friendUid)
         .where('status', isEqualTo: 1)
         .limit(1)
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        DateTime paymentDate = DateTime.parse(doc['date'].toDate().toString());
-        if (paymentDate.isBefore(twoMinutesAgo)) {
+      if (querySnapshot.docs.isNotEmpty) {
+        _toggleButton(true);
+      } else {
+        _toggleButton(false);
+      }
+    }).catchError((error) {
+      // Handle error during status check
+      print('Error checking status: $error');
+    });
+  }
+
+  void startPaymentStatusChecker() {
+    Timer.periodic(Duration(seconds: 2), (Timer timer) {
+      checkPaymentStatus();
+    });
+  }
+
+  void checkPaymentStatus() {
+    final now = DateTime.now();
+    final twoMinutesAgo = now.subtract(Duration(seconds: 7));
+
+    FirebaseFirestore.instance
+        .collection('payments')
+        .where('nid', isEqualTo: friendUid)
+        .where('pid', isEqualTo: currentId)
+        .where('status', isEqualTo: 1)
+        .limit(1)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        final doc = querySnapshot.docs.first;
+        DateTime paymentDate = doc['date'].toDate();
+        if (paymentDate.isBefore(twoMinutesAgo) && doc['status'] == 1) {
           FirebaseFirestore.instance
               .collection('payments')
               .doc(doc.id)
-              .update({'status': 0})
-              .then((value) => _toggleButton())
-              .catchError((error) => print('Failed to update payment: $error'));
+              .update({'status': 0}).then((_) {
+            checkStatus();
+            print('Payment status updated to 0');
+          }).catchError((error) {
+            print('Failed to update payment status: $error');
+          });
         }
-      });
+      }
+    }).catchError((error) {
+      // Handle error during payment status check
+      print('Error checking payment status: $error');
     });
   }
 
@@ -311,18 +344,63 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                           actions: <Widget>[
                                             TextButton(
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        paymentChatNoForm(
-                                                      nutritionistId: friendUid,
-                                                      nutritionistName:
-                                                          friendName,
-                                                    ),
-                                                  ),
+                                                Navigator.of(context).pop();
+
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text("Pay"),
+                                                      content: Text(
+                                                          "Are you sure you want to make a payment?"),
+                                                      actions: [
+                                                        CoinCounter(),
+                                                        Center(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center, // Align buttons in the center
+                                                            children: [
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                                child: Text(
+                                                                    "Cancel"),
+                                                              ),
+                                                              SizedBox(
+                                                                  width: width_ *
+                                                                      0.07), // Put 1 sized box between the buttons
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  deductCoin(
+                                                                      context,
+                                                                      friendUid);
+                                                                  _toggleButton(
+                                                                      true);
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  ChatDetailNutritionist(
+                                                                    friendUid:
+                                                                        friendUid,
+                                                                    friendName:
+                                                                        friendName,
+                                                                  );
+                                                                },
+                                                                child: Text(
+                                                                    "Confirm"),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
                                                 );
-                                                _toggleButton2();
                                               },
                                               child:
                                                   Text("Do you want to pay?"),
