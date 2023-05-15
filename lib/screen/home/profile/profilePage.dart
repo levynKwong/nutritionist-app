@@ -8,7 +8,7 @@ import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class profile extends StatefulWidget {
@@ -314,7 +314,7 @@ class _profileState extends State<profile> {
             listAge(height_, width_),
             listCountry(height_, width_),
             listGender(height_, width_),
-            listHeight(height_, width_),
+            // listHeight(height_, width_),
             listweight(height_, width_),
             listIdealweight(height_, width_),
             listMealPerDay(height_, width_),
@@ -530,30 +530,60 @@ class _profileState extends State<profile> {
       );
 
   Future<int> getCoin() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
-
-    if (docSnapshot.exists) {
-      return docSnapshot.get('coin');
+    // Check if the coin value is stored in shared preferences
+    if (prefs.containsKey('coin')) {
+      // Return the cached value
+      return prefs.getInt('coin') ?? 0;
     } else {
-      return 0;
+      // Coin value not found in shared preferences, fetch it from Firestore
+      final User? user = FirebaseAuth.instance.currentUser;
+      final uid = user!.uid;
+
+      final docSnapshot =
+          await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+      int coin;
+      if (docSnapshot.exists) {
+        coin = docSnapshot.get('coin');
+      } else {
+        coin = 0;
+      }
+
+      // Cache the coin value in shared preferences
+      await prefs.setInt('coin', coin);
+
+      return coin;
     }
   }
 
   Future<String> getUserName() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
-
-    if (docSnapshot.exists) {
-      return docSnapshot.get('username');
+    // Check if the username is stored in shared preferences
+    if (prefs.containsKey('username')) {
+      // Return the cached value
+      return prefs.getString('username') ?? 'Username';
     } else {
-      return 'Username';
+      // Username not found in shared preferences, fetch it from Firestore
+      final User? user = FirebaseAuth.instance.currentUser;
+      final uid = user!.uid;
+
+      final docSnapshot =
+          await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+
+      String username;
+      if (docSnapshot.exists) {
+        username = docSnapshot.get('username');
+      } else {
+        username = 'Username';
+      }
+
+      // Cache the username in shared preferences
+      await prefs.setString('username', username);
+
+      return username;
     }
   }
 
@@ -706,15 +736,30 @@ class _profileState extends State<profile> {
   ];
 
   Future<String?> getAge() async {
-    final docSnapshot = await FirebaseFirestore.instance
-        .collection('Patient')
-        .doc(userId)
-        .get();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (docSnapshot.exists) {
-      return docSnapshot.get('age');
+    // Check if the age is stored in shared preferences
+    if (prefs.containsKey('age')) {
+      // Return the cached value
+      return prefs.getString('age');
     } else {
-      return null;
+      // Age not found in shared preferences, fetch it from Firestore
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('Patient')
+          .doc(userId)
+          .get();
+
+      String? age;
+      if (docSnapshot.exists) {
+        age = docSnapshot.get('age');
+      } else {
+        age = null;
+      }
+
+      // Cache the age in shared preferences
+      await prefs.setString('age', age ?? '');
+
+      return age;
     }
   }
 
@@ -861,19 +906,23 @@ class _profileState extends State<profile> {
                 DropdownButton<String>(
                   value: _age,
                   items: ageList,
-                  onChanged: (String? newValue) {
-                    // update the age value when the user selects an item
+                  onChanged: (String? newValue) async {
                     setState(() {
-                      _age = newValue!;
+                      _age = newValue;
                     });
-                    FirebaseFirestore.instance
+
+                    await FirebaseFirestore.instance
                         .collection('Patient')
-                        .doc(
-                            userId) // Replace "patientId" with the ID of the current patient
-                        .update({'age': newValue})
-                        .then((value) => print('Age updated'))
-                        .catchError(
+                        .doc(userId)
+                        .update({'age': newValue}).then((value) {
+                      print('Age updated');
+                      _age = newValue; // Update _age with the new value
+                    }).catchError(
                             (error) => print('Failed to update age: $error'));
+
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString('age', newValue ?? '');
                   },
                 ),
               ],
@@ -982,67 +1031,67 @@ class _profileState extends State<profile> {
     );
   }
 
-  Widget listHeight(
-    double height_,
-    double width_,
-  ) {
-    return FutureBuilder<int?>(
-      future: getheight(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          selectedCmHeight =
-              snapshot.data ?? 0; // Set the initial value of selectedCmHeight
-        }
-        return Container(
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Height',
-                  style: TextStyle(
-                    fontSize: width_ * 0.05,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    DropdownButton<int>(
-                      value: selectedCmHeight,
-                      items: cmHeights.map((int height) {
-                        return DropdownMenuItem<int>(
-                          value: height,
-                          child: Text("$height cm"),
-                        );
-                      }).toList(),
-                      onChanged: (int? newValue) {
-                        // update the height value when the user selects an item
-                        setState(() {
-                          selectedCmHeight = newValue!;
-                        });
-                        FirebaseFirestore.instance
-                            .collection('Patient')
-                            .doc(userId)
-                            .update({'Height': newValue})
-                            .then((value) => print('Height updated'))
-                            .catchError((error) =>
-                                print('Failed to update height: $error'));
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // Widget listHeight(
+  //   double height_,
+  //   double width_,
+  // ) {
+  //   return FutureBuilder<int?>(
+  //     future: getheight(),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.done) {
+  //         selectedCmHeight =
+  //             snapshot.data ?? 0; // Set the initial value of selectedCmHeight
+  //       }
+  //       return Container(
+  //         child: Row(
+  //           children: [
+  //             Expanded(
+  //               child: Text(
+  //                 'Height',
+  //                 style: TextStyle(
+  //                   fontSize: width_ * 0.05,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.black,
+  //                 ),
+  //               ),
+  //             ),
+  //             Expanded(
+  //               flex: 0,
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.end,
+  //                 mainAxisSize: MainAxisSize.min,
+  //                 children: [
+  //                   DropdownButton<int>(
+  //                     value: selectedCmHeight,
+  //                     items: cmHeights.map((int height) {
+  //                       return DropdownMenuItem<int>(
+  //                         value: height,
+  //                         child: Text("$height cm"),
+  //                       );
+  //                     }).toList(),
+  //                     onChanged: (int? newValue) {
+  //                       // update the height value when the user selects an item
+  //                       setState(() {
+  //                         selectedCmHeight = newValue!;
+  //                       });
+  //                       FirebaseFirestore.instance
+  //                           .collection('Patient')
+  //                           .doc(userId)
+  //                           .update({'Height': newValue})
+  //                           .then((value) => print('Height updated'))
+  //                           .catchError((error) =>
+  //                               print('Failed to update height: $error'));
+  //                     },
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget listweight(
     double height_,
