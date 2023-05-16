@@ -23,7 +23,7 @@ class _dashboardState extends State<dashboard> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarTopCal(titleText: 'Dashboard'),
+      appBar: appBarTopCal2(titleText: 'Dashboard'),
       body: Stack(
         children: [
           // Image.asset(
@@ -162,7 +162,6 @@ class _dashboardState extends State<dashboard> {
             Row(
               children: [
                 SizedBox(width: width_ * 0.03),
-                // margin: EdgeInsets.only(right: width_ * 0.065),
                 Text(
                   'Pending Plan',
                   style: TextStyle(
@@ -171,69 +170,66 @@ class _dashboardState extends State<dashboard> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
-                  width: width_ * 0.03,
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(width: double.minPositive),
-                          Text(
-                            'Plan Type',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 125, 125, 125),
-                              fontSize: width_ * 0.03,
-                              fontWeight: FontWeight.bold,
-                            ),
+                Spacer(),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Plan Type',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 125, 125, 125),
+                            fontSize: width_ * 0.03,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                      Wrap(
-                        spacing: width_ * 0.01,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: width_ * 0.03,
-                              vertical: height_ * 0.00,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 184, 184, 184),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
+                        ),
+                        // SizedBox(height: height_ * 0.04),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: width_ * 0.01,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width_ * 0.03,
+                            vertical: height_ * 0.00,
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: width_ * 0.008,
-                              vertical: height_ * 0.000,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 184, 184, 184),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Appointment',
-                                  style: TextStyle(fontSize: width_ * 0.03),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 184, 184, 184),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width_ * 0.008,
+                            vertical: height_ * 0.000,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 184, 184, 184),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Appointment',
+                                style: TextStyle(fontSize: width_ * 0.03),
+                              ),
+                              SizedBox(width: width_ * 0.006),
+                              Container(
+                                width: width_ * 0.032,
+                                height: height_ * 0.032,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
                                 ),
-                                SizedBox(width: width_ * 0.006),
-                                Container(
-                                  width: width_ * 0.032,
-                                  height: height_ * 0.032,
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

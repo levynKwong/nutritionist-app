@@ -297,7 +297,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
   void moreInfo() async {
     final patientSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
-        .where('uid', isEqualTo: friendUid)
+        .where('pid', isEqualTo: friendUid)
         .limit(1)
         .get();
     if (patientSnapshot.docs.isNotEmpty) {

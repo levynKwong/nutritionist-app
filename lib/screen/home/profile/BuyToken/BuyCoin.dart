@@ -21,7 +21,7 @@ class _BuyCoinState extends State<BuyCoin> {
   void initState() {
     super.initState();
     selectedRadio = 0;
-    _googlePayConfigFuture = PaymentConfiguration.fromAsset('google_pay.json');
+    // _googlePayConfigFuture = PaymentConfiguration.fromAsset('google_pay.json');
     // // checkPaymentAvailability();
   }
 
@@ -101,29 +101,29 @@ class _BuyCoinState extends State<BuyCoin> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FutureBuilder<PaymentConfiguration>(
-            future: _googlePayConfigFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return GooglePayButton(
-                  paymentConfiguration: snapshot.data!,
-                  paymentItems: _paymentItems,
-                  type: GooglePayButtonType.pay,
-                  margin: const EdgeInsets.only(top: 15.0),
-                  onPaymentResult: onGooglePayResult,
-                  loadingIndicator: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                print("Error: ${snapshot.error}");
-                return Text(
-                    'Error loading payment configuration: ${snapshot.error}');
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
+          // FutureBuilder<PaymentConfiguration>(
+          //   future: _googlePayConfigFuture,
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasData) {
+          //       return GooglePayButton(
+          //         paymentConfiguration: snapshot.data!,
+          //         paymentItems: _paymentItems,
+          //         type: GooglePayButtonType.pay,
+          //         margin: const EdgeInsets.only(top: 15.0),
+          //         onPaymentResult: onGooglePayResult,
+          //         loadingIndicator: const Center(
+          //           child: CircularProgressIndicator(),
+          //         ),
+          //       );
+          //     } else if (snapshot.hasError) {
+          //       print("Error: ${snapshot.error}");
+          //       return Text(
+          //           'Error loading payment configuration: ${snapshot.error}');
+          //     } else {
+          //       return const SizedBox.shrink();
+          //     }
+          //   },
+          // ),
           SizedBox(width: width_ * 0.15),
           ElevatedButton(
             onPressed: () {

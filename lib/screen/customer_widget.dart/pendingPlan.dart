@@ -26,7 +26,6 @@ class _PendingPlanListState extends State<PendingPlanList> {
         FirebaseFirestore.instance.collection('Patient');
 
     // Get today's date as a string in ISO format (yyyy-MM-dd)
-
     DateTime today = DateTime.now().toUtc().add(Duration(hours: 4));
     DateTime startOfDay = DateTime(
       today.month,
@@ -55,6 +54,11 @@ class _PendingPlanListState extends State<PendingPlanList> {
       print('Document id: ${doc.id}');
       print('Document data: ${doc.data()}');
     }
+  }
+
+  Future<void> _handleRefresh() async {
+    // Call the _queryPendingPlanToday method to fetch new data
+    await _queryPendingPlanToday();
   }
 
   Future<void> _removeDocument(String documentId) async {
@@ -116,6 +120,17 @@ class _PendingPlanListState extends State<PendingPlanList> {
                                                     : timeSlot == 11
                                                         ? '17:00'
                                                         : '';
+        // Container(
+        //   child: ElevatedButton(
+        //     onPressed: () {
+        //       _handleRefresh();
+        //     },
+        //     style: ElevatedButton.styleFrom(
+        //       primary: Color.fromARGB(0, 0, 0, 0),
+        //     ),
+        //     child: Icon(Icons.refresh),
+        //   ),
+        // );
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -128,7 +143,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
                 if (snapshot.hasData) {
                   String username = snapshot.data?.get('username');
                   return Text(
-                    "name: $username",
+                    "$username",
                     style: TextStyle(fontSize: width_ * 0.045),
                   );
                 } else {
@@ -137,7 +152,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
               },
             ),
             Text(
-              "Time Slot: $timeString",
+              "Time: $timeString",
               style: TextStyle(fontSize: width_ * 0.045),
             ),
             IconButton(

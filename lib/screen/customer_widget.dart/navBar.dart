@@ -76,6 +76,97 @@ class appBarTopBack extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
+class appBarTopCal2 extends StatelessWidget implements PreferredSizeWidget {
+  final String titleText;
+
+  const appBarTopCal2({Key? key, required this.titleText}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return AppBar(
+      title: Text(titleText),
+      backgroundColor: getColor(),
+      automaticallyImplyLeading: false,
+      actions: <Widget>[
+        IconButton(
+            icon: Icon(
+              Icons.more_time,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return TimeAvailability(
+                    userId: currentId,
+                  );
+                },
+              );
+            }),
+        IconButton(
+            icon: Icon(
+              Icons.calendar_today,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            onPressed: () {
+              popUpButton(context);
+            }),
+        NotificationWidget(),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
+
+Future<dynamic> popUpButton(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final double width_ = constraints.maxWidth;
+          final double height_ = constraints.maxHeight;
+          final double contentHeight = height_ * 0.5; // reduce by 10
+          final double contentWidth = width_ * 0.8;
+
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            contentPadding: EdgeInsets.only(
+              top: 20.0,
+              bottom:
+                  10.0, // set to the same amount as the reduction in contentHeight
+              left: 20.0,
+              right: 20.0,
+            ),
+            content: Container(
+              height: contentHeight,
+              width: contentWidth,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+              ),
+              child: TableCalendar(
+                focusedDay: DateTime.now(),
+                firstDay: DateTime.utc(2022, 1, 1),
+                lastDay: DateTime.utc(2024, 12, 31),
+                calendarFormat: CalendarFormat.month,
+                startingDayOfWeek: StartingDayOfWeek.sunday,
+                // Add any additional calendar properties here
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
 class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
   final String titleText;
 
@@ -122,7 +213,7 @@ class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
-Future<dynamic> popUpButton(BuildContext context) {
+Future<dynamic> popUpButton2(BuildContext context) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {

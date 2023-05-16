@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +8,6 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 
-import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChatNoForm.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -115,14 +112,14 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   }
 
   void startPaymentStatusChecker() {
-    Timer.periodic(Duration(seconds: 2), (Timer timer) {
+    Timer.periodic(Duration(days: 1), (Timer timer) {
       checkPaymentStatus();
     });
   }
 
   void checkPaymentStatus() {
     final now = DateTime.now();
-    final twoMinutesAgo = now.subtract(Duration(seconds: 7));
+    final twoMinutesAgo = now.subtract(Duration(days: 1));
 
     FirebaseFirestore.instance
         .collection('payments')
@@ -471,12 +468,13 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   void moreInfo() async {
     final nutritionistSnapshot = await FirebaseFirestore.instance
         .collection('Nutritionist')
-        .where('uid', isEqualTo: friendUid)
+        .where('nid', isEqualTo: friendUid)
         .limit(1)
         .get();
     if (nutritionistSnapshot.docs.isNotEmpty) {
       final nutritionistData = nutritionistSnapshot.docs.first.data();
       final username = nutritionistData['username'];
+      final fullname = nutritionistData['fullname'];
       final email = nutritionistData['email'];
       final address = nutritionistData['address'];
       final phoneNumber = nutritionistData['phoneNumber'];
@@ -519,7 +517,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('UserName: Dr $username'),
+                  Text('Username: Dr $username'),
+                  Text(''),
+                  Text('fullname: $fullname'),
                   Text(''),
                   Text('Email: $email'),
                   Text(''),

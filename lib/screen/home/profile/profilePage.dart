@@ -6,6 +6,8 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/order.dart';
+import 'package:meal_aware/screen/customer_widget.dart/ordersHistory.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
@@ -20,6 +22,7 @@ class profile extends StatefulWidget {
 
 class _profileState extends State<profile> {
   int _coin = 0;
+  int _totalAmount = 0;
   String _username = '';
   String? _age;
 
@@ -93,6 +96,11 @@ class _profileState extends State<profile> {
     getUserName().then((value) {
       setState(() {
         _username = value;
+      });
+    });
+    getTotalAmount().then((value) {
+      setState(() {
+        _totalAmount = value;
       });
     });
   }
@@ -280,7 +288,14 @@ class _profileState extends State<profile> {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrdersHistory(),
+                  ),
+                );
+              },
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
                   Size(width_ * 0.8, height_ * 0.07),
@@ -498,7 +513,7 @@ class _profileState extends State<profile> {
                     ),
                     SizedBox(height: height_ * 0.0001),
                     Center(
-                      child: Text4(text: '1'),
+                      child: Text4(text: '$_totalAmount'),
                     ),
                   ],
                 ),

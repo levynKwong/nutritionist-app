@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 class CoinCounter extends StatefulWidget {
   const CoinCounter({Key? key}) : super(key: key);
@@ -39,11 +40,10 @@ class _CoinCounterState extends State<CoinCounter> {
   }
 
   Future<int> getCoin() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
 
     if (docSnapshot.exists) {
       return docSnapshot.get('coin');
