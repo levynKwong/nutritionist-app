@@ -110,32 +110,30 @@ class _profileState extends State<profile> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: appBarTop(
-          titleText: 'Profile',
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/pattern_food.jpg'),
-                fit: BoxFit.cover,
-              ),
+    return Scaffold(
+      appBar: appBarTop(
+        titleText: 'Profile',
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/pattern_food.jpg'),
+              fit: BoxFit.cover,
             ),
-            child: SizedBox(
-              width: width_,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: height_ * 0.01),
-                  topContent(height_, width_),
-                  SizedBox(height: height_ * 0.01),
-                  buildProfileHeader(width_, height_),
-                  SizedBox(height: height_ * 0.02),
-                  Content(width_, height_)
-                ],
-              ),
+          ),
+          child: SizedBox(
+            width: width_,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: height_ * 0.01),
+                topContent(height_, width_),
+                SizedBox(height: height_ * 0.01),
+                buildProfileHeader(width_, height_),
+                SizedBox(height: height_ * 0.02),
+                Content(width_, height_)
+              ],
             ),
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
+import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
@@ -80,32 +81,30 @@ class _profileNutritionistState extends State<profileNutritionist> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: appBarTop(
-          titleText: 'Profile',
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/pattern_food.jpg'),
-                fit: BoxFit.cover,
-              ),
+    return Scaffold(
+      appBar: appBarTop(
+        titleText: 'Profile',
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/pattern_food.jpg'),
+              fit: BoxFit.cover,
             ),
-            child: SizedBox(
-              width: width_,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: height_ * 0.01),
-                  topContent(height_, width_),
-                  SizedBox(height: height_ * 0.01),
-                  buildProfileHeader(width_, height_),
-                  SizedBox(height: height_ * 0.02),
-                  Content(width_, height_)
-                ],
-              ),
+          ),
+          child: SizedBox(
+            width: width_,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: height_ * 0.01),
+                topContent(height_, width_),
+                SizedBox(height: height_ * 0.01),
+                buildProfileHeader(width_, height_),
+                SizedBox(height: height_ * 0.02),
+                Content(width_, height_)
+              ],
             ),
           ),
         ),
@@ -211,7 +210,14 @@ class _profileNutritionistState extends State<profileNutritionist> {
           children: [
             //
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => clientHistory(),
+                  ),
+                );
+              },
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
                   Size(width_ * 0.8, height_ * 0.07),
@@ -246,7 +252,8 @@ class _profileNutritionistState extends State<profileNutritionist> {
               ),
             ),
             dividingLine2(width_, height_, 0),
-            Text('If you want to change your information, please contact us:'),
+            Text(
+                'If you want to change your information or obtain any information, please contact us:'),
             Text('mealawareness@gmail.com'),
             SizedBox(height: height_ * 0.02),
             listFullname(height_, width_),

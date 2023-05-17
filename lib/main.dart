@@ -4,7 +4,6 @@ import 'package:meal_aware/screen/auth/login/login.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

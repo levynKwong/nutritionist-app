@@ -72,6 +72,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
+
     if (_documents.isEmpty) {
       return Center(
         child: Text(
@@ -80,16 +81,18 @@ class _PendingPlanListState extends State<PendingPlanList> {
         ),
       );
     }
+
+    // Sort the documents based on timeSlot in ascending order
+    _documents.sort((a, b) => a.get('timeSlot').compareTo(b.get('timeSlot')));
+
     return ListView.builder(
       itemCount: _documents.length,
       itemBuilder: (context, index) {
-        // Get the document snapshot for the current index
         DocumentSnapshot documentSnapshot = _documents[index];
-
-        // Extract the username and timeSlot fields from the document snapshot
         String userId = documentSnapshot.id;
         int timeSlot = documentSnapshot.get('timeSlot');
         String clientId = documentSnapshot.get('userId');
+
         String timeString = timeSlot == 0
             ? '6:00'
             : timeSlot == 1

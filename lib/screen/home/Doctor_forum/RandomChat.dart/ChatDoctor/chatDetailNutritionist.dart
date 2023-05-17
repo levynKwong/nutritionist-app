@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
@@ -13,6 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
 import 'dart:async';
+import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatDetailNutritionist extends StatefulWidget {
   final friendUid;
@@ -38,7 +45,10 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   var chatDocId;
   _ChatDetailNutritionistState(this.friendUid, this.friendName);
   bool sendButtonEnabled = true;
+  bool showButtons = false;
+  File? selectedImage;
 
+  File? selectedFile;
   @override
   void initState() {
     super.initState();
@@ -52,6 +62,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       sendButtonEnabled = enabled;
     });
   }
+
+// Add this line after obtaining the imageUrl
 
   Future<void> _getChatDocId() async {
     final prefs = await SharedPreferences.getInstance();
@@ -148,6 +160,15 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       // Handle error during payment status check
       print('Error checking payment status: $error');
     });
+  }
+
+  void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 4),
+      ),
+    );
   }
 
   @override
@@ -279,8 +300,72 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                       alignment: Alignment.bottomCenter,
                       child: Row(children: [
                         IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.add),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Add Media'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListTile(
+                                        leading: Icon(Icons.image),
+                                        title: Text('Add Image'),
+                                        onTap: () async {
+                                          final picker = ImagePicker();
+                                          final pickedImage =
+                                              await picker.getImage(
+                                                  source: ImageSource.gallery);
+
+                                          if (pickedImage != null) {
+                                            // Call a function to upload the image and send it as a message
+                                            sendMessageWithImage(
+                                                File(pickedImage.path));
+                                            Navigator.pop(context);
+
+                                            // Show a SnackBar to indicate the image upload completion
+                                            showSnackBar(context,
+                                                'Image uploaded successfully');
+                                          }
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: Icon(Icons.attach_file),
+                                        title: Text('Add File'),
+                                        onTap: () async {
+                                          final result = await FilePicker
+                                              .platform
+                                              .pickFiles(
+                                            allowMultiple: false,
+                                            type: FileType.custom,
+                                            allowedExtensions: [
+                                              'pdf',
+                                              'doc',
+                                              'docx',
+                                              'txt'
+                                            ],
+                                          );
+
+                                          if (result != null) {
+                                            // Call a function to upload the file and send it as a message
+                                            sendMessageWithFile(File(
+                                                result.files.single.path!));
+                                            Navigator.pop(context);
+
+                                            // Show a SnackBar to indicate the file upload completion
+                                            showSnackBar(context,
+                                                'File uploaded successfully');
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(Icons.add),
                         ),
                         Container(
                             width: MediaQuery.of(context).size.width - 125,
@@ -463,6 +548,109 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       // Clear the message input field
       messageController.text = '';
     });
+  }
+
+  void sendMessageWithImage(File image) async {
+    // Get the chat document reference
+    final chatRef = FirebaseFirestore.instance
+        .collection('chatNutritionist')
+        .doc(chatDocId);
+
+    // Determine the image file extension
+    String extension = image.path.split('.').last.toLowerCase();
+
+    // Generate a unique file name for the image based on the current timestamp
+    String fileName = '${DateTime.now().millisecondsSinceEpoch}.$extension';
+
+    // Upload the image file to Firebase Storage
+    final storageRef = FirebaseStorage.instance.ref().child('images/$fileName');
+    final uploadTask = storageRef.putFile(image);
+    final storageSnapshot = await uploadTask.whenComplete(() => null);
+    final imageUrl = await storageSnapshot.ref.getDownloadURL();
+
+    // Determine the image type based on the file extension
+    String imageType = getFileTypeFromExtension(extension);
+
+    // Add the image message to the messages collection in the chat document
+    chatRef.collection('messages').add({
+      'createdOn': FieldValue.serverTimestamp(),
+      'uid': currentUserId,
+      'msg': imageUrl, // Store the direct image URL
+      'type': imageType,
+    }).then((value) {
+      // Update the lastMessage and lastMessageTime fields in the chat document
+      chatRef.update({
+        'lastMessage': '$imageUrl', // Use the direct image URL in lastMessage
+        'lastMessageTime': FieldValue.serverTimestamp(),
+      });
+
+      // Clear the message input field
+      messageController.text = '';
+    });
+  }
+
+  String getFileTypeFromExtension(String extension) {
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+      case 'png':
+      case 'gif':
+        return 'image';
+      default:
+        return 'file';
+    }
+  }
+
+  void sendMessageWithFile(File file) async {
+    // Get the chat document reference
+    final chatRef = FirebaseFirestore.instance
+        .collection('chatNutritionist')
+        .doc(chatDocId);
+
+    // Upload the file to Firebase Storage
+    final storageRef = FirebaseStorage.instance.ref().child(
+        'files/${DateTime.now().millisecondsSinceEpoch}_${file.path.split('/').last}');
+    final uploadTask = storageRef.putFile(file);
+    final storageSnapshot = await uploadTask.whenComplete(() => null);
+    final fileUrl = await storageSnapshot.ref.getDownloadURL();
+
+    // Determine the file type display name
+    // final fileTypeDisplayName =
+    //     getFileTypeDisplayName(file.path.split('.').last);
+
+    // Add the file message to the messages collection in the chat document
+    chatRef.collection('messages').add({
+      'createdOn': FieldValue.serverTimestamp(),
+      'uid': FirebaseAuth.instance.currentUser?.uid,
+      'msg': fileUrl, // Store the file URL
+      'type': file.path.split('.').last, // Store the file extension
+    }).then((value) {
+      // Update the lastMessage and lastMessageTime fields in the chat document
+      chatRef.update({
+        'lastMessage': fileUrl, // Use the file URL in lastMessage
+        'lastMessageTime': FieldValue.serverTimestamp(),
+      });
+
+      // Clear the message input field
+      messageController.text = '';
+    });
+  }
+
+  String getFileTypeDisplayName(String fileExtension) {
+    switch (fileExtension) {
+      case 'pdf':
+        return 'PDF';
+      case 'doc':
+      case 'docx':
+        return 'Word Document';
+      case 'xls':
+      case 'xlsx':
+        return 'Excel Spreadsheet';
+      case 'txt':
+        return 'Text File';
+      default:
+        return 'File';
+    }
   }
 
   void moreInfo() async {
