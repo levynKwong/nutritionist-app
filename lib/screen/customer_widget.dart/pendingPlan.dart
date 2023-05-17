@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -11,54 +13,48 @@ class PendingPlanList extends StatefulWidget {
 
 class _PendingPlanListState extends State<PendingPlanList> {
   List<DocumentSnapshot> _documents = [];
+  StreamSubscription<QuerySnapshot>? _subscription;
 
   @override
   void initState() {
     super.initState();
-    _queryPendingPlanToday();
+    _listenForPendingPlanUpdates();
   }
 
-  Future<void> _queryPendingPlanToday() async {
-    // Create references to the pendingPlan and Patient collections
-    CollectionReference pendingPlan =
-        FirebaseFirestore.instance.collection('pendingPlan');
-    CollectionReference patient =
-        FirebaseFirestore.instance.collection('Patient');
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
 
-    // Get today's date as a string in ISO format (yyyy-MM-dd)
-    DateTime today = DateTime.now().toUtc().add(Duration(hours: 4));
-    DateTime startOfDay = DateTime(
-      today.month,
-      today.day,
-      today.year,
-    );
-    DateTime endOfDay =
-        DateTime(today.year, today.month, today.day, 23, 59, 59);
+  void _listenForPendingPlanUpdates() {
+    // Get the current date and time
+    DateTime now = DateTime.now();
 
-    Timestamp startOfToday = Timestamp.fromDate(startOfDay);
-    Timestamp endOfToday = Timestamp.fromDate(endOfDay);
+    // Calculate the start and end of today
+    DateTime startOfToday = DateTime(now.month, now.day, now.year);
+    DateTime endOfToday = DateTime(now.year, now.month, now.day, 23, 59, 59);
 
-    QuerySnapshot querySnapshot = await pendingPlan
+    // Create a query with the desired filters
+    Query query = FirebaseFirestore.instance
+        .collection('pendingPlan')
         .where('nutritionistId', isEqualTo: currentId)
         .where('date', isGreaterThanOrEqualTo: startOfToday)
         .where('date', isLessThanOrEqualTo: endOfToday)
-        .orderBy('date')
-        .get();
+        .orderBy('date');
 
-    setState(() {
-      _documents = querySnapshot.docs;
+    // Subscribe to real-time updates
+    _subscription = query.snapshots().listen((querySnapshot) {
+      setState(() {
+        _documents = querySnapshot.docs;
+      });
+
+      print('Documents found: ${_documents.length}');
+      for (var doc in _documents) {
+        print('Document id: ${doc.id}');
+        print('Document data: ${doc.data()}');
+      }
     });
-
-    print('Documents found: ${_documents.length}');
-    for (var doc in _documents) {
-      print('Document id: ${doc.id}');
-      print('Document data: ${doc.data()}');
-    }
-  }
-
-  Future<void> _handleRefresh() async {
-    // Call the _queryPendingPlanToday method to fetch new data
-    await _queryPendingPlanToday();
   }
 
   Future<void> _removeDocument(String documentId) async {
@@ -69,8 +65,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
     // Remove the document from the pendingPlan collection
     await documentReference.delete();
 
-    // Refresh the pending plan list
-    await _queryPendingPlanToday();
+    // No need to manually refresh the data as the real-time updates will handle it
   }
 
   @override
@@ -120,17 +115,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
                                                     : timeSlot == 11
                                                         ? '17:00'
                                                         : '';
-        // Container(
-        //   child: ElevatedButton(
-        //     onPressed: () {
-        //       _handleRefresh();
-        //     },
-        //     style: ElevatedButton.styleFrom(
-        //       primary: Color.fromARGB(0, 0, 0, 0),
-        //     ),
-        //     child: Icon(Icons.refresh),
-        //   ),
-        // );
+
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
