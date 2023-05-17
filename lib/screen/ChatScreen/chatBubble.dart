@@ -1,17 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ChatBubble extends StatelessWidget {
   final String message;
   final String time;
   final bool isMe;
+  final String friendUid;
 
   const ChatBubble({
     Key? key,
     required this.message,
     required this.time,
     required this.isMe,
+    required this.friendUid,
   }) : super(key: key);
 
   String getFileTypeFromUrl(String url) {
@@ -28,7 +32,7 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String fileType = getFileTypeFromUrl(message);
-    print('$message');
+
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: 5,
@@ -73,7 +77,7 @@ class ChatBubble extends StatelessWidget {
                                 child: Text('Delete'),
                                 onPressed: () {
                                   // Call a function to delete the image or file
-                                  deleteFile(message);
+                                  deleteFile(message, context);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -89,9 +93,8 @@ class ChatBubble extends StatelessWidget {
                         } else {
                           print('Could not launch $message');
                         }
-                      } else if (fileType == 'image') {
                         await launch(message);
-                      }
+                      } else if (fileType == 'image') {}
                     },
                     child: fileType == 'image'
                         ? Image.network(
@@ -128,19 +131,97 @@ class ChatBubble extends StatelessWidget {
     );
   }
 
-  void deleteFile(String url) async {
+  void deleteFile(String message, context) async {
     try {
-      // Get a reference to the file in Firebase Storage
-      Reference fileRef = FirebaseStorage.instance.refFromURL(url);
+      // Delete the file from Firebase Storage
+      final storageRef = FirebaseStorage.instance.refFromURL(message);
+      await storageRef.delete();
 
-      // Delete the file
-      await fileRef.delete();
+      // Delete the message from Cloud Firestore
+      final firestoreRef =
+          FirebaseFirestore.instance.collection('chatNutritionist');
+      final querySnapshot = await firestoreRef.get();
+
+      // Iterate through chat documents
+      for (final chatDoc in querySnapshot.docs) {
+        final messagesRef = chatDoc.reference.collection('messages');
+        final querySnapshot =
+            await messagesRef.where('msg', isEqualTo: message).get();
+
+        // Check if any matching message document is found
+        if (querySnapshot.docs.isNotEmpty) {
+          // Get the reference to the first matching message document
+          final messageDocRef = querySnapshot.docs.first.reference;
+
+          // Delete the message document
+          await messageDocRef.delete();
+
+          // Print a success message
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Message document deleted successfully"),
+              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+              duration: Duration(seconds: 3),
+            ),
+          );
+          break;
+        }
+      }
+
+      // Print a success message if the message document was not found
 
       // Print a success message
-      print('File deleted successfully');
     } catch (e) {
-      // Print an error message
-      print('Error deleting file: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error deleting file and message: $e"),
+          backgroundColor: Color.fromARGB(255, 159, 1, 1),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 }
+
+      //   // Get the chat document reference
+      //   final chatRef = FirebaseFirestore.instance
+      //       .collection('chatNutritionist')
+      //       .where('users', whereIn: [
+      //     [currentId, friendUid],
+      //     [friendUid, currentId],
+      //   ]);
+
+      //   // Query the chat collection to find the matching chat document
+      //   QuerySnapshot chatSnapshot = await chatRef.get();
+
+      //   // Check if any matching chat document is found
+      //   if (chatSnapshot.docs.isNotEmpty) {
+      //     // Get the reference to the first matching chat document
+      //     final chatDocRef = chatSnapshot.docs.first.reference;
+
+      //     // Get the reference to the messages subcollection within the chat document
+      //     final messagesRef = chatDocRef.collection('messages');
+
+      //     // Query the messages subcollection to find the document with the matching 'msg' field
+      //     QuerySnapshot messageSnapshot =
+      //         await messagesRef.where('msg', isEqualTo: message).get();
+
+      //     // Check if any matching message document is found
+      //     if (messageSnapshot.docs.isNotEmpty) {
+      //       // Get the reference to the first matching message document
+      //       final messageDocRef = messageSnapshot.docs.first.reference;
+
+      //       // Delete the message document
+      //       await messageDocRef.delete();
+
+      //       // Print a success message
+      //       print('Message document deleted successfully');
+      //     } else {
+      //       // Print a message indicating that the message document was not found
+      //       print('Message document not found');
+      //     }
+      //   } else {
+      //     // Print a message indicating that the chat document was not found
+      //     print('Chat document not found');
+      //   }

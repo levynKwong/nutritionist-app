@@ -166,7 +166,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 4),
+        duration: Duration(seconds: 10),
       ),
     );
   }
@@ -291,6 +291,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                               message: message,
                               time: time,
                               isMe: isMe,
+                              friendUid: friendUid,
                             );
                           },
                         ),
@@ -326,7 +327,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
                                             // Show a SnackBar to indicate the image upload completion
                                             showSnackBar(context,
-                                                'Image uploaded successfully');
+                                                'Image uploaded successfully wait a few seconds to load');
                                           }
                                         },
                                       ),
@@ -355,7 +356,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
                                             // Show a SnackBar to indicate the file upload completion
                                             showSnackBar(context,
-                                                'File uploaded successfully');
+                                                'File uploaded successfully wait a few seconds to load');
                                           }
                                         },
                                       ),

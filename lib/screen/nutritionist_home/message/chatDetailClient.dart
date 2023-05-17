@@ -198,6 +198,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                               message: message,
                               time: time,
                               isMe: isMe,
+                              friendUid: friendUid,
                             );
                           },
                         ),
