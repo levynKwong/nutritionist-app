@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -37,11 +38,19 @@ void deductCoin(
           duration: Duration(seconds: 3),
         ));
       }
-    }).then((value) {
+    }).then((value) async {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Coin deducted and payment completed successfully'),
         duration: Duration(seconds: 3),
       ));
+      NotificationService notificationService = NotificationService();
+
+      // Show the notification
+      await notificationService.showNotification(
+        id: 0,
+        title: 'mealAware',
+        body: 'Coin deducted and payment completed successfully',
+      );
     }).catchError((error) {
       // Failed to deduct coin or create payment document
       print("Failed to deduct coin or create payment document: $error");
