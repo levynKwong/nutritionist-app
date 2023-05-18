@@ -113,7 +113,10 @@ class _ChatListScreenClientState extends State<ChatListScreenClient> {
                               ),
                             ),
                             Text(
-                              DateFormat.jm().format(lastMessageTime!.toDate()),
+                              lastMessageTime != null
+                                  ? DateFormat.jm()
+                                      .format(lastMessageTime.toDate())
+                                  : '',
                               style: TextStyle(color: Colors.grey),
                             ),
                           ],

@@ -52,6 +52,7 @@ dependencies:
   pay: ^1.1.1
   image_picker: ^0.8.7+5
   firebase_storage: ^11.2.1
+  firebase_messaging: ^14.6.1
 
 
  

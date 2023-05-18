@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/home/Message/message.dart';
 import 'package:meal_aware/screen/home/MessageNutritionit/messageNutritionist.dart';
 import 'package:meal_aware/screen/home/profile/profilePage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,6 +22,76 @@ class _HomeState extends State<Home> {
     DoctorForum(),
     profile(),
   ];
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  late AuthorizationStatus notificationPermission;
+
+  @override
+  void initState() {
+    super.initState();
+    initMessaging();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      checkNotificationPermission();
+    }
+  }
+
+  Future<void> initMessaging() async {
+    checkNotificationPermission();
+  }
+
+  Future<void> checkNotificationPermission() async {
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    setState(() {
+      notificationPermission = settings.authorizationStatus;
+    });
+
+    if (notificationPermission == AuthorizationStatus.denied) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Notification Permission Denied'),
+            content: Text(
+              'Please enable notification permissions for this app in your device settings to receive notifications.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Check notification permission after the dialog is dismissed
+                  checkNotificationPermission();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      print('User granted permission: $notificationPermission');
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        print('Got a message whilst in the foreground!');
+        print('Message data: ${message.data}');
+
+        if (message.notification != null) {
+          print(
+              'Message also contained a notification: ${message.notification}');
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

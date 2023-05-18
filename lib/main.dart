@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +11,7 @@ void main() async {
   var firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
