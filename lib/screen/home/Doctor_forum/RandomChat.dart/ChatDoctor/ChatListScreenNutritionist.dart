@@ -5,16 +5,7 @@ import 'package:intl/intl.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
-class ChatListScreenNutritionist extends StatefulWidget {
-  const ChatListScreenNutritionist({Key? key}) : super(key: key);
-
-  @override
-  _ChatListScreenNutritionistState createState() =>
-      _ChatListScreenNutritionistState();
-}
-
-class _ChatListScreenNutritionistState
-    extends State<ChatListScreenNutritionist> {
+class ChatListScreenNutritionist extends StatelessWidget {
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
 
   @override
@@ -33,20 +24,13 @@ class _ChatListScreenNutritionistState
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text('Something went wrong'),
+              child: Text('Loading...'),
             );
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child:
-                  CircularProgressIndicator(), // Show a circular progress indicator
-            );
-          }
+          final docs = snapshot.data?.docs;
 
-          final docs = snapshot.data!.docs;
-
-          if (docs.isEmpty) {
+          if (docs == null || docs.isEmpty) {
             return Center(
               child: Text('No chats found'),
             );
@@ -86,18 +70,12 @@ class _ChatListScreenNutritionistState
                 );
               }
               return ListView.builder(
-                itemCount: docsNutritionist.length,
+                itemCount: docs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final friendUid = docsNutritionist[index].id;
-                  final friendName = docsNutritionist[index]['username'];
-                  final lastMessage = docs.firstWhere(
-                    (doc) => doc['users'].contains(friendUid),
-                  )['lastMessage'];
-
-                  final lastMessageTime = docs.firstWhere(
-                    (doc) => doc['users'].contains(friendUid),
-                  )['lastMessageTime'];
-
+                  final friendUid = docs[index]['users'][0];
+                  final friendName = docs[index]['usernames'][0];
+                  final lastMessage = docs[index]['lastMessage'];
+                  final lastMessageTime = docs[index]['lastMessageTime'];
                   return Card(
                     child: Container(
                       color: Color.fromARGB(255, 242, 243, 251),

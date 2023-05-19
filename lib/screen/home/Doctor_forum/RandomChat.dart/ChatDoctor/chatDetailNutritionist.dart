@@ -95,10 +95,24 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         });
         prefs.setString('chatDocId', docId);
 
-        // Send initial message
-        sendMessage('Hi, Please to meet you Dr $friendName');
+        final currentUserSnapshot = await FirebaseFirestore.instance
+            .collection('Patient')
+            .doc(currentUserId)
+            .get();
+        final friendSnapshot = await FirebaseFirestore.instance
+            .collection('Patient')
+            .doc(friendUid)
+            .get();
+
+        String currentUserName = currentUserSnapshot['username'];
+        String friendName = friendSnapshot['username'];
+
+        chats.doc(docId).update({
+          'usernames': [currentUserName, friendName],
+        });
       }
     }
+    sendMessage('Hi, Please to meet you Dr $friendName');
   }
 
   void checkStatus() {

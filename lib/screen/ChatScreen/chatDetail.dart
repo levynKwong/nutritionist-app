@@ -66,6 +66,22 @@ class _ChatDetailState extends State<ChatDetail> {
           this.chatDocId = docId;
         });
         prefs.setString('chatDocId', docId);
+
+        final currentUserSnapshot = await FirebaseFirestore.instance
+            .collection('Patient')
+            .doc(currentUserId)
+            .get();
+        final friendSnapshot = await FirebaseFirestore.instance
+            .collection('Patient')
+            .doc(friendUid)
+            .get();
+
+        String currentUserName = currentUserSnapshot['username'];
+        String friendName = friendSnapshot['username'];
+
+        chats.doc(docId).update({
+          'usernames': [currentUserName, friendName],
+        });
       }
     }
   }
