@@ -696,11 +696,11 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       } else {
         specialization = customSpecialization;
       }
-      if (gender == '10') {
+      if (gender == '1') {
         gender = 'Male';
-      } else if (gender == '11') {
+      } else if (gender == '2') {
         gender = 'Female';
-      } else if (gender == '12') {
+      } else if (gender == '3') {
         gender = 'Non-Binary';
       }
       showDialog(

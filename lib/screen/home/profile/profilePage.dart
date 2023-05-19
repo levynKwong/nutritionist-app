@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
+import 'package:meal_aware/screen/customer_widget.dart/appointment_history.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/order.dart';
@@ -309,6 +310,48 @@ class _profileState extends State<profile> {
                   SizedBox(width: width_ * 0.08),
                   Text(
                     'Purchase History',
+                    style: TextStyle(
+                      fontSize: width_ * 0.04,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(width: width_ * 0.07),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 86, 86, 86),
+                      size: width_ * 0.04,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => appointmentHistory(),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(width_ * 0.8, height_ * 0.07),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'images/to-do-list.png',
+                    height: height_ * 0.1,
+                    width: width_ * 0.1,
+                  ),
+                  SizedBox(width: width_ * 0.08),
+                  Text(
+                    'Appointment History',
                     style: TextStyle(
                       fontSize: width_ * 0.04,
                       fontWeight: FontWeight.bold,
