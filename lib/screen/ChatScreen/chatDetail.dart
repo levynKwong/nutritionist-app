@@ -59,7 +59,7 @@ class _ChatDetailState extends State<ChatDetail> {
         prefs.setString('chatDocId', docId);
       } else {
         final docRef = await chats.add({
-          'users': [currentUserId, friendUid]
+          'users': [currentUserId, friendUid],
         });
         final docId = docRef.id;
         setState(() {

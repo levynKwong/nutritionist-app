@@ -48,8 +48,14 @@ class ChatListScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: docs.length,
             itemBuilder: (BuildContext context, int index) {
-              final friendUid = docs[index]['users'][0];
-              final friendName = docs[index]['usernames'][0];
+              final friendUid = currentId == docs[index]['users'][0]
+                  ? docs[index]['users'][1]
+                  : docs[index]['users'][0];
+
+              final friendName = currentId == docs[index]['users'][0]
+                  ? docs[index]['usernames'][1]
+                  : docs[index]['usernames'][0];
+
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
 
