@@ -19,6 +19,7 @@ class _formState extends State<form> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF989efd),
+        automaticallyImplyLeading: false,
         title: Text('Enter your questions :'),
         actions: [
           IconButton(

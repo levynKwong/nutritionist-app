@@ -44,10 +44,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
 
     // Subscribe to real-time updates
     _subscription = query.snapshots().listen((querySnapshot) {
-      setState(() {
-        _documents = querySnapshot.docs;
-      });
-
+      _documents = querySnapshot.docs;
       print('Documents found: ${_documents.length}');
       for (var doc in _documents) {
         print('Document id: ${doc.id}');
@@ -118,61 +115,90 @@ class _PendingPlanListState extends State<PendingPlanList> {
                                                         ? '17:00'
                                                         : '';
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance
-                  .collection('Patient')
-                  .doc(clientId)
-                  .get(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  String username = snapshot.data?.get('username');
-                  return Text(
-                    "$username",
-                    style: TextStyle(fontSize: width_ * 0.045),
-                  );
-                } else {
-                  return Text("Loading...");
-                }
-              },
-            ),
-            Text(
-              "Time: $timeString",
-              style: TextStyle(fontSize: width_ * 0.045),
-            ),
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text("Confirm Deletion"),
-                      content: Text(
-                          "Are you sure you want to delete this appointment?"),
-                      actions: [
-                        TextButton(
-                          child: Text("Cancel"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        TextButton(
-                          child: Text("Delete"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            _removeDocument(userId);
-                          },
-                        ),
-                      ],
-                    );
-                  },
+        return GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Alert Dialog Title"),
+                  content: Text("Alert Dialog Content"),
+                  actions: [
+                    TextButton(
+                      child: Text("Close"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
                 );
               },
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10),
             ),
-          ],
+            padding: EdgeInsets.all(16),
+            margin: EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('Patient')
+                      .doc(clientId)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      String username = snapshot.data?.get('username');
+                      return Text(
+                        "$username",
+                        style: TextStyle(fontSize: width_ * 0.045),
+                      );
+                    } else {
+                      return Text("Loading...");
+                    }
+                  },
+                ),
+                Text(
+                  "$timeString",
+                  style: TextStyle(fontSize: width_ * 0.045),
+                ),
+                IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirm Deletion"),
+                          content: Text(
+                              "Are you sure you want to delete this appointment?"),
+                          actions: [
+                            TextButton(
+                              child: Text("Cancel"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            TextButton(
+                              child: Text("Delete"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                _removeDocument(userId);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
