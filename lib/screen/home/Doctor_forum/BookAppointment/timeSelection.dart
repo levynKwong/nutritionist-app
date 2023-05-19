@@ -46,11 +46,8 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   void _toggleSelection(int index) {
     setState(() {
       for (int i = 0; i < _selectedTimeSlots.length; i++) {
-        if (i == index) {
-          _selectedTimeSlots[i] = false;
-        } else {
-          _selectedTimeSlots[i] = true;
-        }
+        _selectedTimeSlots[i] =
+            (i == index); // Set only the selected slot to true
       }
     });
   }
@@ -155,46 +152,53 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   }
 
   Container buttons(double height_, double width_) {
+    bool isTimeSlotSelected = _selectedTimeSlots.contains(true);
+
     return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () => Navigator.pop(context),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
-            minimumSize: Size(width_ * 0.3, 50), // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-          child: Text('        Back       '),
-        ),
-        SizedBox(width: width_ * 0.15), // add some spacing between the buttons
-        ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => paymentAppointment(
-                  nutritionistUid: nutritionistId,
-                  userId: currentId,
-                  date: date,
-                  timeAvailable: _selectedTimeSlots,
-                ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF575ecb),
+              minimumSize: Size(width_ * 0.3, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
-            minimumSize: Size(width_ * 0.3, 50), // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
             ),
+            child: Text('Back'),
           ),
-          child: Text('         Next         '),
-        ),
-      ],
-    ));
+          SizedBox(width: width_ * 0.15),
+          ElevatedButton(
+            onPressed: isTimeSlotSelected
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => paymentAppointment(
+                          nutritionistUid: nutritionistId,
+                          userId: currentId,
+                          date: date,
+                          timeAvailable: _selectedTimeSlots,
+                        ),
+                      ),
+                    );
+                  }
+                : null, // Disable the button if no time slot is selected
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF575ecb),
+              minimumSize: Size(width_ * 0.3, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: Text('Next'),
+          ),
+        ],
+      ),
+    );
   }
 }
