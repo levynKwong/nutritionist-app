@@ -73,14 +73,10 @@ class _PendingPlanListState extends State<PendingPlanList> {
     final double height_ = MediaQuery.of(context).size.height;
 
     if (_documents.isEmpty) {
-      return Container(
-        width: width_,
-        height: height_ * 0.8,
-        child: Center(
-          child: Text(
-            "No clients today",
-            style: TextStyle(fontSize: width_ * 0.045),
-          ),
+      return Center(
+        child: Text(
+          "No clients today",
+          style: TextStyle(fontSize: width_ * 0.045),
         ),
       );
     }
@@ -88,130 +84,97 @@ class _PendingPlanListState extends State<PendingPlanList> {
     // Sort the documents based on timeSlot in ascending order
     _documents.sort((a, b) => a.get('timeSlot').compareTo(b.get('timeSlot')));
 
-    return Container(
-      width: width_,
-      height: height_ * 0.8,
-      child: ListView.builder(
-        itemCount: _documents.length,
-        itemBuilder: (context, index) {
-          DocumentSnapshot documentSnapshot = _documents[index];
-          String userId = documentSnapshot.id;
-          int timeSlot = documentSnapshot.get('timeSlot');
-          String clientId = documentSnapshot.get('userId');
+    return ListView.builder(
+      itemCount: _documents.length,
+      itemBuilder: (context, index) {
+        DocumentSnapshot documentSnapshot = _documents[index];
+        String userId = documentSnapshot.id;
+        int timeSlot = documentSnapshot.get('timeSlot');
+        String clientId = documentSnapshot.get('userId');
 
-          String timeString = timeSlot == 0
-              ? '6:00'
-              : timeSlot == 1
-                  ? '7:00'
-                  : timeSlot == 2
-                      ? '8:00'
-                      : timeSlot == 3
-                          ? '9:00'
-                          : timeSlot == 4
-                              ? '10:00'
-                              : timeSlot == 5
-                                  ? '11:00'
-                                  : timeSlot == 6
-                                      ? '12:00'
-                                      : timeSlot == 7
-                                          ? '13:00'
-                                          : timeSlot == 8
-                                              ? '14:00'
-                                              : timeSlot == 9
-                                                  ? '15:00'
-                                                  : timeSlot == 10
-                                                      ? '16:00'
-                                                      : timeSlot == 11
-                                                          ? '17:00'
-                                                          : '';
+        String timeString = timeSlot == 0
+            ? '6:00'
+            : timeSlot == 1
+                ? '7:00'
+                : timeSlot == 2
+                    ? '8:00'
+                    : timeSlot == 3
+                        ? '9:00'
+                        : timeSlot == 4
+                            ? '10:00'
+                            : timeSlot == 5
+                                ? '11:00'
+                                : timeSlot == 6
+                                    ? '12:00'
+                                    : timeSlot == 7
+                                        ? '13:00'
+                                        : timeSlot == 8
+                                            ? '14:00'
+                                            : timeSlot == 9
+                                                ? '15:00'
+                                                : timeSlot == 10
+                                                    ? '16:00'
+                                                    : timeSlot == 11
+                                                        ? '17:00'
+                                                        : '';
 
-          return GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("More Details"),
-                    content: Text("Here are more details about the client"),
-                    actions: [
-                      TextButton(
-                        child: Text("Close"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              margin: EdgeInsets.symmetric(vertical: 5.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FutureBuilder<DocumentSnapshot>(
-                    future: FirebaseFirestore.instance
-                        .collection('Patient')
-                        .doc(clientId)
-                        .get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        String username = snapshot.data?.get('username');
-                        return Text(
-                          "$username",
-                          style: TextStyle(fontSize: width_ * 0.045),
-                        );
-                      } else {
-                        return Text('Loading...');
-                      }
-                    },
-                  ),
-                  Text(
-                    "Time: $timeString",
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance
+                  .collection('Patient')
+                  .doc(clientId)
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  String username = snapshot.data?.get('username');
+                  return Text(
+                    "$username",
                     style: TextStyle(fontSize: width_ * 0.045),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("Confirm Deletion"),
-                            content: Text(
-                                "Are you sure you want to delete this appointment?"),
-                            actions: [
-                              TextButton(
-                                child: Text("Cancel"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              TextButton(
-                                child: Text("Delete"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  _removeDocument(userId);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+                  );
+                } else {
+                  return Text("Loading...");
+                }
+              },
             ),
-          );
-        },
-      ),
+            Text(
+              "Time: $timeString",
+              style: TextStyle(fontSize: width_ * 0.045),
+            ),
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Confirm Deletion"),
+                      content: Text(
+                          "Are you sure you want to delete this appointment?"),
+                      actions: [
+                        TextButton(
+                          child: Text("Cancel"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Delete"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _removeDocument(userId);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
