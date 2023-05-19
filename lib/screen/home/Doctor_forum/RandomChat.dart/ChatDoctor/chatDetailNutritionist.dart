@@ -100,7 +100,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
             .doc(currentUserId)
             .get();
         final friendSnapshot = await FirebaseFirestore.instance
-            .collection('Nutritionist')
+            .collection('Patient')
             .doc(friendUid)
             .get();
 
