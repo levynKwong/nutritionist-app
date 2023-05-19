@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
@@ -208,6 +209,11 @@ class _paymentChatState extends State<paymentChat> {
                           ),
                         );
                         deductCoin(context, nid);
+                        NotificationService.showNotification(
+                          title: 'Chat doctor',
+                          body:
+                              'Purchase successful, you can now chat with your nutritionist.',
+                        );
                       } else {
                         showDialog(
                           context: context,
