@@ -46,8 +46,11 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   void _toggleSelection(int index) {
     setState(() {
       for (int i = 0; i < _selectedTimeSlots.length; i++) {
-        _selectedTimeSlots[i] =
-            (i == index); // Set only the selected slot to true
+        if (i == index) {
+          _selectedTimeSlots[i] = false;
+        } else {
+          _selectedTimeSlots[i] = true;
+        }
       }
     });
   }

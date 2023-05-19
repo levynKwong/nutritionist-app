@@ -122,7 +122,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   String timeRegistered = '';
   void _getSelectedTimeSlotsCount(List<bool> timeAvailable) {
     for (int i = 0; i < timeAvailable.length; i++) {
-      if (timeAvailable[i] == true) {
+      if (timeAvailable[i] == false) {
         setState(() {
           timeAvailability = i;
         });
