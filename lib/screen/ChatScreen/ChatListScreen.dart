@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +13,20 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
+  final currentId = FirebaseAuth.instance.currentUser?.uid;
+  late Stream<QuerySnapshot> chatStream;
+  late QuerySnapshot initialData;
+
+  @override
+  void initState() {
+    super.initState();
+    chatStream = FirebaseFirestore.instance
+        .collection('chats')
+        .where('users', arrayContains: currentId)
+        .orderBy('lastMessageTime', descending: true)
+        .snapshots();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -25,22 +40,24 @@ class _ChatListScreenState extends State<ChatListScreen> {
             .where('users', arrayContains: currentId)
             .orderBy('lastMessageTime', descending: true)
             .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
+        initialData: null, // Provide an initial value of null
+        builder:
+            (BuildContext context, AsyncSnapshot<QuerySnapshot>? snapshot) {
+          if (snapshot?.hasError == true) {
             return Center(
               child: Text('Something went wrong'),
             );
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot?.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text('Loading...'),
             );
           }
 
-          final docs = snapshot.data!.docs;
+          final docs = snapshot?.data?.docs;
 
-          if (docs.isEmpty) {
+          if (docs == null || docs.isEmpty) {
             return Center(
               child: Text('No chats found'),
             );
@@ -69,7 +86,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('Loading...'),
                 );
               }
               final docsNutritionist = snapshot.data!.docs;

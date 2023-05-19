@@ -430,12 +430,11 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       await batch.commit();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-            'Your appointment has been set with the nutritionist today at $timeRegistered'),
+            'Your appointment has been set with the nutritionist today at $timeRegistered, please check your purchase history for more details'),
       ));
       NotificationService.showNotification(
-        title: 'Appointment Confirmed',
-        body:
-            'Your appointment has been set with the nutritionist today at $timeRegistered',
+        title: 'Appointment Set',
+        body: 'Meet your nutritionist today at $timeRegistered',
       );
     } catch (e) {
       print('Error while committing batch: $e');

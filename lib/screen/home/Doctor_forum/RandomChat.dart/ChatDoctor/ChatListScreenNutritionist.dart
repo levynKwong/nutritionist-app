@@ -39,7 +39,8 @@ class _ChatListScreenNutritionistState
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(),
+              child:
+                  CircularProgressIndicator(), // Show a circular progress indicator
             );
           }
 
@@ -74,7 +75,7 @@ class _ChatListScreenNutritionistState
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('Loading...'),
                 );
               }
               final docsNutritionist = snapshot.data!.docs;

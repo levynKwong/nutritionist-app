@@ -187,11 +187,17 @@ class _NutritionistChatState extends State<NutritionistChat> {
                     SizedBox(
                       height: height_ * 0.01,
                     ),
-                    Text(
-                      user.address,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: width_ * 0.04,
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: width_ *
+                            0.5, // Set the maximum width for the address text
+                      ),
+                      child: Text(
+                        user.address,
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: width_ * 0.04,
+                        ),
                       ),
                     ),
                     SizedBox(
