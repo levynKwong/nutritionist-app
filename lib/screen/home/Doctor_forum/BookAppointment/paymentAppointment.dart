@@ -1,7 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
@@ -97,7 +100,8 @@ class _paymentAppointmentState extends State<paymentAppointment> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -144,7 +148,8 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                 );
               }),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -332,6 +337,10 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Selection confirmed!'),
       ));
+      await NotificationService.showNotification(
+        title: 'Payment completed',
+        body: 'Coin deducted and payment completed successfully',
+      );
     } catch (e) {
       print('Error while committing batch: $e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

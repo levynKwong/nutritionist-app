@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
@@ -19,7 +18,6 @@ import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/ChatScreen/chatBubble.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ChatDetailNutritionist extends StatefulWidget {
   final friendUid;

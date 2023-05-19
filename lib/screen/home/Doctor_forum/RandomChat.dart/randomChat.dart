@@ -1,13 +1,13 @@
 import 'dart:math' show Random;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/ChatScreen/chatDetail.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
@@ -202,6 +202,11 @@ class _randomChatState extends State<randomChat> {
                     previousUser = randomUser;
                   }
                 });
+                NotificationService.showNotification(
+                  title: 'Random User',
+                  body:
+                      'You have matched with a random user! Chat with them to add them as a friend.',
+                );
               }
             },
             style: ElevatedButton.styleFrom(

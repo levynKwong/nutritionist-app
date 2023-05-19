@@ -5,7 +5,6 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
-import 'package:pay/pay.dart';
 
 class BuyCoin extends StatefulWidget {
   const BuyCoin({super.key});
@@ -16,7 +15,7 @@ class BuyCoin extends StatefulWidget {
 
 class _BuyCoinState extends State<BuyCoin> {
   int selectedRadio = 0;
-  late final Future<PaymentConfiguration> _googlePayConfigFuture;
+  // late final Future<PaymentConfiguration> _googlePayConfigFuture;
   @override
   void initState() {
     super.initState();
@@ -82,13 +81,13 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Widget buttons(double height_, double width_) {
-    final _paymentItems = [
-      PaymentItem(
-        label: 'Total',
-        amount: '99.99',
-        status: PaymentItemStatus.final_price,
-      )
-    ];
+    // final _paymentItems = [
+    //   PaymentItem(
+    //     label: 'Total',
+    //     amount: '99.99',
+    //     status: PaymentItemStatus.final_price,
+    //   )
+    // ];
 
     void onGooglePayResult(paymentResult) {
       debugPrint(paymentResult.toString());

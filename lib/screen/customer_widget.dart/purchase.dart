@@ -43,14 +43,9 @@ void deductCoin(
         content: Text('Coin deducted and payment completed successfully'),
         duration: Duration(seconds: 3),
       ));
-      NotificationService notificationService = NotificationService();
 
+      print('Coin deducted and payment completed successfully');
       // Show the notification
-      await notificationService.showNotification(
-        id: 0,
-        title: 'mealAware',
-        body: 'Coin deducted and payment completed successfully',
-      );
     }).catchError((error) {
       // Failed to deduct coin or create payment document
       print("Failed to deduct coin or create payment document: $error");

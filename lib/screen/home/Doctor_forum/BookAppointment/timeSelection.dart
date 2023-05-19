@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 
@@ -161,7 +162,8 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -176,7 +178,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
               MaterialPageRoute(
                 builder: (context) => paymentAppointment(
                   nutritionistUid: nutritionistId,
-                  userId: userId,
+                  userId: currentId,
                   date: date,
                   timeAvailable: _selectedTimeSlots,
                 ),
@@ -184,7 +186,8 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
             );
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb), minimumSize: Size(width_ * 0.3, 50), // set text color
+            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

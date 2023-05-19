@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/TimeSelection.dart';
@@ -74,7 +75,7 @@ class _SelectionDateState extends State<SelectionDate> {
                 width: width_ * 1,
                 height: height_ * 0.35,
                 child: TimeAvailabilityScreen(
-                    userId: '',
+                    userId: currentId,
                     nutritionistId: nutritionistUid,
                     date: '$_focusedDay'),
               ),
