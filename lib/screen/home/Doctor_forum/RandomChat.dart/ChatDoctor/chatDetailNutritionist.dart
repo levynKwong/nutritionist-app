@@ -100,7 +100,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
             .doc(currentUserId)
             .get();
         final friendSnapshot = await FirebaseFirestore.instance
-            .collection('Patient')
+            .collection('Nutritionist')
             .doc(friendUid)
             .get();
 
@@ -110,9 +110,10 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         chats.doc(docId).update({
           'usernames': [currentUserName, friendName],
         });
+
+        sendMessage('Hi, Please to meet you Dr $friendName');
       }
     }
-    sendMessage('Hi, Please to meet you Dr $friendName');
   }
 
   void checkStatus() {
