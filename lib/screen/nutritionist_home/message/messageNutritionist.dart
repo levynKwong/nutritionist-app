@@ -31,7 +31,7 @@ class _messageClientState extends State<messageClient> {
               // TODO: Implement search functionality
             },
           ),
-          NotificationWidget(),
+          // NotificationWidget(),
         ],
       ),
       body: Container(

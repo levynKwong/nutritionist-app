@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 
 class ReportButton extends StatefulWidget {
   final String userId;
@@ -159,6 +159,11 @@ class _ReportButtonState extends State<ReportButton> {
                                     'Report submitted successfully!\n\Please expect an email from us, our team will review your report and take action accordingly'),
                                 duration: Duration(seconds: 5),
                               ),
+                            );
+                            NotificationService.showNotification(
+                              title: 'User Reported',
+                              body:
+                                  'You have reported a user for $_reason. Thank you for your feedback!',
                             );
                           }).catchError((error) {
                             print('Error adding report: $error');

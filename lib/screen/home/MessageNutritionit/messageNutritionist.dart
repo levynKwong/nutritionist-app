@@ -34,7 +34,7 @@ class _messageNutritionistState extends State<messageNutritionist> {
               popUpButton();
             },
           ),
-          NotificationWidget(),
+          // NotificationWidget(),
         ],
       ),
       body: Container(

@@ -48,12 +48,12 @@ topTitle(double width_, double height_) {
     child: Row(
       children: [
         Text6(text: 'Chat with your Doctor'),
-        Expanded(
-          child: Container(
-            alignment: Alignment.centerRight,
-            child: NotificationWidget(),
-          ),
-        ),
+        // Expanded(
+        //   // child: Container(
+        //   //   alignment: Alignment.centerRight,
+        //   //   child: NotificationWidget(),
+        //   // ),
+        // ),
       ],
     ),
   );

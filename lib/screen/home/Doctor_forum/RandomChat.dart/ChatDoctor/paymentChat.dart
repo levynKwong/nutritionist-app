@@ -144,134 +144,117 @@ class _paymentChatState extends State<paymentChat> {
     );
   }
 
+  bool isConfirmButtonEnabled = true;
+
   Container buttons(double height_, double width_) {
     return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () => Navigator.pop(context),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
-            minimumSize: Size(width_ * 0.3, 50), // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-          child: Text('        Back       '),
-        ),
-        SizedBox(width: width_ * 0.1),
-        ElevatedButton(
-          onPressed: () => showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(width_ * 0.03),
-                  ),
-                  title: Text('Confirm Payment'),
-                  content: Text(
-                      'Confirm your payment, 1 coin will be deducted from your account'),
-                  actions: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text('Close'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            bool paymentExists = await checkIfPaymentExists();
-
-                            if (paymentExists) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Already added'),
-                                    content: Text(
-                                        'You have already added this nutritionist to your list, please go to your list to chat with them. If you have reached your subscription limit, please upgrade your subscription by going to the nutritionitst page, click on the send button that is locked and proceed to upgrade your subscription.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('OK'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            } else {
-                              int? checkBalance = await getCoinValue();
-                              if (checkBalance! > 0) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => WebViewScreen(
-                                      url:
-                                          'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
-                                      email: _email,
-                                      nid: nid,
-                                      nutritionistName: nutritionistName,
-                                    ),
-                                  ),
-                                );
-                                deductCoin(context, nid);
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Insufficient coins'),
-                                      content: Text(
-                                          'You do not have enough coins to make this payment, please purchase more coins.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: Text('OK'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                            }
-                          },
-                          child: Text('Confirm'),
-                        ),
-                      ],
-                    )
-                  ],
-                );
-              }),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
-            minimumSize: Size(width_ * 0.3, 50), // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'images/token_.png', // replace this with the path to your image asset
-                width: 24,
-                height: 24,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF575ecb),
+              minimumSize: Size(width_ * 0.3, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              SizedBox(width: 8),
-              Text('1 coin'),
-            ],
+            ),
+            child: Text('Back'),
           ),
-        ),
-      ],
-    ));
+          SizedBox(width: width_ * 0.1),
+          ElevatedButton(
+            onPressed: isConfirmButtonEnabled
+                ? () async {
+                    setState(() {
+                      isConfirmButtonEnabled = false; // Disable the button
+                    });
+
+                    bool paymentExists = await checkIfPaymentExists();
+
+                    if (paymentExists) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Already added'),
+                            content: Text(
+                                'You have already added this nutritionist to your list, please go to your list to chat with them. If you have reached your subscription limit, please upgrade your subscription by going to the nutritionist page, click on the locked send button and proceed to upgrade your subscription.'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      int? checkBalance = await getCoinValue();
+                      if (checkBalance! > 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WebViewScreen(
+                              url:
+                                  'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                              email: _email,
+                              nid: nid,
+                              nutritionistName: nutritionistName,
+                            ),
+                          ),
+                        );
+                        deductCoin(context, nid);
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Insufficient coins'),
+                              content: Text(
+                                  'You do not have enough coins to make this payment, please purchase more coins.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    }
+                  }
+                : null, // Disable the button if isConfirmButtonEnabled is false
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF575ecb),
+              minimumSize: Size(width_ * 0.3, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'images/token_.png',
+                  width: 24,
+                  height: 24,
+                ),
+                SizedBox(width: 8),
+                Text('1 coin'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget content(double width_, double height_) {

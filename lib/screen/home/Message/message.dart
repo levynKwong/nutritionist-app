@@ -33,7 +33,7 @@ class _messageState extends State<message> {
               popUpButton();
             },
           ),
-          NotificationWidget(),
+          // NotificationWidget(),
         ],
       ),
       body: Container(

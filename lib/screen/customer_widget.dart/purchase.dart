@@ -45,6 +45,10 @@ void deductCoin(
       ));
 
       print('Coin deducted and payment completed successfully');
+      NotificationService.showNotification(
+        title: 'Payment Successful',
+        body: 'You have successfully paid for the nutritionist chat.',
+      );
       // Show the notification
     }).catchError((error) {
       // Failed to deduct coin or create payment document

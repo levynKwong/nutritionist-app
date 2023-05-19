@@ -18,9 +18,9 @@ class appBarTop extends StatelessWidget implements PreferredSizeWidget {
       title: Text(titleText),
       backgroundColor: getColor(),
       automaticallyImplyLeading: false,
-      actions: <Widget>[
-        NotificationWidget(),
-      ],
+      // actions: <Widget>[
+      //   NotificationWidget(),
+      // ],
     );
   }
 
@@ -46,7 +46,7 @@ class appBarTopSearch extends StatelessWidget implements PreferredSizeWidget {
         //     // TODO: Implement search functionality
         //   },
         // ),
-        NotificationWidget(),
+        // NotificationWidget(),
       ],
     );
   }
@@ -67,7 +67,7 @@ class appBarTopBack extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: getColor(),
       automaticallyImplyLeading: true,
       actions: <Widget>[
-        NotificationWidget(),
+        // NotificationWidget(),
       ],
     );
   }
@@ -113,7 +113,7 @@ class appBarTopCal2 extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               popUpButton(context);
             }),
-        NotificationWidget(),
+        // NotificationWidget(),
       ],
     );
   }
@@ -204,7 +204,7 @@ class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               popUpButton(context);
             }),
-        NotificationWidget(),
+        // NotificationWidget(),
       ],
     );
   }
