@@ -129,7 +129,9 @@ class _ChatDetailState extends State<ChatDetail> {
                           NetworkImage('https://i.pravatar.cc/150?img=3'),
                     ),
                     SizedBox(width: width_ * 0.03),
-                    Text('${widget.friendName}'),
+                    Text(
+                      '${widget.friendName}',
+                    ),
                   ],
                 ),
                 backgroundColor: getColor(),

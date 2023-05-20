@@ -16,8 +16,7 @@ class _messageClientState extends State<messageClient> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(

@@ -197,7 +197,6 @@ class _profileState extends State<profile> {
               children: [
                 buildProfileImage(width_, height_),
                 Positioned(
-                  bottom: 0,
                   right: 0,
                   child: Container(
                     decoration: BoxDecoration(
@@ -213,12 +212,15 @@ class _profileState extends State<profile> {
       );
 
   Widget Content(double width_, double height_) => Container(
-        child: Stack(
+        child: Column(
           children: [
             topRow(width_, height_),
-            dividingLine1(width_, height_, 0.07),
+            SizedBox(height: height_ * 0.02),
+            dividingLine1(width_, height_),
+            SizedBox(height: height_ * 0.01),
             bottomRow(width_, height_),
-            dividingLine1(width_, height_, 0.20),
+            SizedBox(height: height_ * 0.01),
+            dividingLine1(width_, height_),
             selector(height_, width_),
           ],
         ),
@@ -252,8 +254,7 @@ class _profileState extends State<profile> {
       );
 
   Widget selector(double height_, double width_) => Container(
-        margin: EdgeInsets.only(
-            top: height_ * 0.22, left: width_ * 0.1, right: width_ * 0.1),
+        margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
         child: Column(
           children: [
             TextButton(
@@ -382,7 +383,7 @@ class _profileState extends State<profile> {
                 ],
               ),
             ),
-            dividingLine2(width_, height_, 0),
+            dividingLine2(width_, height_),
             username(height_, width_),
             FullName(height_, width_),
             phonenumber(height_, width_),
@@ -397,7 +398,7 @@ class _profileState extends State<profile> {
             listBodyGoal(height_, width_),
             listDietaryPreference(height_, width_),
             SizedBox(height: height_ * 0.02),
-            dividingLine2(width_, height_, 0),
+            dividingLine2(width_, height_),
             logout(height_),
           ],
         ),
@@ -414,8 +415,6 @@ class _profileState extends State<profile> {
       );
 
   Widget topRow(double width_, double height_) => Container(
-        // margin: EdgeInsets.only(
-        //     bottom: height_ * 0.55, left: width_ * 0.1, right: width_ * 0.1),
         child: IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -507,7 +506,6 @@ class _profileState extends State<profile> {
 
   Widget bottomRow(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          top: height_ * 0.09,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
@@ -579,10 +577,8 @@ class _profileState extends State<profile> {
         ),
       );
 
-  Widget dividingLine1(double width_, double height_, double height) =>
-      Container(
+  Widget dividingLine1(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          top: height_ * height,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),
@@ -591,10 +587,8 @@ class _profileState extends State<profile> {
           thickness: 1,
         ),
       );
-  Widget dividingLine2(double width_, double height_, double height) =>
-      Container(
+  Widget dividingLine2(double width_, double height_) => Container(
         margin: EdgeInsets.only(
-          bottom: height_ * height,
           left: width_ * 0.1,
           right: width_ * 0.1,
         ),

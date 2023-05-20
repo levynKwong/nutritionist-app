@@ -150,7 +150,18 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                           NetworkImage('https://i.pravatar.cc/150?img=3'),
                     ),
                     SizedBox(width: width_ * 0.03),
-                    Text('${widget.friendName}'),
+                    Expanded(
+                      // Wrap Text widget with Expanded
+                      child: Text(
+                        '${widget.friendName}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16, // Adjust the font size as needed
+                          fontWeight: FontWeight.bold,
+                          // Add any other desired text styles
+                        ), // Set overflow property
+                      ),
+                    ),
                   ],
                 ),
                 backgroundColor: getColor(),
