@@ -138,7 +138,9 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => NutritionistHome(),
+                        builder: (context) => NutritionistHome(
+                          currentUser: currentId,
+                        ),
                       ),
                     )
                   },

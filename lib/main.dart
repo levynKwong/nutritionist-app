@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
-import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
+
 import 'package:meal_aware/screen/auth/login/login.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
@@ -36,16 +41,83 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class LocalStorage {
+  static const String userIdKey = 'userId';
+  static const String emailKey = 'email';
+
+  static Future<void> saveLoginData({
+    String? userId,
+    String? email,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(userIdKey, userId ?? '');
+    await prefs.setString(emailKey, email ?? '');
+  }
+
+  static Future<String?> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userIdKey);
+  }
+
+  static Future<String?> getEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(emailKey);
+  }
+}
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  User? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      setState(() {
+        _currentUser = user;
+        if (user != null) {
+          // Store user's login data locally
+          LocalStorage.saveLoginData(
+            userId: user.uid,
+            email: user.email,
+          );
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget initialScreen;
+
+    if (_currentUser != null) {
+      // User is logged in, check if it is a nutritionist or not
+      if (_currentUser!.uid == pid) {
+        initialScreen = NutritionistHome();
+      } else {
+        initialScreen = Home();
+      }
+    } else {
+      // User is not logged in, show the login screen
+      initialScreen = Login();
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: initialScreen,
+    );
+  }
+}
+
+
+
       // home: RegisterScreen(),
-      home: Login(),
       // home: introductionNutritionist(),
       // home: introductionPatient(),
       // home: PatientAdditionalDetail(),
@@ -96,6 +168,3 @@ class MyApp extends StatelessWidget {
       //       customSpecialization: '',
       //       workExperience: '',
       //       gender: ''),
-    );
-  }
-}

@@ -7,13 +7,17 @@ import 'package:meal_aware/screen/nutritionist_home/message/messageNutritionist.
 import 'package:meal_aware/screen/nutritionist_home/profile/profileNutritionist.dart';
 
 class NutritionistHome extends StatefulWidget {
-  const NutritionistHome({Key? key}) : super(key: key);
+  final String currentUser;
+  const NutritionistHome({Key? key, required this.currentUser})
+      : super(key: key);
 
   @override
-  State<NutritionistHome> createState() => _NutritionistHomeState();
+  State<NutritionistHome> createState() => _NutritionistHomeState(currentUser);
 }
 
 class _NutritionistHomeState extends State<NutritionistHome> {
+  final String currentUser;
+  _NutritionistHomeState(this.currentUser);
   int _currentIndex = 0;
   final screens = [
     dashboard(),
