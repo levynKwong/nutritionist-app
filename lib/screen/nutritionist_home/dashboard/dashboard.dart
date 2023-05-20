@@ -62,9 +62,11 @@ class _dashboardState extends State<dashboard> {
 
   Future<void> _getPatientCount() async {
     int count = await countPatients();
-    setState(() {
-      _patientCount = count;
-    });
+    if (mounted) {
+      setState(() {
+        _patientCount = count;
+      });
+    }
   }
 
   Future<void> _clientCounter() async {
@@ -129,6 +131,22 @@ class _dashboardState extends State<dashboard> {
 
     count = uniqueIds.length;
     return count;
+  }
+
+  Future<List<String>> getPatientUids() async {
+    List<String> uids = [];
+
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Patient').get();
+    List<QueryDocumentSnapshot<Object?>> documents = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot<Object?> document in documents) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      String uid = data['pid'] as String;
+      uids.add(uid);
+    }
+
+    return uids;
   }
 
   Widget client(double width_, double height_) {
@@ -286,7 +304,24 @@ class _dashboardState extends State<dashboard> {
             SingleChildScrollView(
               child: SizedBox(
                 height: height_ * 0.5, // Replace with your desired height
-                child: PendingPlanList(),
+                child: FutureBuilder<List<String>>(
+                  future: getPatientUids(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<String> patientUids = snapshot.data!;
+
+                      // Assuming you want to pass the first UID from the list
+                      String firstPatientUid =
+                          patientUids.isNotEmpty ? patientUids[0] : '';
+
+                      return PendingPlanList(clientUid: firstPatientUid);
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return Center(child: Text('Loading...'));
+                    }
+                  },
+                ),
               ),
             )
           ],

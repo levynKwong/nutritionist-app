@@ -51,7 +51,7 @@ class _appointmentHistoryState extends State<appointmentHistory> {
 
                     String nid = data['nutritionistId'];
                     Timestamp timestamp = data['date'];
-                    int timeSlot = data['timeSlot'];
+                    int timeSlot = data['timeSlot'] + 6;
                     DateTime dateTime = timestamp.toDate();
                     String day = '${dateTime.day}';
                     String month = '${dateTime.month}';

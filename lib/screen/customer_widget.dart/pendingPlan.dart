@@ -4,13 +4,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/nutritionist_home/moreInfo.dart';
 
 class PendingPlanList extends StatefulWidget {
+  final String clientUid;
+
+  PendingPlanList({required this.clientUid});
+
   @override
-  _PendingPlanListState createState() => _PendingPlanListState();
+  _PendingPlanListState createState() => _PendingPlanListState(clientUid);
 }
 
 class _PendingPlanListState extends State<PendingPlanList> {
+  final String clientUid;
+  _PendingPlanListState(this.clientUid);
+
   List<DocumentSnapshot> _documents = [];
   StreamSubscription<QuerySnapshot>? _subscription;
 
@@ -120,18 +128,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Alert Dialog Title"),
-                  content: Text("Alert Dialog Content"),
-                  actions: [
-                    TextButton(
-                      child: Text("Close"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
+                return moreinfo(friendId: clientUid);
               },
             );
           },
@@ -141,7 +138,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
               borderRadius: BorderRadius.circular(10),
             ),
             padding: EdgeInsets.all(16),
-            margin: EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+            margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

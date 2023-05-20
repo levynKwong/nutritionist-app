@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
@@ -299,6 +300,11 @@ class _GetCoinState extends State<GetCoin> {
       // Show a success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Coins added successfully!')),
+      );
+      NotificationService.showNotification(
+        title: 'Coupon Code',
+        body:
+            'You have successfully redeemed a coupon code. You have been awarded 1 coin.',
       );
     } catch (e) {
       // Show an error message

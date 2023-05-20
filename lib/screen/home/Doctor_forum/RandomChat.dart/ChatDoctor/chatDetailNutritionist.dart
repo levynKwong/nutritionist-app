@@ -238,8 +238,14 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                       backgroundImage:
                           NetworkImage('https://i.pravatar.cc/150?img=3'),
                     ),
-                    SizedBox(width: width_ * 0.03),
-                    Text('Dr ' + '${widget.friendName}'),
+                    Expanded(
+                      // Wrap Text widget with Expanded
+                      child: Text(
+                        'Dr ' + '${widget.friendName}',
+                        overflow:
+                            TextOverflow.ellipsis, // Set overflow property
+                      ),
+                    ),
                   ],
                 ),
                 backgroundColor: getColor(),

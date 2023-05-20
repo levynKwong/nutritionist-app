@@ -25,6 +25,7 @@ class _profileState extends State<profile> {
   int _coin = 0;
   int _totalAmount = 0;
   String _username = '';
+  String? _fullname;
   String? _age;
 
   String? _country;
@@ -36,6 +37,7 @@ class _profileState extends State<profile> {
   String? _activityLevel;
   String? _bodyGoal;
   String? _dietType;
+  String? _phoneNumber;
 
   List<int> cmHeights = List.generate(
       200,
@@ -102,6 +104,16 @@ class _profileState extends State<profile> {
     getTotalAmount().then((value) {
       setState(() {
         _totalAmount = value;
+      });
+    });
+    getFullname().then((value) {
+      setState(() {
+        _fullname = value;
+      });
+    });
+    getphoneNumber().then((value) {
+      setState(() {
+        _phoneNumber = value;
       });
     });
   }
@@ -371,6 +383,9 @@ class _profileState extends State<profile> {
               ),
             ),
             dividingLine2(width_, height_, 0),
+            username(height_, width_),
+            FullName(height_, width_),
+            phonenumber(height_, width_),
             listAge(height_, width_),
             listCountry(height_, width_),
             listGender(height_, width_),
@@ -900,6 +915,224 @@ class _profileState extends State<profile> {
     } else {
       return null;
     }
+  }
+
+  Future<String?> getFullname() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('fullname');
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> getphoneNumber() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('phoneNumber');
+    } else {
+      return null;
+    }
+  }
+
+  Widget username(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Username',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: '$_username',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(8.0),
+                    ),
+                    onChanged: (String? newValue) async {
+                      setState(() {
+                        _username = newValue!;
+                      });
+
+                      await FirebaseFirestore.instance
+                          .collection('Patient')
+                          .doc(currentId)
+                          .update({'username': newValue}).then((value) {
+                        print('Country updated');
+                        _username =
+                            newValue!; // Update _country with the new value
+                      }).catchError((error) =>
+                              print('Failed to update country: $error'));
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget FullName(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Full Name',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: '$_fullname',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(8.0),
+                    ),
+                    onChanged: (String? newValue) async {
+                      setState(() {
+                        _fullname = newValue!;
+                      });
+
+                      await FirebaseFirestore.instance
+                          .collection('Patient')
+                          .doc(currentId)
+                          .update({'fullname': newValue}).then((value) {
+                        print('Country updated');
+                        _fullname =
+                            newValue; // Update _country with the new value
+                      }).catchError((error) =>
+                              print('Failed to update country: $error'));
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget phonenumber(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'phone number',
+                  style: TextStyle(
+                    fontSize: width_ * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: '$_phoneNumber',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(8.0),
+                    ),
+                    onChanged: (String? newValue) async {
+                      setState(() {
+                        _phoneNumber = newValue!;
+                      });
+
+                      await FirebaseFirestore.instance
+                          .collection('Patient')
+                          .doc(currentId)
+                          .update({'phoneNumber': newValue}).then((value) {
+                        print('Country updated');
+                        _phoneNumber =
+                            newValue; // Update _country with the new value
+                      }).catchError((error) =>
+                              print('Failed to update country: $error'));
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget listAge(

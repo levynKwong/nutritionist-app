@@ -176,7 +176,12 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                           ),
                         ),
                         onPressed: () {
-                          moreInfo(context, friendUid);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return moreinfo(friendId: friendUid);
+                            },
+                          );
                         },
                       ),
                     ),
