@@ -8,16 +8,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Home extends StatefulWidget {
-  final String currentUser;
-  const Home({Key? key, required this.currentUser}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState(currentUser);
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final String currentUser;
-  _HomeState(this.currentUser);
   int _currentIndex = 0;
   final screens = [
     messageNutritionist(),

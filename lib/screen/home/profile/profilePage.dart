@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
@@ -13,6 +14,8 @@ import 'package:meal_aware/screen/customer_widget.dart/ordersHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
+import 'package:meal_aware/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -230,6 +233,10 @@ class _profileState extends State<profile> {
         child: TextButton.icon(
           onPressed: () async {
             FirebaseAuth.instance.signOut();
+
+            // Remove saved login credentials from shared preferences
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.clear(); // This will remove all shared preferences
 
             Navigator.push(
               context,
