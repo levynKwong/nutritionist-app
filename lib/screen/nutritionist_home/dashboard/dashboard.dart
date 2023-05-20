@@ -168,14 +168,9 @@ class _dashboardState extends State<dashboard> {
             ),
           ],
         ),
-        // child: SingleChildScrollView(
-        //   scrollDirection: Axis.vertical,
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: height_ * 0.0,
-            ),
+            SizedBox(height: height_ * 0.0),
             Row(
               children: [
                 SizedBox(width: width_ * 0.03),
@@ -200,7 +195,6 @@ class _dashboardState extends State<dashboard> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // SizedBox(height: height_ * 0.04),
                       ],
                     ),
                     Wrap(
@@ -243,27 +237,13 @@ class _dashboardState extends State<dashboard> {
                             ],
                           ),
                         ),
-                        Spacer(),
-                        // Container(
-                        //   child: ElevatedButton(
-                        //     onPressed: () {
-                        //       _handleRefresh();
-                        //     },
-                        //     style: ElevatedButton.styleFrom(
-                        //       primary: Color.fromARGB(0, 0, 0, 0),
-                        //     ),
-                        //     child: Icon(Icons.refresh),
-                        //   ),
-                        // );
                       ],
                     ),
                   ],
                 ),
               ],
             ),
-            SizedBox(
-              height: height_ * 0.01,
-            ),
+            SizedBox(height: height_ * 0.01),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -272,16 +252,12 @@ class _dashboardState extends State<dashboard> {
                     'Username',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    width: width_ * 0.1,
-                  ),
+                  SizedBox(width: width_ * 0.1),
                   Text(
                     'Time',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    width: width_ * 0.1,
-                  ),
+                  SizedBox(width: width_ * 0.1),
                   Text(
                     'Remove',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -303,7 +279,7 @@ class _dashboardState extends State<dashboard> {
             ),
             SingleChildScrollView(
               child: SizedBox(
-                height: height_ * 0.5, // Replace with your desired height
+                height: height_ * 0.5,
                 child: FutureBuilder<List<String>>(
                   future: getPatientUids(),
                   builder: (context, snapshot) {
@@ -323,12 +299,11 @@ class _dashboardState extends State<dashboard> {
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
-    // );
   }
 
   Widget info(double width_, double height_) {

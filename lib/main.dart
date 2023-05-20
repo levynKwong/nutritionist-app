@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
+import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 
 import 'firebase_options.dart';
@@ -41,8 +43,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // home: RegisterScreen(),
       home: Login(),
+      // home: introductionNutritionist(),
+      // home: introductionPatient(),
       // home: PatientAdditionalDetail(),
       // home: ChatScreen('2345254','test'),
       // home: NutritionistHome(),

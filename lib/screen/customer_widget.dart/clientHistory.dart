@@ -88,6 +88,8 @@ class _clientHistoryState extends State<clientHistory> {
                         if (snapshot.hasData) {
                           String username = snapshot.data?.get('username');
                           String fullname = snapshot.data?.get('fullname');
+                          String email = snapshot.data?.get('email');
+                          String phone = snapshot.data?.get('phoneNumber');
                           return ListTile(
                             title: Text('Amount: $amount'),
                             subtitle: Column(
@@ -96,6 +98,8 @@ class _clientHistoryState extends State<clientHistory> {
                                 Text('Date: $day/$month/$year'),
                                 Text('Username: $username'),
                                 Text('Fullname: $fullname'),
+                                Text('Email: $email'),
+                                Text('Phone: $phone'),
                               ],
                             ),
                           );
