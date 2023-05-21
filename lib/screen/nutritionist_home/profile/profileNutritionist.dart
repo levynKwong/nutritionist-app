@@ -6,6 +6,7 @@ import 'package:meal_aware/main.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
+import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
@@ -241,7 +242,49 @@ class _profileNutritionistState extends State<profileNutritionist> {
                   ),
                   SizedBox(width: width_ * 0.08),
                   Text(
-                    'Client History',
+                    'Client History Chat',
+                    style: TextStyle(
+                      fontSize: width_ * 0.04,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(width: width_ * 0.07),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 86, 86, 86),
+                      size: width_ * 0.04,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => clientHistoryAppointment(),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(width_ * 0.8, height_ * 0.07),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'images/to-do-list.png',
+                    height: height_ * 0.1,
+                    width: width_ * 0.1,
+                  ),
+                  SizedBox(width: width_ * 0.08),
+                  Text(
+                    'Client History Appointment',
                     style: TextStyle(
                       fontSize: width_ * 0.04,
                       fontWeight: FontWeight.bold,

@@ -3,23 +3,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:intl/intl.dart';
 
-class clientHistory extends StatefulWidget {
-  const clientHistory({super.key});
+class clientHistoryAppointment extends StatefulWidget {
+  const clientHistoryAppointment({super.key});
 
   @override
-  _clientHistoryState createState() => _clientHistoryState();
+  _clientHistoryAppointmentState createState() =>
+      _clientHistoryAppointmentState();
 }
 
-class _clientHistoryState extends State<clientHistory> {
+class _clientHistoryAppointmentState extends State<clientHistoryAppointment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarTopBack(
-        titleText: 'Client History Chat',
+        titleText: 'Client History Appointment',
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('payments')
+            .collection('paymentAppointment')
             .orderBy('nid')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

@@ -17,3 +17,19 @@ Future<int> getTotalAmount() async {
 
   return totalAmount;
 }
+
+Future<int> getTotalAmountAppointment() async {
+  final querySnapshot = await FirebaseFirestore.instance
+      .collection('paymentAppointment')
+      .where('pid', isEqualTo: currentId)
+      .get();
+
+  int totalAmount = 0;
+
+  querySnapshot.docs.forEach((doc) {
+    int amount = doc.get('amount');
+    totalAmount += amount;
+  });
+
+  return totalAmount;
+}

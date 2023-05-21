@@ -27,6 +27,13 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   int _coin = 0;
   int _totalAmount = 0;
+  int _totalAmountAppointment = 0;
+
+  void calculateTotal() {
+    total = _totalAmount + _totalAmountAppointment;
+  }
+
+  int total = 0;
   String _username = '';
   String? _fullname;
   String? _age;
@@ -117,6 +124,11 @@ class _profileState extends State<profile> {
     getphoneNumber().then((value) {
       setState(() {
         _phoneNumber = value;
+      });
+    });
+    getTotalAmountAppointment().then((value) {
+      setState(() {
+        _totalAmountAppointment = value;
       });
     });
   }
@@ -574,7 +586,7 @@ class _profileState extends State<profile> {
                     ),
                     SizedBox(height: height_ * 0.0001),
                     Center(
-                      child: Text4(text: '$_totalAmount'),
+                      child: Text4(text: '$total'),
                     ),
                   ],
                 ),

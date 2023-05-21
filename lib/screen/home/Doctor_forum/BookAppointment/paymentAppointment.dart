@@ -8,6 +8,7 @@ import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
+import 'package:meal_aware/screen/customer_widget.dart/purchaseAppointment.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
@@ -201,7 +202,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                               onPressed: () {
                                 _confirmSelection(timeAvailable);
                                 Navigator.of(context).pop();
-                                deductCoin(context, nutritionistUid);
+                                deductCoinAppoinment(context, nutritionistUid);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
