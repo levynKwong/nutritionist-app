@@ -65,8 +65,7 @@ class ChatListScreen extends StatelessWidget {
                   width: width_ * 0.9, // Change the width to your liking
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://i.pravatar.cc/150?img=3'),
+                      backgroundImage: AssetImage('images/OIB.png'),
                     ),
                     title: Row(
                       children: [

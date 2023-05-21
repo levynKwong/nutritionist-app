@@ -55,7 +55,7 @@ class ChatListScreenNutritionist extends StatelessWidget {
                   width: width_ * 0.9, // Change the width to your liking
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage('images/photoCat.png'),
+                      backgroundImage: AssetImage('images/OIB.png'),
                     ),
                     title: Row(
                       children: [

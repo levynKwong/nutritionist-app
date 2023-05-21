@@ -146,8 +146,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                 title: Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://i.pravatar.cc/150?img=3'),
+                      backgroundImage: AssetImage('images/OIB.png'),
                     ),
                     SizedBox(width: width_ * 0.03),
                     Expanded(
