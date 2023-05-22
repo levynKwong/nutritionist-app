@@ -68,7 +68,9 @@ class _PendingPlanListState extends State<PendingPlanList> {
 
     // Remove the document from the pendingPlan collection6
     await documentReference.delete();
-
+    setState(() {
+      _documents.removeWhere((doc) => doc.id == documentId);
+    });
     // No need to manually refresh the data as the real-time updates will handle it
   }
 

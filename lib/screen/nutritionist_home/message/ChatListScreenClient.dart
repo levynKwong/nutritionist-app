@@ -40,6 +40,7 @@ class ChatListScreenClient extends StatelessWidget {
           return ListView.builder(
             itemCount: docs.length,
             itemBuilder: (BuildContext context, int index) {
+              // Retrieve the necessary data for each chat item
               final friendUid = currentId == docs[index]['users'][0]
                   ? docs[index]['users'][1]
                   : docs[index]['users'][0];
@@ -47,8 +48,12 @@ class ChatListScreenClient extends StatelessWidget {
               final friendName = currentId == docs[index]['users'][0]
                   ? docs[index]['usernames'][1]
                   : docs[index]['usernames'][0];
+
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
+              final unreadMessages = docs[index]['unreadMessages'] ?? [];
+
+              // Return a Card widget for each chat item
               return Card(
                 child: Container(
                   color: Color.fromARGB(255, 242, 243, 251),
@@ -89,6 +94,21 @@ class ChatListScreenClient extends StatelessWidget {
                         ),
                       );
                     },
+                    trailing: Visibility(
+                      visible: unreadMessages == 1,
+                      child: Positioned(
+                        right: 0,
+                        top: 0,
+                        child: Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               );
