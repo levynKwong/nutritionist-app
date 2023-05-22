@@ -18,11 +18,11 @@ class NutritionistHome extends StatefulWidget {
 class _NutritionistHomeState extends State<NutritionistHome> {
   int _currentIndex = 0;
   String url = '';
-  List<Widget> screens = [];
 
   @override
   void initState() {
     super.initState();
+
     fetchEditFormData();
   }
 
@@ -48,8 +48,8 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     });
   }
 
-  void initializeScreens() {
-    screens = [
+  List<Widget> get screens {
+    return [
       dashboard(),
       messageClient(),
       form(url: url),

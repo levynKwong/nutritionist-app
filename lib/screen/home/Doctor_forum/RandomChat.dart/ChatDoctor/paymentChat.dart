@@ -47,14 +47,14 @@ class _paymentChatState extends State<paymentChat> {
     FirebaseFirestore.instance
         .collection('Nutritionist')
         .doc(
-            currentId) // Replace 'currentId' with the specific document ID you want to fetch
+            nid) // Replace 'currentId' with the specific document ID you want to fetch
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         // Data exists for the given document ID
         Object? data = documentSnapshot.data();
         String? fetchedUrl =
-            (data as Map<String, dynamic>)['editForm'] as String?;
+            (data as Map<String, dynamic>)['patientForm'] as String?;
         setState(() {
           url = fetchedUrl!;
         });

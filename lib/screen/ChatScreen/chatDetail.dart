@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
@@ -208,13 +209,63 @@ class _ChatDetailState extends State<ChatDetail> {
                           tooltip: "This button is not available",
                         ),
                         Container(
-                            width: MediaQuery.of(context).size.width - 125,
-                            child: Card(
-                              margin:
-                                  EdgeInsets.only(left: 2, right: 2, bottom: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              ),
+                          width: MediaQuery.of(context).size.width - 125,
+                          child: Card(
+                            margin:
+                                EdgeInsets.only(left: 2, right: 2, bottom: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            child: GestureDetector(
+                              onLongPress: () {
+                                final text = messageController.text;
+                                if (text.isNotEmpty) {
+                                  final overlay = Overlay.of(context)
+                                      ?.context
+                                      .findRenderObject() as RenderBox?;
+                                  if (overlay != null) {
+                                    final position = RelativeRect.fromRect(
+                                      Offset.zero & overlay.size,
+                                      Offset.zero & overlay.size,
+                                    );
+                                    showMenu(
+                                      context: context,
+                                      position: position,
+                                      items: [
+                                        PopupMenuItem(
+                                          child: Text('Copy'),
+                                          onTap: () {
+                                            Clipboard.setData(
+                                                ClipboardData(text: text));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                  content: Text(
+                                                      'Text copied to clipboard')),
+                                            );
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text('Paste'),
+                                          onTap: () async {
+                                            final clipboardData =
+                                                await Clipboard.getData(
+                                                    Clipboard.kTextPlain);
+                                            if (clipboardData != null) {
+                                              final clipboardText =
+                                                  clipboardData.text;
+                                              setState(() {
+                                                messageController.text =
+                                                    clipboardText!;
+                                              });
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                }
+                              },
                               child: TextFormField(
                                 onTap: () {
                                   setState(() {
@@ -230,18 +281,25 @@ class _ChatDetailState extends State<ChatDetail> {
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 3,
                                 minLines: 1,
+                                enabled: true, // Enable copy and paste
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'Type a message',
                                   contentPadding: EdgeInsets.only(
-                                      left: 15, bottom: 12, top: 15, right: 15),
-                                  // suffixIcon: IconButton(
-                                  //   onPressed: () {},
-                                  //   icon: const Icon(Icons.emoji_emotions),
-                                  // ),
+                                    left: 15,
+                                    bottom: 12,
+                                    top: 15,
+                                    right: 15,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.emoji_emotions),
+                                  ),
                                 ),
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                         SizedBox(width: 15),
                         CircleAvatar(
                           backgroundColor: Color(0xFF575dcb),
@@ -253,7 +311,7 @@ class _ChatDetailState extends State<ChatDetail> {
                             icon: const Icon(Icons.send_rounded),
                             color: Colors.white,
                           ),
-                        )
+                        ),
                       ]),
                     )
                   ],

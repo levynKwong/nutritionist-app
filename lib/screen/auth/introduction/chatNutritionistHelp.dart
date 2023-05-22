@@ -50,7 +50,7 @@ class _chatNutritionistHelpState extends State<chatNutritionistHelp> {
       key: introKey,
       globalBackgroundColor: Colors.white,
       allowImplicitScrolling: true,
-      autoScrollDuration: 40000,
+      autoScrollDuration: 4000,
       globalHeader: Align(
         alignment: Alignment.topRight,
         // child: SafeArea(

@@ -66,7 +66,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection('pendingPlan').doc(documentId);
 
-    // Remove the document from the pendingPlan collection
+    // Remove the document from the pendingPlan collection6
     await documentReference.delete();
 
     // No need to manually refresh the data as the real-time updates will handle it

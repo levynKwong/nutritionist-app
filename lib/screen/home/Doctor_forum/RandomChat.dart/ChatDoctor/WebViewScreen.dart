@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
@@ -30,6 +31,38 @@ class _WebViewScreenState extends State<WebViewScreen> {
   final String email;
   bool _formSubmitted = false;
   _WebViewScreenState(this.url, this.email, this.nid, this.nutritionistName);
+
+  String entryId = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchEditFormData();
+  }
+
+  void fetchEditFormData() {
+    FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .doc(
+            nid) // Replace 'currentId' with the specific document ID you want to fetch
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // Data exists for the given document ID
+        Object? data = documentSnapshot.data();
+        String? fetchedID =
+            (data as Map<String, dynamic>)['entryId'] as String?;
+        setState(() {
+          entryId = fetchedID!;
+        });
+      }
+    }).catchError((error) {
+      // Handle any errors that occur during fetching
+      print('Error fetching editForm data: $error');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // Construct the URL of the Google Form with the email parameter
@@ -37,7 +70,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
     Uri uri = Uri.parse(url);
     uri = uri.replace(queryParameters: {
       ...uri.queryParameters,
-      'entry.1962223544': widget
+      entryId: widget
           .email, // replace '1234567890' with the actual ID of the email field in your form
     });
     String urlWithEmail = uri.toString();
