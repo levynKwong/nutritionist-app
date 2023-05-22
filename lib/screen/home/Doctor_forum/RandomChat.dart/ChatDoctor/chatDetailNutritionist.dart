@@ -452,8 +452,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              IconButton(
-                                onPressed: () {
+                              GestureDetector(
+                                onTap: () {
                                   if (sendButtonEnabled == true) {
                                     sendMessage(messageController.text);
                                   } else {
@@ -468,7 +468,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                             TextButton(
                                               onPressed: () {
                                                 Navigator.of(context).pop();
-
                                                 showDialog(
                                                   context: context,
                                                   builder:
@@ -483,7 +482,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                                           child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .center, // Align buttons in the center
+                                                                    .center,
                                                             children: [
                                                               TextButton(
                                                                 onPressed: () {
@@ -495,8 +494,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                                                     "Cancel"),
                                                               ),
                                                               SizedBox(
-                                                                  width: width_ *
-                                                                      0.07), // Put 1 sized box between the buttons
+                                                                  width:
+                                                                      width_ *
+                                                                          0.07),
                                                               TextButton(
                                                                 onPressed: () {
                                                                   deductCoin(
@@ -534,18 +534,10 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                     );
                                   }
                                 },
-                                icon: Visibility(
-                                  visible: sendButtonEnabled == true,
-                                  child: Icon(
-                                    Icons.send_rounded,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: sendButtonEnabled == false,
                                 child: Icon(
-                                  Icons.lock,
+                                  sendButtonEnabled == true
+                                      ? Icons.send_rounded
+                                      : Icons.lock,
                                   color: Colors.white,
                                 ),
                               ),
