@@ -241,12 +241,17 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     width: width_ * 0.1,
                   ),
                   SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Client History Chat',
-                    style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Client History Chat',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: width_ * 0.07),
@@ -283,12 +288,17 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     width: width_ * 0.1,
                   ),
                   SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Client History Appointment',
-                    style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Client History Appointment',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: width_ * 0.07),
@@ -303,6 +313,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 ],
               ),
             ),
+
             dividingLine2(width_, height_, 0),
             Text(
                 'If you want to change your information or obtain any information, please contact us:'),

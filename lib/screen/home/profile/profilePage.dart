@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/login/login.dart';
+
 import 'package:meal_aware/screen/customer_widget.dart/appointment_history.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
@@ -14,7 +14,7 @@ import 'package:meal_aware/screen/customer_widget.dart/ordersHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
-import 'package:meal_aware/main.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class profile extends StatefulWidget {
@@ -29,11 +29,6 @@ class _profileState extends State<profile> {
   int _totalAmount = 0;
   int _totalAmountAppointment = 0;
 
-  void calculateTotal() {
-    total = _totalAmount + _totalAmountAppointment;
-  }
-
-  int total = 0;
   String _username = '';
   String? _fullname;
   String? _age;
@@ -291,6 +286,7 @@ class _profileState extends State<profile> {
                 ),
               ),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
                     'images/tokenIcon.png',
@@ -298,12 +294,17 @@ class _profileState extends State<profile> {
                     width: width_ * 0.1,
                   ),
                   SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Buy Coin',
-                    style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Buy Coin',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: width_ * 0.06),
@@ -340,12 +341,17 @@ class _profileState extends State<profile> {
                     width: width_ * 0.1,
                   ),
                   SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Purchase History',
-                    style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Purchase History',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: width_ * 0.07),
@@ -382,12 +388,17 @@ class _profileState extends State<profile> {
                     width: width_ * 0.1,
                   ),
                   SizedBox(width: width_ * 0.08),
-                  Text(
-                    'Appointment History',
-                    style: TextStyle(
-                      fontSize: width_ * 0.04,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Appointment History',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: width_ * 0.07),
@@ -523,78 +534,81 @@ class _profileState extends State<profile> {
         ),
       );
 
-  Widget bottomRow(double width_, double height_) => Container(
-        margin: EdgeInsets.only(
-          left: width_ * 0.1,
-          right: width_ * 0.1,
+  Widget bottomRow(double width_, double height_) {
+    int total = _totalAmount + _totalAmountAppointment;
+    return Container(
+      margin: EdgeInsets.only(
+        left: width_ * 0.1,
+        right: width_ * 0.1,
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Row(
+                      children: [
+                        SizedBox(width: width_ * 0.04),
+                        Image.asset(
+                          'images/token_.png',
+                          width: width_ * 0.08,
+                          height: height_ * 0.08,
+                          fit: BoxFit.scaleDown,
+                        ),
+                        SizedBox(width: width_ * 0.04),
+                        Text3(text: 'Coin'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: height_ * 0.0001),
+                  Center(
+                    child: Text4(text: '$_coin'),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: width_ * 0.04),
+            VerticalDivider(
+              color: Color.fromARGB(255, 86, 86, 86),
+              thickness: 1,
+              width: 8,
+            ),
+            SizedBox(width: width_ * 0.04),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Row(
+                      children: [
+                        SizedBox(width: width_ * 0.04),
+                        Image.asset(
+                          'images/order.png',
+                          width: width_ * 0.08,
+                          height: height_ * 0.08,
+                          fit: BoxFit.scaleDown,
+                        ),
+                        SizedBox(width: width_ * 0.04),
+                        Text3(text: 'Orders'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: height_ * 0.0001),
+                  Center(
+                    child: Text4(text: '$total'),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        child: IntrinsicHeight(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Row(
-                        children: [
-                          SizedBox(width: width_ * 0.04),
-                          Image.asset(
-                            'images/token_.png',
-                            width: width_ * 0.08,
-                            height: height_ * 0.08,
-                            fit: BoxFit.scaleDown,
-                          ),
-                          SizedBox(width: width_ * 0.04),
-                          Text3(text: 'Coin'),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: height_ * 0.0001),
-                    Center(
-                      child: Text4(text: '$_coin'),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: width_ * 0.04),
-              VerticalDivider(
-                color: Color.fromARGB(255, 86, 86, 86),
-                thickness: 1,
-                width: 8,
-              ),
-              SizedBox(width: width_ * 0.04),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Row(
-                        children: [
-                          SizedBox(width: width_ * 0.04),
-                          Image.asset(
-                            'images/order.png',
-                            width: width_ * 0.08,
-                            height: height_ * 0.08,
-                            fit: BoxFit.scaleDown,
-                          ),
-                          SizedBox(width: width_ * 0.04),
-                          Text3(text: 'Orders'),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: height_ * 0.0001),
-                    Center(
-                      child: Text4(text: '$total'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+      ),
+    );
+  }
 
   Widget dividingLine1(double width_, double height_) => Container(
         margin: EdgeInsets.only(
