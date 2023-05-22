@@ -25,6 +25,7 @@ class paymentChat extends StatefulWidget {
 class _paymentChatState extends State<paymentChat> {
   String nutritionistName;
   String nid;
+  String url = '';
   _paymentChatState(this.nutritionistName, this.nid);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -39,6 +40,29 @@ class _paymentChatState extends State<paymentChat> {
       });
     });
     checkIfPaymentExists();
+    fetchEditFormData();
+  }
+
+  void fetchEditFormData() {
+    FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .doc(
+            currentId) // Replace 'currentId' with the specific document ID you want to fetch
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // Data exists for the given document ID
+        Object? data = documentSnapshot.data();
+        String? fetchedUrl =
+            (data as Map<String, dynamic>)['editForm'] as String?;
+        setState(() {
+          url = fetchedUrl!;
+        });
+      }
+    }).catchError((error) {
+      // Handle any errors that occur during fetching
+      print('Error fetching editForm data: $error');
+    });
   }
 
   Future<bool> checkIfPaymentExists() async {
@@ -130,7 +154,7 @@ class _paymentChatState extends State<paymentChat> {
               // );
             },
             child: Container(
-              width: width_ * 0.35,
+              width: width_ * 0.3,
               height: height_ * 0.25,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -200,8 +224,7 @@ class _paymentChatState extends State<paymentChat> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => WebViewScreen(
-                              url:
-                                  'https://docs.google.com/forms/d/e/1FAIpQLSc2N93MQzP1v6aCjTadB393l8Q8_9F2P0489kXykYjtnpcuzg/viewform?usp=sf_link',
+                              url: url,
                               email: _email,
                               nid: nid,
                               nutritionistName: nutritionistName,
@@ -286,16 +309,9 @@ class _paymentChatState extends State<paymentChat> {
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'With 1 Coin you are only paying half of the price, this makes sure that your appointment has been reserved'),
+                          'With 1 Coin you can chat with your nutritionist for 1 week. You can purchase more coins in the future if you want to continue chatting with your nutritionist.'),
                 ),
                 SizedBox(height: height_ * 0.03),
-                Container(
-                  margin: EdgeInsets.only(
-                      left: width_ * 0.05, right: width_ * 0.05),
-                  child: Text8(
-                      text:
-                          'If you want to change the date of your appointment in the future, contact your nutritionist'),
-                ),
               ],
             ),
           ),

@@ -65,7 +65,7 @@ class _NutritionistBookAppointmentState
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarTopSearch(titleText: 'Chat with your Doctor'),
+      appBar: appBarTopSearch(titleText: 'Book Appointment'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -158,7 +158,7 @@ class _NutritionistBookAppointmentState
                                     CircleAvatar(
                                       radius: width_ * 0.06,
                                       backgroundImage:
-                                          AssetImage('images/photoCat.png'),
+                                          AssetImage('images/OIB.png'),
                                     ),
                                     SizedBox(
                                       width: width_ * 0.05,

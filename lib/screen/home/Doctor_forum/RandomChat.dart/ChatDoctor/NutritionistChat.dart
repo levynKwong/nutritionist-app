@@ -168,7 +168,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
               children: [
                 CircleAvatar(
                   radius: width_ * 0.06,
-                  backgroundImage: AssetImage('images/photoCat.png'),
+                  backgroundImage: AssetImage('images/OIB.png'),
                 ),
                 SizedBox(
                   width: width_ * 0.05,

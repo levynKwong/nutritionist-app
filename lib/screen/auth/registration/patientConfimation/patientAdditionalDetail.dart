@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
 
 import 'package:meal_aware/screen/home/home_screen.dart';
 
@@ -467,7 +468,8 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Home()),
+                                      builder: (context) =>
+                                          introductionPatient()),
                                 );
                                 updatePatientDataToFirestore(
                                     country,

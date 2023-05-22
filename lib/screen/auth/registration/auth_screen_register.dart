@@ -434,11 +434,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: password,
             )
             .then((value) => {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DoctorForum()),
-                      (_) => false),
                   if (_selectedUserType == 'Nutritionist')
                     {
                       Navigator.push(

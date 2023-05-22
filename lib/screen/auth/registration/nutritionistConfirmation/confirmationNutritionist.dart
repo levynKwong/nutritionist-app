@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
@@ -183,7 +184,8 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => NutritionistHome(),
+                                    builder: (context) =>
+                                        introductionNutritionist(),
                                   ),
                                 );
                               } else {

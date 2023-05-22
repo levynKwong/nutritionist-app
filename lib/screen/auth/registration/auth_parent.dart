@@ -407,11 +407,7 @@ class _ParentAuthState extends State<ParentAuth> {
             )
             .then((value) => {
                   // saveUser(fullname, username, email, age, phonenumber),
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DoctorForum()),
-                      (_) => false),
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(

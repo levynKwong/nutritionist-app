@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/dashboard.dart';
@@ -15,14 +17,45 @@ class NutritionistHome extends StatefulWidget {
 
 class _NutritionistHomeState extends State<NutritionistHome> {
   int _currentIndex = 0;
-  final screens = [
-    dashboard(),
-    messageClient(),
-    form(
-        url:
-            'https://docs.google.com/forms/d/1MESMGRewhTBSFpwVxISOy7dpYpO4V3Ve71sMQKEyqSY/edit'),
-    profileNutritionist(),
-  ];
+  String url = '';
+  List<Widget> screens = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchEditFormData();
+  }
+
+  void fetchEditFormData() {
+    FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .doc(
+            currentId) // Replace 'currentId' with the specific document ID you want to fetch
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // Data exists for the given document ID
+        Object? data = documentSnapshot.data();
+        String? fetchedUrl =
+            (data as Map<String, dynamic>)['editForm'] as String?;
+        setState(() {
+          url = fetchedUrl!;
+        });
+      }
+    }).catchError((error) {
+      // Handle any errors that occur during fetching
+      print('Error fetching editForm data: $error');
+    });
+  }
+
+  void initializeScreens() {
+    screens = [
+      dashboard(),
+      messageClient(),
+      form(url: url),
+      profileNutritionist(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

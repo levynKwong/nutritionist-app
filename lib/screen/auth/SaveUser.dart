@@ -68,6 +68,8 @@ Future<void> saveUser(String email, String fullname, String username,
       'joinDate': DateTime.now(),
       'registrationProgress': num,
       'nid': currentId,
+      'editForm': "",
+      'patientForm': "",
     };
 
     await firestore.collection('Nutritionist').doc(currentId).set(userData);

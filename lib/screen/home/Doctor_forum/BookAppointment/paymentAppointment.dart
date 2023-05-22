@@ -50,7 +50,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: appBarTopBack(titleText: 'Doctor\'s Forum'),
+      appBar: appBarTopBack(titleText: 'Payment Screen'),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -58,7 +58,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             children: [
               topSubTitle(width_, height_),
               NutritionistService(width_, height_),
-              SizedBox(height: height_ * 0.05),
+              SizedBox(height: height_ * 0.02),
               content(width_, height_),
               bottomContent(width_, height_)
             ],
@@ -88,7 +88,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
           InkWell(
             onTap: () {},
             child: Container(
-              width: width_ * 0.9,
+              width: width_ * 0.3,
               height: height_ * 0.25,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -289,15 +289,23 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'With 1 Coin you are only paying half of the price, this makes sure that your appointment has been reserved'),
+                          'With 1 Coin you are only reserving the date and time of your appointment.'),
                 ),
-                SizedBox(height: height_ * 0.03),
+                SizedBox(height: height_ * 0.01),
                 Container(
                   margin: EdgeInsets.only(
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'If you want to change the date of your appointment in the future, contact your nutritionist'),
+                          'Other additional payment will be held when you meet the nutritionist.'),
+                ),
+                SizedBox(height: height_ * 0.01),
+                Container(
+                  margin: EdgeInsets.only(
+                      left: width_ * 0.05, right: width_ * 0.05),
+                  child: Text8(
+                      text:
+                          'If you want to change the date and time of your appointment in the future, contact your nutritionist'),
                 ),
               ],
             ),

@@ -18,7 +18,7 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarTop(titleText: 'Chat with your Doctor'),
+      appBar: appBarTop(titleText: 'Book Appointment'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -40,23 +40,6 @@ class _BookAppointmentServiceState extends State<BookAppointmentService> {
       ),
     );
   }
-}
-
-topTitle(double width_, double height_) {
-  return Container(
-    margin: EdgeInsets.only(bottom: height_ * 0.82, left: width_ * 0.05),
-    child: Row(
-      children: [
-        Text6(text: 'Chat with your Doctor'),
-        // Expanded(
-        //   // child: Container(
-        //   //   alignment: Alignment.centerRight,
-        //   //   child: NotificationWidget(),
-        //   // ),
-        // ),
-      ],
-    ),
-  );
 }
 
 NutritionistService(double width_, double height_, context) {
