@@ -6,12 +6,27 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
-class ChatListScreenNutritionist extends StatelessWidget {
+class ChatListScreenNutritionist extends StatefulWidget {
+  @override
+  _ChatListScreenNutritionistState createState() =>
+      _ChatListScreenNutritionistState();
+}
+
+class _ChatListScreenNutritionistState
+    extends State<ChatListScreenNutritionist> {
   final chatStream = FirebaseFirestore.instance
       .collection('chatNutritionist')
       .where('users', arrayContains: currentId)
       .orderBy('lastMessageTime', descending: true)
       .snapshots();
+
+  Map<String, int> unreadMessagesCountMap = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // getUnreadMessagesCount();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +64,9 @@ class ChatListScreenNutritionist extends StatelessWidget {
                   : docs[index]['usernames'][0];
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
+              final chatId = docs[index].id;
+              final unreadMessages = docs[index]['unreadMessages'] ?? [];
+
               return Card(
                 child: Container(
                   color: Color.fromARGB(255, 242, 243, 251),
@@ -61,7 +79,7 @@ class ChatListScreenNutritionist extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Dr ' + friendName,
+                            friendName,
                             textAlign: TextAlign.left,
                           ),
                         ),
@@ -89,6 +107,21 @@ class ChatListScreenNutritionist extends StatelessWidget {
                         ),
                       );
                     },
+                    trailing: Visibility(
+                      visible: unreadMessages == 2,
+                      child: Positioned(
+                        right: 0,
+                        top: 0,
+                        child: Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               );

@@ -53,6 +53,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     _getChatDocId();
     checkStatus();
     startPaymentStatusChecker();
+    changeUnreadMessage();
   }
 
   void _toggleButton(bool enabled) {
@@ -62,6 +63,21 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   }
 
 // Add this line after obtaining the imageUrl
+  void changeUnreadMessage() async {
+    final snapshot = await chats
+        .where('users', whereIn: [
+          [currentUserId, friendUid],
+          [friendUid, currentUserId],
+        ])
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      final docId = snapshot.docs.single.id;
+
+      await chats.doc(docId).update({'unreadMessages': 0});
+    }
+  }
 
   Future<void> _getChatDocId() async {
     final prefs = await SharedPreferences.getInstance();
@@ -87,7 +103,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         prefs.setString('chatDocId', docId);
       } else {
         final docRef = await chats.add({
-          'users': [currentUserId, friendUid]
+          'users': [currentUserId, friendUid],
+          'unreadMessages': 1
         });
         final docId = docRef.id;
         setState(() {
@@ -567,6 +584,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       chatRef.update({
         'lastMessage': msg,
         'lastMessageTime': FieldValue.serverTimestamp(),
+        'unreadMessages': 1
       });
 
       // Clear the message input field
@@ -606,6 +624,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       chatRef.update({
         'lastMessage': '$imageUrl', // Use the direct image URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
+        'unreadMessages': 1
       });
 
       // Clear the message input field
@@ -653,6 +672,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       chatRef.update({
         'lastMessage': fileUrl, // Use the file URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
+        'unreadMessages': 1
       });
 
       // Clear the message input field

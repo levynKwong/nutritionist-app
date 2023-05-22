@@ -203,11 +203,7 @@ class _randomChatState extends State<randomChat> {
                     previousUser = randomUser;
                   }
                 });
-                NotificationService.showNotification(
-                  title: 'Random User',
-                  body:
-                      'You have matched with a random user! Chat with them to add them as a friend.',
-                );
+
                 // NotificationWidget(
                 //   onNewNotification: (notification) {
                 //     // Handle the new notification here

@@ -46,6 +46,23 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
   void initState() {
     super.initState();
     _getChatDocId();
+    changeUnreadMessage();
+  }
+
+  void changeUnreadMessage() async {
+    final snapshot = await chats
+        .where('users', whereIn: [
+          [currentUserId, friendUid],
+          [friendUid, currentUserId],
+        ])
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      final docId = snapshot.docs.single.id;
+
+      await chats.doc(docId).update({'unreadMessages': 0});
+    }
   }
 
   Future<void> _getChatDocId() async {
@@ -72,7 +89,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
         prefs.setString('chatDocId', docId);
       } else {
         final docRef = await chats.add({
-          'users': [currentUserId, friendUid]
+          'users': [currentUserId, friendUid],
         });
         final docId = docRef.id;
         setState(() {
@@ -384,6 +401,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
       chatRef.update({
         'lastMessage': msg,
         'lastMessageTime': FieldValue.serverTimestamp(),
+        'unreadMessages': 2
       });
 
       // Clear the message input field
@@ -423,6 +441,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
       chatRef.update({
         'lastMessage': '$imageUrl', // Use the direct image URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
+        'unreadMessages': 2
       });
 
       // Clear the message input field
@@ -470,6 +489,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
       chatRef.update({
         'lastMessage': fileUrl, // Use the file URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
+        'unreadMessages': 2
       });
 
       // Clear the message input field
