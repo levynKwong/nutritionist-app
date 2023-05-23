@@ -30,6 +30,7 @@ class _formState extends State<form> {
           ),
         ],
       ),
+      backgroundColor: Colors.white, // Set the background color to white
       body: InAppWebView(
         key: UniqueKey(), // add a key
         initialUrlRequest: URLRequest(url: Uri.parse(url)),

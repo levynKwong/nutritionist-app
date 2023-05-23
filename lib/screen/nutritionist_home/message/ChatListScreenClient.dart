@@ -6,37 +6,42 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/nutritionist_home/message/chatDetailClient.dart';
 
 class ChatListScreenClient extends StatelessWidget {
-  final chatStream = FirebaseFirestore.instance
-      .collection('chatNutritionist')
-      .where('users', arrayContains: currentId)
-      .orderBy('lastMessageTime', descending: true)
-      .snapshots();
-
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
-      child: StreamBuilder<QuerySnapshot>(
-        stream: chatStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Loading...'),
-            );
-          }
 
-          final docs = snapshot.data?.docs;
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('chatNutritionist')
+          .where('users', arrayContains: currentId)
+          .orderBy('lastMessageTime', descending: true)
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-          if (docs == null || docs.isEmpty) {
-            return Center(
-              child: Text('No chats found'),
-            );
-          }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        }
 
-          return ListView.builder(
+        final docs = snapshot.data?.docs;
+
+        if (docs == null || docs.isEmpty) {
+          return Center(
+            child: Text('No chats found'),
+          );
+        }
+
+        return Container(
+          margin: EdgeInsets.only(
+              top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
+          child: ListView.builder(
             itemCount: docs.length,
             itemBuilder: (BuildContext context, int index) {
               // Retrieve the necessary data for each chat item
@@ -112,9 +117,9 @@ class ChatListScreenClient extends StatelessWidget {
                 ),
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

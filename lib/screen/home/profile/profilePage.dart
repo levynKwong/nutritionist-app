@@ -535,7 +535,7 @@ class _profileState extends State<profile> {
         child: CircleAvatar(
           radius: width_ * 0.16,
           backgroundColor: Colors.white,
-          backgroundImage: AssetImage('images/OIP.jpeg'),
+          backgroundImage: AssetImage('images/OIB.png'),
         ),
       );
 
