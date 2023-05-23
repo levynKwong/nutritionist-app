@@ -2,11 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/main.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/auth/registration/auth_parent.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 
-import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 
 import 'patientConfimation/email_verification_code.dart';
 

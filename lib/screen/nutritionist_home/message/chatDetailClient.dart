@@ -338,7 +338,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                                 final text = messageController.text;
                                 if (text.isNotEmpty) {
                                   final overlay = Overlay.of(context)
-                                      ?.context
+                                      .context
                                       .findRenderObject() as RenderBox?;
                                   if (overlay != null) {
                                     final position = RelativeRect.fromRect(

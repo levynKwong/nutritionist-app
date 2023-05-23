@@ -162,7 +162,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
   void checkPaymentStatus() {
     final now = DateTime.now();
-    final twoMinutesAgo = now.subtract(Duration(days: 1));
+    final oneweekAgo = now.subtract(Duration(days: 7));
 
     FirebaseFirestore.instance
         .collection('payments')
@@ -175,7 +175,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       if (querySnapshot.docs.isNotEmpty) {
         final doc = querySnapshot.docs.first;
         DateTime paymentDate = doc['date'].toDate();
-        if (paymentDate.isBefore(twoMinutesAgo) && doc['status'] == 1) {
+        if (paymentDate.isBefore(oneweekAgo) && doc['status'] == 1) {
           FirebaseFirestore.instance
               .collection('payments')
               .doc(doc.id)
@@ -422,7 +422,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                 final text = messageController.text;
                                 if (text.isNotEmpty) {
                                   final overlay = Overlay.of(context)
-                                      ?.context
+                                      .context
                                       .findRenderObject() as RenderBox?;
                                   if (overlay != null) {
                                     final position = RelativeRect.fromRect(

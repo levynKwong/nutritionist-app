@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class introductionNutritionist extends StatefulWidget {

@@ -56,7 +56,7 @@ class _BuyCoinState extends State<BuyCoin> {
                     ),
                     child: Text4(
                       text:
-                          'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
+                          'You can use the coins to allow to communicate with your nutritionist and book appointments with them.',
                     ),
                   ),
                   SizedBox(

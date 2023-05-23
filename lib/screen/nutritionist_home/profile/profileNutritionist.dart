@@ -5,7 +5,6 @@ import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
-import 'package:meal_aware/screen/auth/login/login.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
 

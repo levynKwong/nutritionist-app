@@ -756,16 +756,8 @@ class _profileState extends State<profile> {
 
   final List<DropdownMenuItem<String>> ageList = [
     DropdownMenuItem(
-      value: '1',
-      child: Text('1-5'),
-    ),
-    DropdownMenuItem(
-      value: '2',
-      child: Text('6-10'),
-    ),
-    DropdownMenuItem(
       value: '3',
-      child: Text('11-15'),
+      child: Text('13-15'),
     ),
     DropdownMenuItem(
       value: '4',

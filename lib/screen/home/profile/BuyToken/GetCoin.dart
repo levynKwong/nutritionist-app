@@ -81,9 +81,13 @@ class _GetCoinState extends State<GetCoin> {
                     CoinCounter(),
                     SizedBox(height: height_ * 0.02),
                     Container(
+                      margin: EdgeInsets.only(
+                        left: width_ * 0.1,
+                        right: width_ * 0.1,
+                      ),
                       child: Text4(
                         text:
-                            'lorem ipsum delor ndjnajdkbad \n\ dajdbajdbaldjbad \n\ DDbjawdjbaDLJkbadj\n\ BADJKBAdjabwdjkawbd',
+                            'You can use the coins to allow to communicate with your nutritionist and book appointments with them.',
                       ),
                     ),
                     SizedBox(height: height_ * 0.02),

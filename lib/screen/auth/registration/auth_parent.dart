@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/main.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/login/login.dart';
 
-import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
 
 class ParentAuth extends StatefulWidget {
@@ -149,16 +147,8 @@ class _ParentAuthState extends State<ParentAuth> {
                                       value: _selectedAge,
                                       items: [
                                         DropdownMenuItem(
-                                          value: '1',
-                                          child: Text('1-5'),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: '2',
-                                          child: Text('6-10'),
-                                        ),
-                                        DropdownMenuItem(
                                           value: '3',
-                                          child: Text('11-15'),
+                                          child: Text('13-15'),
                                         ),
                                         DropdownMenuItem(
                                           value: '4',

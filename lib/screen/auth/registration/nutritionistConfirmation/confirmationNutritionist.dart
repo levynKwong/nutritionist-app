@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class confirmationNutritionist extends StatefulWidget {
   const confirmationNutritionist({

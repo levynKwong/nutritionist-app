@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/NutritionistChat.dart';
 
 class ChatDoctorReg extends StatefulWidget {

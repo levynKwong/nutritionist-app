@@ -7,8 +7,6 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
-import 'package:meal_aware/screen/customer_widget.dart/notification_widget.dart';
 import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
