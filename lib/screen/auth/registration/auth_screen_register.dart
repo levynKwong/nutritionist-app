@@ -5,7 +5,6 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/registration/auth_parent.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
 
-
 import 'patientConfimation/email_verification_code.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -147,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       items: [
                                         DropdownMenuItem(
                                           value: '5',
-                                          child: Text('1-18'),
+                                          child: Text('13-18'),
                                         ),
                                         DropdownMenuItem(
                                           value: '6',
