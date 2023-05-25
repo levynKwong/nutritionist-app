@@ -138,7 +138,7 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: List.generate(12, (index) {
-            final num = index;
+            final num = index + 1;
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
