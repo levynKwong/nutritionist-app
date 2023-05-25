@@ -26,7 +26,7 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
 
   void _fetchData() async {
     final document = await FirebaseFirestore.instance
-        .collection('timeAvailability')
+        .collection('Nutritionist')
         .doc(widget.userId)
         .get();
 
@@ -74,7 +74,7 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
 
   void _updateFirestore() {
     FirebaseFirestore.instance
-        .collection('timeAvailability')
+        .collection('Nutritionist')
         .doc(widget.userId)
         .set({
       'selectedNumber': _selectedTimeIndex,

@@ -14,19 +14,25 @@ import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/W
 class paymentChat extends StatefulWidget {
   final String nid;
   final String nutritionistName;
+  final bool lockToggle;
   const paymentChat(
-      {Key? key, required this.nutritionistName, required this.nid})
+      {Key? key,
+      required this.nutritionistName,
+      required this.nid,
+      required this.lockToggle})
       : super(key: key);
 
   @override
-  State<paymentChat> createState() => _paymentChatState(nutritionistName, nid);
+  State<paymentChat> createState() =>
+      _paymentChatState(nutritionistName, nid, lockToggle);
 }
 
 class _paymentChatState extends State<paymentChat> {
   String nutritionistName;
   String nid;
+  bool lockToggle;
   String url = '';
-  _paymentChatState(this.nutritionistName, this.nid);
+  _paymentChatState(this.nutritionistName, this.nid, this.lockToggle);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String _email = '';
@@ -238,7 +244,29 @@ class _paymentChatState extends State<paymentChat> {
                           );
                         },
                       );
-                    } else if (checkBalance! > 0 && progress == 0) {
+                    } else if (progress == 0 && lockToggle == true) {
+                      // do a dialogue box that says max client for today
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Max client for today'),
+                            content: Text(
+                                'reached your maximum client for today, please come check again tomorrow or the nutritionist is not available at the moment, please come check again later.'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (checkBalance! > 0 &&
+                        progress == 0 &&
+                        lockToggle == false) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -256,7 +284,8 @@ class _paymentChatState extends State<paymentChat> {
                         body:
                             'Purchase successful, you can now chat with your nutritionist.',
                       );
-                    } else if (progress == 1) {
+                    } else if (progress == 1 && lockToggle == false ||
+                        lockToggle == true) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(

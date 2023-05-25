@@ -147,6 +147,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
                 builder: (context) => paymentChat(
                   nid: user.nid,
                   nutritionistName: user.username,
+                  lockToggle: user.lockToggle,
                 ),
               ),
             );
@@ -302,16 +303,17 @@ class User1 {
   final String specialization;
   final String nid;
   final String gender;
+  final bool lockToggle;
 
-  User1({
-    required this.username,
-    required this.address,
-    required this.email,
-    required this.phoneNumber,
-    required this.specialization,
-    required this.nid,
-    required this.gender,
-  });
+  User1(
+      {required this.username,
+      required this.address,
+      required this.email,
+      required this.phoneNumber,
+      required this.specialization,
+      required this.nid,
+      required this.gender,
+      required this.lockToggle});
 
   factory User1.fromMap(Map<String, dynamic> data) {
     String specialization;
@@ -344,6 +346,7 @@ class User1 {
       specialization: specialization,
       nid: data['nid'],
       gender: gender,
+      lockToggle: data['lockToggle'],
     );
   }
 }

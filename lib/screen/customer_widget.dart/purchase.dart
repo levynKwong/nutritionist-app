@@ -7,10 +7,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // Deduct 1 coin from the current user's account and create a new payment document
-void deductCoin(
-  BuildContext context,
-  String nid,
-) async {
+void deductCoin(BuildContext context, String nid) async {
   User? user = _auth.currentUser;
   if (user != null) {
     String userId = user.uid;
@@ -33,6 +30,35 @@ void deductCoin(
           "status": 1,
           "progress": 1,
         });
+        // Update the "ClientCounter" field in the "Nutritionist" collection
+        DocumentReference nutritionistRef =
+            _firestore.collection("Nutritionist").doc(nid);
+        transaction.update(nutritionistRef, {
+          "ClientCounter": FieldValue.increment(1),
+        });
+
+        FirebaseFirestore.instance
+            .collection('Nutritionist')
+            .doc(
+                nid) // Replace 'currentId' with the specific document ID you want to fetch
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+// Get the values of the "ClientCounter" and "selectedNumber" fields
+            int clientCounter = documentSnapshot.get("ClientCounter") ?? 0;
+            int selectedNumber = documentSnapshot.get("selectedNumber") ?? 0;
+            if (clientCounter >= selectedNumber) {
+              _firestore
+                  .collection("Nutritionist")
+                  .doc(nid)
+                  .update({"lockToggle": true});
+            }
+          }
+        });
+
+// Get the values of the "ClientCounter" and "selectedNumber" fields
+
+// If the "ClientCounter" and "selectedNumber" fields are the same, toggle the "lockToggle" field to true
       } else {
         throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Insufficient coins'),
@@ -52,10 +78,11 @@ void deductCoin(
       );
       // Show the notification
     }).catchError((error) {
-      // Failed to deduct coin or create payment document
-      print("Failed to deduct coin or create payment document: $error");
+      // Failed to deduct coin, create payment document, or update ClientCounter
+      print(
+          "Failed to deduct coin, create payment document, or update ClientCounter: $error");
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   content: Text('Failed to deduct coin or create payment document: $error'),
+      //   content: Text('Failed to deduct coin, create payment document, or update ClientCounter: $error'),
       //   duration: Duration(seconds: 3),
       // ));
     });
