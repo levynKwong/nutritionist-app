@@ -44,6 +44,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   var chatDocId;
   _ChatDetailNutritionistState(this.friendUid, this.friendName);
   bool sendButtonEnabled = true;
+  bool lockToggle = false;
   bool showButtons = false;
   File? selectedImage;
 
@@ -55,11 +56,36 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     checkStatus();
     startPaymentStatusChecker();
     changeUnreadMessage();
+    checkToggleButton();
   }
 
   void _toggleButton(bool enabled) {
     setState(() {
       sendButtonEnabled = enabled;
+    });
+  }
+
+  void _lockToggle(bool enabled) {
+    setState(() {
+      lockToggle = enabled;
+    });
+  }
+
+  void checkToggleButton() {
+    FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .where('nid', isEqualTo: friendUid)
+        .snapshots()
+        .listen((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        bool toggleButton = querySnapshot.docs[0].get('lockToggle');
+        _lockToggle(toggleButton);
+        print('ToggleButton: $toggleButton');
+      } else {
+        print('Document does not exist');
+      }
+    }, onError: (error) {
+      print('Error retrieving document: $error');
     });
   }
 
@@ -141,14 +167,14 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         .where('nid', isEqualTo: friendUid)
         .where('status', isEqualTo: 1)
         .limit(1)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
+        .snapshots()
+        .listen((QuerySnapshot querySnapshot) {
       if (querySnapshot.docs.isNotEmpty) {
         _toggleButton(true);
       } else {
         _toggleButton(false);
       }
-    }).catchError((error) {
+    }, onError: (error) {
       // Handle error during status check
       print('Error checking status: $error');
     });
@@ -492,10 +518,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                     top: 15,
                                     right: 15,
                                   ),
-                                  suffixIcon: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.emoji_emotions),
-                                  ),
                                 ),
                               ),
                             ),
@@ -514,6 +536,26 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                 onTap: () {
                                   if (sendButtonEnabled == true) {
                                     sendMessage(messageController.text);
+                                  } else if (lockToggle == true) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              "Nutritionist Not Available"),
+                                          content: Text(
+                                              "Please wait for the nutritionist to become available or make maximum client reached."),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("OK"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   } else {
                                     showDialog(
                                       context: context,

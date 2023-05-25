@@ -79,7 +79,8 @@ class _randomChatState extends State<randomChat> {
     }
   }
 
-  Widget noAvailableUsers() {
+  Widget noAvailableUsers(
+      {required String message, required VoidCallback onOKPressed}) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Dialog(
@@ -89,7 +90,7 @@ class _randomChatState extends State<randomChat> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'No available users.',
+              message,
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
@@ -97,7 +98,7 @@ class _randomChatState extends State<randomChat> {
             ),
             SizedBox(height: height_ * 0.05),
             ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: onOKPressed,
               child: Text('OK'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: getColor(), // Set the background color to blue
@@ -109,7 +110,8 @@ class _randomChatState extends State<randomChat> {
     );
   }
 
-  Widget currentAgeNotFound() {
+  Widget currentAgeNotFound(
+      {required String message, required VoidCallback onOKPressed}) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Dialog(
@@ -119,7 +121,7 @@ class _randomChatState extends State<randomChat> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Current age not found.',
+              message,
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
@@ -127,7 +129,7 @@ class _randomChatState extends State<randomChat> {
             ),
             SizedBox(height: height_ * 0.05),
             ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: onOKPressed,
               child: Text('OK'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: getColor(), // Set the background color to blue
@@ -170,46 +172,47 @@ class _randomChatState extends State<randomChat> {
 
   Widget FindRandomUser(double width_, double height_) {
     DocumentSnapshot<Map<String, dynamic>>? previousUser;
+
+    Future<void> handleButtonPress() async {
+      if (_currentAge) {
+        showDialog(
+          context: context,
+          builder: (context) => currentAgeNotFound(
+            message: 'Current age not found.',
+            onOKPressed: () => Navigator.of(context).pop(),
+          ),
+        );
+      } else if (_userAvailable) {
+        showDialog(
+          context: context,
+          builder: (context) => noAvailableUsers(
+            message: 'No available users.',
+            onOKPressed: () => Navigator.of(context).pop(),
+          ),
+        );
+      } else {
+        await getRandomUser();
+        if (randomUser != null && randomUser != previousUser) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatDetail(
+                friendUid: randomUser!['pid'],
+                friendName: randomUser!['username'],
+              ),
+            ),
+          );
+          previousUser = randomUser;
+        }
+      }
+    }
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-            onPressed: () {
-              if (_currentAge == true) {
-                showDialog(
-                  context: context,
-                  builder: (context) => currentAgeNotFound(),
-                );
-              } else if (_userAvailable == true) {
-                showDialog(
-                  context: context,
-                  builder: (context) => noAvailableUsers(),
-                );
-              } else if (_currentAge == false && _userAvailable == false) {
-                getRandomUser().then((value) {
-                  if (randomUser != null && randomUser != previousUser) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatDetail(
-                          friendUid: randomUser!['pid'],
-                          friendName: randomUser!['username'],
-                        ),
-                      ),
-                    );
-                    previousUser = randomUser;
-                  }
-                });
-
-                // NotificationWidget(
-                //   onNewNotification: (notification) {
-                //     // Handle the new notification here
-                //     print('New notification received: $notification');
-                //   },
-                // );
-              }
-            },
+            onPressed: handleButtonPress,
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: const Color(0xFF575ecb),

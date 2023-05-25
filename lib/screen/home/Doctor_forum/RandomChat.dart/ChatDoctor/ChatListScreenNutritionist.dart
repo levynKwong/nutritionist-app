@@ -31,9 +31,14 @@ class _ChatListScreenNutritionistState
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
+    final bool isSmallScreen =
+        width_ < 600; // Adjust this value as needed for small screens
+
     return Container(
       margin: EdgeInsets.only(
-          top: height_ * 0.01, left: width_ * 0.02, right: width_ * 0.02),
+          top: height_ * 0.01,
+          left: 10.0,
+          right: 10.0), // Adjust the margins as needed
       child: StreamBuilder<QuerySnapshot>(
         stream: chatStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -69,9 +74,14 @@ class _ChatListScreenNutritionistState
               return Card(
                 child: Container(
                   color: Color.fromARGB(255, 242, 243, 251),
-                  width: width_ * 0.9, // Change the width to your liking
+                  width: isSmallScreen
+                      ? width_
+                      : width_ * 0.9, // Adjust the width based on screen size
                   child: ListTile(
                     leading: CircleAvatar(
+                      radius: isSmallScreen
+                          ? 20.0
+                          : 30.0, // Adjust the avatar size based on screen size
                       backgroundImage: AssetImage('images/OIB.png'),
                     ),
                     title: Row(
@@ -108,16 +118,12 @@ class _ChatListScreenNutritionistState
                     },
                     trailing: Visibility(
                       visible: unreadMessages == 2,
-                      child: Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.red,
-                          ),
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
                         ),
                       ),
                     ),
