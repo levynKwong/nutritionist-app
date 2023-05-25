@@ -25,28 +25,29 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
     _fetchData();
   }
 
-  void _fetchData() async {
-    final document = await FirebaseFirestore.instance
+  void _fetchData() {
+    FirebaseFirestore.instance
         .collection('Nutritionist')
         .doc(widget.userId)
-        .get();
-
-    if (document.exists) {
-      final data = document.data() as Map<String, dynamic>;
-      if (data.containsKey('selectedNumber')) {
-        setState(() {
-          _selectedTimeIndex = data['selectedNumber'];
-        });
+        .snapshots()
+        .listen((documentSnapshot) {
+      if (documentSnapshot.exists) {
+        final data = documentSnapshot.data() as Map<String, dynamic>;
+        if (data.containsKey('selectedNumber')) {
+          setState(() {
+            _selectedTimeIndex = data['selectedNumber'];
+          });
+        }
+        if (data.containsKey('lockToggle')) {
+          setState(() {
+            _lockToggle = data['lockToggle'];
+          });
+        }
       }
-      if (data.containsKey('lockToggle')) {
-        setState(() {
-          _lockToggle = data['lockToggle'];
-        });
-      }
-    }
 
-    setState(() {
-      _loading = false;
+      setState(() {
+        _loading = false;
+      });
     });
   }
 
