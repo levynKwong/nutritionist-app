@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 
 class ChatAvailability extends StatefulWidget {
   final String userId;
@@ -66,6 +67,8 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
       _lockToggle = !_lockToggle;
       if (_lockToggle) {
         _selectedTimeIndex = -1;
+      } else {
+        resetClientCounter();
       }
     });
 
@@ -80,6 +83,24 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
       'selectedNumber': _selectedTimeIndex,
       'lockToggle': _lockToggle,
     }, SetOptions(merge: true));
+    // make a snackbar
+  }
+
+  void resetClientCounter() {
+    FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .doc(widget.userId)
+        .update({'ClientCounter': 0});
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('ClientCounter Reset'),
+        duration: Duration(seconds: 3),
+      ),
+    );
+    NotificationService.showNotification(
+      title: 'ClientCounter Reset',
+      body: 'ClientCounter Reset, Set you Max Client Availability',
+    );
   }
 
   @override
