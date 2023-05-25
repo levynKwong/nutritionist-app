@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
@@ -99,12 +100,34 @@ class _WebViewScreenState extends State<WebViewScreen> {
     );
   }
 
-  void _onFormSubmitted() {
+  void _onFormSubmitted() async {
     if (!_formSubmitted) {
       _formSubmitted = true;
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ChatDetailNutritionist(
-              friendUid: nid, friendName: nutritionistName)));
+
+      try {
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('payments')
+            .where('nid', isEqualTo: nid)
+            .where('pid', isEqualTo: currentId)
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+          DocumentReference docRef = documentSnapshot.reference;
+
+          await docRef.update({'progress': 2});
+
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ChatDetailNutritionist(
+                  friendUid: nid, friendName: nutritionistName)));
+        } else {
+          // Document not found based on the query
+          print('Document not found');
+        }
+      } catch (error) {
+        // Handle the error if the update operation fails
+        print('Error updating progress: $error');
+      }
     }
   }
 }

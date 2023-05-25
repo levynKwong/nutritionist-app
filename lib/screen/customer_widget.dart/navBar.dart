@@ -4,6 +4,7 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/nutritionist_home/dashboard/TimeAvailability.dart';
+import 'package:meal_aware/screen/nutritionist_home/dashboard/chatAvailability.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class appBarTop extends StatelessWidget implements PreferredSizeWidget {
@@ -89,6 +90,21 @@ class appBarTopCal2 extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: getColor(),
       automaticallyImplyLeading: false,
       actions: <Widget>[
+        IconButton(
+            icon: Icon(
+              Icons.speaker_notes_off,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ChatAvailability(
+                    userId: currentId,
+                  );
+                },
+              );
+            }),
         IconButton(
             icon: Icon(
               Icons.more_time,

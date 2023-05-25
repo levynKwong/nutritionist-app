@@ -92,6 +92,23 @@ class _paymentChatState extends State<paymentChat> {
     return 0;
   }
 
+  Future<int?> getProgressValue() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('payments')
+        .where('nid', isEqualTo: nid)
+        .where('pid', isEqualTo: currentId)
+        .get();
+    if (querySnapshot.docs.isNotEmpty) {
+      dynamic progressValue = querySnapshot.docs[0].get('progress');
+      if (progressValue is int) {
+        return progressValue;
+      } else if (progressValue is String) {
+        return int.tryParse(progressValue);
+      }
+    }
+    return 0;
+  }
+
   Future<String> getEmail() async {
     final docSnapshot = await FirebaseFirestore.instance
         .collection('Patient')
@@ -196,9 +213,13 @@ class _paymentChatState extends State<paymentChat> {
                       isConfirmButtonEnabled = false; // Disable the button
                     });
 
-                    bool paymentExists = await checkIfPaymentExists();
+                    int? checkBalance = await getCoinValue();
+                    int? progress = await getProgressValue();
 
-                    if (paymentExists) {
+                    bool paymentExists = await checkIfPaymentExists();
+                    print('progressValue: $progress');
+
+                    if (paymentExists && progress == 2) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -217,46 +238,55 @@ class _paymentChatState extends State<paymentChat> {
                           );
                         },
                       );
-                    } else {
-                      int? checkBalance = await getCoinValue();
-                      if (checkBalance! > 0) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => WebViewScreen(
-                              url: url,
-                              email: _email,
-                              nid: nid,
-                              nutritionistName: nutritionistName,
-                            ),
+                    } else if (checkBalance! > 0 && progress == 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WebViewScreen(
+                            url: url,
+                            email: _email,
+                            nid: nid,
+                            nutritionistName: nutritionistName,
                           ),
-                        );
-                        deductCoin(context, nid);
-                        NotificationService.showNotification(
-                          title: 'Chat doctor',
-                          body:
-                              'Purchase successful, you can now chat with your nutritionist.',
-                        );
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Insufficient coins'),
-                              content: Text(
-                                  'You do not have enough coins to make this payment, please purchase more coins.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
+                        ),
+                      );
+                      deductCoin(context, nid);
+                      NotificationService.showNotification(
+                        title: 'Chat doctor',
+                        body:
+                            'Purchase successful, you can now chat with your nutritionist.',
+                      );
+                    } else if (progress == 1) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WebViewScreen(
+                            url: url,
+                            email: _email,
+                            nid: nid,
+                            nutritionistName: nutritionistName,
+                          ),
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Insufficient coins'),
+                            content: Text(
+                                'You do not have enough coins to make this payment, please purchase more coins.'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     }
                   }
                 : null, // Disable the button if isConfirmButtonEnabled is false

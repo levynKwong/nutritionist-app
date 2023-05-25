@@ -31,6 +31,7 @@ void deductCoin(
           "amount": 1,
           "date": DateTime.now(),
           "status": 1,
+          "progress": 1,
         });
       } else {
         throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
