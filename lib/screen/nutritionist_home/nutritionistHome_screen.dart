@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -19,11 +21,14 @@ class _NutritionistHomeState extends State<NutritionistHome> {
   int _currentIndex = 0;
   String url = '';
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   @override
   void initState() {
     super.initState();
 
     fetchEditFormData();
+    setupFirebaseMessaging();
   }
 
   void fetchEditFormData() {
@@ -46,6 +51,41 @@ class _NutritionistHomeState extends State<NutritionistHome> {
       // Handle any errors that occur during fetching
       print('Error fetching editForm data: $error');
     });
+  }
+
+  void setupFirebaseMessaging() async {
+    await _firebaseMessaging.requestPermission();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message.notification?.title ?? ''),
+          content: Text(message.notification?.body ?? ''),
+          actions: [
+            TextButton(
+              child: Text('Dismiss'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Update'),
+              onPressed: redirectToPlayStore,
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  void redirectToPlayStore() async {
+    const url =
+        'https://play.google.com/store/apps/details?id=com.mealAware.app.package'; // Replace with your app's Play Store URL
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   List<Widget> get screens {

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/home/Message/message.dart';
 import 'package:meal_aware/screen/home/MessageNutritionit/messageNutritionist.dart';
 import 'package:meal_aware/screen/home/profile/profilePage.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,8 +23,8 @@ class _HomeState extends State<Home> {
     DoctorForum(),
     profile(),
   ];
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  late AuthorizationStatus notificationPermission;
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   @override
   void initState() {
@@ -31,65 +32,42 @@ class _HomeState extends State<Home> {
     initMessaging();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      checkNotificationPermission();
-    }
+  void initMessaging() async {
+    await _firebaseMessaging.requestPermission();
+    setupFirebaseMessaging();
   }
 
-  Future<void> initMessaging() async {
-    checkNotificationPermission();
-  }
-
-  Future<void> checkNotificationPermission() async {
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    setState(() {
-      notificationPermission = settings.authorizationStatus;
-    });
-
-    if (notificationPermission == AuthorizationStatus.denied) {
+  void setupFirebaseMessaging() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Notification Permission Denied'),
-            content: Text(
-              'Please enable notification permissions for this app in your device settings to receive notifications.',
+        builder: (_) => AlertDialog(
+          title: Text(message.notification?.title ?? ''),
+          content: Text(message.notification?.body ?? ''),
+          actions: [
+            TextButton(
+              child: Text('Dismiss'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Check notification permission after the dialog is dismissed
-                  checkNotificationPermission();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
+            TextButton(
+              child: Text('Update'),
+              onPressed: redirectToPlayStore,
+            ),
+          ],
+        ),
       );
-    } else {
-      print('User granted permission: $notificationPermission');
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        print('Got a message whilst in the foreground!');
-        print('Message data: ${message.data}');
+    });
+  }
 
-        if (message.notification != null) {
-          print(
-              'Message also contained a notification: ${message.notification}');
-        }
-      });
+  void redirectToPlayStore() async {
+    const url =
+        'https://play.google.com/store/apps/details?id=com.mealAware.app.package'; // Replace with your app's Play Store URL
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -116,13 +94,12 @@ class _HomeState extends State<Home> {
                 horizontal: width_ * 0.02, vertical: height_ * 0.01),
             child: GNav(
               gap: width_ * 0.01,
-              activeColor: Color.fromARGB(255, 255, 255, 255),
+              activeColor: Colors.white,
               iconSize: width_ * 0.07,
               padding: EdgeInsets.symmetric(
                   horizontal: width_ * 0.02, vertical: height_ * 0.01),
               duration: Duration(milliseconds: 200),
-              tabBackgroundColor:
-                  Color.fromARGB(255, 255, 255, 255).withOpacity(0.1),
+              tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: width_ * 0.03,
               tabActiveBorder: Border.all(color: Colors.white, width: 1),
               tabs: [
