@@ -368,9 +368,8 @@ class _paymentChatState extends State<paymentChat> {
                       left: width_ * 0.05, right: width_ * 0.05),
                   child: Text8(
                       text:
-                          'With 1 Coin you can chat with your nutritionist for 1 week. You can purchase more coins in the future if you want to continue chatting with your nutritionist.'),
+                          'With 1 Coin you can chat with your nutritionist for 1 week. You can purchase more coins in the future if you want to continue chatting with your nutritionist.\n\n pressing on the coin will effectuate the payment.'),
                 ),
-                SizedBox(height: height_ * 0.03),
               ],
             ),
           ),

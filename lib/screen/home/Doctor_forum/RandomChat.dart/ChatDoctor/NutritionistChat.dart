@@ -227,22 +227,19 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                         BorderRadius.circular(width_ * 0.03),
                                   ),
                                   title: Text('More info'),
-                                  content: Text(
-                                    'Dr. ' +
-                                        user.username +
-                                        ' is a ' +
-                                        user.specialization +
-                                        '\n\n' +
-                                        'Contact no: ' +
-                                        user.phoneNumber +
-                                        '\n\n' +
-                                        'Email: ' +
-                                        user.email +
-                                        '\n\n' +
-                                        'Gender: ' +
-                                        user.gender +
-                                        user.nid,
-                                  ),
+                                  content: Text('Dr. ' +
+                                      user.username +
+                                      ' is a ' +
+                                      user.specialization +
+                                      '\n\n' +
+                                      'Contact no: ' +
+                                      user.phoneNumber +
+                                      '\n\n' +
+                                      'Email: ' +
+                                      user.email +
+                                      '\n\n' +
+                                      'Gender: ' +
+                                      user.gender),
                                   actions: [
                                     TextButton(
                                       onPressed: () {

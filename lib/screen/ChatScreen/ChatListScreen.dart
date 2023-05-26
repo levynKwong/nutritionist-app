@@ -59,7 +59,7 @@ class ChatListScreen extends StatelessWidget {
 
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
-              final unreadMessages = docs[index]['unreadMessages'] ?? [];
+              // final unreadMessages = docs[index]['unreadMessages'] ?? [];
 
               return Card(
                 child: Container(
@@ -106,21 +106,21 @@ class ChatListScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    trailing: Visibility(
-                      visible: unreadMessages == 1,
-                      child: Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // trailing: Visibility(
+                    //   visible: unreadMessages == 1,
+                    //   child: Positioned(
+                    //     right: 0,
+                    //     top: 0,
+                    //     child: Container(
+                    //       width: 10,
+                    //       height: 10,
+                    //       decoration: BoxDecoration(
+                    //         shape: BoxShape.circle,
+                    //         color: Colors.red,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                 ),
               );

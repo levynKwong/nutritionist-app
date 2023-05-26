@@ -108,6 +108,9 @@ class _appointmentHistoryState extends State<appointmentHistory> {
                         String phone = (nutritionistSnapshot.data!.data()
                                 as Map<String, dynamic>)['phoneNumber'] ??
                             '';
+                        String email = (nutritionistSnapshot.data!.data()
+                                as Map<String, dynamic>)['email'] ??
+                            '';
                         return ListTile(
                           // title: Text('Amount: $amount'),
                           subtitle: Column(
@@ -118,6 +121,7 @@ class _appointmentHistoryState extends State<appointmentHistory> {
                               Text('Username: Dr. $username'),
                               Text('Address: $address'),
                               Text('Phone: $phone'),
+                              Text('Email: $email'),
                             ],
                           ),
                         );
