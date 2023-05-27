@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/clientAdditionalDay.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 import 'package:meal_aware/screen/nutritionist_home/moreInfo.dart';
@@ -49,6 +50,33 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
     super.initState();
     _getChatDocId();
     changeUnreadMessage();
+    checkStatus();
+  }
+
+  void _toggleButton(bool enabled) {
+    setState(() {
+      sendButtonEnabled = enabled;
+    });
+  }
+
+  void checkStatus() {
+    FirebaseFirestore.instance
+        .collection('payments')
+        .where('pid', isEqualTo: friendUid)
+        .where('nid', isEqualTo: currentId)
+        .where('status', isEqualTo: 1)
+        .limit(1)
+        .snapshots()
+        .listen((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        _toggleButton(false);
+      } else {
+        _toggleButton(true);
+      }
+    }, onError: (error) {
+      // Handle error during status check
+      print('Error checking status: $error');
+    });
   }
 
   void changeUnreadMessage() async {
@@ -151,17 +179,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
           if (snapshot.hasData) {
             return Scaffold(
               appBar: AppBar(
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NutritionistHome(),
-                      ),
-                    )
-                  },
-                ),
+                automaticallyImplyLeading: true,
                 title: Row(
                   children: [
                     CircleAvatar(
@@ -418,11 +436,13 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                                             return AlertDialog(
                                               title: Text('Confirmation'),
                                               content: Text(
-                                                  'Give them additional 1 day?'),
+                                                  'Give them additional 1 day?\nAmount will be displayed 0'),
                                               actions: [
                                                 ElevatedButton(
                                                   onPressed: () {
                                                     // Perform the desired action here
+                                                    clientAdditionalDay(
+                                                        context, friendUid);
                                                     Navigator.of(context).pop();
                                                   },
                                                   style: ButtonStyle(
