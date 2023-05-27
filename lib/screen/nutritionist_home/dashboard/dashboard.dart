@@ -71,9 +71,11 @@ class _dashboardState extends State<dashboard> {
 
   Future<void> _clientCounter() async {
     int count = await _countDocumentsForToday();
-    setState(() {
-      _ClientCount = count;
-    });
+    if (mounted) {
+      setState(() {
+        _ClientCount = count;
+      });
+    }
   }
 
   Future<int> _countDocumentsForToday() async {

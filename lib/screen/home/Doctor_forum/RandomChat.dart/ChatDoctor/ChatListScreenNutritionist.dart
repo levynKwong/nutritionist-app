@@ -4,47 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
-class ChatListScreenNutritionist extends StatefulWidget {
-  @override
-  _ChatListScreenNutritionistState createState() =>
-      _ChatListScreenNutritionistState();
-}
-
-class _ChatListScreenNutritionistState
-    extends State<ChatListScreenNutritionist> {
-  late Stream<QuerySnapshot> chatStream;
-  Map<String, int> unreadMessagesCountMap = {};
-  String? imageUrl;
-
-  @override
-  void initState() {
-    super.initState();
-    chatStream = FirebaseFirestore.instance
-        .collection('chatNutritionist')
-        .where('users', arrayContains: currentId)
-        .orderBy('lastMessageTime', descending: true)
-        .snapshots();
-    // getUnreadMessagesCount();
-    getImageLink().then((value) {
-      setState(() {
-        imageUrl = value;
-      });
-    });
-  }
-
-  Future<String> getImageLink() async {
-    final docSnapshot = await FirebaseFirestore.instance
-        .collection('Patient')
-        .doc(currentId)
-        .get();
-
-    if (docSnapshot.exists) {
-      final image_url = docSnapshot.get('image_url');
-      return image_url != null ? image_url : 'image_url';
-    } else {
-      return 'image_url';
-    }
-  }
+class ChatListScreenNutritionist extends StatelessWidget {
+  final chatStream = FirebaseFirestore.instance
+      .collection('chatNutritionist')
+      .where('users', arrayContains: currentId)
+      .orderBy('lastMessageTime', descending: true)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {

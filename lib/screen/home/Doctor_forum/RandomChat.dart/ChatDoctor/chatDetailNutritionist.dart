@@ -66,8 +66,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
 
   Future<String> getImageLink() async {
     final docSnapshot = await FirebaseFirestore.instance
-        .collection('Patient')
-        .doc(currentId)
+        .collection('Nutritionist')
+        .doc(friendUid)
         .get();
 
     if (docSnapshot.exists) {

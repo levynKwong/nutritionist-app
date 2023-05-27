@@ -169,7 +169,9 @@ class _NutritionistChatState extends State<NutritionistChat> {
               children: [
                 CircleAvatar(
                   radius: width_ * 0.06,
-                  backgroundImage: AssetImage('images/OIB.png'),
+                  backgroundImage: user.image_url != null
+                      ? NetworkImage(user.image_url) as ImageProvider<Object>?
+                      : AssetImage('images/OIB.png'),
                 ),
                 SizedBox(
                   width: width_ * 0.05,
@@ -301,6 +303,7 @@ class User1 {
   final String nid;
   final String gender;
   final bool lockToggle;
+  final String image_url;
 
   User1(
       {required this.username,
@@ -310,7 +313,8 @@ class User1 {
       required this.specialization,
       required this.nid,
       required this.gender,
-      required this.lockToggle});
+      required this.lockToggle,
+      required this.image_url});
 
   factory User1.fromMap(Map<String, dynamic> data) {
     String specialization;
@@ -344,6 +348,7 @@ class User1 {
       nid: data['nid'],
       gender: gender,
       lockToggle: data['lockToggle'],
+      image_url: data['image_url'],
     );
   }
 }

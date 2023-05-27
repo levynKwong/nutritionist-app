@@ -157,8 +157,10 @@ class _NutritionistBookAppointmentState
                                   children: [
                                     CircleAvatar(
                                       radius: width_ * 0.06,
-                                      backgroundImage:
-                                          AssetImage('images/OIB.png'),
+                                      backgroundImage: user.image_url != null
+                                          ? NetworkImage(user.image_url)
+                                              as ImageProvider<Object>?
+                                          : AssetImage('images/OIB.png'),
                                     ),
                                     SizedBox(
                                       width: width_ * 0.05,
@@ -354,6 +356,7 @@ class User1 {
   final String specialization;
   final String uid;
   final String gender;
+  final String image_url;
 
   User1({
     required this.username,
@@ -363,6 +366,7 @@ class User1 {
     required this.specialization,
     required this.uid,
     required this.gender,
+    required this.image_url,
   });
 
   factory User1.fromMap(Map<String, dynamic> data) {
@@ -396,6 +400,7 @@ class User1 {
       specialization: specialization,
       uid: data['nid'],
       gender: gender,
+      image_url: data['image_url'],
     );
   }
 }

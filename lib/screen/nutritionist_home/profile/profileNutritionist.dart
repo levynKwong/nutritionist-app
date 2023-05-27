@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
@@ -12,6 +15,8 @@ import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class profileNutritionist extends StatefulWidget {
   const profileNutritionist({super.key});
@@ -22,7 +27,8 @@ class profileNutritionist extends StatefulWidget {
 
 class _profileNutritionistState extends State<profileNutritionist> {
   String _username = '';
-
+  String? imageUrl;
+  final picker = ImagePicker();
   String _fullname = '';
   String? _age;
   String? _specialization = '';
@@ -77,6 +83,25 @@ class _profileNutritionistState extends State<profileNutritionist> {
         _address = address;
       });
     });
+    getImageLink().then((value) {
+      setState(() {
+        imageUrl = value;
+      });
+    });
+  }
+
+  Future<String> getImageLink() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .doc(currentId)
+        .get();
+
+    if (docSnapshot.exists) {
+      final image_url = docSnapshot.get('image_url');
+      return image_url != null ? image_url : 'image_url';
+    } else {
+      return 'image_url';
+    }
   }
 
   @override
@@ -156,7 +181,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
           children: [
             Stack(
               children: [
-                buildProfileImage(width_, height_),
+                buildProfile(width_, height_),
                 Positioned(
                   bottom: 0,
                   right: 0,
@@ -430,15 +455,71 @@ class _profileNutritionistState extends State<profileNutritionist> {
         ),
       );
 
-  Widget buildProfileImage(double width_, double height_) => CircleAvatar(
-        radius: width_ * 0.18,
-        backgroundColor: Color.fromARGB(255, 130, 130, 130),
-        child: CircleAvatar(
-          radius: width_ * 0.16,
-          backgroundColor: Colors.white,
-          backgroundImage: AssetImage('images/OIB.png'),
+  Widget buildProfile(double width_, double height_) {
+    Future<void> uploadImage() async {
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        // Uploading the image to Firebase Storage
+        var file = File(pickedFile.path);
+        var fileName =
+            DateTime.now().millisecondsSinceEpoch.toString() + '.png';
+        var storageReference = firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('profile_images')
+            .child(fileName);
+        var uploadTask = storageReference.putFile(file);
+
+        // Retrieving the download URL
+        var snapshot = await uploadTask.whenComplete(() {});
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        // Save the download URL in the "Patient" collection (with merge option)
+        var patientData = {
+          'image_url': downloadUrl.toString(),
+          // Add other patient data as needed
+        };
+        await FirebaseFirestore.instance
+            .collection('Patient')
+            .doc(currentId) // Replace with the appropriate patient document ID
+            .set(patientData, SetOptions(merge: true));
+      }
+    }
+
+    return Stack(
+      children: [
+        CircleAvatar(
+          radius: width_ * 0.18,
+          backgroundColor: Color.fromARGB(255, 130, 130, 130),
+          child: CircleAvatar(
+            radius: width_ * 0.16,
+            backgroundColor: Colors.white,
+            // ignore: unnecessary_null_comparison
+            backgroundImage: imageUrl != null
+                ? NetworkImage(imageUrl!) as ImageProvider<Object>?
+                : AssetImage('images/OIB.png'),
+          ),
         ),
-      );
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.edit, color: Colors.white),
+              onPressed: () {
+                uploadImage();
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget topRow(double width_, double height_) => Container(
         // margin: EdgeInsets.only(
