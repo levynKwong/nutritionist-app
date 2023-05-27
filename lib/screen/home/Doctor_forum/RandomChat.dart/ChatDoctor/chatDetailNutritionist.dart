@@ -47,7 +47,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   bool lockToggle = false;
   bool showButtons = false;
   File? selectedImage;
-
+  String? imageUrl;
   File? selectedFile;
   @override
   void initState() {
@@ -57,6 +57,25 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     startPaymentStatusChecker();
     changeUnreadMessage();
     checkToggleButton();
+    getImageLink().then((value) {
+      setState(() {
+        imageUrl = value;
+      });
+    });
+  }
+
+  Future<String> getImageLink() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
+
+    if (docSnapshot.exists) {
+      final image_url = docSnapshot.get('image_url');
+      return image_url != null ? image_url : 'image_url';
+    } else {
+      return 'image_url';
+    }
   }
 
   void _toggleButton(bool enabled) {
@@ -279,7 +298,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 title: Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage('images/OIB.png'),
+                      backgroundImage: imageUrl != null
+                          ? NetworkImage(imageUrl!) as ImageProvider<Object>?
+                          : AssetImage('images/OIB.png'),
                     ),
                     SizedBox(width: width_ * 0.03),
                     Expanded(

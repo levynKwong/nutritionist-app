@@ -69,30 +69,17 @@ class _profileState extends State<profile> {
   int? MealPerDay;
   List<int> meal = List.generate(10, (index) => index + 0);
 
-  Future<void> uploadImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      var file = File(pickedFile.path);
-      var storageReference = firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('profile_images')
-          .child('profile_image.png');
-      await storageReference.putFile(file);
-      var downloadUrl = await storageReference.getDownloadURL();
+  Future<String> getImageLink() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
 
-      setState(() {
-        imageUrl = downloadUrl;
-      });
-
-      // Save the image URL to Firestore database
-      await FirebaseFirestore.instance.collection('Patient').doc(currentId).set(
-          {'profileImageUrl': imageUrl}, SetOptions(merge: true)).then((_) {
-        // Success: The document is updated with the 'profileImageUrl' field
-        print('Profile image URL updated in Firestore');
-      }).catchError((error) {
-        // Error: Failed to update the document
-        print('Error updating document: $error');
-      });
+    if (docSnapshot.exists) {
+      final image_url = docSnapshot.get('image_url');
+      return image_url != null ? image_url : 'image_url';
+    } else {
+      return 'image_url';
     }
   }
 
@@ -158,6 +145,11 @@ class _profileState extends State<profile> {
     getTotalAmountAppointment().then((value) {
       setState(() {
         _totalAmountAppointment = value;
+      });
+    });
+    getImageLink().then((value) {
+      setState(() {
+        imageUrl = value;
       });
     });
   }
@@ -569,12 +561,27 @@ class _profileState extends State<profile> {
       if (pickedFile != null) {
         // Uploading the image to Firebase Storage
         var file = File(pickedFile.path);
+        var fileName =
+            DateTime.now().millisecondsSinceEpoch.toString() + '.png';
         var storageReference = firebase_storage.FirebaseStorage.instance
             .ref()
             .child('profile_images')
-            .child('profile_image.png');
-        await storageReference.putFile(file);
-        // You can also retrieve the image URL from storageReference and perform further actions
+            .child(fileName);
+        var uploadTask = storageReference.putFile(file);
+
+        // Retrieving the download URL
+        var snapshot = await uploadTask.whenComplete(() {});
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        // Save the download URL in the "Patient" collection (with merge option)
+        var patientData = {
+          'image_url': downloadUrl.toString(),
+          // Add other patient data as needed
+        };
+        await FirebaseFirestore.instance
+            .collection('Patient')
+            .doc(currentId) // Replace with the appropriate patient document ID
+            .set(patientData, SetOptions(merge: true));
       }
     }
 
