@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,8 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -29,7 +33,8 @@ class _profileState extends State<profile> {
   int _coin = 0;
   int _totalAmount = 0;
   int _totalAmountAppointment = 0;
-
+  final picker = ImagePicker();
+  String? imageUrl;
   String _username = '';
   String? _fullname;
   String? _age;
@@ -63,6 +68,34 @@ class _profileState extends State<profile> {
   List<int> IdealWeight = List.generate(150, (index) => index + 0);
   int? MealPerDay;
   List<int> meal = List.generate(10, (index) => index + 0);
+
+  Future<void> uploadImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      var file = File(pickedFile.path);
+      var storageReference = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('profile_images')
+          .child('profile_image.png');
+      await storageReference.putFile(file);
+      var downloadUrl = await storageReference.getDownloadURL();
+
+      setState(() {
+        imageUrl = downloadUrl;
+      });
+
+      // Save the image URL to Firestore database
+      await FirebaseFirestore.instance.collection('Patient').doc(currentId).set(
+          {'profileImageUrl': imageUrl}, SetOptions(merge: true)).then((_) {
+        // Success: The document is updated with the 'profileImageUrl' field
+        print('Profile image URL updated in Firestore');
+      }).catchError((error) {
+        // Error: Failed to update the document
+        print('Error updating document: $error');
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -206,7 +239,7 @@ class _profileState extends State<profile> {
           children: [
             Stack(
               children: [
-                buildProfileImage(width_, height_),
+                buildProfile(width_, height_),
                 Positioned(
                   right: 0,
                   child: Container(
@@ -530,15 +563,56 @@ class _profileState extends State<profile> {
         ),
       );
 
-  Widget buildProfileImage(double width_, double height_) => CircleAvatar(
-        radius: width_ * 0.18,
-        backgroundColor: Color.fromARGB(255, 130, 130, 130),
-        child: CircleAvatar(
-          radius: width_ * 0.16,
-          backgroundColor: Colors.white,
-          backgroundImage: AssetImage('images/OIB.png'),
+  Widget buildProfile(double width_, double height_) {
+    Future<void> uploadImage() async {
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        // Uploading the image to Firebase Storage
+        var file = File(pickedFile.path);
+        var storageReference = firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('profile_images')
+            .child('profile_image.png');
+        await storageReference.putFile(file);
+        // You can also retrieve the image URL from storageReference and perform further actions
+      }
+    }
+
+    return Stack(
+      children: [
+        CircleAvatar(
+          radius: width_ * 0.18,
+          backgroundColor: Color.fromARGB(255, 130, 130, 130),
+          child: CircleAvatar(
+            radius: width_ * 0.16,
+            backgroundColor: Colors.white,
+            // ignore: unnecessary_null_comparison
+            backgroundImage: imageUrl != null
+                ? NetworkImage(imageUrl!) as ImageProvider<Object>?
+                : AssetImage('images/OIB.png'),
+          ),
         ),
-      );
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.edit, color: Colors.white),
+              onPressed: () {
+                uploadImage();
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget topRow(double width_, double height_) => Container(
         child: IntrinsicHeight(
