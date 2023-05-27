@@ -31,11 +31,12 @@ class ChatDetailClient extends StatefulWidget {
 
 class _ChatDetailClientState extends State<ChatDetailClient> {
   final messageController = TextEditingController();
+
   CollectionReference chats =
       FirebaseFirestore.instance.collection('chatNutritionist');
   final String friendUid;
   final String friendName;
-
+  bool sendButtonEnabled = true;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
   bool isTextFieldInFocus = false;
   var chatDocId;
@@ -408,9 +409,62 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                                     top: 15,
                                     right: 15,
                                   ),
-                                  suffixIcon: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.emoji_emotions),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      if (sendButtonEnabled) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Confirmation'),
+                                              content: Text(
+                                                  'Give them additional 1 day?'),
+                                              actions: [
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Perform the desired action here
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors.red),
+                                                  ),
+                                                  child: Text('Confirm'),
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Cancel the action
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors.grey),
+                                                  ),
+                                                  child: Text('Cancel'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 24.0,
+                                      height: 24.0,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                      child: Icon(
+                                        Icons.circle,
+                                        color: sendButtonEnabled
+                                            ? Colors.red
+                                            : Colors.green,
+                                        size: 20.0,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
