@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
+import 'package:meal_aware/screen/nutritionist_home/message/chatDetailClient.dart';
 
 class ChatListScreenNutritionist extends StatelessWidget {
   final chatStream = FirebaseFirestore.instance
@@ -19,20 +20,13 @@ class ChatListScreenNutritionist extends StatelessWidget {
         width_ < 600; // Adjust this value as needed for small screens
 
     return Container(
-      margin: EdgeInsets.only(
-          top: height_ * 0.01,
-          left: 10.0,
-          right: 10.0), // Adjust the margins as needed
+      margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: StreamBuilder<QuerySnapshot>(
         stream: chatStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(); // Return an empty container while loading
-          }
-
           if (snapshot.hasError) {
             return Center(
-              child: Text('Error: ${snapshot.error}'),
+              child: Text('Loading...'),
             );
           }
 
@@ -47,6 +41,7 @@ class ChatListScreenNutritionist extends StatelessWidget {
           return ListView.builder(
             itemCount: docs.length,
             itemBuilder: (BuildContext context, int index) {
+              // Retrieve the necessary data for each chat item
               final friendUid = currentId == docs[index]['users'][0]
                   ? docs[index]['users'][1]
                   : docs[index]['users'][0];
@@ -54,11 +49,12 @@ class ChatListScreenNutritionist extends StatelessWidget {
               final friendName = currentId == docs[index]['users'][0]
                   ? docs[index]['usernames'][1]
                   : docs[index]['usernames'][0];
+
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
-              final chatId = docs[index].id;
               final unreadMessages = docs[index]['unreadMessages'] ?? [];
 
+              // Retrieve the image URL for the friend
               return FutureBuilder<DocumentSnapshot>(
                 future: FirebaseFirestore.instance
                     .collection('Nutritionist')
@@ -67,34 +63,12 @@ class ChatListScreenNutritionist extends StatelessWidget {
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(); // Return an empty container while loading
-                  }
-
-                  if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  }
-
-                  final nutritionistData =
-                      snapshot.data?.data() as Map<String, dynamic>;
-
-                  final imageUrl = nutritionistData['image_url'];
-
-                  return Card(
-                    child: Container(
-                      color: Color.fromARGB(255, 242, 243, 251),
-                      width: isSmallScreen
-                          ? width_
-                          : width_ *
-                              0.9, // Adjust the width based on screen size
+                    // While waiting for the data to load, return a placeholder ListTile
+                    return Card(
                       child: ListTile(
                         leading: CircleAvatar(
-                          radius: isSmallScreen
-                              ? 20.0
-                              : 30.0, // Adjust the avatar size based on screen size
-                          backgroundImage: imageUrl != null
-                              ? NetworkImage(imageUrl!)
-                                  as ImageProvider<Object>?
-                              : AssetImage('images/OIB.png'),
+                          radius: isSmallScreen ? 20.0 : 30.0,
+                          backgroundImage: AssetImage('images/OIB.png'),
                         ),
                         title: Row(
                           children: [
@@ -138,6 +112,120 @@ class ChatListScreenNutritionist extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Colors.red,
                             ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (snapshot.hasError) {
+                    return Card(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: isSmallScreen ? 20.0 : 30.0,
+                          backgroundImage: AssetImage('images/OIB.png'),
+                        ),
+                        title: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Dr ' + friendName,
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Text(
+                              lastMessageTime != null
+                                  ? DateFormat.jm()
+                                      .format(lastMessageTime.toDate())
+                                  : '',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        subtitle: Text(
+                          lastMessage,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatDetailNutritionist(
+                                friendUid: friendUid,
+                                friendName: friendName,
+                              ),
+                            ),
+                          );
+                        },
+                        trailing: Visibility(
+                          visible: unreadMessages == 2,
+                          child: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  final nutritionistData =
+                      snapshot.data?.data() as Map<String, dynamic>;
+                  final imageUrl = nutritionistData['image_url'];
+
+                  return Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: isSmallScreen ? 20.0 : 30.0,
+                        backgroundImage: imageUrl != null
+                            ? NetworkImage(imageUrl) as ImageProvider<Object>?
+                            : AssetImage('images/OIB.png'),
+                      ),
+                      title: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Dr ' + friendName,
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Text(
+                            lastMessageTime != null
+                                ? DateFormat.jm()
+                                    .format(lastMessageTime.toDate())
+                                : '',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      subtitle: Text(
+                        lastMessage,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatDetailNutritionist(
+                              friendUid: friendUid,
+                              friendName: friendName,
+                            ),
+                          ),
+                        );
+                      },
+                      trailing: Visibility(
+                        visible: unreadMessages == 2,
+                        child: Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
                           ),
                         ),
                       ),

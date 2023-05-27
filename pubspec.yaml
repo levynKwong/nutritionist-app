@@ -56,6 +56,7 @@ dependencies:
   awesome_notifications: ^0.7.4+1
   introduction_screen: ^3.1.8
   
+  
 
 
  
@@ -65,15 +66,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.12.0
+  flutter_launcher_icons: ^0.13.1
 flutter_icons:
   android: true
   ios: true
  
  
-  image_path : "images/icon.png"
-  adaptive_icon_foreground : "images/mealAware.png"
-  adaptive_icon_background : "images/mealAware.png"
+  image_path : "images/ICON.png"
+  adaptive_icon_foreground : "images/ICON.png"
+  adaptive_icon_background : "images/ICON.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

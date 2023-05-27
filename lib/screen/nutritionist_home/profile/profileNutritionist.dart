@@ -15,7 +15,7 @@ import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class profileNutritionist extends StatefulWidget {
@@ -98,7 +98,9 @@ class _profileNutritionistState extends State<profileNutritionist> {
 
     if (docSnapshot.exists) {
       final image_url = docSnapshot.get('image_url');
-      return image_url != null ? image_url : 'image_url';
+      return image_url != null
+          ? image_url + '?scale=0.5'
+          : 'image_url'; // Adjust the scale value as needed
     } else {
       return 'image_url';
     }

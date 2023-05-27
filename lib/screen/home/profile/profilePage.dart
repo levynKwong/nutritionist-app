@@ -77,7 +77,9 @@ class _profileState extends State<profile> {
 
     if (docSnapshot.exists) {
       final image_url = docSnapshot.get('image_url');
-      return image_url != null ? image_url : 'image_url';
+      return image_url != null
+          ? image_url + '?scale=0.5'
+          : 'image_url'; // Adjust the scale value as needed
     } else {
       return 'image_url';
     }
