@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/redirectEmail.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 class NutritionistAdditionalDetail extends StatefulWidget {
@@ -255,20 +256,7 @@ class _NutritionistAdditionalDetailState
                             ),
                           ),
                           SizedBox(height: height_ * 0.01),
-                          GestureDetector(
-                            onTap: () {
-                              //  Handle the tap event.
-                            },
-                            child: Text(
-                              'Terms and Conditions',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 196, 20, 20),
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          TermsAndConditionsDialog(),
                           SizedBox(height: height_ * 0.02),
                           Container(
                             padding: EdgeInsets.fromLTRB(

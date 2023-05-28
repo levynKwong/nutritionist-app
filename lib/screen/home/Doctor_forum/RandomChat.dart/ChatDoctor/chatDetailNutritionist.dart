@@ -200,14 +200,14 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   }
 
   void startPaymentStatusChecker() {
-    Timer.periodic(Duration(hours: 1), (Timer timer) {
+    Timer.periodic(Duration(seconds: 5), (Timer timer) {
       checkPaymentStatus();
     });
   }
 
   void checkPaymentStatus() {
     final now = DateTime.now();
-    final oneweekAgo = now.subtract(Duration(days: 1));
+    final oneweekAgo = now.subtract(Duration(seconds: 20));
 
     FirebaseFirestore.instance
         .collection('payments')

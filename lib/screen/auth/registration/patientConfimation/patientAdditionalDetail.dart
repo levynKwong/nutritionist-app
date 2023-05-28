@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
-
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 
 class PatientAdditionalDetail extends StatefulWidget {
   const PatientAdditionalDetail({
@@ -444,20 +444,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                             ),
                           ),
                           SizedBox(height: height_ * 0.01),
-                          GestureDetector(
-                            onTap: () {
-                              //  Handle the tap event.
-                            },
-                            child: Text(
-                              'Terms and Conditions',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 196, 20, 20),
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          TermsAndConditionsDialog(),
                           SizedBox(height: height_ * 0.02),
                           Container(
                             padding: EdgeInsets.fromLTRB(

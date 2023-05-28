@@ -4,6 +4,7 @@ import 'package:meal_aware/main.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 
 class ParentAuth extends StatefulWidget {
   ParentAuth({Key? key}) : super(key: key);
@@ -202,10 +203,12 @@ class _ParentAuthState extends State<ParentAuth> {
                                           return ("Please enter a username");
                                         }
                                         // reg expression for email validation
-                                        if (!RegExp(
+                                        if (value.length > 8) {
+                                          return ("Please enter a valid username (3 to 8 characters)");
+                                        } else if (!RegExp(
                                                 "^(?=.{3,8})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
                                             .hasMatch(value)) {
-                                          return ("Please Enter a valid username (3 to 8 Characters)");
+                                          return ("Please enter a valid username (3 to 8 characters)");
                                         }
                                         return null;
                                       },
@@ -224,7 +227,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                                r"^\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+\s*$")
                                             .hasMatch(value)) {
                                           return ("Please Enter a valid email");
                                         }
@@ -304,18 +307,7 @@ class _ParentAuthState extends State<ParentAuth> {
                             ),
                           ),
                           SizedBox(height: height_ * 0.01),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              'Terms and Conditions',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 196, 20, 20),
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          TermsAndConditionsDialog(),
                           SizedBox(height: height_ * 0.02),
                           Container(
                             padding: EdgeInsets.fromLTRB(
