@@ -189,7 +189,10 @@ class _ParentAuthState extends State<ParentAuth> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: height_ * 0.02),
+                                    SizedBox(height: height_ * 0.001),
+                                    Text(
+                                        'You cannot change your username later'),
+                                    SizedBox(height: height_ * 0.003),
                                     TextFormField(
                                       controller: usernameController,
                                       decoration: InputDecoration(
