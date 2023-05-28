@@ -592,13 +592,21 @@ class _profileState extends State<profile> {
         CircleAvatar(
           radius: width_ * 0.18,
           backgroundColor: Color.fromARGB(255, 130, 130, 130),
-          child: CircleAvatar(
-            radius: width_ * 0.16,
-            backgroundColor: Colors.white,
-            // ignore: unnecessary_null_comparison
-            backgroundImage: imageUrl != null
-                ? NetworkImage(imageUrl!) as ImageProvider<Object>?
-                : AssetImage('images/OIB.png'),
+          child: ClipOval(
+            child: SizedBox(
+              width: width_ * 0.32,
+              height: width_ * 0.32,
+              child: imageUrl != null
+                  ? FadeInImage(
+                      placeholder: AssetImage('images/OIB.png'),
+                      image: NetworkImage(imageUrl!),
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      'images/OIB.png',
+                      fit: BoxFit.cover,
+                    ),
+            ),
           ),
         ),
         Positioned(
@@ -811,11 +819,10 @@ class _profileState extends State<profile> {
       );
 
   Future<int> getCoin() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-
-    final docSnapshot =
-        await FirebaseFirestore.instance.collection('Patient').doc(uid).get();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
 
     if (docSnapshot.exists) {
       return docSnapshot.get('coin');

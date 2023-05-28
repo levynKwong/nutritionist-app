@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 class BuyCoin extends StatefulWidget {
   const BuyCoin({super.key});
@@ -81,48 +82,14 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Widget buttons(double height_, double width_) {
-    // final _paymentItems = [
-    //   PaymentItem(
-    //     label: 'Total',
-    //     amount: '99.99',
-    //     status: PaymentItemStatus.final_price,
-    //   )
-    // ];
-
     void onGooglePayResult(paymentResult) {
       debugPrint(paymentResult.toString());
     }
 
-    // final Future<PaymentConfiguration> _googlePayConfigFuture =
-    //     PaymentConfiguration.fromAsset(
-    //         'default_payment_profile_google_pay.json');
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // FutureBuilder<PaymentConfiguration>(
-          //   future: _googlePayConfigFuture,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          //       return GooglePayButton(
-          //         paymentConfiguration: snapshot.data!,
-          //         paymentItems: _paymentItems,
-          //         type: GooglePayButtonType.pay,
-          //         margin: const EdgeInsets.only(top: 15.0),
-          //         onPaymentResult: onGooglePayResult,
-          //         loadingIndicator: const Center(
-          //           child: CircularProgressIndicator(),
-          //         ),
-          //       );
-          //     } else if (snapshot.hasError) {
-          //       print("Error: ${snapshot.error}");
-          //       return Text(
-          //           'Error loading payment configuration: ${snapshot.error}');
-          //     } else {
-          //       return const SizedBox.shrink();
-          //     }
-          //   },
-          // ),
           SizedBox(width: width_ * 0.15),
           ElevatedButton(
             onPressed: () {

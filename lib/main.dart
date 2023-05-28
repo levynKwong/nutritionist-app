@@ -350,30 +350,38 @@ class _LoginState extends State<Login> {
             },
           );
         });
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
+
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
         if (credential.user != null) {
+          final user = credential.user!;
           final nutritionistDoc = await FirebaseFirestore.instance
               .collection('Nutritionist')
-              .doc(credential.user!.uid)
+              .doc(user.uid)
               .get();
           final patientDoc = await FirebaseFirestore.instance
               .collection('Patient')
-              .doc(credential.user!.uid)
+              .doc(user.uid)
               .get();
+
           if (patientDoc.exists) {
             final registrationProgress =
                 patientDoc.data()?['registrationProgress'] ?? 0;
             final pid = patientDoc.data()?['pid'];
-            final uid = credential.user!.uid;
+            final uid = user.uid;
             currentId = pid ?? uid;
+
             // Redirect to the patient screen
             if (registrationProgress == 0) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EmailVerificationCode(email: email)),
+                  builder: (context) => EmailVerificationCode(email: email),
+                ),
                 (_) => false,
               );
             } else if (registrationProgress == 1) {
@@ -392,26 +400,29 @@ class _LoginState extends State<Login> {
               );
             }
           } else if (nutritionistDoc.exists) {
-            final NutritionistRegistrationProgress =
+            final nutritionistRegistrationProgress =
                 nutritionistDoc.data()?['registrationProgress'] ?? 0;
             final nid = nutritionistDoc.data()?['nid'];
-            final uid = credential.user!.uid;
+            final uid = user.uid;
             currentId = nid ?? uid;
-            if (NutritionistRegistrationProgress == 0) {
+
+            if (nutritionistRegistrationProgress == 0) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => NutritionistAdditionalDetail()),
+                  builder: (context) => NutritionistAdditionalDetail(),
+                ),
                 (_) => false,
               );
-            } else if (NutritionistRegistrationProgress == 1) {
+            } else if (nutritionistRegistrationProgress == 1) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => confirmationNutritionist()),
+                  builder: (context) => confirmationNutritionist(),
+                ),
                 (_) => false,
               );
-            } else if (NutritionistRegistrationProgress == 2) {
+            } else if (nutritionistRegistrationProgress == 2) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => NutritionistHome()),
@@ -428,6 +439,13 @@ class _LoginState extends State<Login> {
               ),
             );
           }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Invalid Email or Password'),
+              duration: const Duration(seconds: 3),
+            ),
+          );
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -463,56 +481,3 @@ class _LoginState extends State<Login> {
     }
   }
 }
-
-
-      // home: RegisterScreen(),
-      // home: introductionNutritionist(),
-      // home: introductionPatient(),
-      // home: PatientAdditionalDetail(),
-      // home: ChatScreen('2345254','test'),
-      // home: NutritionistHome(),
-      // home: const ParentAuth(),
-      // home: Terms_and_condition()
-      // home: Home(),
-      // home: BookAppointmentService(),
-      // home: NutritionistBookAppointment(),
-      // home: NutritionistChat()
-      // home: ChatDoctorReg(),
-      // home: token_top(),
-      // home: test_home(),
-      // home: DoctorForum(),
-      // home: NotificationWidget(),
-      // home: SelectionDate(),
-      // home: paymentAppointment(),
-      // home: GetCoin(),
-      //     home: paymentChat(
-      //   nutritionistId: '',
-      //   nutritionistName: '',
-      // )
-      // home: EmailVerificationCode(
-      //   email: '',
-      //   age: '',
-      //   fullname: '',
-      //   phonenumber: '',
-      //   userType: '',
-      //   username: '',
-      // ),
-      // home: NutritionistAdditionalDetail(
-      //     email: '',
-      //     fullname: '',
-      //     username: '',
-      //     age: '',
-      //     phonenumber: '',
-      //     userType: ''),
-      //   home: confirmationNutritionist(
-      //       email: '',
-      //       fullname: '',
-      //       username: '',
-      //       age: '',
-      //       phonenumber: '',
-      //       userType: '',
-      //       address: '',
-      //       specialization: '',
-      //       customSpecialization: '',
-      //       workExperience: '',
-      //       gender: ''),

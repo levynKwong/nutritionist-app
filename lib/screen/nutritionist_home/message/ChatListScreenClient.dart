@@ -180,9 +180,22 @@ class ChatListScreenClient extends StatelessWidget {
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: isSmallScreen ? 20.0 : 30.0,
-                        backgroundImage: imageUrl != null
-                            ? NetworkImage(imageUrl) as ImageProvider<Object>?
-                            : AssetImage('images/OIB.png'),
+                        child: ClipOval(
+                          child: SizedBox(
+                            width: isSmallScreen ? 40.0 : 60.0,
+                            height: isSmallScreen ? 40.0 : 60.0,
+                            child: imageUrl != null
+                                ? FadeInImage(
+                                    placeholder: AssetImage('images/OIB.png'),
+                                    image: NetworkImage(imageUrl),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    'images/OIB.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
                       ),
                       title: Row(
                         children: [
