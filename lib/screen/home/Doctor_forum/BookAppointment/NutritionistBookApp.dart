@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/nutritionistMoreInfo.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 
@@ -137,7 +138,7 @@ class _NutritionistBookAppointmentState
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => SelectionDate(
-                                            nutritionistUid: user.uid,
+                                            nutritionistUid: user.nid,
                                             nutritionistName: user.username)));
                               },
                               child: Container(
@@ -290,6 +291,26 @@ class _NutritionistBookAppointmentState
                                                             user.gender),
                                                         actions: [
                                                           TextButton(
+                                                            onPressed: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            NutritionistMoreInfo(
+                                                                              nid: user.nid,
+                                                                            )),
+                                                              );
+                                                            },
+                                                            child: Text(
+                                                              'More info',
+                                                              style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline),
+                                                            ),
+                                                          ),
+                                                          TextButton(
                                                               onPressed: () {
                                                                 Navigator.pop(
                                                                     context);
@@ -354,7 +375,7 @@ class User1 {
   final String email;
   final String phoneNumber;
   final String specialization;
-  final String uid;
+  final String nid;
   final String gender;
   final String image_url;
 
@@ -364,7 +385,7 @@ class User1 {
     required this.email,
     required this.phoneNumber,
     required this.specialization,
-    required this.uid,
+    required this.nid,
     required this.gender,
     required this.image_url,
   });
@@ -398,7 +419,7 @@ class User1 {
       email: data['email'],
       phoneNumber: data['phoneNumber'],
       specialization: specialization,
-      uid: data['nid'],
+      nid: data['nid'],
       gender: gender,
       image_url: data['image_url'],
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/nutritionistMoreInfo.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/paymentChat.dart';
 
@@ -243,6 +244,24 @@ class _NutritionistChatState extends State<NutritionistChat> {
                                       'Gender: ' +
                                       user.gender),
                                   actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  NutritionistMoreInfo(
+                                                    nid: user.nid,
+                                                  )),
+                                        );
+                                      },
+                                      child: Text(
+                                        'More info',
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.underline),
+                                      ),
+                                    ),
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);

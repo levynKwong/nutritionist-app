@@ -90,6 +90,7 @@ Future<void> saveNutritionistAdditionalDetail(
     'gender': gender,
     'joinDate': DateTime.now(),
     'registrationProgress': num,
+    'moreInfo': [],
   };
 
   await FirebaseFirestore.instance
