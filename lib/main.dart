@@ -268,8 +268,10 @@ class _LoginState extends State<Login> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      login(emailController.text,
-                                          passwordController.text);
+                                      if (_formKey.currentState!.validate()) {
+                                        login(emailController.text,
+                                            passwordController.text);
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:

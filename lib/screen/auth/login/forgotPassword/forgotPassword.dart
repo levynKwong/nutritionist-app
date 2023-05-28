@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -103,7 +104,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       style: TextStyle(fontSize: width_ * 0.05),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF989efd),
+                      backgroundColor: getColor(),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
