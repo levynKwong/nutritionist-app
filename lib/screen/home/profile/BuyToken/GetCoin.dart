@@ -137,23 +137,17 @@ class _GetCoinState extends State<GetCoin> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BuyCoin(),
-              ),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Color(0xFF575ecb), // set text color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
+        onPressed: () => Navigator.pop(context),
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFF575ecb), // set background color
+          onPrimary: Colors.white, // set text color
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          child: Text('    Back   '),
         ),
+        child: Text('    Back    '),
+      ),
+
         SizedBox(width: width_ * 0.15), // add some spacing between the buttons
         ElevatedButton(
           onPressed: () async {

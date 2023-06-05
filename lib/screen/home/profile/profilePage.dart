@@ -322,7 +322,7 @@ class _profileState extends State<profile> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Buy Coin',
+                        'Get Coin',
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,

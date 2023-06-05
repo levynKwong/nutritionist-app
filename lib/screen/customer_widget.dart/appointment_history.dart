@@ -24,14 +24,12 @@ class _appointmentHistoryState extends State<appointmentHistory> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
-
             child:Text('Error: ${snapshot.error}')
             );
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-
             child: CircularProgressIndicator(),
             );
           }
