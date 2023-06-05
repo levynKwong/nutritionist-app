@@ -17,6 +17,7 @@ import 'package:meal_aware/screen/customer_widget.dart/ordersHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
+import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
@@ -167,12 +168,7 @@ class _profileState extends State<profile> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/pattern_food.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
+          
           child: SizedBox(
             width: width_,
             child: Column(
@@ -304,7 +300,7 @@ class _profileState extends State<profile> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BuyCoin(),
+                    builder: (context) => GetCoin(),
                   ),
                 );
               },
@@ -1233,6 +1229,7 @@ class _profileState extends State<profile> {
               ),
             ],
           ),
+          SizedBox(height: height_*0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -1297,6 +1294,7 @@ class _profileState extends State<profile> {
               ),
             ],
           ),
+          SizedBox(height: height_*0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

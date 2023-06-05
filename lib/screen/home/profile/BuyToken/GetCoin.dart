@@ -73,11 +73,12 @@ class _GetCoinState extends State<GetCoin> {
           SafeArea(
             child: SingleChildScrollView(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: height_ * 0.04),
+               
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     topBar(width_, height_, context),
+                    SizedBox(height: height_ * 0.02),
                     CoinCounter(),
                     SizedBox(height: height_ * 0.02),
                     Container(
