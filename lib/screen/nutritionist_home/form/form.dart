@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 class form extends StatefulWidget {
   final String url;
@@ -18,7 +19,7 @@ class _formState extends State<form> {
     String url = widget.url;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF989efd),
+        backgroundColor: getColor(),
         automaticallyImplyLeading: false,
         title: Text('Enter your questions :'),
         actions: [

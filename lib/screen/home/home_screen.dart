@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
     DoctorForum(),
     profile(),
   ];
+  final PageController _pageController = PageController();
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -76,10 +77,14 @@ class _HomeState extends State<Home> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          screens[_currentIndex],
-        ],
+      body: PageView(
+        controller: _pageController,
+        children: screens,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -124,6 +129,11 @@ class _HomeState extends State<Home> {
               onTabChange: (index) {
                 setState(() {
                   _currentIndex = index;
+                  _pageController.animateToPage(
+                    index,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
                 });
               },
             ),

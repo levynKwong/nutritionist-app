@@ -20,6 +20,7 @@ class NutritionistHome extends StatefulWidget {
 class _NutritionistHomeState extends State<NutritionistHome> {
   int _currentIndex = 0;
   String url = '';
+  late PageController _pageController;
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -27,15 +28,21 @@ class _NutritionistHomeState extends State<NutritionistHome> {
   void initState() {
     super.initState();
 
+    _pageController = PageController(initialPage: _currentIndex);
     fetchEditFormData();
     setupFirebaseMessaging();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   void fetchEditFormData() {
     FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(
-            currentId) // Replace 'currentId' with the specific document ID you want to fetch
+        .doc(currentId) // Replace 'currentId' with the specific document ID you want to fetch
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
@@ -102,10 +109,14 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          screens[_currentIndex],
-        ],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: screens,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -150,6 +161,11 @@ class _NutritionistHomeState extends State<NutritionistHome> {
               onTabChange: (index) {
                 setState(() {
                   _currentIndex = index;
+                  _pageController.animateToPage(
+                    index,
+                    duration: Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                  );
                 });
               },
             ),
