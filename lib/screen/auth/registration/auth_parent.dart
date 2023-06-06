@@ -45,20 +45,36 @@ class _ParentAuthState extends State<ParentAuth> {
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                      Text(
-                        'MeA',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 99, 144, 228),
-                          fontSize: width_ * 0.20,
-                          fontWeight: FontWeight.bold,
+                     Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => (Login()),
+                                ),
+                              );
+                          },
+                          icon: Icon(Icons.arrow_back),
                         ),
-                      ),
+                        SizedBox(width: width_* 0.22),
+                        Text(
+                          'MeA',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 99, 144, 228),
+                            fontSize: width_ * 0.15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                       SizedBox(height: height_ * 0.01),
                       Text(
                         'MealAware Company Ltd',
                         style: TextStyle(
                           color: Color.fromARGB(255, 128, 164, 231),
-                          fontSize: width_ * 0.05,
+                          fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -79,7 +95,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.width *
-                                                0.08,
+                                                0.06,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -92,13 +108,16 @@ class _ParentAuthState extends State<ParentAuth> {
                                     ),
                                   ),
                                   SizedBox(height: height_ * 0.02),
-                                  Text(
+                                  Center(
+                                  child:Text(
                                     'Since you are under 18, you need to have \n\a parent or a guardian to register you.',
                                     style: TextStyle(
-                                      fontSize: width_ * 0.05,
+                                      fontSize: width_ * 0.04,
                                       color: Color.fromARGB(255, 197, 51, 40),
                                     ),
                                   ),
+
+                                  )
                                   // add additional widgets here if needed
                                 ],
                               ),

@@ -580,6 +580,12 @@ class _profileState extends State<profile> {
             .collection('Patient')
             .doc(currentId) // Replace with the appropriate patient document ID
             .set(patientData, SetOptions(merge: true));
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Your picture has been uploaded, it will take some time to load it'),
+        ),
+      );
+
       }
     }
 

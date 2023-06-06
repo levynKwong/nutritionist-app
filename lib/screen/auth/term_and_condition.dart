@@ -36,7 +36,7 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
               'MeA',
               style: TextStyle(
                 color: Color.fromARGB(255, 99, 144, 228),
-                fontSize: width_ * 0.20,
+                fontSize: width_ * 0.15,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -45,7 +45,7 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
               'MealAware Company Ltd',
               style: TextStyle(
                 color: Color.fromARGB(255, 128, 164, 231),
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.04,
                 fontWeight: FontWeight.bold,
               ),
             ),

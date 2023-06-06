@@ -81,7 +81,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
@@ -174,122 +174,127 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                           child: Text('Abroad'),
                                         ),
                                       ],
-                                      onChanged: (String? Value) {
+                                      onChanged: (value) {
                                         setState(() {
-                                          country = Value;
+                                          country = value;
                                         });
                                       },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select a country';
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                    SizedBox(height: height_ * 0.025),
-                                    // Declare a variable to hold the selected height value
-
-                                    // Note the nullable type declaration
-
+                                    SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<int>(
-                                      value: selectedCmHeight,
                                       decoration: InputDecoration(
-                                        labelText: 'Select height in cm',
+                                        labelText: 'Height',
                                         prefixIcon: Icon(Icons.height),
                                         border: OutlineInputBorder(),
                                       ),
-                                      onChanged: (int? value) {
-                                        // Note the nullable parameter type
-                                        if (value != null) {
-                                          // Null check added
-                                          setState(() {
-                                            selectedCmHeight = value;
-                                          });
-                                        }
-                                      },
-                                      items: cmHeights.map((int height) {
+                                      value: selectedCmHeight,
+                                      items: cmHeights.map((int value) {
                                         return DropdownMenuItem<int>(
-                                          value: height,
-                                          child: Text("$height cm"),
+                                          value: value,
+                                          child: Text(value.toString()),
                                         );
                                       }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedCmHeight = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your height';
+                                        }
+                                        return null;
+                                      },
                                     ),
-
-                                    SizedBox(height: height_ * 0.025),
+                                    SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<int>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Weight',
+                                        prefixIcon: Icon(Icons.monitor_weight),
+                                        border: OutlineInputBorder(),
+                                      ),
                                       value: selectedWeight,
+                                      items: Weight.map((int value) {
+                                        return DropdownMenuItem<int>(
+                                          value: value,
+                                          child: Text(value.toString()),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedWeight = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your weight';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(height: height_ * 0.02),
+                                    DropdownButtonFormField<int>(
                                       decoration: InputDecoration(
-                                        labelText: 'Select Weight in Kg',
+                                        labelText: 'Ideal Weight',
                                         prefixIcon: Icon(Icons.monitor_weight),
                                         border: OutlineInputBorder(),
                                       ),
-                                      onChanged: (int? value) {
-                                        // Note the nullable parameter type
-                                        if (value != null) {
-                                          // Null check added
-                                          setState(() {
-                                            selectedWeight = value;
-                                          });
-                                        }
-                                      },
-                                      items: Weight.map((int weight) {
-                                        return DropdownMenuItem<int>(
-                                          value: weight,
-                                          child: Text("$weight Kg"),
-                                        );
-                                      }).toList(),
-                                    ),
-
-                                    SizedBox(height: height_ * 0.025),
-
-                                    DropdownButtonFormField<int>(
                                       value: IdealselectedWeight,
-                                      decoration: InputDecoration(
-                                        labelText: 'Ideal Body Weight in Kg',
-                                        prefixIcon: Icon(Icons.monitor_weight),
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      onChanged: (int? value) {
-                                        // Note the nullable parameter type
-                                        if (value != null) {
-                                          // Null check added
-                                          setState(() {
-                                            IdealselectedWeight = value;
-                                          });
-                                        }
-                                      },
-                                      items: IdealWeight.map((int Idealweight) {
+                                      items: IdealWeight.map((int value) {
                                         return DropdownMenuItem<int>(
-                                          value: Idealweight,
-                                          child: Text("$Idealweight Kg"),
+                                          value: value,
+                                          child: Text(value.toString()),
                                         );
                                       }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          IdealselectedWeight = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your ideal weight';
+                                        }
+                                        return null;
+                                      },
                                     ),
-
-                                    SizedBox(height: height_ * 0.025),
+                                    SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<int>(
-                                      value: MealPerDay,
                                       decoration: InputDecoration(
-                                        labelText: 'Number of meals per day',
-                                        prefixIcon: Icon(Icons.set_meal),
+                                        labelText: 'Meals Per Day',
+                                        prefixIcon: Icon(Icons.restaurant_menu),
                                         border: OutlineInputBorder(),
                                       ),
-                                      onChanged: (int? value) {
-                                        // Note the nullable parameter type
-                                        if (value != null) {
-                                          // Null check added
-                                          setState(() {
-                                            MealPerDay = value;
-                                          });
-                                        }
-                                      },
-                                      items: meal.map((int meal) {
+                                      value: MealPerDay,
+                                      items: meal.map((int value) {
                                         return DropdownMenuItem<int>(
-                                          value: meal,
-                                          child: Text("$meal"),
+                                          value: value,
+                                          child: Text(value.toString()),
                                         );
                                       }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          MealPerDay = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select the number of meals per day';
+                                        }
+                                        return null;
+                                      },
                                     ),
-
-                                    SizedBox(height: height_ * 0.025),
+                                    SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Body Goal',
-                                        prefixIcon: Icon(Icons.done),
+                                        prefixIcon: Icon(Icons.person),
                                         border: OutlineInputBorder(),
                                       ),
                                       value: _selectedBodyGoal,
@@ -311,10 +316,16 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                           child: Text('Rapid Weight Loss'),
                                         ),
                                       ],
-                                      onChanged: (String? value) {
+                                      onChanged: (value) {
                                         setState(() {
                                           _selectedBodyGoal = value;
                                         });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your body goal';
+                                        }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.02),
@@ -347,14 +358,19 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                           child: Text('Extremely Active'),
                                         ),
                                       ],
-                                      onChanged: (String? value) {
+                                      onChanged: (value) {
                                         setState(() {
                                           _selectedActivityLevel = value;
                                         });
                                       },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your activity level';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: height_ * 0.02),
-
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Dietary Preference',
@@ -363,7 +379,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                       ),
                                       value: _DietaryPreference,
                                       items: [
-                                        DropdownMenuItem(
+                                         DropdownMenuItem(
                                           value: '1',
                                           child: Text('Vegetarian'),
                                         ),
@@ -396,21 +412,28 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                           child: Text('Pescetarian'),
                                         ),
                                       ],
-                                      onChanged: (String? Value) {
-                                        setState(() {});
-                                        _DietaryPreference = Value;
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _DietaryPreference = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your dietary preference';
+                                        }
+                                        return null;
                                       },
                                     ),
-                                    SizedBox(height: height_ * 0.025),
+                                    SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         labelText: 'Gender',
-                                        prefixIcon: Icon(Icons.person),
+                                        prefixIcon: Icon(Icons.people),
                                         border: OutlineInputBorder(),
                                       ),
                                       value: gender,
                                       items: [
-                                        DropdownMenuItem(
+                                         DropdownMenuItem(
                                           value: '1',
                                           child: Text('Male'),
                                         ),
@@ -423,75 +446,77 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                           child: Text('Non-Binary'),
                                         ),
                                       ],
-                                      onChanged: (String? Value) {
-                                        setState(() {});
-                                        gender = Value;
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please select your gender';
+                                        }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.02),
+                                    Text(
+                                      'By pressing "submit" you agree to our',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontSize:
+                                            MediaQuery.of(context).size.width * 0.03,
+                                      ),
+                                    ),
+                                    SizedBox(height: height_ * 0.02),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                            Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => introductionPatient()),
+                                          );
+                                          updatePatientDataToFirestore(
+                                            country,
+                                            selectedCmHeight,
+                                            selectedWeight,
+                                            IdealselectedWeight,
+                                            _selectedBodyGoal,
+                                            MealPerDay,
+                                            _selectedActivityLevel,
+                                            _DietaryPreference,
+                                            gender,
+                                            num,
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(
+                                          0xFF6889c6), // sets the background color of the button
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: height_ * 0.06,
+                                      child: Text(
+                                        'Submit',
+                                        style: TextStyle(
+                                          fontSize: width_ * 0.05,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    ),
+                                     SizedBox(height: height_ * 0.05),
                                   ],
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: height_ * 0.02),
-                          Text(
-                            'By pressing "submit" you agree to our',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.03,
-                            ),
-                          ),
-                          SizedBox(height: height_ * 0.01),
-                          TermsAndConditionsDialog(),
-                          SizedBox(height: height_ * 0.02),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(
-                                width_ * 0.08, 0, width_ * 0.08, 0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          introductionPatient()),
-                                );
-                                updatePatientDataToFirestore(
-                                    country,
-                                    selectedCmHeight,
-                                    selectedWeight,
-                                    IdealselectedWeight,
-                                    _selectedBodyGoal,
-                                    MealPerDay,
-                                    _selectedActivityLevel,
-                                    _DietaryPreference,
-                                    gender,
-                                    num);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(
-                                    0xFF6889c6), // sets the background color of the button
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: height_ * 0.06,
-                                child: Text(
-                                  'Submit',
-                                  style: TextStyle(
-                                    fontSize: width_ * 0.05,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: height_ * 0.05),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

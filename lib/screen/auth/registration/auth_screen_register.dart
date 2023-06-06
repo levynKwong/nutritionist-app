@@ -47,20 +47,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                      Text(
-                        'MeA',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 99, 144, 228),
-                          fontSize: width_ * 0.20,
-                          fontWeight: FontWeight.bold,
+                     Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => (Login()),
+                                ),
+                              );
+                          },
+                          icon: Icon(Icons.arrow_back),
                         ),
-                      ),
+                        SizedBox(width: width_* 0.22),
+                        Text(
+                          'MeA',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 99, 144, 228),
+                            fontSize: width_ * 0.15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+
                       SizedBox(height: height_ * 0.01),
                       Text(
                         'MealAware Company Ltd',
                         style: TextStyle(
                           color: Color.fromARGB(255, 128, 164, 231),
-                          fontSize: width_ * 0.05,
+                          fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -81,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.width *
-                                                0.08,
+                                                0.06,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
