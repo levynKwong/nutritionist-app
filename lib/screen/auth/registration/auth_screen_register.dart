@@ -479,9 +479,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 }
-// email: email,
-//                               fullname: fullname,
-//                               username: username,
-//                               age: age,
-//                               phonenumber: phonenumber,
-//                               userType: _selectedUserType!
