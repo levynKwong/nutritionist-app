@@ -120,14 +120,15 @@ class appBarTopCal2 extends StatelessWidget implements PreferredSizeWidget {
                 },
               );
             }),
-        IconButton(
-            icon: Icon(
-              Icons.calendar_today,
-              color: Color.fromARGB(255, 255, 255, 255),
-            ),
-            onPressed: () {
-              popUpButton(context);
-            }),
+          SizedBox(width: width_*0.02,)
+        // IconButton(
+        //     icon: Icon(
+        //       Icons.calendar_today,
+        //       color: Color.fromARGB(255, 255, 255, 255),
+        //     ),
+        //     onPressed: () {
+        //       popUpButton(context);
+        //     }),
         // NotificationWidget(),
       ],
     );
