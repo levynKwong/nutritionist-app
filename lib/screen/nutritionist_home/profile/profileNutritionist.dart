@@ -117,12 +117,12 @@ class _profileNutritionistState extends State<profileNutritionist> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/pattern_food.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage('images/pattern_food.jpg'),
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           child: SizedBox(
             width: width_,
             child: Column(
@@ -439,15 +439,15 @@ class _profileNutritionistState extends State<profileNutritionist> {
             Text('mealawareness@gmail.com'),
             SizedBox(height: height_ * 0.02),
             listFullname(height_, width_),
-            SizedBox(height: height_ * 0.01),
+            SizedBox(height: height_ * 0.02),
             listAge(height_, width_),
-            SizedBox(height: height_ * 0.01),
+            SizedBox(height: height_ * 0.02),
             listGender(height_, width_),
-            SizedBox(height: height_ * 0.01),
+            SizedBox(height: height_ * 0.02),
             listSpecialization(height_, width_),
-            SizedBox(height: height_ * 0.01),
+            SizedBox(height: height_ * 0.02),
             listAddress(height_, width_),
-            SizedBox(height: height_ * 0.01),
+            SizedBox(height: height_ * 0.02),
             listPhoneNumber(height_, width_),
 
             SizedBox(height: height_ * 0.02),

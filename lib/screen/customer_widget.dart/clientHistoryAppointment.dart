@@ -25,15 +25,21 @@ class _clientHistoryAppointmentState extends State<clientHistoryAppointment> {
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
+            return Center(
+            child:Text('Error: ${snapshot.error}')
+          );
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(
+            child:CircularProgressIndicator()
+            );
           }
 
           if (snapshot.data!.docs.isEmpty) {
-            return Text('No purchase history found.');
+            return Center(
+            child:Text('No purchase history found.')
+            );
           }
 
           double totalAmount = 0;
