@@ -219,11 +219,11 @@ class _profileNutritionistState extends State<profileNutritionist> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.clear(); // This will remove all shared preferences
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Login(),
-              ),
+            Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+            builder: (context) => Login()),
+            (Route<dynamic> route) => false,
             );
           },
           icon: Icon(

@@ -269,12 +269,12 @@ class _profileState extends State<profile> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.clear(); // This will remove all shared preferences
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Login(),
-              ),
-            );
+           Navigator.pushAndRemoveUntil(
+           context,
+           MaterialPageRoute(
+           builder: (context) => Login()),
+           (Route<dynamic> route) => false,
+           );
           },
           icon: Icon(
             Icons.power_settings_new,
