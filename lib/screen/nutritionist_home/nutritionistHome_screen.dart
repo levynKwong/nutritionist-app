@@ -110,14 +110,15 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        children: screens,
-      ),
+      controller: _pageController,
+      physics: NeverScrollableScrollPhysics(), // Disable swipe gesture navigation
+      onPageChanged: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      children: screens,
+    ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: getColor(), // set navigation bar background color
