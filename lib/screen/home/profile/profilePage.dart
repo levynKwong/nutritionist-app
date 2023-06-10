@@ -45,6 +45,7 @@ class _profileState extends State<profile> {
   String? _gender;
   // late String gender;
   // late String country;
+  String _email = '';
 
   String? _activityLevel;
   String? _bodyGoal;
@@ -83,6 +84,22 @@ class _profileState extends State<profile> {
           : 'image_url'; // Adjust the scale value as needed
     } else {
       return 'image_url';
+    }
+  }
+
+  Future<String> getEmail() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Patient')
+        .doc(currentId)
+        .get();
+
+    if (docSnapshot.exists) {
+      final email = docSnapshot.get('email');
+      return email != null
+          ? email
+          : 'email'; // Adjust the scale value as needed
+    } else {
+      return 'email';
     }
   }
 
@@ -155,6 +172,11 @@ class _profileState extends State<profile> {
         imageUrl = value;
       });
     });
+    getEmail().then((email) {
+      setState(() {
+        _email = email;
+      });
+    });
   }
 
   @override
@@ -168,7 +190,6 @@ class _profileState extends State<profile> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          
           child: SizedBox(
             width: width_,
             child: Column(
@@ -269,12 +290,11 @@ class _profileState extends State<profile> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.clear(); // This will remove all shared preferences
 
-           Navigator.pushAndRemoveUntil(
-           context,
-           MaterialPageRoute(
-           builder: (context) => Login()),
-           (Route<dynamic> route) => false,
-           );
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+              (Route<dynamic> route) => false,
+            );
           },
           icon: Icon(
             Icons.power_settings_new,
@@ -546,6 +566,7 @@ class _profileState extends State<profile> {
             listActivityLevel(height_, width_),
             listBodyGoal(height_, width_),
             listDietaryPreference(height_, width_),
+            listEmail(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_),
             logout(height_),
@@ -581,11 +602,11 @@ class _profileState extends State<profile> {
             .doc(currentId) // Replace with the appropriate patient document ID
             .set(patientData, SetOptions(merge: true));
         ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Your picture has been uploaded, it will take some time to load it'),
-        ),
-      );
-
+          SnackBar(
+            content: Text(
+                'Your picture has been uploaded, it will take some time to load it'),
+          ),
+        );
       }
     }
 
@@ -1235,7 +1256,7 @@ class _profileState extends State<profile> {
               ),
             ],
           ),
-          SizedBox(height: height_*0.01),
+          SizedBox(height: height_ * 0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -1300,7 +1321,7 @@ class _profileState extends State<profile> {
               ),
             ],
           ),
-          SizedBox(height: height_*0.01),
+          SizedBox(height: height_ * 0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -1882,6 +1903,38 @@ class _profileState extends State<profile> {
                   },
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listEmail(
+    double height_,
+    double width_,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Email',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              _email,
+              style: TextStyle(
+                fontSize: width_ * 0.04,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         ],

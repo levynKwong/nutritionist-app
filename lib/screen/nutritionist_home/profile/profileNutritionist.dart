@@ -36,6 +36,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
   String? _CustomSpecialization = '';
   String? _gender;
   String? _phoneNumber = '';
+  String _email = '';
 
   @override
   void initState() {
@@ -88,6 +89,11 @@ class _profileNutritionistState extends State<profileNutritionist> {
         imageUrl = value;
       });
     });
+    getEmail().then((email) {
+      setState(() {
+        _email = email;
+      });
+    });
   }
 
   Future<String> getImageLink() async {
@@ -103,6 +109,22 @@ class _profileNutritionistState extends State<profileNutritionist> {
           : 'image_url'; // Adjust the scale value as needed
     } else {
       return 'image_url';
+    }
+  }
+
+  Future<String> getEmail() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Nutritionist')
+        .doc(currentId)
+        .get();
+
+    if (docSnapshot.exists) {
+      final email = docSnapshot.get('email');
+      return email != null
+          ? email
+          : 'email'; // Adjust the scale value as needed
+    } else {
+      return 'email';
     }
   }
 
@@ -220,10 +242,9 @@ class _profileNutritionistState extends State<profileNutritionist> {
             await prefs.clear(); // This will remove all shared preferences
 
             Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-            builder: (context) => Login()),
-            (Route<dynamic> route) => false,
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+              (Route<dynamic> route) => false,
             );
           },
           icon: Icon(
@@ -440,6 +461,8 @@ class _profileNutritionistState extends State<profileNutritionist> {
             SizedBox(height: height_ * 0.02),
             listFullname(height_, width_),
             SizedBox(height: height_ * 0.02),
+            listEmail(height_, width_),
+            SizedBox(height: height_ * 0.02),
             listAge(height_, width_),
             SizedBox(height: height_ * 0.02),
             listGender(height_, width_),
@@ -485,9 +508,10 @@ class _profileNutritionistState extends State<profileNutritionist> {
             .doc(currentId) // Replace with the appropriate patient document ID
             .set(patientData, SetOptions(merge: true));
         ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Your picture has been uploaded, it will take some time to load it'),
-        ),
+          SnackBar(
+            content: Text(
+                'Your picture has been uploaded, it will take some time to load it'),
+          ),
         );
       }
     }
@@ -772,6 +796,42 @@ class _profileNutritionistState extends State<profileNutritionist> {
       return null;
     }
   }
+
+
+  Widget listEmail(
+    double height_,
+    double width_,
+  )
+  {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Email',
+              style: TextStyle(
+                fontSize: width_ * 0.05,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              _email,
+              style: TextStyle(
+                fontSize: width_ * 0.04,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    
+  }
+
 
   Widget listAge(
     double height_,

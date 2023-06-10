@@ -4,6 +4,7 @@ import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
 import 'package:meal_aware/screen/auth/introduction/lockChat.dart';
 import 'package:meal_aware/screen/auth/introduction/nutritionistAppoinment.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termsAndContitionHelpPage.dart';
 
 class HelpPagePatient extends StatelessWidget {
   const HelpPagePatient({super.key});
@@ -229,6 +230,53 @@ class HelpPagePatient extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'How to book an appointment with your nutritionist?',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 86, 86, 86),
+                      size: width_ * 0.04,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TermsAndConditionsInHelpPage(),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(width_ * 0.8, height_ * 0.07),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.help_outline,
+                    size: width_ * 0.1,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: width_ * 0.08),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Terms and Conditions',
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,

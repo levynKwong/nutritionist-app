@@ -167,23 +167,13 @@ class _paymentChatState extends State<paymentChat> {
     return Container(
       child: Column(
         children: [
-          InkWell(
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => (selectionDate()),
-              //   ),
-              // );
-            },
-            child: Container(
-              width: width_ * 0.3,
-              height: height_ * 0.25,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/pay.png'),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            width: width_ * 0.3,
+            height: height_ * 0.25,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/pay.png'),
+                fit: BoxFit.contain,
               ),
             ),
           ),
@@ -327,17 +317,40 @@ class _paymentChatState extends State<paymentChat> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'images/token_.png',
-                  width: 24,
-                  height: 24,
-                ),
-                SizedBox(width: 8),
-                Text('1 coin'),
-              ],
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('payments')
+                  .where('pid', isEqualTo: currentId)
+                  .where('nid', isEqualTo: nid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!.docs.isNotEmpty) {
+                    // Document exists, display "Continue"
+                    return Text('Continue');
+                  } else {
+                    // Document does not exist, display "1 coin"
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/token_.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                        SizedBox(width: 8),
+                        Text('1 coin'),
+                      ],
+                    );
+                  }
+                } else if (snapshot.hasError) {
+                  // Handle error if any
+                  return Text('Error: ${snapshot.error}');
+                }
+
+                // Document is still being fetched
+                return Text('');
+              },
             ),
           ),
         ],
