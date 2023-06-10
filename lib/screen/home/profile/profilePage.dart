@@ -556,6 +556,8 @@ class _profileState extends State<profile> {
             FullName(height_, width_),
             SizedBox(height: height_ * 0.01),
             phonenumber(height_, width_),
+                 SizedBox(height: height_ * 0.01),
+            listEmail(height_, width_),
             listAge(height_, width_),
             listCountry(height_, width_),
             listGender(height_, width_),
@@ -566,7 +568,6 @@ class _profileState extends State<profile> {
             listActivityLevel(height_, width_),
             listBodyGoal(height_, width_),
             listDietaryPreference(height_, width_),
-            listEmail(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_),
             logout(height_),
@@ -1932,7 +1933,7 @@ class _profileState extends State<profile> {
               _email,
               style: TextStyle(
                 fontSize: width_ * 0.04,
-                fontWeight: FontWeight.bold,
+                
                 color: Colors.black,
               ),
             ),

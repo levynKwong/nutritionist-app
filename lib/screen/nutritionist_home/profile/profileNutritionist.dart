@@ -12,6 +12,7 @@ import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termsAndContitionHelpPage.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -409,6 +410,53 @@ class _profileNutritionistState extends State<profileNutritionist> {
             ),
             TextButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TermsAndConditionsInHelpPage(),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(width_ * 0.8, height_ * 0.07),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.help_outline,
+                    size: width_ * 0.1,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: width_ * 0.08),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Terms and Conditions',
+                        style: TextStyle(
+                          fontSize: width_ * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: width_ * 0.07),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 86, 86, 86),
+                      size: width_ * 0.04,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () {
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
@@ -454,6 +502,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 ],
               ),
             ),
+            
             dividingLine2(width_, height_, 0),
             Text(
                 'If you want to change your information or obtain any information, please contact us:'),
@@ -820,7 +869,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             child: Text(
               _email,
               style: TextStyle(
-                fontSize: width_ * 0.04,
+                fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
