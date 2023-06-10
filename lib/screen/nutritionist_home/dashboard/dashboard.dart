@@ -25,6 +25,13 @@ class _dashboardState extends State<dashboard> {
       appBar: appBarTopCal2(titleText: 'Dashboard'),
       body: Stack(
         children: [
+          // Image.asset(
+          //   'images/dashboard_background.png', // path to local image file
+          //   fit: BoxFit
+          //       .cover, // specify how the image should be resized to fit into the available space
+          //   width: width_,
+          //   height: height_,
+          // ),
           SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -132,12 +139,12 @@ class _dashboardState extends State<dashboard> {
     List<String> uids = [];
 
     QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('pendingPlan').get();
+        await FirebaseFirestore.instance.collection('Patient').get();
     List<QueryDocumentSnapshot<Object?>> documents = querySnapshot.docs;
 
     for (QueryDocumentSnapshot<Object?> document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      String uid = data['userId'] as String;
+      String uid = data['pid'] as String;
       uids.add(uid);
     }
 
@@ -282,10 +289,10 @@ class _dashboardState extends State<dashboard> {
                       List<String> patientUids = snapshot.data!;
 
                       // Assuming you want to pass the first UID from the list
-                      String PatientUid =
+                      String firstPatientUid =
                           patientUids.isNotEmpty ? patientUids[0] : '';
 
-                      return PendingPlanList(clientUid: PatientUid);
+                      return PendingPlanList(clientUid: firstPatientUid);
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
@@ -427,6 +434,41 @@ class _dashboardState extends State<dashboard> {
           )
         ],
       ),
+    );
+  }
+
+  AppBar appBar(double width_, double height_) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: Text(
+        'Dashboard',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: width_ * 0.07,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(
+            Icons.calendar_today,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            popUpButton(context, width_, height_);
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.notifications,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            // Add your code here for notification icon action
+          },
+        ),
+      ],
     );
   }
 
