@@ -175,6 +175,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         });
 
         sendMessage('Hi, Please to meet you Dr $friendName');
+        sendMessage('Please Fill in the form in the top right corner by pressing on the menu icon,so that it can help the Nutritionist better understand your situation');
       }
     }
   }

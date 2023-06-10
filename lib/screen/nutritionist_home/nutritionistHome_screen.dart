@@ -99,7 +99,7 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     return [
       dashboard(),
       messageClient(),
-      form(url: url),
+      // form(url: url),
       profileNutritionist(),
     ];
   }
@@ -110,15 +110,14 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
       body: PageView(
-      controller: _pageController,
-      physics: NeverScrollableScrollPhysics(), // Disable swipe gesture navigation
-      onPageChanged: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      children: screens,
-    ),
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: screens,
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: getColor(), // set navigation bar background color
@@ -149,10 +148,7 @@ class _NutritionistHomeState extends State<NutritionistHome> {
                   icon: Icons.message,
                   text: 'Message Friend',
                 ),
-                GButton(
-                  icon: Icons.list,
-                  text: 'Form',
-                ),
+
                 GButton(
                   icon: Icons.person,
                   text: 'Profile',
