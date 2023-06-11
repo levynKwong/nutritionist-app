@@ -209,7 +209,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                     //       ? NetworkImage(imageUrl!) as ImageProvider<Object>?
                     //       : AssetImage('images/OIB.png'),
                     // ),
-                    SizedBox(width: width_ * 0.03),
+                    // SizedBox(width: width_ * 0.03),
                     Expanded(
                       // Wrap Text widget with Expanded
                       child: Text(

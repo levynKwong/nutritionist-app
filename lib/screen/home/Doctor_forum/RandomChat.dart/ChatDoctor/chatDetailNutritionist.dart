@@ -174,9 +174,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         chats.doc(docId).update({
           'usernames': [currentUserName, friendName],
         });
-
-        sendMessage('Hi, Please to meet you Dr $friendName');
         
+        sendMessage('Hi, Please to meet you Dr $friendName');
       }
     }
   }
@@ -202,14 +201,14 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   }
 
   void startPaymentStatusChecker() {
-    Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    Timer.periodic(Duration(hours: 1), (Timer timer) {
       checkPaymentStatus();
     });
   }
 
   void checkPaymentStatus() {
     final now = DateTime.now();
-    final oneweekAgo = now.subtract(Duration(seconds: 20));
+    final oneweekAgo = now.subtract(Duration(hours: 24));
 
     FirebaseFirestore.instance
         .collection('payments')
@@ -304,7 +303,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                     //       ? NetworkImage(imageUrl!) as ImageProvider<Object>?
                     //       : AssetImage('images/OIB.png'),
                     // ),
-                    SizedBox(width: width_ * 0.03),
+
                     Expanded(
                       // Wrap Text widget with Expanded
                       child: Text(
