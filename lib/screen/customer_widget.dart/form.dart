@@ -130,7 +130,6 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
   }
 
   void submitForm() {
-    // Save data to Firebase
     FirebaseFirestore.instance.collection('Forms').doc().set(
       {
         'answers': answers,
@@ -139,13 +138,31 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
       },
       SetOptions(merge: true), // Merge the new data with existing document
     ).then((value) {
+      // Update progress field
+      FirebaseFirestore.instance
+          .collection('payments')
+          .where('nid', isEqualTo: widget.nid)
+          .where('pid', isEqualTo: currentId)
+          .get()
+          .then((querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          doc.reference.set(
+            {
+              'progress': 2,
+            },
+            SetOptions(
+                merge: true), // Merge the new data with existing document
+          );
+        });
+      });
+
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Form submitted successfully'),
         ),
       );
-      //navigate to another page
+
       Navigator.push(
         context,
         MaterialPageRoute(
