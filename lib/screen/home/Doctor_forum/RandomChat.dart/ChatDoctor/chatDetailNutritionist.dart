@@ -10,6 +10,7 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/menuForm.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 
@@ -175,7 +176,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         });
 
         sendMessage('Hi, Please to meet you Dr $friendName');
-        sendMessage('Please Fill in the form in the top right corner by pressing on the menu icon,so that it can help the Nutritionist better understand your situation');
+        
       }
     }
   }
@@ -298,11 +299,11 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 ),
                 title: Row(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: imageUrl != null
-                          ? NetworkImage(imageUrl!) as ImageProvider<Object>?
-                          : AssetImage('images/OIB.png'),
-                    ),
+                    // CircleAvatar(
+                    //   backgroundImage: imageUrl != null
+                    //       ? NetworkImage(imageUrl!) as ImageProvider<Object>?
+                    //       : AssetImage('images/OIB.png'),
+                    // ),
                     SizedBox(width: width_ * 0.03),
                     Expanded(
                       // Wrap Text widget with Expanded
@@ -347,6 +348,10 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                     ),
                   ),
                   ReportButton(
+                    userId: currentId,
+                    friendId: friendUid,
+                  ),
+                  MenuButton(
                     userId: currentId,
                     friendId: friendUid,
                   ),

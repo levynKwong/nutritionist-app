@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/form.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
@@ -262,7 +263,7 @@ class _paymentChatState extends State<paymentChat> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChatDetailNutritionist(friendUid: nid, friendName: nutritionistName)
+                          builder: (context) => NutritionistForm(nid: nid, name:nutritionistName )
                         ),
                       );
                       deductCoin(context, nid);
@@ -276,7 +277,7 @@ class _paymentChatState extends State<paymentChat> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChatDetailNutritionist(friendUid: nid, friendName: nutritionistName)
+                          builder: (context) => NutritionistForm(nid: nid, name:nutritionistName )
                         ),
                       );
                     } else {
