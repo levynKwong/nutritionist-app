@@ -11,6 +11,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientAdditionalDay.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/menuForm.dart';
+import 'package:meal_aware/screen/customer_widget.dart/menuFormNutritionist.dart';
 import 'package:meal_aware/screen/customer_widget.dart/reportButton.dart';
 import 'package:meal_aware/screen/nutritionist_home/moreInfo.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
@@ -202,11 +204,11 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                 automaticallyImplyLeading: true,
                 title: Row(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: imageUrl != null
-                          ? NetworkImage(imageUrl!) as ImageProvider<Object>?
-                          : AssetImage('images/OIB.png'),
-                    ),
+                    // CircleAvatar(
+                    //   backgroundImage: imageUrl != null
+                    //       ? NetworkImage(imageUrl!) as ImageProvider<Object>?
+                    //       : AssetImage('images/OIB.png'),
+                    // ),
                     SizedBox(width: width_ * 0.03),
                     Expanded(
                       // Wrap Text widget with Expanded
@@ -258,6 +260,10 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                   ReportButton(
                     userId: currentId,
                     friendId: friendUid,
+                  ),
+                  MenuButtonNutritionist(
+                    userId: friendUid,
+                    friendId: userId,
                   ),
                 ],
               ),
