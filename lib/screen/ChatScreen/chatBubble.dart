@@ -183,44 +183,4 @@ class ChatBubble extends StatelessWidget {
   }
 }
 
-      //   // Get the chat document reference
-      //   final chatRef = FirebaseFirestore.instance
-      //       .collection('chatNutritionist')
-      //       .where('users', whereIn: [
-      //     [currentId, friendUid],
-      //     [friendUid, currentId],
-      //   ]);
-
-      //   // Query the chat collection to find the matching chat document
-      //   QuerySnapshot chatSnapshot = await chatRef.get();
-
-      //   // Check if any matching chat document is found
-      //   if (chatSnapshot.docs.isNotEmpty) {
-      //     // Get the reference to the first matching chat document
-      //     final chatDocRef = chatSnapshot.docs.first.reference;
-
-      //     // Get the reference to the messages subcollection within the chat document
-      //     final messagesRef = chatDocRef.collection('messages');
-
-      //     // Query the messages subcollection to find the document with the matching 'msg' field
-      //     QuerySnapshot messageSnapshot =
-      //         await messagesRef.where('msg', isEqualTo: message).get();
-
-      //     // Check if any matching message document is found
-      //     if (messageSnapshot.docs.isNotEmpty) {
-      //       // Get the reference to the first matching message document
-      //       final messageDocRef = messageSnapshot.docs.first.reference;
-
-      //       // Delete the message document
-      //       await messageDocRef.delete();
-
-      //       // Print a success message
-      //       print('Message document deleted successfully');
-      //     } else {
-      //       // Print a message indicating that the message document was not found
-      //       print('Message document not found');
-      //     }
-      //   } else {
-      //     // Print a message indicating that the chat document was not found
-      //     print('Chat document not found');
-      //   }
+     

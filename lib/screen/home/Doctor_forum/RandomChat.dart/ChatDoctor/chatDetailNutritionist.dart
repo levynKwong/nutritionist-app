@@ -585,7 +585,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                                           title: Text(
                                               "Nutritionist Not Available"),
                                           content: Text(
-                                              "Please wait for the nutritionist to become available or make maximum client reached."),
+                                              "Please wait for the nutritionist to become available or maximum client reached."),
                                           actions: <Widget>[
                                             TextButton(
                                               onPressed: () {

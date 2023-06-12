@@ -148,7 +148,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                                   Center(
                                     child: Text3(
                                       text:
-                                          'It will take up to 3 working days for response. ',
+                                          'It will take up to 5 working days for response. ',
                                     ),
                                   ),
                                   SizedBox(height: height_ * 0.03),

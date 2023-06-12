@@ -106,21 +106,6 @@ class ChatListScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    // trailing: Visibility(
-                    //   visible: unreadMessages == 1,
-                    //   child: Positioned(
-                    //     right: 0,
-                    //     top: 0,
-                    //     child: Container(
-                    //       width: 10,
-                    //       height: 10,
-                    //       decoration: BoxDecoration(
-                    //         shape: BoxShape.circle,
-                    //         color: Colors.red,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ),
                 ),
               );

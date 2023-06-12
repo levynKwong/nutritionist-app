@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
@@ -118,7 +119,7 @@ class _GetCoinState extends State<GetCoin> {
                       ),
                     ),
                     SizedBox(height: height_ * 0.02),
-                    TermsofUse(height_, width_),
+                  TermsAndConditionsDialog(),
                     SizedBox(height: height_ * 0.02),
                     buttons(height_, width_),
                   ],
@@ -175,48 +176,48 @@ class _GetCoinState extends State<GetCoin> {
     ));
   }
 
-  Center TermsofUse(double height_, double width_) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                // Navigate to Terms of Use page
-              },
-              child: Text(
-                'Terms of Use',
-                style: TextStyle(
-                  color: Color(0xFF7B7B7B),
-                  // decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            Text(
-              ' | ',
-              style: TextStyle(
-                color: Color(0xFF7B7B7B),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // Navigate to Privacy Policy page
-              },
-              child: Text(
-                'Privacy Policy',
-                style: TextStyle(
-                  color: Color(0xFF7B7B7B),
-                  // decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Center TermsofUse(double height_, double width_) {
+  //   return Center(
+  //     child: Container(
+  //       margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           TextButton(
+  //             onPressed: () {
+  //               TermsAndConditionsDialog();
+  //             },
+  //             child: Text(
+  //               'Terms of Use',
+  //               style: TextStyle(
+  //                 color: Color(0xFF7B7B7B),
+  //                 // decoration: TextDecoration.underline,
+  //               ),
+  //             ),
+  //           ),
+  //           Text(
+  //             ' | ',
+  //             style: TextStyle(
+  //               color: Color(0xFF7B7B7B),
+  //             ),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               // Navigate to Privacy Policy page
+  //             },
+  //             child: Text(
+  //               'Privacy Policy',
+  //               style: TextStyle(
+  //                 color: Color(0xFF7B7B7B),
+  //                 // decoration: TextDecoration.underline,
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget topBar(double width_, double height_, BuildContext context) {
     return Row(

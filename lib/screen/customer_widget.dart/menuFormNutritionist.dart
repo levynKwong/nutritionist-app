@@ -87,21 +87,23 @@ class _MenuButtonNutritionistState extends State<MenuButtonNutritionist> {
 
             return AlertDialog(
               title: Text('View Answers'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (int i = 0; i < questions.length; i++)
-                    ListTile(
-                      title: Text(questions[i]),
-                      subtitle: TextFormField(
-                        initialValue: answers.length > i ? answers[i] : '',
-                        decoration: InputDecoration(
-                          labelText: 'Answer',
-                          enabled: false, // Disable editing
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (int i = 0; i < questions.length; i++)
+                      ListTile(
+                        title: Text(questions[i]),
+                        subtitle: TextFormField(
+                          initialValue: answers.length > i ? answers[i] : '',
+                          decoration: InputDecoration(
+                            labelText: 'Answer',
+                            enabled: false, // Disable editing
+                          ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
               actions: [
                 TextButton(

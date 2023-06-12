@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 
 class termNcondition extends StatelessWidget {
   const termNcondition({super.key});
@@ -14,7 +15,7 @@ class termNcondition extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              // Navigate to Terms of Use page
+              
             },
             child: Text(
               'Terms of Use',
@@ -32,7 +33,7 @@ class termNcondition extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // Navigate to Privacy Policy page
+              TermsAndConditionsDialog();
             },
             child: Text(
               'Privacy Policy',

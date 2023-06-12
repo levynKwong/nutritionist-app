@@ -115,34 +115,36 @@ class _MenuButtonState extends State<MenuButton> {
               builder: (BuildContext context, StateSetter setState) {
                 return AlertDialog(
                   title: Text('Edit Form'),
-                  content: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        for (int i = 0; i < questions.length; i++)
-                          ListTile(
-                            title: Text(questions[i]),
-                            subtitle: TextFormField(
-                              initialValue:
-                                  answers.length > i ? answers[i] : '',
-                              decoration: InputDecoration(
-                                labelText: 'Enter an answer',
+                  content: SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          for (int i = 0; i < questions.length; i++)
+                            ListTile(
+                              title: Text(questions[i]),
+                              subtitle: TextFormField(
+                                initialValue:
+                                    answers.length > i ? answers[i] : '',
+                                decoration: InputDecoration(
+                                  labelText: 'Enter an answer',
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter an answer';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    answers[i] = value;
+                                  });
+                                },
                               ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter an answer';
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                setState(() {
-                                  answers[i] = value;
-                                });
-                              },
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   actions: [
