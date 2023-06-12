@@ -502,7 +502,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 ],
               ),
             ),
-            
+
             dividingLine2(width_, height_, 0),
             Text(
                 'If you want to change your information or obtain any information, please contact us:'),
@@ -846,12 +846,10 @@ class _profileNutritionistState extends State<profileNutritionist> {
     }
   }
 
-
   Widget listEmail(
     double height_,
     double width_,
-  )
-  {
+  ) {
     return Container(
       child: Row(
         children: [
@@ -878,9 +876,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
         ],
       ),
     );
-    
   }
-
 
   Widget listAge(
     double height_,

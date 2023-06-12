@@ -25,13 +25,6 @@ class _dashboardState extends State<dashboard> {
       appBar: appBarTopCal2(titleText: 'Dashboard'),
       body: Stack(
         children: [
-          // Image.asset(
-          //   'images/dashboard_background.png', // path to local image file
-          //   fit: BoxFit
-          //       .cover, // specify how the image should be resized to fit into the available space
-          //   width: width_,
-          //   height: height_,
-          // ),
           SafeArea(
             child: SingleChildScrollView(
               child: Column(

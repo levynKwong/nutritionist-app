@@ -22,13 +22,6 @@ class _messageClientState extends State<messageClient> {
         title: Text('Message your client'),
         automaticallyImplyLeading: false,
         actions: <Widget>[
-          // IconButton(
-          //   icon: Icon(Icons.search),
-          //   onPressed: () {
-          //     // TODO: Implement search functionality
-          //   },
-          // ),
-          // NotificationWidget(),
         ],
       ),
       body: Container(
