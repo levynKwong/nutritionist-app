@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
-import 'package:meal_aware/screen/nutritionist_home/message/chatDetailClient.dart';
+
 
 class ChatListScreenNutritionist extends StatelessWidget {
   final chatStream = FirebaseFirestore.instance

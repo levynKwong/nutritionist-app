@@ -298,12 +298,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                 ),
                 title: Row(
                   children: [
-                    // CircleAvatar(
-                    //   backgroundImage: imageUrl != null
-                    //       ? NetworkImage(imageUrl!) as ImageProvider<Object>?
-                    //       : AssetImage('images/OIB.png'),
-                    // ),
-
                     Expanded(
                       // Wrap Text widget with Expanded
                       child: Text(
