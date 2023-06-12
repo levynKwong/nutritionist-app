@@ -120,7 +120,10 @@ class _NutritionistChatState extends State<NutritionistChat> {
               children: [
                 if (_users.isEmpty)
                   Center(
-                    child: CircularProgressIndicator(),
+                    child: Text(
+                      'No nutritionist registered yet',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   )
                 else
                   buildUserList(shuffledUsers, width_, height_),
@@ -170,9 +173,21 @@ class _NutritionistChatState extends State<NutritionistChat> {
               children: [
                 CircleAvatar(
                   radius: width_ * 0.06,
-                  backgroundImage: user.image_url != null
-                      ? NetworkImage(user.image_url) as ImageProvider<Object>?
-                      : AssetImage('images/OIB.png'),
+                  backgroundColor: Colors.blue, // Set initial background color
+                  child: ClipOval(
+                    child: FadeInImage(
+                      fadeInDuration: Duration(milliseconds: 300),
+                      fadeOutDuration: Duration(milliseconds: 300),
+                      placeholder: AssetImage('images/OIB.png'),
+                      image: user.image_url != null
+                          ? NetworkImage(user.image_url)
+                              as ImageProvider<Object>
+                          : AssetImage('images/OIB.png'),
+                      fit: BoxFit.cover,
+                      width: width_ * 0.12,
+                      height: width_ * 0.12,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: width_ * 0.05,

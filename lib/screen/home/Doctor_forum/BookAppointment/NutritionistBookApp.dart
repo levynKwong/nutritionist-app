@@ -124,7 +124,10 @@ class _NutritionistBookAppointmentState
                 children: [
                   _users.isEmpty
                       ? Center(
-                          child: CircularProgressIndicator(),
+                          child: Text(
+                            'No nutritionist registered yet',
+                            style: TextStyle(fontSize: 16),
+                          ),
                         )
                       : ListView.builder(
                           shrinkWrap: true,
@@ -158,10 +161,25 @@ class _NutritionistBookAppointmentState
                                   children: [
                                     CircleAvatar(
                                       radius: width_ * 0.06,
-                                      backgroundImage: user.image_url != null
-                                          ? NetworkImage(user.image_url)
-                                              as ImageProvider<Object>?
-                                          : AssetImage('images/OIB.png'),
+                                      backgroundColor: Colors
+                                          .blue, // Set initial background color
+                                      child: ClipOval(
+                                        child: FadeInImage(
+                                          fadeInDuration:
+                                              Duration(milliseconds: 300),
+                                          fadeOutDuration:
+                                              Duration(milliseconds: 300),
+                                          placeholder:
+                                              AssetImage('images/OIB.png'),
+                                          image: user.image_url != null
+                                              ? NetworkImage(user.image_url)
+                                                  as ImageProvider<Object>
+                                              : AssetImage('images/OIB.png'),
+                                          fit: BoxFit.cover,
+                                          width: width_ * 0.12,
+                                          height: width_ * 0.12,
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: width_ * 0.05,
@@ -210,55 +228,6 @@ class _NutritionistBookAppointmentState
                                         ),
                                         Row(
                                           children: [
-                                            // TextButton(
-                                            //   onPressed: () {
-                                            //     showDialog(
-                                            //         context: context,
-                                            //         builder:
-                                            //             (BuildContext context) {
-                                            //           return AlertDialog(
-                                            //             shape:
-                                            //                 RoundedRectangleBorder(
-                                            //               borderRadius:
-                                            //                   BorderRadius
-                                            //                       .circular(
-                                            //                           width_ *
-                                            //                               0.03),
-                                            //             ),
-                                            //             title: Text('Review'),
-                                            //             content: Text('Dr. ' +
-                                            //                 user.username +
-                                            //                 ' is a ' +
-                                            //                 user.specialization +
-                                            //                 '\n\n' +
-                                            //                 'Contact no: ' +
-                                            //                 user.phoneNumber +
-                                            //                 '\n\n' +
-                                            //                 'Email: ' +
-                                            //                 user.email),
-                                            //             actions: [
-                                            //               TextButton(
-                                            //                   onPressed: () {
-                                            //                     Navigator.pop(
-                                            //                         context);
-                                            //                   },
-                                            //                   child:
-                                            //                       Text('Close'))
-                                            //             ],
-                                            //           );
-                                            //         });
-                                            //   },
-                                            //   child: Text(
-                                            //     'review',
-                                            //     style: TextStyle(
-                                            //       decoration:
-                                            //           TextDecoration.underline,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            // SizedBox(
-                                            //   width: width_ * 0.3,
-                                            // ),
                                             TextButton(
                                               onPressed: () {
                                                 showDialog(

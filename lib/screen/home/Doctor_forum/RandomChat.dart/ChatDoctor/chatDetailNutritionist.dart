@@ -50,6 +50,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   File? selectedImage;
   String? imageUrl;
   File? selectedFile;
+  Duration globalRemainingTime = Duration.zero;
+
   @override
   void initState() {
     super.initState();
@@ -174,7 +176,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         chats.doc(docId).update({
           'usernames': [currentUserName, friendName],
         });
-        
+
         sendMessage('Hi, Please to meet you Dr $friendName');
       }
     }
@@ -199,43 +201,56 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       print('Error checking status: $error');
     });
   }
+  // Timer.periodic(Duration(hours: 1), (Timer timer) {
+  //   checkPaymentStatus();
+  // });
 
   void startPaymentStatusChecker() {
-    Timer.periodic(Duration(hours: 1), (Timer timer) {
-      checkPaymentStatus();
-    });
-  }
-
-  void checkPaymentStatus() {
     final now = DateTime.now();
-    final oneweekAgo = now.subtract(Duration(hours: 24));
+    final oneDayAgo = now.subtract(Duration(hours: 24));
 
-    FirebaseFirestore.instance
-        .collection('payments')
-        .where('nid', isEqualTo: friendUid)
-        .where('pid', isEqualTo: currentId)
-        .where('status', isEqualTo: 1)
-        .limit(1)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      if (querySnapshot.docs.isNotEmpty) {
-        final doc = querySnapshot.docs.first;
-        DateTime paymentDate = doc['date'].toDate();
-        if (paymentDate.isBefore(oneweekAgo) && doc['status'] == 1) {
-          FirebaseFirestore.instance
-              .collection('payments')
-              .doc(doc.id)
-              .update({'status': 0}).then((_) {
-            checkStatus();
-            print('Payment status updated to 0');
-          }).catchError((error) {
-            print('Failed to update payment status: $error');
-          });
+    // Function to perform the payment status check
+    void performPaymentStatusCheck() {
+      FirebaseFirestore.instance
+          .collection('payments')
+          .where('pid', isEqualTo: currentId)
+          .where('nid', isEqualTo: friendUid)
+          .where('status', isEqualTo: 1)
+          .limit(1)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        if (querySnapshot.docs.isNotEmpty) {
+          final doc = querySnapshot.docs.first;
+          DateTime paymentDate = doc['date'].toDate();
+          if (paymentDate.isBefore(oneDayAgo)) {
+            FirebaseFirestore.instance
+                .collection('payments')
+                .doc(doc.id)
+                .update({'status': 0}).then((_) {
+              checkStatus();
+              print('Payment status updated to 0');
+            }).catchError((error) {
+              print('Failed to update payment status: $error');
+            });
+          } else {
+            Duration remainingTime = paymentDate.difference(now);
+            globalRemainingTime = remainingTime;
+
+           
+          }
         }
-      }
-    }).catchError((error) {
-      // Handle error during payment status check
-      print('Error checking payment status: $error');
+      }).catchError((error) {
+        // Handle error during payment status check
+        print('Error checking payment status: $error');
+      });
+    }
+
+    // Perform initial payment status check
+    performPaymentStatusCheck();
+
+    // Periodically perform payment status check every 2 hours
+    Timer.periodic(Duration(hours: 2), (Timer timer) {
+      performPaymentStatusCheck();
     });
   }
 
@@ -383,6 +398,12 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                           },
                         ),
                       ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          bottom: height_ * 0.07, left: width_ * 0.8),
+                      child: Text(
+                          '${globalRemainingTime.inHours}:${globalRemainingTime.inMinutes.remainder(60)} left'),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,

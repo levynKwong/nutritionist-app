@@ -6,7 +6,6 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/dashboard.dart';
-import 'package:meal_aware/screen/nutritionist_home/form/form.dart';
 import 'package:meal_aware/screen/nutritionist_home/message/messageNutritionist.dart';
 import 'package:meal_aware/screen/nutritionist_home/profile/profileNutritionist.dart';
 

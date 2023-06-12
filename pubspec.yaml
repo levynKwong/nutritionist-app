@@ -49,7 +49,6 @@ dependencies:
   flutter_chat_bubble: any
   uuid: ^3.0.5
   shared_preferences: ^2.1.0
-  
   image_picker: ^0.8.7+5
   firebase_storage: ^11.2.1
   firebase_messaging: ^14.6.1
