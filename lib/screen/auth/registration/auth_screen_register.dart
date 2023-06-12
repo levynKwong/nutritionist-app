@@ -256,12 +256,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           return ("Please enter a username");
                                         }
                                         // reg expression for email validation
-                                        if (value.length > 8) {
-                                          return ("Please enter a valid username (3 to 8 characters)");
+                                        if (value.length > 15) {
+                                          return ("Please enter a valid username (3 to 15 characters)");
                                         } else if (!RegExp(
-                                                "^(?=.{3,8})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
+                                                "^(?=.{3,15})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
                                             .hasMatch(value)) {
-                                          return ("Please enter a valid username (3 to 8 characters)");
+                                          return ("Please enter a valid username (3 to 15 characters)");
                                         }
 
                                         return null;
