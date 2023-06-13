@@ -8,6 +8,7 @@ class TimeAvailabilityScreen extends StatefulWidget {
   final String userId;
   final String nutritionistId;
   final String date;
+  final now = DateTime.now();
 
   TimeAvailabilityScreen(
       {required this.userId, required this.nutritionistId, required this.date});
@@ -28,6 +29,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   @override
   void initState() {
     super.initState();
+    startPaymentStatusChecker();
     _timeAvailabilityStream = FirebaseFirestore.instance
         .collection('timeAvailability')
         .doc(widget.nutritionistId)
@@ -42,7 +44,46 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
     });
     _selectedTimeSlots = List<bool>.filled(_selectedTimeSlots.length, false);
   }
+Future<void> startPaymentStatusChecker() async {
+    final now = DateTime.now();
+    final sixtySec = now.subtract(Duration(seconds: 60));
 
+    // Function to perform the payment status check
+    Future<void> performPaymentStatusCheck() async {
+      try {
+        await FirebaseFirestore.instance
+            .collection('timeAvailability')
+            .doc(nutritionistId) // Replace with the actual document ID
+            .set({'lock': false}, SetOptions(merge: true));
+
+        final querySnapshot = await FirebaseFirestore.instance
+            .collection('timeAvailability')
+            .doc(nutritionistId) // Replace with the actual document ID
+            .get();
+
+        if (querySnapshot.exists) {
+          final doc = querySnapshot.data();
+          DateTime timeDate = doc?['time'].toDate();
+          if (timeDate.isBefore(sixtySec)) {
+            await FirebaseFirestore.instance
+                .collection('timeAvailability')
+                .doc(nutritionistId)
+                .update({'lock': false});
+
+            print('Lock status updated to false');
+          }
+        }
+      } catch (error) {
+        // Handle error during payment status check
+        print('Error checking payment status: $error');
+      }
+    }
+
+    // Perform initial payment status check
+    await performPaymentStatusCheck();
+
+    // Periodically perform payment status check every 2 hours
+  }
   void _toggleSelection(int index) {
     setState(() {
       for (int i = 0; i < _selectedTimeSlots.length; i++) {
@@ -162,7 +203,18 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              FirebaseFirestore.instance
+                  .collection('timeAvailability')
+                  .doc(nutritionistId) // Replace with the actual document ID
+                  .set({'lock': false}, SetOptions(merge: true)).then((_) {
+                // Navigate to the payment screen
+              }).catchError((error) {
+                print("Failed to update timeAvailability: $error");
+                // Handle error if necessary
+              });
+            },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Color(0xFF575ecb),
@@ -177,17 +229,66 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
           ElevatedButton(
             onPressed: isTimeSlotSelected
                 ? () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => paymentAppointment(
-                          nutritionistUid: nutritionistId,
-                          userId: currentId,
-                          date: date,
-                          timeAvailable: _selectedTimeSlots,
-                        ),
-                      ),
-                    );
+                    // Check lock status
+                    FirebaseFirestore.instance
+                        .collection('timeAvailability')
+                        .doc(
+                            nutritionistId) // Replace with the actual document ID
+                        .get()
+                        .then((snapshot) {
+                      if (snapshot.exists && snapshot.data()?['lock'] == true) {
+                        // Show dialog box indicating that the user is making a payment
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Payment in Progress"),
+                              content: Text(
+                                  "Please wait while the a user completes the payment. This is to make sure the is no conflict in the appointment time. Please wait for a few seconds and try again."),
+                              actions: [
+                                TextButton(
+                                  child: Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        // Update Firebase collection to set 'lock' to true
+                        FirebaseFirestore.instance
+                            .collection('timeAvailability')
+                            .doc(
+                                nutritionistId) // Replace with the actual document ID
+                            .set({
+                          'lock': true,
+                          'time': FieldValue.serverTimestamp(),
+                        }, SetOptions(merge: true)).then((_) {
+                          // Success! Handle navigation or other actions here.
+
+                          // Navigate to the payment screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => paymentAppointment(
+                                nutritionistUid: nutritionistId,
+                                userId: currentId,
+                                date: date,
+                                timeAvailable: _selectedTimeSlots,
+                              ),
+                            ),
+                          );
+                        }).catchError((error) {
+                          print("Failed to update timeAvailability: $error");
+                          // Handle error if necessary
+                        });
+                      }
+                    }).catchError((error) {
+                      print("Failed to fetch timeAvailability: $error");
+                      // Handle error if necessary
+                    });
                   }
                 : null, // Disable the button if no time slot is selected
             style: ElevatedButton.styleFrom(

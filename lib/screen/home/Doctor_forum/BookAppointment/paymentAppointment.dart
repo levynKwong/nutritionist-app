@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,37 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   void initState() {
     super.initState();
     _getSelectedTimeSlotsCount(timeAvailable);
+    handleTimeLimit();
+    
   }
+
+  @override
+  void dispose() {
+    updateLockStatus(false);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      updateLockStatus(
+          false); // Set 'lock' to false when the app goes into the background
+    }
+  }
+
+  void updateLockStatus(bool newLockStatus) {
+    FirebaseFirestore.instance
+        .collection('timeAvailability')
+        .doc(nutritionistUid) // Replace with the actual document ID
+        .set({'lock': newLockStatus}, SetOptions(merge: true)).then((_) {
+      // Success! Handle navigation or other actions here.
+    }).catchError((error) {
+      print("Failed to update timeAvailability: $error");
+      // Handle error if necessary
+    });
+  }
+
+  
 
   String date;
 
@@ -43,6 +75,25 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   String userId;
   _paymentAppointmentState(
       this.nutritionistUid, this.date, this.timeAvailable, this.userId);
+
+  void handleTimeLimit() {
+    Timer(Duration(seconds: 30), () {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+
+      FirebaseFirestore.instance
+          .collection('timeAvailability')
+          .doc(nutritionistUid) // Replace with the actual document ID
+          .set({'lock': false}, SetOptions(merge: true)).then((_) {
+        // Navigate to the payment screen
+      }).catchError((error) {
+        print("Failed to update timeAvailability: $error");
+        // Handle error if necessary
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
@@ -160,7 +211,18 @@ class _paymentAppointmentState extends State<paymentAppointment> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              FirebaseFirestore.instance
+                  .collection('timeAvailability')
+                  .doc(nutritionistUid) // Replace with the actual document ID
+                  .set({'lock': false}, SetOptions(merge: true)).then((_) {
+                // Navigate to the payment screen
+              }).catchError((error) {
+                print("Failed to update timeAvailability: $error");
+                // Handle error if necessary
+              });
+            },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Color(0xFF575ecb),
@@ -207,6 +269,18 @@ class _paymentAppointmentState extends State<paymentAppointment> {
                                     builder: (context) => Home(),
                                   ),
                                 );
+                                FirebaseFirestore.instance
+                                    .collection('timeAvailability')
+                                    .doc(
+                                        nutritionistUid) // Replace with the actual document ID
+                                    .set({'lock': false},
+                                        SetOptions(merge: true)).then((_) {
+                                  // Navigate to the payment screen
+                                }).catchError((error) {
+                                  print(
+                                      "Failed to update timeAvailability: $error");
+                                  // Handle error if necessary
+                                });
                               },
                               child: Text('Confirm'),
                             ),
