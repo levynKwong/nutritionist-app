@@ -11,7 +11,7 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/auth/term_and_condition.dart';
 
 class EmailVerificationCode extends StatefulWidget {
-  String email;
+  final String email;
   EmailVerificationCode({Key? key, required this.email}) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class EmailVerificationCode extends StatefulWidget {
 }
 
 class _EmailVerificationCodeState extends State<EmailVerificationCode> {
-  String email;
+  final String email;
   _EmailVerificationCodeState(this.email);
   int num = 0;
   bool isEmailVerified = false;

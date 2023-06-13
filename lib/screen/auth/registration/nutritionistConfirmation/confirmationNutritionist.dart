@@ -15,8 +15,6 @@ class confirmationNutritionist extends StatefulWidget {
 }
 
 class _confirmationNutritionistState extends State<confirmationNutritionist> {
-  final _formKey = GlobalKey<FormState>();
-
   _confirmationNutritionistState();
   int num = 2;
   final List<TextEditingController> _textControllers =

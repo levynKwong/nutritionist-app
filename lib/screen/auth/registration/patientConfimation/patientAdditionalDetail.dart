@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
-import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
+
 
 class PatientAdditionalDetail extends StatefulWidget {
   const PatientAdditionalDetail({
