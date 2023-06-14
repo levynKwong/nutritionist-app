@@ -15,10 +15,10 @@ class TimeAvailability extends StatefulWidget {
 
 class _TimeAvailabilityState extends State<TimeAvailability> {
   List<bool> _timesAvailable = List.generate(12, (_) => true);
-  // List<bool> _timesChecked = List.generate(12, (_) => false);
   Color _activeColor = getColor();
   Color _inactiveColor = Colors.grey;
   bool _loading = true;
+  bool _lockToggle = false;
 
   Timer? _timer;
 
@@ -26,7 +26,7 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _fetchData();
-    // _startTimer();
+    _fetchDataLock();
   }
 
   @override
@@ -48,17 +48,53 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
           _timesAvailable = List.from(data['timesAvailable']);
         });
       }
-
-      // if (data.containsKey('timesChecked')) {
-      //   setState(() {
-      //     _timesChecked = List.from(data['timesChecked']);
-      //   });
-      // }
     }
 
     setState(() {
       _loading = false;
     });
+  }
+
+  void _fetchDataLock() async {
+    final document = await FirebaseFirestore.instance
+        .collection('timeAvailability')
+        .doc(widget.userId)
+        .get();
+
+    if (document.exists) {
+      final data = document.data() as Map<String, dynamic>;
+      if (data.containsKey('timesAvailable')) {
+        setState(() {
+          _timesAvailable = List.from(data['timesAvailable']);
+        });
+      }
+      if (data.containsKey('lock')) {
+        setState(() {
+          _lockToggle = data['lock'];
+        });
+      }
+    }
+
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  void _toggleLock() {
+    setState(() {
+      _lockToggle = !_lockToggle;
+    });
+
+    _updateFirestoreLock();
+  }
+
+  void _updateFirestoreLock() {
+    FirebaseFirestore.instance
+        .collection('timeAvailability')
+        .doc(widget.userId)
+        .set({
+      'lock': _lockToggle,
+    }, SetOptions(merge: true));
   }
 
   void _toggleTimeAvailability(int index) {
@@ -69,47 +105,14 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
     _updateFirestore();
   }
 
-  // void _toggleTimeChecked(int index) {
-  //   setState(() {
-  //     _timesChecked[index] = !_timesChecked[index];
-  //   });
-
-  //   _updateFirestore();
-  // }
-
   void _updateFirestore() {
     FirebaseFirestore.instance
         .collection('timeAvailability')
         .doc(widget.userId)
         .set({
       'timesAvailable': _timesAvailable,
-      // 'timesChecked': _timesChecked,
     }, SetOptions(merge: true));
   }
-
-  // void _startTimer() {
-  //   _timer = Timer.periodic(Duration(seconds: 5), (_) {
-  //     print('5 seconds passed');
-  //     final now = DateTime.now();
-  //     if (_timesChecked.contains(true)) {
-  //       if (now.hour == 14 && now.minute == 49) {
-  //         for (int i = 0; i < _timesChecked.length; i++) {
-  //           if (_timesChecked[i] == true) {
-  //             _toggleTimeAvailability(i);
-  //           }
-  //         }
-  //       }
-  //       _timer?.cancel();
-  //     }
-  //   });
-  // }
-
-  // void _updateTimesAvailable() {
-  //   setState(() {
-  //     _timesAvailable = List.generate(12, (index) => _timesChecked[index]);
-  //   });
-  //   _updateFirestore();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +155,6 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(formattedTime),
-                // Checkbox(
-                //   value: _timesChecked[index],
-                //   onChanged: (value) {
-                //     _toggleTimeChecked(index);
-                //   },
-                // ),
                 Switch(
                   value: _timesAvailable[index],
                   activeColor: _activeColor,
@@ -172,6 +169,17 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
         ),
       ),
       actions: [
+        Row(
+          children: [
+            Text('Lock:'),
+            Switch(
+              value: _lockToggle,
+              onChanged: (value) {
+                _toggleLock();
+              },
+            ),
+          ],
+        ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: getColor(), // change the color here
