@@ -229,7 +229,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                   fontSize: width_ * 0.1,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0)),
+                  color: Theme.of(context).colorScheme.secondary),
             ),
             SizedBox(height: height_ * 0.01),
             Text(
@@ -336,6 +336,9 @@ class _profileState extends State<profile> {
                     'images/tokenIcon.png',
                     height: height_ * 0.1,
                     width: width_ * 0.1,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary, // Set the desired color here
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -346,7 +349,7 @@ class _profileState extends State<profile> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -356,7 +359,7 @@ class _profileState extends State<profile> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -379,11 +382,10 @@ class _profileState extends State<profile> {
               ),
               child: Row(
                 children: [
-                  Image.asset(
-                    'images/to-do-list.png',
-                    height: height_ * 0.1,
-                    width: width_ * 0.1,
-                  ),
+                  Image.asset('images/to-do-list.png',
+                      height: height_ * 0.1,
+                      width: width_ * 0.1,
+                      color: Theme.of(context).colorScheme.secondary),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
                     child: Align(
@@ -393,7 +395,7 @@ class _profileState extends State<profile> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -403,7 +405,7 @@ class _profileState extends State<profile> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -426,11 +428,10 @@ class _profileState extends State<profile> {
               ),
               child: Row(
                 children: [
-                  Image.asset(
-                    'images/to-do-list.png',
-                    height: height_ * 0.1,
-                    width: width_ * 0.1,
-                  ),
+                  Image.asset('images/to-do-list.png',
+                      height: height_ * 0.1,
+                      width: width_ * 0.1,
+                      color: Theme.of(context).colorScheme.secondary),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
                     child: Align(
@@ -440,7 +441,7 @@ class _profileState extends State<profile> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -450,7 +451,7 @@ class _profileState extends State<profile> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -476,7 +477,7 @@ class _profileState extends State<profile> {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -487,7 +488,7 @@ class _profileState extends State<profile> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -497,7 +498,7 @@ class _profileState extends State<profile> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -523,7 +524,7 @@ class _profileState extends State<profile> {
                   Icon(
                     Icons.supervised_user_circle,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -534,7 +535,7 @@ class _profileState extends State<profile> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -544,7 +545,7 @@ class _profileState extends State<profile> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -556,7 +557,7 @@ class _profileState extends State<profile> {
             FullName(height_, width_),
             SizedBox(height: height_ * 0.01),
             phonenumber(height_, width_),
-                 SizedBox(height: height_ * 0.01),
+            SizedBox(height: height_ * 0.01),
             listEmail(height_, width_),
             listAge(height_, width_),
             listCountry(height_, width_),
@@ -1251,7 +1252,7 @@ class _profileState extends State<profile> {
                   style: TextStyle(
                     fontSize: width_ * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -1316,7 +1317,7 @@ class _profileState extends State<profile> {
                   style: TextStyle(
                     fontSize: width_ * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -1379,7 +1380,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1428,7 +1429,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1477,7 +1478,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1533,7 +1534,7 @@ class _profileState extends State<profile> {
                   style: TextStyle(
                     fontSize: width_ * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -1595,7 +1596,7 @@ class _profileState extends State<profile> {
                   style: TextStyle(
                     fontSize: width_ * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -1657,7 +1658,7 @@ class _profileState extends State<profile> {
                   style: TextStyle(
                     fontSize: width_ * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -1719,7 +1720,7 @@ class _profileState extends State<profile> {
                   style: TextStyle(
                     fontSize: width_ * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -1774,7 +1775,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1824,7 +1825,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1873,7 +1874,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1924,7 +1925,7 @@ class _profileState extends State<profile> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1933,8 +1934,7 @@ class _profileState extends State<profile> {
               _email,
               style: TextStyle(
                 fontSize: width_ * 0.04,
-                
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),

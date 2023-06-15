@@ -152,7 +152,7 @@ class _dashboardState extends State<dashboard> {
         margin: EdgeInsets.all(width_ * 0.04),
         padding: EdgeInsets.all(width_ * 0.03),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: Theme.of(context).colorScheme.tertiary,
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(
@@ -172,7 +172,7 @@ class _dashboardState extends State<dashboard> {
                 Text(
                   'Pending Plan',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color: Theme.of(context).colorScheme.secondary,
                     fontSize: width_ * 0.04,
                     fontWeight: FontWeight.bold,
                   ),
@@ -185,7 +185,7 @@ class _dashboardState extends State<dashboard> {
                         Text(
                           'Plan Type',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 125, 125, 125),
+                            color: Theme.of(context).colorScheme.secondary,
                             fontSize: width_ * 0.03,
                             fontWeight: FontWeight.bold,
                           ),
@@ -316,7 +316,7 @@ class _dashboardState extends State<dashboard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Theme.of(context).colorScheme.tertiary,
                   height: height_ * 0.10,
                   child: Row(
                     children: [
@@ -337,7 +337,7 @@ class _dashboardState extends State<dashboard> {
                           Text(
                             'Client Counter',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize: width_ * 0.026,
                               fontWeight: FontWeight.bold,
                             ),
@@ -345,7 +345,7 @@ class _dashboardState extends State<dashboard> {
                           Text(
                             '$_ClientCount',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize: width_ * 0.03,
                               fontWeight: FontWeight.bold,
                             ),
@@ -373,7 +373,7 @@ class _dashboardState extends State<dashboard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Theme.of(context).colorScheme.tertiary,
                     height: height_ * 0.10,
                     child: Row(
                       children: [
@@ -394,7 +394,7 @@ class _dashboardState extends State<dashboard> {
                             Text(
                               'Platform Client',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
+                                color: Theme.of(context).colorScheme.secondary,
                                 fontSize: width_ * 0.026,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -402,7 +402,7 @@ class _dashboardState extends State<dashboard> {
                             Text(
                               ' $_patientCount',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
+                                color: Theme.of(context).colorScheme.secondary,
                                 fontSize: width_ * 0.03,
                                 fontWeight: FontWeight.bold,
                               ),

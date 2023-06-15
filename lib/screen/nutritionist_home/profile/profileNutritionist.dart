@@ -140,12 +140,6 @@ class _profileNutritionistState extends State<profileNutritionist> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          //     image: AssetImage('images/pattern_food.jpg'),
-          //     fit: BoxFit.cover,
-          //   ),
-          // ),
           child: SizedBox(
             width: width_,
             child: Column(
@@ -185,7 +179,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                   fontSize: width_ * 0.1,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0)),
+                  color: Theme.of(context).colorScheme.secondary),
             ),
             SizedBox(height: height_ * 0.01),
             Text(
@@ -288,6 +282,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     'images/to-do-list.png',
                     height: height_ * 0.1,
                     width: width_ * 0.1,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -298,7 +293,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -308,7 +303,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -335,6 +330,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     'images/to-do-list.png',
                     height: height_ * 0.1,
                     width: width_ * 0.1,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -345,7 +341,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -354,7 +350,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -380,7 +376,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -391,7 +387,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -401,7 +397,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -427,7 +423,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -438,7 +434,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -448,7 +444,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -474,7 +470,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                   Icon(
                     Icons.supervised_user_circle,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -485,7 +481,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -495,7 +491,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -859,7 +855,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -869,7 +865,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -891,7 +887,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -928,7 +924,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -950,7 +946,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -960,7 +956,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -982,7 +978,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1004,7 +1000,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1026,7 +1022,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1050,7 +1046,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1072,7 +1068,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1082,7 +1078,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1104,7 +1100,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -1114,7 +1110,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
               style: TextStyle(
                 fontSize: width_ * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),

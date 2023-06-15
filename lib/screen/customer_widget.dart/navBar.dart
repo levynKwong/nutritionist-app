@@ -16,7 +16,7 @@ class appBarTop extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(titleText),
-      backgroundColor: getColor(),
+      backgroundColor: getColor(context),
       automaticallyImplyLeading: false,
       // actions: <Widget>[
       //   NotificationWidget(),
@@ -37,7 +37,7 @@ class appBarTopSearch extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(titleText),
-      backgroundColor: getColor(),
+      backgroundColor: getColor(context),
       automaticallyImplyLeading: false,
       actions: <Widget>[
         // IconButton(
@@ -64,7 +64,7 @@ class appBarTopBack extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(titleText),
-      backgroundColor: getColor(),
+      backgroundColor: getColor(context),
       automaticallyImplyLeading: true,
       actions: <Widget>[
         // NotificationWidget(),
@@ -87,7 +87,7 @@ class appBarTopCal2 extends StatelessWidget implements PreferredSizeWidget {
     final double height_ = MediaQuery.of(context).size.height;
     return AppBar(
       title: Text(titleText),
-      backgroundColor: getColor(),
+      backgroundColor: getColor(context),
       automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(
@@ -194,7 +194,7 @@ class appBarTopCal extends StatelessWidget implements PreferredSizeWidget {
     final double height_ = MediaQuery.of(context).size.height;
     return AppBar(
       title: Text(titleText),
-      backgroundColor: getColor(),
+      backgroundColor: getColor(context),
       automaticallyImplyLeading: true,
       actions: <Widget>[
         IconButton(

@@ -169,7 +169,7 @@ class _ChatAvailabilityState extends State<ChatAvailability> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: getColor(), // change the color here
+            backgroundColor: getColor(context), // change the color here
           ),
           child: Text('Close'),
           onPressed: () {

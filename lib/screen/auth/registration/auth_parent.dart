@@ -4,6 +4,7 @@ import 'package:meal_aware/main.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/auth/registration/patientConfimation/email_verification_code.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 
 class ParentAuth extends StatefulWidget {
@@ -62,7 +63,7 @@ class _ParentAuthState extends State<ParentAuth> {
                         Text(
                           'MeA',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 99, 144, 228),
+                            color: getColor(context),
                             fontSize: width_ * 0.15,
                             fontWeight: FontWeight.bold,
                           ),
@@ -73,7 +74,7 @@ class _ParentAuthState extends State<ParentAuth> {
                       Text(
                         'MealAware Company Ltd',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 128, 164, 231),
+                          color: getColor(context),
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
                         ),
@@ -323,7 +324,7 @@ class _ParentAuthState extends State<ParentAuth> {
                           Text(
                             'By pressing "submit" you agree to our',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.03,
                             ),
@@ -378,7 +379,7 @@ class _ParentAuthState extends State<ParentAuth> {
                             child: Text(
                               'or back to login',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 25, 25, 25),
+                                color: Theme.of(context).colorScheme.secondary,
                                 fontSize: width_ * 0.040,
                               ),
                             ),

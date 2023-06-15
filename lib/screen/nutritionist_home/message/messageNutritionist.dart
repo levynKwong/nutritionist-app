@@ -18,7 +18,7 @@ class _messageClientState extends State<messageClient> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: getColor(),
+        backgroundColor: getColor(context),
         title: Text('Message your client'),
         automaticallyImplyLeading: false,
         actions: <Widget>[
@@ -26,10 +26,11 @@ class _messageClientState extends State<messageClient> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/pattern_food.jpg'),
-            fit: BoxFit.cover,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('images/pattern_food.jpg'),
+          //   fit: BoxFit.cover,
+          // ),
+          
         ),
         child: Stack(
           children: [

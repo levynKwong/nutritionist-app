@@ -119,7 +119,7 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: getColor(), // Set the desired background color
+                backgroundColor: getColor(context), // Set the desired background color
               ),
               child: Text('Submit'),
             ),

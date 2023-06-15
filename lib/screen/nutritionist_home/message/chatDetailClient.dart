@@ -221,7 +221,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                     ),
                   ],
                 ),
-                backgroundColor: getColor(),
+                backgroundColor: getColor(context),
                 actions: [
                   Padding(
                     padding: EdgeInsets.only(

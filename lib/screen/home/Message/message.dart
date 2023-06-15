@@ -21,7 +21,7 @@ class _messageState extends State<message> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: getColor(),
+        backgroundColor: getColor(context),
         title: Text('Message your friend'),
         automaticallyImplyLeading: false,
         actions: <Widget>[
@@ -36,10 +36,10 @@ class _messageState extends State<message> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/pattern_food.jpg'),
-            fit: BoxFit.cover,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('images/pattern_food.jpg'),
+          //   fit: BoxFit.cover,
+          // ),
         ),
         child: Stack(
           children: [

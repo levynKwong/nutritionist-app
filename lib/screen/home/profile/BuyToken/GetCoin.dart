@@ -74,7 +74,6 @@ class _GetCoinState extends State<GetCoin> {
           SafeArea(
             child: SingleChildScrollView(
               child: Container(
-               
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -119,7 +118,7 @@ class _GetCoinState extends State<GetCoin> {
                       ),
                     ),
                     SizedBox(height: height_ * 0.02),
-                  TermsAndConditionsDialog(),
+                    TermsAndConditionsDialog(),
                     SizedBox(height: height_ * 0.02),
                     buttons(height_, width_),
                   ],
@@ -138,16 +137,16 @@ class _GetCoinState extends State<GetCoin> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-        onPressed: () => Navigator.pop(context),
-        style: ElevatedButton.styleFrom(
-          primary: Color(0xFF575ecb), // set background color
-          onPrimary: Colors.white, // set text color
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+          onPressed: () => Navigator.pop(context),
+          style: ElevatedButton.styleFrom(
+            primary: Color(0xFF575ecb), // set background color
+            onPrimary: Colors.white, // set text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
           ),
+          child: Text('    Back    '),
         ),
-        child: Text('    Back    '),
-      ),
 
         SizedBox(width: width_ * 0.15), // add some spacing between the buttons
         ElevatedButton(
@@ -229,11 +228,10 @@ class _GetCoinState extends State<GetCoin> {
         ),
         Row(
           children: [
-            Image.asset(
-              'images/tokenIcon.png',
-              height: height_ * 0.1,
-              width: width_ * 0.1,
-            ),
+            Image.asset('images/tokenIcon.png',
+                height: height_ * 0.1,
+                width: width_ * 0.1,
+                color: Theme.of(context).colorScheme.secondary),
             SizedBox(
               width: width_ * 0.08,
             ),

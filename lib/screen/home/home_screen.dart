@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: getColor(), // set navigation bar background color
+          color: getColor(context), // set navigation bar background color
           boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8)
           ],

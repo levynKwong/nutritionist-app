@@ -327,7 +327,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                     ),
                   ],
                 ),
-                backgroundColor: getColor(),
+                backgroundColor: getColor(context),
                 actions: [
                   Padding(
                     padding: EdgeInsets.only(

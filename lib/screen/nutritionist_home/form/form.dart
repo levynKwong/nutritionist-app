@@ -18,7 +18,7 @@ Widget build(BuildContext context) {
   String url = widget.url;
   return Scaffold(
     appBar: AppBar(
-      backgroundColor: getColor(),
+      backgroundColor: getColor(context),
       automaticallyImplyLeading: false,
       title: Text('Enter your questions :'),
       actions: [

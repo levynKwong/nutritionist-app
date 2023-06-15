@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color getColor() {
-  return Color(0xFF575ecb);
+Color getColor(BuildContext context) {
+  return Theme.of(context).colorScheme.primary;
 }
+

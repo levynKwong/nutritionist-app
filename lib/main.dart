@@ -21,29 +21,33 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  var firebaseApp = await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+
   AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      'resource://drawable/logo',
-      [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
-            ledColor: Colors.white)
-      ],
-      // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupKey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
-      ],
-      debug: true);
+    // set the icon to null if you want to use the default app icon
+    'resource://drawable/logo',
+    [
+      NotificationChannel(
+        channelGroupKey: 'basic_channel_group',
+        channelKey: 'basic_channel',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        defaultColor: Color(0xFF9D50DD),
+        ledColor: Colors.white,
+      ),
+    ],
+    // Channel groups are only visual and are not required
+    channelGroups: [
+      NotificationChannelGroup(
+        channelGroupKey: 'basic_channel_group',
+        channelGroupName: 'Basic group',
+      ),
+    ],
+    debug: true,
+  );
+
   runApp(const MyApp());
 }
 
@@ -59,6 +63,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+       themeMode: ThemeMode.system,
+      theme: ThemeData(
+        colorScheme: ColorScheme.light(
+          primary: Color(0xFF139AB4), 
+          secondary: Color.fromARGB(255, 7, 7, 7),
+          tertiary: Color.fromARGB(255, 255, 255, 255)// Set the primary color for the light theme
+        ),
+       
+           // Set the primary color for the light theme
+       
+        // Additional light theme settings...
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.dark(
+          primary: Color(0xFF139AB4),
+          secondary: Color.fromARGB(255, 255, 255, 255),
+          tertiary: Color.fromARGB(255, 0, 0, 0) // Set the primary color for the dark theme
+        ),
+        // Additional dark theme settings...
+      ),
       home: Login(),
     );
   }
@@ -134,7 +158,7 @@ Widget build(BuildContext context) {
                   Text(
                     'MeA',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 99, 144, 228),
+                      color: getColor(context),
                       fontSize: width_ * 0.15, // Adjusted font size
                       fontWeight: FontWeight.bold,
                     ),
@@ -142,7 +166,7 @@ Widget build(BuildContext context) {
                   Text(
                     'MealAware Company Ltd',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 128, 164, 231),
+                      color: getColor(context),
                       fontSize: width_ * 0.04, // Adjusted font size
                       fontWeight: FontWeight.bold,
                     ),
@@ -252,7 +276,7 @@ Widget build(BuildContext context) {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      getColor(), // sets the background color of the button
+                                      getColor(context), // sets the background color of the button
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -264,7 +288,7 @@ Widget build(BuildContext context) {
                                     'Login',
                                     style: TextStyle(
                                       fontSize: width_ * 0.04, // Adjusted font size
-                                      color: Colors.white,
+                                      color: Theme.of(context).colorScheme.secondary,
                                     ),
                                   ),
                                 ),
@@ -289,7 +313,7 @@ Widget build(BuildContext context) {
                                         fontSize:
                                             MediaQuery.of(context).size.width *
                                                 0.04,
-                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        color: Theme.of(context).colorScheme.secondary,
                                       ),
                                     ),
                                   ),
@@ -306,7 +330,7 @@ Widget build(BuildContext context) {
                                     child: Text(
                                       'or Sign Up with',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 25, 25, 25),
+                                        color: Theme.of(context).colorScheme.secondary,
                                         fontSize: width_ * 0.040, // Adjusted font size
                                       ),
                                     ),

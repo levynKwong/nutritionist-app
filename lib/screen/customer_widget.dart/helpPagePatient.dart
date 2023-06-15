@@ -38,7 +38,7 @@ class HelpPagePatient extends StatelessWidget {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -49,7 +49,7 @@ class HelpPagePatient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -58,7 +58,7 @@ class HelpPagePatient extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -84,7 +84,7 @@ class HelpPagePatient extends StatelessWidget {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -95,7 +95,7 @@ class HelpPagePatient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -104,7 +104,7 @@ class HelpPagePatient extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -130,7 +130,7 @@ class HelpPagePatient extends StatelessWidget {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -141,7 +141,7 @@ class HelpPagePatient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -150,7 +150,7 @@ class HelpPagePatient extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -176,7 +176,7 @@ class HelpPagePatient extends StatelessWidget {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -187,7 +187,7 @@ class HelpPagePatient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -196,7 +196,7 @@ class HelpPagePatient extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -222,7 +222,7 @@ class HelpPagePatient extends StatelessWidget {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -233,7 +233,7 @@ class HelpPagePatient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -242,7 +242,7 @@ class HelpPagePatient extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),
@@ -269,7 +269,7 @@ class HelpPagePatient extends StatelessWidget {
                   Icon(
                     Icons.help_outline,
                     size: width_ * 0.1,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -280,7 +280,7 @@ class HelpPagePatient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -289,7 +289,7 @@ class HelpPagePatient extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromARGB(255, 86, 86, 86),
+                      color: Theme.of(context).colorScheme.secondary,
                       size: width_ * 0.04,
                     ),
                   ),

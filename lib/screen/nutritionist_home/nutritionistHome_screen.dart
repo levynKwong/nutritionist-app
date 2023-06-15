@@ -119,7 +119,7 @@ class _NutritionistHomeState extends State<NutritionistHome> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: getColor(), // set navigation bar background color
+          color: getColor(context), // set navigation bar background color
           boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8)
           ],

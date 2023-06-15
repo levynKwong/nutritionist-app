@@ -55,16 +55,17 @@ class DoctorForum extends StatelessWidget {
                       builder: (context) => ChatDoctorReg(),
                     ),
                   );
-                }, width_, height_),
+                }, width_, height_,context),
                 SizedBox(height: height_ * 0.02),
                 _buildElevatedButton('Chat With Friends', Icons.chat, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
+               
                       builder: (context) => randomChat(),
                     ),
                   );
-                }, width_, height_),
+                }, width_, height_,context),
                 SizedBox(height: height_ * 0.03),
               ],
             ),
@@ -109,7 +110,7 @@ class DoctorForum extends StatelessWidget {
   }
 
   Widget _buildElevatedButton(String text, IconData icon, Function() onPressed,
-      double width_, double height_) {
+      double width_, double height_,context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
       child: SizedBox(
@@ -120,18 +121,18 @@ class DoctorForum extends StatelessWidget {
           icon: Icon(
             icon,
             size: _iconSize * width_,
-            color: _iconColour[600],
+            color: Theme.of(context).colorScheme.secondary,
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color.fromARGB(255, 173, 184, 252)),
+                Color.fromARGB(255, 34, 199, 207)),
           ),
           label: Text(
             text,
             textScaleFactor: _textFactor,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: _textColour,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
         ),
@@ -172,25 +173,25 @@ class DoctorForum extends StatelessWidget {
           icon: Icon(
             Icons.calendar_month_outlined,
             size: _iconSize * width_,
-            color: _iconColour[600],
+            color:Theme.of(context).colorScheme.secondary,
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color.fromARGB(255, 173, 184, 252)),
+                Color.fromARGB(255, 34, 199, 207)),
           ),
           label: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               text: 'Book an Appointment\n',
               style: TextStyle(
-                  color: _textColour,
+                  color: Theme.of(context).colorScheme.secondary,
                   fontSize: width_ * 0.045,
                   fontWeight: FontWeight.w500),
               children: <TextSpan>[
                 TextSpan(
                   text: 'Available only in Mauritius',
                   style: TextStyle(
-                      color: _textColour,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: width_ * 0.035,
                       fontWeight: FontWeight.normal),
                 ),

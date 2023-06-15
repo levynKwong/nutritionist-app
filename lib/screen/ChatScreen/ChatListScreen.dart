@@ -19,6 +19,7 @@ class ChatListScreen extends StatelessWidget {
         width_ < 600; // Adjust this value as needed for small screens
 
     return Container(
+      
       margin: EdgeInsets.only(
           top: height_ * 0.01,
           left: 10.0,
@@ -63,7 +64,7 @@ class ChatListScreen extends StatelessWidget {
 
               return Card(
                 child: Container(
-                  color: Color.fromARGB(255, 242, 243, 251),
+                  
                   width: isSmallScreen
                       ? width_
                       : width_ * 0.9, // Adjust the width based on screen size
@@ -89,6 +90,7 @@ class ChatListScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
+       
                     ),
                     subtitle: Text(
                       lastMessage,

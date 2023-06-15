@@ -124,7 +124,7 @@ class _ReportButtonState extends State<ReportButton> {
                       child: Text('Cancel'),
                       style: TextButton.styleFrom(
                         textStyle: TextStyle(
-                          color: getColor(),
+                          color: getColor(context),
                         ),
                       ),
                       onPressed: () {
@@ -135,7 +135,7 @@ class _ReportButtonState extends State<ReportButton> {
                       child: Text('Report'),
                       style: TextButton.styleFrom(
                         textStyle: TextStyle(
-                          color: getColor(),
+                          color: getColor(context),
                         ),
                       ),
                       onPressed: () {

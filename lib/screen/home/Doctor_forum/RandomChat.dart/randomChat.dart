@@ -101,7 +101,7 @@ class _randomChatState extends State<randomChat> {
               onPressed: onOKPressed,
               child: Text('OK'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: getColor(), // Set the background color to blue
+                backgroundColor: getColor(context), // Set the background color to blue
               ),
             ),
           ],
@@ -132,7 +132,7 @@ class _randomChatState extends State<randomChat> {
               onPressed: onOKPressed,
               child: Text('OK'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: getColor(), // Set the background color to blue
+                backgroundColor: getColor(context), // Set the background color to blue
               ),
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
@@ -149,7 +150,7 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
                         'Resend',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.blue,
+                          color: getColor(context),
                           fontSize: MediaQuery.of(context).size.width * 0.045,
                         ),
                       ),
@@ -172,7 +173,7 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
                     'Cancel',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: MediaQuery.of(context).size.width * 0.045,
                     ),
                   ),

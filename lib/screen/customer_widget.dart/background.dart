@@ -9,7 +9,7 @@ class background extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: Theme.of(context).colorScheme.tertiary,
       ),
     );
   }

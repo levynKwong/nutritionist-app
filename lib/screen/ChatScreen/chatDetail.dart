@@ -134,7 +134,7 @@ class _ChatDetailState extends State<ChatDetail> {
                     ),
                   ],
                 ),
-                backgroundColor: getColor(),
+                backgroundColor: getColor(context),
                 actions: [
                   ReportButton(
                     userId: currentId,

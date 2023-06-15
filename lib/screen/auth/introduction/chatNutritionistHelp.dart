@@ -37,17 +37,17 @@ class _chatNutritionistHelpState extends State<chatNutritionistHelp> {
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
 
-    const pageDecoration = PageDecoration(
+    var pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.white,
+      pageColor: Theme.of(context).colorScheme.tertiary,
       imagePadding: EdgeInsets.zero,
     );
 
     return IntroductionScreen(
       key: introKey,
-      globalBackgroundColor: Colors.white,
+      globalBackgroundColor: Theme.of(context).colorScheme.tertiary,
       allowImplicitScrolling: true,
       autoScrollDuration: 4000,
       globalHeader: Align(

@@ -13,7 +13,7 @@ class Text1 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.07,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ),
@@ -34,7 +34,7 @@ class Text2 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.045,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ),
@@ -55,7 +55,7 @@ class Text3 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.044,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ),
@@ -76,7 +76,7 @@ class Text4 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.045,
             // fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           textAlign: TextAlign.center,
         ),
@@ -98,7 +98,7 @@ class Text5 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.040,
             // fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 75, 75, 75),
+            color: Theme.of(context).colorScheme.secondary,
           ),
           textAlign: TextAlign.center,
         ),
@@ -120,7 +120,7 @@ class Text6 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.065,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 0, 0, 0),
+            color: Theme.of(context).colorScheme.secondary,
           ),
           textAlign: TextAlign.center,
         ),
@@ -142,7 +142,7 @@ class Text7 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.050,
             // fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 0, 0, 0),
+            color: Theme.of(context).colorScheme.secondary,
           ),
           textAlign: TextAlign.center,
         ),
@@ -164,7 +164,7 @@ class Text8 extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.04,
             // fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 0, 0, 0),
+            color: Theme.of(context).colorScheme.secondary,
           ),
           textAlign: TextAlign.center,
         ),

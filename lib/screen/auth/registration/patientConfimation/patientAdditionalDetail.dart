@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 
 class PatientAdditionalDetail extends StatefulWidget {
@@ -110,7 +111,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                           Text(
                             'MeA',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 99, 144, 228),
+                              color: getColor(context),
                               fontSize: width_ * 0.20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -121,7 +122,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                       Text(
                         'MealAware Company Ltd',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 128, 164, 231),
+                          color: getColor(context),
                           fontSize: width_ * 0.05,
                           fontWeight: FontWeight.bold,
                         ),
@@ -490,8 +491,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(
-                                          0xFF6889c6), // sets the background color of the button
+                                      backgroundColor: getColor(context), // sets the background color of the button
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10.0),
                                       ),

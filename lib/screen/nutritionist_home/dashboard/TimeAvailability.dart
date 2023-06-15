@@ -15,7 +15,7 @@ class TimeAvailability extends StatefulWidget {
 
 class _TimeAvailabilityState extends State<TimeAvailability> {
   List<bool> _timesAvailable = List.generate(12, (_) => true);
-  Color _activeColor = getColor();
+  // Color _activeColor = getColor(context);
   Color _inactiveColor = Colors.grey;
   bool _loading = true;
   bool _lockToggle = false;
@@ -157,7 +157,7 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
                 Text(formattedTime),
                 Switch(
                   value: _timesAvailable[index],
-                  activeColor: _activeColor,
+                  activeColor: getColor(context),
                   inactiveThumbColor: _inactiveColor,
                   onChanged: (value) {
                     _toggleTimeAvailability(index);
@@ -182,7 +182,7 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: getColor(), // change the color here
+            backgroundColor: getColor(context), // change the color here
           ),
           child: Text('Close'),
           onPressed: () {

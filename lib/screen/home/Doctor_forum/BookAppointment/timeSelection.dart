@@ -165,7 +165,7 @@ Future<void> startPaymentStatusChecker() async {
                                           return Color.fromARGB(
                                               255, 168, 72, 72);
                                         } else {
-                                          return getColor();
+                                          return getColor(context);
                                         }
                                       }
                                     },

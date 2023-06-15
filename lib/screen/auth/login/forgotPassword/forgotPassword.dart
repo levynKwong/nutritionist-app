@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -10,8 +11,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final formKey = GlobalKey<FormState>();
-
   final TextEditingController emailController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -22,108 +23,100 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          background(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width_ * 0.05),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: height_ * 0.1),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context),
+      appBar: AppBar(
+        title: Text('Reset your password'),
+      ),
+      body: Container(
+        color: Theme.of(context)
+            .colorScheme
+            .tertiary, // Set the desired background color
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: width_ * 0.05),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: height_ * 0.15),
+                  Text(
+                    "Enter the email address associated \n\ with your account",
+                    style: TextStyle(
+                      fontSize: width_ * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text(
-                      "Reset Your Password",
-                      style: TextStyle(
-                        fontSize: width_ * 0.05,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      width: width_ * 0.09,
-                    ),
-                  ],
-                ),
-                SizedBox(height: height_ * 0.1),
-                Text(
-                  "Enter the email address associated \n\ with your account",
-                  style: TextStyle(
-                    fontSize: width_ * 0.05,
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                SizedBox(height: height_ * 0.05),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            hintText: "Enter your email",
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.email),
-                            contentPadding:
-                                EdgeInsets.symmetric(vertical: height_ * 0.02),
+                  SizedBox(height: height_ * 0.05),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      // Add other decoration properties as needed
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              hintText: "Enter your email",
+                              border: OutlineInputBorder(),
+                              prefixIcon: Icon(Icons.email),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: height_ * 0.02),
+                            ),
+                            validator: (email) {
+                              if (email != null &&
+                                  !RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
+                                      .hasMatch(email)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (email) {
-                            if (email != null &&
-                                !RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
-                                    .hasMatch(email)) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: height_ * 0.07),
+                  SizedBox(
+                    width: double.infinity,
+                    height: height_ * 0.06,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        resetPassword();
+                      },
+                      child: Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          fontSize: width_ * 0.05,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: height_ * 0.07),
-                SizedBox(
-                  width: double.infinity,
-                  height: height_ * 0.06,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      resetPassword();
-                    },
-                    child: Text(
-                      "Reset Password",
-                      style: TextStyle(fontSize: width_ * 0.05),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: getColor(),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: getColor(context),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: height_ * 0.07),
-                Text(
-                  "Make sure that when you reset a new password, it must be at least 6 characters long else it will you give you permission to login. ",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 205, 57, 57),
-                    fontSize: width_ * 0.04,
-                    fontWeight: FontWeight.bold,
+                  SizedBox(height: height_ * 0.07),
+                  Text(
+                    "Make sure that when you reset a new password, it must be at least 6 characters long else it will you give you permission to login. ",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 205, 57, 57),
+                      fontSize: width_ * 0.04,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
