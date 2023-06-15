@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchaseAppointment.dart';
@@ -225,7 +226,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Color(0xFF575ecb),
+              backgroundColor: getColor(context),
               minimumSize: Size(width_ * 0.3, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -314,7 +315,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Color(0xFF575ecb),
+              backgroundColor: getColor(context),
               minimumSize: Size(width_ * 0.3, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),

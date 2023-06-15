@@ -217,7 +217,7 @@ Future<void> startPaymentStatusChecker() async {
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Color(0xFF575ecb),
+              backgroundColor: getColor(context),
               minimumSize: Size(width_ * 0.3, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -293,7 +293,7 @@ Future<void> startPaymentStatusChecker() async {
                 : null, // Disable the button if no time slot is selected
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Color(0xFF575ecb),
+              backgroundColor: getColor(context),
               minimumSize: Size(width_ * 0.3, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),

@@ -215,7 +215,7 @@ class _randomChatState extends State<randomChat> {
             onPressed: handleButtonPress,
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: const Color(0xFF575ecb),
+              backgroundColor: getColor(context),
               minimumSize: Size(width_ * 0.3, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -236,7 +236,7 @@ class _randomChatState extends State<randomChat> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            foregroundColor: Colors.white, backgroundColor:getColor(context),
             minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),

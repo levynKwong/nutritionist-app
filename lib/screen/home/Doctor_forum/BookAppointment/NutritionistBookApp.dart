@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/nutritionistMoreInfo.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
@@ -106,7 +107,7 @@ class _NutritionistBookAppointmentState
             margin: EdgeInsets.all(16.0),
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Color.fromARGB(146, 87, 95, 203),
+              color: getColor(context),
               borderRadius: BorderRadius.circular(20.0),
               boxShadow: [
                 BoxShadow(
@@ -325,7 +326,7 @@ class _NutritionistBookAppointmentState
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+            foregroundColor: Colors.white, backgroundColor: getColor(context),
             minimumSize: Size(width_ * 0.3, 50), // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/NutritionistBookApp.dart';
@@ -61,7 +62,7 @@ NutritionistService(double width_, double height_, context) {
                 vertical: height_ * 0.06, horizontal: width_ * 0.07),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: Color.fromARGB(94, 87, 95, 203),
+              color: getColor(context),
             ),
             child: Column(
               children: [
@@ -69,6 +70,7 @@ NutritionistService(double width_, double height_, context) {
                   'images/nutritionist.png',
                   width: width_ * 0.2,
                   height: height_ * 0.06,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 SizedBox(height: height_ * 0.01),
                 Text(
@@ -92,7 +94,7 @@ Container buttons(double height_, double width_, context) {
       ElevatedButton(
         onPressed: () => Navigator.pop(context),
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white, backgroundColor: Color(0xFF575ecb),
+          foregroundColor: Colors.white, backgroundColor: getColor(context),
           minimumSize: Size(width_ * 0.3, 50), // set text color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
