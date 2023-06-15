@@ -88,9 +88,9 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: getColor(context), // set navigation bar background color
+          color: Theme.of(context).colorScheme.tertiary, // set navigation bar background color
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8)
+            BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 8)
           ],
         ),
         child: SafeArea(
@@ -99,14 +99,14 @@ class _HomeState extends State<Home> {
                 horizontal: width_ * 0.02, vertical: height_ * 0.01),
             child: GNav(
               gap: width_ * 0.01,
-              activeColor: Colors.white,
+              activeColor: getColor(context),
               iconSize: width_ * 0.07,
               padding: EdgeInsets.symmetric(
                   horizontal: width_ * 0.02, vertical: height_ * 0.01),
               duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: width_ * 0.03,
-              tabActiveBorder: Border.all(color: Colors.white, width: 1),
+              tabActiveBorder: Border.all(color: Theme.of(context).colorScheme.tertiary, width: 1),
               tabs: [
                 GButton(
                   icon: Icons.book,
