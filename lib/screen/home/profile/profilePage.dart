@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/aboutUs.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/appointment_history.dart';
 import 'package:meal_aware/screen/customer_widget.dart/deleteButton.dart';
@@ -511,12 +512,12 @@ class _profileState extends State<profile> {
             ),
             TextButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => introductionNutritionist(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutUs(),
+                  ),
+                );
               },
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
