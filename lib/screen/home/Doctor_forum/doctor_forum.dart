@@ -125,7 +125,7 @@ class DoctorForum extends StatelessWidget {
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color.fromARGB(255, 34, 199, 207)),
+                Color(0xFF39E6E6)),
           ),
           label: Text(
             text,
@@ -177,7 +177,7 @@ class DoctorForum extends StatelessWidget {
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color.fromARGB(255, 34, 199, 207)),
+                Color(0xFF39E6E6)),
           ),
           label: RichText(
             textAlign: TextAlign.center,

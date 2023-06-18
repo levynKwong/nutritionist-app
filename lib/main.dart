@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
        themeMode: ThemeMode.system,
       theme: ThemeData(
         colorScheme: ColorScheme.light(
-          primary: Color(0xFF139AB4), 
+          primary: Color(0xFF2fbfbf), 
           secondary: Color.fromARGB(255, 7, 7, 7),
           tertiary: Color.fromARGB(255, 255, 255, 255)// Set the primary color for the light theme
         ),
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.dark(
-          primary: Color(0xFF139AB4),
+          primary: Color(0xFF2fbfbf),
           secondary: Color.fromARGB(255, 255, 255, 255),
           tertiary: Color.fromARGB(255, 0, 0, 0) // Set the primary color for the dark theme
         ),

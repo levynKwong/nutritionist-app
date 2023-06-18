@@ -137,7 +137,7 @@ class _NutritionistHomeState extends State<NutritionistHome> {
               duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: width_ * 0.03,
-              tabActiveBorder: Border.all(color: Theme.of(context).colorScheme.tertiary, width: 1),
+              tabActiveBorder: Border.all(color: Theme.of(context).colorScheme.primary, width: 1),
               tabs: [
                 GButton(
                   icon: Icons.home,
