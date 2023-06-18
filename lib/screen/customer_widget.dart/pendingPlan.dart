@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/nutritionist_home/moreInfo.dart';
+import 'package:meal_aware/screen/customer_widget.dart/moreInfoDashboardList.dart';
 
 class PendingPlanList extends StatefulWidget {
-  final String clientUid;
+  final List<String> clientUid;
 
   PendingPlanList({required this.clientUid});
 
@@ -16,7 +16,7 @@ class PendingPlanList extends StatefulWidget {
 }
 
 class _PendingPlanListState extends State<PendingPlanList> {
-  final String clientUid;
+  final List<String> clientUid;
   _PendingPlanListState(this.clientUid);
 
   List<DocumentSnapshot> _documents = [];
@@ -78,7 +78,6 @@ class _PendingPlanListState extends State<PendingPlanList> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
 
-
     if (_documents.isEmpty) {
       return Center(
         child: Text(
@@ -130,7 +129,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return moreinfo(friendId: clientUid);
+                return MoreInfoDashboardList(friendId: [clientId]);
               },
             );
           },
@@ -154,8 +153,9 @@ class _PendingPlanListState extends State<PendingPlanList> {
                       String username = snapshot.data?.get('username');
                       return Text(
                         "$username",
-                        style: TextStyle(fontSize: width_ * 0.045,color: Theme.of(context).colorScheme.tertiary),
-                        
+                        style: TextStyle(
+                            fontSize: width_ * 0.045,
+                            color: Theme.of(context).colorScheme.tertiary),
                       );
                     } else {
                       return Text("Loading...");
@@ -164,10 +164,13 @@ class _PendingPlanListState extends State<PendingPlanList> {
                 ),
                 Text(
                   "$timeString",
-                  style: TextStyle(fontSize: width_ * 0.045,color: Theme.of(context).colorScheme.tertiary),
+                  style: TextStyle(
+                      fontSize: width_ * 0.045,
+                      color: Theme.of(context).colorScheme.tertiary),
                 ),
                 IconButton(
-                  icon: Icon(Icons.close,color: Theme.of(context).colorScheme.tertiary),
+                  icon: Icon(Icons.close,
+                      color: Theme.of(context).colorScheme.tertiary),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -175,8 +178,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
                         return AlertDialog(
                           title: Text("Confirm Deletion"),
                           content: Text(
-                              "Are you sure you want to delete this appointment?",),
-                              
+                            "Are you sure you want to delete this appointment?",
+                          ),
                           actions: [
                             TextButton(
                               child: Text("Cancel"),

@@ -284,12 +284,7 @@ class _dashboardState extends State<dashboard> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<String> patientUids = snapshot.data!;
-
-                      // Assuming you want to pass the first UID from the list
-                      String PatientUid =
-                          patientUids.isNotEmpty ? patientUids[0] : '';
-
-                      return PendingPlanList(clientUid: PatientUid);
+                      return PendingPlanList(clientUid: patientUids);
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
