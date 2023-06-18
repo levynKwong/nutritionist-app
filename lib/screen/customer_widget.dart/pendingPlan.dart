@@ -155,7 +155,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
                         "$username",
                         style: TextStyle(
                             fontSize: width_ * 0.045,
-                            color: Theme.of(context).colorScheme.tertiary),
+                            color: Colors.black,
+                        ),
                       );
                     } else {
                       return Text("Loading...");
@@ -166,11 +167,11 @@ class _PendingPlanListState extends State<PendingPlanList> {
                   "$timeString",
                   style: TextStyle(
                       fontSize: width_ * 0.045,
-                      color: Theme.of(context).colorScheme.tertiary),
+                      color: Colors.black),
                 ),
                 IconButton(
                   icon: Icon(Icons.close,
-                      color: Theme.of(context).colorScheme.tertiary),
+                      color: Colors.black),
                   onPressed: () {
                     showDialog(
                       context: context,
