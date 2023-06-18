@@ -379,8 +379,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     num);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(
-                                    0xFF6889c6), // sets the background color of the button
+                                backgroundColor: getColor(context), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),

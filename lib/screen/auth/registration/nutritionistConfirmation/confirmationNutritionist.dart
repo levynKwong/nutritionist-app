@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 class confirmationNutritionist extends StatefulWidget {
@@ -82,7 +83,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                         Text(
                           'MeA',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 99, 144, 228),
+                            color: getColor(context),
                             fontSize: width_ * 0.20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -91,7 +92,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                         Text(
                           'MealAware Company Ltd',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 128, 164, 231),
+                            color: getColor(context),
                             fontSize: width_ * 0.05,
                             fontWeight: FontWeight.bold,
                           ),

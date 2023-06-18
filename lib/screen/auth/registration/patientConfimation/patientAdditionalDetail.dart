@@ -107,12 +107,12 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                               Navigator.of(context).pop();
                             },
                           ),
-                          SizedBox(width: width_ * 0.16),
+                          SizedBox(width: width_ * 0.23),
                           Text(
                             'MeA',
                             style: TextStyle(
                               color: getColor(context),
-                              fontSize: width_ * 0.20,
+                              fontSize: width_ * 0.15,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -123,7 +123,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                         'MealAware Company Ltd',
                         style: TextStyle(
                           color: getColor(context),
-                          fontSize: width_ * 0.05,
+                          fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -463,7 +463,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                     Text(
                                       'By pressing "submit" you agree to our',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
+                                       
                                         fontSize:
                                             MediaQuery.of(context).size.width * 0.03,
                                       ),

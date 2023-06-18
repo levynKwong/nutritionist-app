@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
@@ -139,8 +140,8 @@ class _GetCoinState extends State<GetCoin> {
         ElevatedButton(
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
-            primary: Color(0xFF575ecb), // set background color
-            onPrimary: Colors.white, // set text color
+            backgroundColor: getColor(context), // set background color
+            foregroundColor: Colors.white, // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -163,8 +164,8 @@ class _GetCoinState extends State<GetCoin> {
             }
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Color(0xFF575ecb), // set text color
+            backgroundColor: getColor(context), // set background color
+            foregroundColor: Colors.white, // set text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

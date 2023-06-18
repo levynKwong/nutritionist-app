@@ -56,7 +56,7 @@ Future<void> saveUser(String email, String fullname, String username,
       'coin': 0,
       'pid': currentId,
       'image_url':
-          'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=618d841d-2a15-4c07-89a4-067efefd6953&_gl=1*1gtfbco*_ga*MjAyNjg2MDcxMi4xNjg1ODcxNTIy*_ga_CW55HF8NVT*MTY4NjA3NjQ5NS4xMC4xLjE2ODYwNzk5NzguMC4wLjA.',
+          'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=1ec9ec55-79d2-4861-a75c-c5abe9c8118c',
       'questions': [],
     };
 
@@ -72,7 +72,7 @@ Future<void> saveUser(String email, String fullname, String username,
       'registrationProgress': num,
       'nid': currentId,
       'image_url':
-          'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=618d841d-2a15-4c07-89a4-067efefd6953&_gl=1*1gtfbco*_ga*MjAyNjg2MDcxMi4xNjg1ODcxNTIy*_ga_CW55HF8NVT*MTY4NjA3NjQ5NS4xMC4xLjE2ODYwNzk5NzguMC4wLjA.',
+          'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=1ec9ec55-79d2-4861-a75c-c5abe9c8118c',
       'questions': [],
       'lockToggle':true,
     };

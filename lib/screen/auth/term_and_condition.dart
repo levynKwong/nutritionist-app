@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/registration/patientConfimation/patientAdditionalDetail.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 class Terms_and_condition extends StatefulWidget {
   const Terms_and_condition({super.key});
@@ -35,7 +36,7 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
             Text(
               'MeA',
               style: TextStyle(
-                color: Color.fromARGB(255, 99, 144, 228),
+                color: getColor(context),
                 fontSize: width_ * 0.15,
                 fontWeight: FontWeight.bold,
               ),
@@ -44,7 +45,7 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
             Text(
               'MealAware Company Ltd',
               style: TextStyle(
-                color: Color.fromARGB(255, 128, 164, 231),
+                color: getColor(context),
                 fontSize: width_ * 0.04,
                 fontWeight: FontWeight.bold,
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/redirectEmail.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
@@ -52,7 +53,7 @@ class _NutritionistAdditionalDetailState
                             Text(
                               'MeA',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 99, 144, 228),
+                                color: getColor(context),
                                 fontSize: width_ * 0.20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -64,7 +65,7 @@ class _NutritionistAdditionalDetailState
                       Text(
                         'MealAware Company Ltd',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 128, 164, 231),
+                          color: getColor(context),
                           fontSize: width_ * 0.05,
                           fontWeight: FontWeight.bold,
                         ),

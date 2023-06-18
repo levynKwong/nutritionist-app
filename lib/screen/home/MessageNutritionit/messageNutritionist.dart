@@ -66,7 +66,7 @@ class _messageNutritionistState extends State<messageNutritionist> {
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(0xFF575ecb),
+                    getColor(context),
                   ),
                 ),
                 child: Text("Add a Doctor"),
@@ -83,7 +83,7 @@ class _messageNutritionistState extends State<messageNutritionist> {
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(0xFF575ecb),
+                    getColor(context),
                   ),
                 ),
                 child: Text("Add a Friend"),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/BookAppointment.dart';
@@ -125,7 +126,7 @@ class DoctorForum extends StatelessWidget {
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color(0xFF39E6E6)),
+                getColor(context)),
           ),
           label: Text(
             text,
@@ -177,7 +178,7 @@ class DoctorForum extends StatelessWidget {
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color(0xFF39E6E6)),
+                getColor(context)),
           ),
           label: RichText(
             textAlign: TextAlign.center,
