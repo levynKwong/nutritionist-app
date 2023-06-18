@@ -77,7 +77,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
-    final double height_ = MediaQuery.of(context).size.height;
+
 
     if (_documents.isEmpty) {
       return Center(

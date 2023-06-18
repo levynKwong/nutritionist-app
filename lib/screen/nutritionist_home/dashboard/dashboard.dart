@@ -114,13 +114,13 @@ class _dashboardState extends State<dashboard> {
     int count = 0;
 
     QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('Patient').get();
+        await FirebaseFirestore.instance.collection('pendingPlan').get();
     List<QueryDocumentSnapshot<Object?>> documents = querySnapshot.docs;
 
     Set<String> uniqueIds = Set<String>();
     for (QueryDocumentSnapshot<Object?> document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      String uid = data['pid'] as String;
+      String uid = data['nutritionistId'] as String;
       uniqueIds.add(uid);
     }
 
@@ -131,13 +131,15 @@ class _dashboardState extends State<dashboard> {
   Future<List<String>> getPatientUids() async {
     List<String> uids = [];
 
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('Patient').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('pendingPlan')
+        .where('nutritionistId', isEqualTo: currentId)
+        .get();
     List<QueryDocumentSnapshot<Object?>> documents = querySnapshot.docs;
 
     for (QueryDocumentSnapshot<Object?> document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      String uid = data['pid'] as String;
+      String uid = data['userId'] as String;
       uids.add(uid);
     }
 
@@ -245,7 +247,9 @@ class _dashboardState extends State<dashboard> {
                 children: [
                   Text(
                     'Username',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(width: width_ * 0.1),
                   Text(
@@ -282,10 +286,10 @@ class _dashboardState extends State<dashboard> {
                       List<String> patientUids = snapshot.data!;
 
                       // Assuming you want to pass the first UID from the list
-                      String firstPatientUid =
+                      String PatientUid =
                           patientUids.isNotEmpty ? patientUids[0] : '';
 
-                      return PendingPlanList(clientUid: firstPatientUid);
+                      return PendingPlanList(clientUid: PatientUid);
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {

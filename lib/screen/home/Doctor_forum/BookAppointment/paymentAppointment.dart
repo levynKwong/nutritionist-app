@@ -32,10 +32,12 @@ class paymentAppointment extends StatefulWidget {
 }
 
 class _paymentAppointmentState extends State<paymentAppointment> {
+   late BuildContext _storedContext;
   @override
   void initState() {
     super.initState();
     _getSelectedTimeSlotsCount(timeAvailable);
+    _storedContext = context;
     handleTimeLimit();
     
   }
@@ -77,16 +79,17 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   _paymentAppointmentState(
       this.nutritionistUid, this.date, this.timeAvailable, this.userId);
 
-  void handleTimeLimit() {
+   void handleTimeLimit() {
     Timer(Duration(seconds: 30), () {
-      if (Navigator.canPop(context)) {
-        Navigator.pop(context);
+      if (Navigator.canPop(_storedContext)) {
+        Navigator.pop(_storedContext);
       }
 
       FirebaseFirestore.instance
           .collection('timeAvailability')
           .doc(nutritionistUid) // Replace with the actual document ID
-          .set({'lock': false}, SetOptions(merge: true)).then((_) {
+          .set({'lock': false}, SetOptions(merge: true))
+          .then((_) {
         // Navigate to the payment screen
       }).catchError((error) {
         print("Failed to update timeAvailability: $error");
