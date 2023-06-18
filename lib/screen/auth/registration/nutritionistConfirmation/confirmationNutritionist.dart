@@ -84,7 +84,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                           'MeA',
                           style: TextStyle(
                             color: getColor(context),
-                            fontSize: width_ * 0.20,
+                            fontSize: width_ * 0.15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -93,7 +93,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                           'MealAware Company Ltd',
                           style: TextStyle(
                             color: getColor(context),
-                            fontSize: width_ * 0.05,
+                            fontSize: width_ * 0.04,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -197,8 +197,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(
-                                  0xFF6889c6), // sets the background color of the button
+                              backgroundColor: getColor(context), // sets the background color of the button
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),

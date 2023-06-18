@@ -54,7 +54,7 @@ class _NutritionistAdditionalDetailState
                               'MeA',
                               style: TextStyle(
                                 color: getColor(context),
-                                fontSize: width_ * 0.20,
+                                fontSize: width_ * 0.15,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -66,7 +66,7 @@ class _NutritionistAdditionalDetailState
                         'MealAware Company Ltd',
                         style: TextStyle(
                           color: getColor(context),
-                          fontSize: width_ * 0.05,
+                          fontSize: width_ * 0.04,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -251,7 +251,6 @@ class _NutritionistAdditionalDetailState
                           Text(
                             'By pressing "submit" you agree to our',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.03,
                             ),

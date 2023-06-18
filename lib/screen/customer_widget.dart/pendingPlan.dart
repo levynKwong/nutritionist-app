@@ -154,7 +154,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
                       String username = snapshot.data?.get('username');
                       return Text(
                         "$username",
-                        style: TextStyle(fontSize: width_ * 0.045),
+                        style: TextStyle(fontSize: width_ * 0.045,color: Theme.of(context).colorScheme.tertiary),
+                        
                       );
                     } else {
                       return Text("Loading...");
@@ -163,10 +164,10 @@ class _PendingPlanListState extends State<PendingPlanList> {
                 ),
                 Text(
                   "$timeString",
-                  style: TextStyle(fontSize: width_ * 0.045),
+                  style: TextStyle(fontSize: width_ * 0.045,color: Theme.of(context).colorScheme.tertiary),
                 ),
                 IconButton(
-                  icon: Icon(Icons.close),
+                  icon: Icon(Icons.close,color: Theme.of(context).colorScheme.tertiary),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -174,7 +175,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
                         return AlertDialog(
                           title: Text("Confirm Deletion"),
                           content: Text(
-                              "Are you sure you want to delete this appointment?"),
+                              "Are you sure you want to delete this appointment?",),
+                              
                           actions: [
                             TextButton(
                               child: Text("Cancel"),

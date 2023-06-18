@@ -64,12 +64,12 @@ class _Terms_and_conditionState extends State<Terms_and_condition> {
                       //   color: Color.fromARGB(255, 136, 136, 136),
                       //   width: 3.0,
                       // ),
-                      color: Color.fromARGB(250, 214, 228, 239),
+                      color: getColor(context),
                       borderRadius: BorderRadius.circular(50.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Color.fromARGB(255, 207, 207, 207)
-                              .withOpacity(0.3),
+                          color: getColor(context).withOpacity(0.3),
+                              
                           spreadRadius: 3,
                           blurRadius: 2,
                           offset: Offset(0, 4),

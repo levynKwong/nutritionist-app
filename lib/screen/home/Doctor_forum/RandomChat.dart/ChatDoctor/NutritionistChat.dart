@@ -103,7 +103,7 @@ class _NutritionistChatState extends State<NutritionistChat> {
           margin: EdgeInsets.all(16.0),
           padding: EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: getColor(context),
+            color: getColor(context).withOpacity(0.5),
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: [
               BoxShadow(

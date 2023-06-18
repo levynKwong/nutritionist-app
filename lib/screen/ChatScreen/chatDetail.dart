@@ -78,10 +78,15 @@ class _ChatDetailState extends State<ChatDetail> {
             .get();
 
         String currentUserName = currentUserSnapshot['username'];
+        String currentUserEmail = currentUserSnapshot['email'];
+        String currentUserPhoneNumber = currentUserSnapshot['phoneNumber'];
         String friendName = friendSnapshot['username'];
-
+        String friendEmail = friendSnapshot['email'];
+        String friendPhoneNumber = friendSnapshot['phoneNumber'];
         chats.doc(docId).update({
           'usernames': [currentUserName, friendName],
+          'emails': [currentUserEmail, friendEmail],
+          'phoneNumbers': [currentUserPhoneNumber, friendPhoneNumber]
         });
       }
     }

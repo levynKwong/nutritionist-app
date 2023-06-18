@@ -171,10 +171,15 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
             .get();
 
         String currentUserName = currentUserSnapshot['username'];
+        String currentUserEmail = currentUserSnapshot['email'];
+        String currentUserPhoneNumber = currentUserSnapshot['phoneNumber'];
         String friendName = friendSnapshot['username'];
-
+        String friendEmail = friendSnapshot['email'];
+        String friendPhoneNumber = friendSnapshot['phoneNumber'];
         chats.doc(docId).update({
           'usernames': [currentUserName, friendName],
+          'emails': [currentUserEmail, friendEmail],
+          'phoneNumbers': [currentUserPhoneNumber, friendPhoneNumber]
         });
 
         sendMessage('Hi, Please to meet you Dr $friendName');

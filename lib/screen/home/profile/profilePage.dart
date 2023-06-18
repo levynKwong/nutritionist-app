@@ -8,6 +8,7 @@ import 'package:meal_aware/main.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/appointment_history.dart';
+import 'package:meal_aware/screen/customer_widget.dart/deleteButton.dart';
 import 'package:meal_aware/screen/customer_widget.dart/helpPagePatient.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
@@ -217,6 +218,9 @@ class _profileState extends State<profile> {
           ],
         ),
       );
+
+
+
   Widget topTitle(double height_, double width_) {
     return Center(
       child: Container(
@@ -571,7 +575,9 @@ class _profileState extends State<profile> {
             listDietaryPreference(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_),
+            deleteAccount(context),
             logout(height_),
+            SizedBox(height: height_ * 0.02),
           ],
         ),
       );

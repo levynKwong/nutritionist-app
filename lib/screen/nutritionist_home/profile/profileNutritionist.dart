@@ -10,6 +10,7 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
+import 'package:meal_aware/screen/customer_widget.dart/deleteButton.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/termsAndContitionHelpPage.dart';
@@ -517,10 +518,11 @@ class _profileNutritionistState extends State<profileNutritionist> {
             listAddress(height_, width_),
             SizedBox(height: height_ * 0.02),
             listPhoneNumber(height_, width_),
-
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_, 0),
+            deleteAccount(context),
             logout(height_),
+            SizedBox(height: height_ * 0.02),
           ],
         ),
       );
