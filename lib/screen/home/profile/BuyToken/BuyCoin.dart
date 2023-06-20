@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meal_aware/screen/home/profile/BuyToken/api/purchase_api.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+
 
 class BuyCoin extends StatefulWidget {
   const BuyCoin({Key? key}) : super(key: key);
@@ -18,8 +21,6 @@ class _BuyCoinState extends State<BuyCoin> {
   String coin2Id = 'coin_2';
   String coin3Id = 'coin_3';
 
-  final InAppPurchase _iap = InAppPurchase.instance;
-
   @override
   void initState() {
     super.initState();
@@ -28,13 +29,7 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Future<void> _initialize() async {
-    final bool available = await _iap.isAvailable();
-    if (!available) {
-      // In-app purchases are not available on this device
-      return;
-    }
-
-    // Add any additional setup, such as fetching available products or previous purchases
+    await PurchaseApi.init();
   }
 
   setSelectedRadio(int val) {
@@ -261,32 +256,30 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   void _buyCoins() async {
-    try {
-      final bool available = await _iap.isAvailable();
+  try {
+    final offerings = await PurchaseApi.fetchOffers();
+    if (offerings.isNotEmpty && selectedRadio > 0 && selectedRadio <= offerings.length) {
+      final offering = offerings[0];
+      final package = offering.availablePackages[selectedRadio - 1];
 
-      if (available) {
-        final ProductDetailsResponse response =
-            await _iap.queryProductDetails([coin1Id, coin2Id, coin3Id].toSet());
-
-        if (response.notFoundIDs.isEmpty) {
-          final List<ProductDetails> products = response.productDetails;
-
-          final ProductDetails selectedProduct = products[selectedRadio - 1];
-          final PurchaseParam purchaseParam = PurchaseParam(
-            productDetails: selectedProduct,
-          );
-          await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-
-      
-        }
-      }
-    } catch (error) {
+      final purchaserInfo = await Purchases.purchasePackage(package);
+      // Handle the purchased package or update UI accordingly
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Purchase failed: $error'),
+          content: Text('Invalid selection.'),
           backgroundColor: Colors.red,
         ),
       );
     }
+  } on PlatformException catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Purchase failed: ${error.message}'),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
+}
+
 }

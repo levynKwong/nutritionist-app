@@ -11,6 +11,7 @@
         <meta-data
             android:name="com.android.vending.billing.IInAppBillingService"
             android:value="com.google.android.gms.boss.api.BillingApi" />
+        
             
         <!-- Other configurations and activities -->
     </application>
