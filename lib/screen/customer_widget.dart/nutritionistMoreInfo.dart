@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
-import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 class NutritionistMoreInfo extends StatelessWidget {
   final String nid;

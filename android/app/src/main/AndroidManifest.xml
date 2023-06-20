@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.meal_aware">
+    package="com.mealAware.app">
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -25,8 +25,8 @@
             android:resource="@style/NormalTheme" />
 
         <meta-data
-            android:name="com.google.android.play.billing.IInAppBillingService"
-            android:value="com.android.vending.billing.IInAppBillingService.Stub" />
+            android:name="com.android.vending.billing.IInAppBillingService"
+            android:value="com.google.android.gms.boss.api.BillingApi" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

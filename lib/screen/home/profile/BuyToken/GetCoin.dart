@@ -8,7 +8,6 @@ import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
-import 'package:meal_aware/screen/home/profile/BuyToken/BuyCoin.dart';
 
 class GetCoin extends StatefulWidget {
   const GetCoin({super.key});

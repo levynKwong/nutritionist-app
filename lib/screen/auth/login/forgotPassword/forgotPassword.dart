@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_aware/screen/customer_widget.dart/background.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
-import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override

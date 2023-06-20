@@ -1,4 +1,4 @@
-package com.example.meal_aware
+package com.mealAware.app
 
 import io.flutter.embedding.android.FlutterActivity
 
