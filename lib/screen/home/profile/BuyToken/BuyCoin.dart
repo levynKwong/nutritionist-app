@@ -16,6 +16,9 @@ class BuyCoin extends StatefulWidget {
 
 class _BuyCoinState extends State<BuyCoin> {
   int selectedRadio = 0;
+  String coin1Id = 'coin_1';
+  String coin2Id = 'coin_2';
+  String coin3Id = 'coin_3';
   // late final Future<PaymentConfiguration> _googlePayConfigFuture;
   @override
   void initState() {

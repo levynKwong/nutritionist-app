@@ -460,10 +460,10 @@ packages:
     dependency: transitive
     description:
       name: in_app_purchase_android
-      sha256: "8caffed71ea381e8b2cecda8a945019a46fe6f6e24ea079def17a68a74778f37"
+      sha256: c1b8eba009db6002c6dd5ae1110d2445297dfd83b9c11e8f9ddb7411cb9dbee6
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0+4"
+    version: "0.3.0+5"
   in_app_purchase_platform_interface:
     dependency: transitive
     description:

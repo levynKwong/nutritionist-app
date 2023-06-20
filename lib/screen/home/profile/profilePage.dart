@@ -325,7 +325,7 @@ class _profileState extends State<profile> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GetCoin(),
+                    builder: (context) => BuyCoin(),
                   ),
                 );
               },
