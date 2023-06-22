@@ -10,6 +10,7 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchaseAppointment.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
@@ -111,7 +112,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             children: [
               topSubTitle(width_, height_),
               NutritionistService(width_, height_),
-              SizedBox(height: height_ * 0.02),
+             
               content(width_, height_),
               bottomContent(width_, height_)
             ],
@@ -139,7 +140,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       child: Column(
         children: [
           InkWell(
-            onTap: () {},
+            
             child: Container(
               width: width_ * 0.3,
               height: height_ * 0.25,
@@ -437,9 +438,9 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   Widget bottomContent(double width_, double height_) {
     return Container(
       child: Column(children: [
-        SizedBox(height: height_ * 0.04),
-        TermsofUse(height_, width_),
-        SizedBox(height: height_ * 0.035),
+        
+        TermsAndConditionsDialog(),
+        SizedBox(height: height_ * 0.020),
         buttons(height_, width_)
       ]),
     );

@@ -8,6 +8,7 @@ import 'package:meal_aware/screen/customer_widget.dart/form.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart';
 import 'package:meal_aware/screen/customer_widget.dart/purchase.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
 
@@ -134,21 +135,20 @@ class _paymentChatState extends State<paymentChat> {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
+    return  Scaffold(
         appBar: appBarTop(titleText: 'Payment'),
         body: SingleChildScrollView(
           child: Column(
             children: [
               topSubTitle(width_, height_),
               NutritionistService(width_, height_),
-              SizedBox(height: height_ * 0.02),
+              
               content(width_, height_),
               bottomContent(width_, height_)
             ],
           ),
         ),
-      ),
+      
     );
   }
 
@@ -383,55 +383,12 @@ class _paymentChatState extends State<paymentChat> {
     );
   }
 
-  Center TermsofUse(double height_, double width_) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                // Navigate to Terms of Use page
-              },
-              child: Text(
-                'Terms of Use',
-                style: TextStyle(
-                  color: Color(0xFF7B7B7B),
-                  // decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            Text(
-              ' | ',
-              style: TextStyle(
-                color: Color(0xFF7B7B7B),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // Navigate to Privacy Policy page
-              },
-              child: Text(
-                'Privacy Policy',
-                style: TextStyle(
-                  color: Color(0xFF7B7B7B),
-                  // decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget bottomContent(double width_, double height_) {
     return Container(
       child: Column(children: [
-        SizedBox(height: height_ * 0.04),
-        TermsofUse(height_, width_),
-        SizedBox(height: height_ * 0.035),
+        // SizedBox(height: height_ * 0.04),
+        TermsAndConditionsDialog(),
+        SizedBox(height: height_ * 0.020),
         buttons(height_, width_)
       ]),
     );
