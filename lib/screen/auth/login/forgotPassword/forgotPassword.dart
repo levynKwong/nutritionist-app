@@ -26,11 +26,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Reset your password'),
+        
       ),
       body: Container(
-        color: Theme.of(context)
-            .colorScheme
-            .tertiary, // Set the desired background color
+        
         child: Stack(
           children: [
             Padding(

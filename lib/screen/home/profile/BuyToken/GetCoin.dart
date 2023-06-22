@@ -147,7 +147,7 @@ class _GetCoinState extends State<GetCoin> {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
-          child: Text('    Back    '),
+          child: Text('        Back        '),
         ),
 
         SizedBox(width: width_ * 0.15), // add some spacing between the buttons
@@ -171,7 +171,7 @@ class _GetCoinState extends State<GetCoin> {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
-          child: Text('Confirm'),
+          child: Text('    Confirm    '),
         ),
       ],
     ));

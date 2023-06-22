@@ -7,6 +7,7 @@ import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
+import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/terms_of_use_and_services.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
@@ -289,7 +290,7 @@ class _randomChatState extends State<randomChat> {
                       text:
                           'If you are being harassed or bullied, please report the user immediately.'),
                 ),
-                SizedBox(height: height_ * 0.07),
+                SizedBox(height: height_ * 0.03),
                 FindRandomUser(width_, height_),
               ],
             ),
@@ -302,9 +303,9 @@ class _randomChatState extends State<randomChat> {
   Widget bottomContent(double width_, double height_) {
     return Container(
       child: Column(children: [
-        SizedBox(height: height_ * 0.04),
-        termNcondition(),
-        SizedBox(height: height_ * 0.035),
+        SizedBox(height: height_ * 0.02),
+        TermsAndConditionsDialog(),
+        SizedBox(height: height_ * 0.025),
         buttons(height_, width_)
       ]),
     );

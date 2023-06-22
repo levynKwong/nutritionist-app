@@ -21,9 +21,9 @@ class BuyCoin extends StatefulWidget {
 
 class _BuyCoinState extends State<BuyCoin> {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-  static const String coinId1 = 'coin_1';
-  static const String coinId2 = 'coin_2';
-  static const String coinId3 = 'coin_3';
+  static const String coinId1 = 'coin_1_mealaware';
+  static const String coinId2 = 'coin_2_mealaware';
+  static const String coinId3 = 'coin_3_mealaware';
   static const List<String> _kProductIds = <String>[
     coinId1,
     coinId2,
@@ -96,38 +96,31 @@ class _BuyCoinState extends State<BuyCoin> {
     });
   }
 
-  Future<void> _listenToPurchaseUpdated(
-      List<PurchaseDetails> purchaseDetailsList) async {
-    for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-      if (purchaseDetails.status == PurchaseStatus.pending) {
-        showPendingUI();
-      } else {
-        if (purchaseDetails.status == PurchaseStatus.error) {
-          handleError(purchaseDetails.error!);
-        } else if (purchaseDetails.status == PurchaseStatus.purchased ||
-            purchaseDetails.status == PurchaseStatus.restored) {
-          final bool valid = await _verifyPurchase(purchaseDetails);
-          if (valid) {
-            unawaited(deliverProduct(purchaseDetails));
-          } else {
-            _handleInvalidPurchase(purchaseDetails);
-            return;
-          }
+ Future<void> _listenToPurchaseUpdated(
+    List<PurchaseDetails> purchaseDetailsList) async {
+  for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+    if (purchaseDetails.status == PurchaseStatus.pending) {
+      showPendingUI();
+    } else {
+      if (purchaseDetails.status == PurchaseStatus.error) {
+        handleError(purchaseDetails.error!);
+      } else if (purchaseDetails.status == PurchaseStatus.purchased ||
+          purchaseDetails.status == PurchaseStatus.restored) {
+        final bool valid = await _verifyPurchase(purchaseDetails);
+        if (valid) {
+          unawaited(deliverProduct(purchaseDetails));
+        } else {
+          _handleInvalidPurchase(purchaseDetails);
+          return;
         }
-        if (Platform.isAndroid) {
-          final InAppPurchaseAndroidPlatformAddition androidAddition =
-              _inAppPurchase
-                  .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-          if (!_kAutoConsume && purchaseDetails.productID == _kProductIds) {
-            await androidAddition.consumePurchase(purchaseDetails);
-          }
-        }
-        if (purchaseDetails.pendingCompletePurchase) {
-          await _inAppPurchase.completePurchase(purchaseDetails);
-        }
+      }
+      if (purchaseDetails.pendingCompletePurchase) {
+        await _inAppPurchase.completePurchase(purchaseDetails);
       }
     }
   }
+}
+
 
   void showPendingUI() {
     showDialog(
@@ -231,21 +224,21 @@ class _BuyCoinState extends State<BuyCoin> {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: height_ * 0.05),
+            SizedBox(height: height_ * 0.02),
             CoinCounter(),
-            SizedBox(height: height_ * 0.012),
+            SizedBox(height: height_ * 0.02),
             Container(
               padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
               child: Column(
                 children: [
                   Container(
                     margin: EdgeInsets.only(
-                      left: width_ * 0.1,
-                      right: width_ * 0.1,
+                      left: width_ * 0.02,
+                      right: width_ * 0.02,
                     ),
                     child: Text4(
                       text:
-                          'You can use the coins to allow to communicate with your nutritionist and book appointments with them.',
+                          'You can use the coins to allow to communicate with your nutritionist and book appointments with them.\n\n After purchase, it takes time for the coin to load, in the mean time you can use the app as usual.',
                     ),
                   ),
                   SizedBox(height: height_ * 0.02),
