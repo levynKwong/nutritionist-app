@@ -342,7 +342,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                       width: width_ * 0.15,
                       margin: EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(231, 53, 63, 201),
+                        color: Color.fromARGB(231, 139, 139, 139),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: TextButton(
@@ -572,7 +572,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                         SizedBox(width: 15),
                         CircleAvatar(
                           backgroundColor: sendButtonEnabled == true
-                              ? Color(0xFF575dcb)
+                              ? getColor(context)
                               : Colors.grey,
                           radius: 22.5,
                           child: Stack(

@@ -94,7 +94,14 @@ class ChatBubble extends StatelessWidget {
                           print('Could not launch $message');
                         }
                         await launch(message);
-                      } else if (fileType == 'image') {}
+                      } else if (fileType == 'image') {
+                         if (await canLaunch(message)) {
+                          await launch(message);
+                        } else {
+                          print('Could not launch $message');
+                        }
+                        await launch(message);
+                      }
                     },
                     child: fileType == 'image'
                         ? Image.network(

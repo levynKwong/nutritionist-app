@@ -171,7 +171,7 @@ class _MenuButtonState extends State<MenuButton> {
           },
         );
       },
-      child: Icon(Icons.menu),
+      child: Icon(Icons.menu,color: Theme.of(context).colorScheme.secondary),
       backgroundColor: Colors.transparent,
       elevation: 0,
     );
