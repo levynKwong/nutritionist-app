@@ -21,9 +21,10 @@ class BuyCoin extends StatefulWidget {
 
 class _BuyCoinState extends State<BuyCoin> {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-  static const String coinId1 = 'coin_1_mealaware';
-  static const String coinId2 = 'coin_2_mealaware';
-  static const String coinId3 = 'coin_3_mealaware';
+  static const String coinId1 = 'coin_1_mealaware_consumable';
+  static const String coinId2 = 'coin_2_mealaware_consumable';
+  static const String coinId3 = 'coin_3_mealaware_consumable';
+
   static const List<String> _kProductIds = <String>[
     coinId1,
     coinId2,
@@ -96,31 +97,30 @@ class _BuyCoinState extends State<BuyCoin> {
     });
   }
 
- Future<void> _listenToPurchaseUpdated(
-    List<PurchaseDetails> purchaseDetailsList) async {
-  for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-    if (purchaseDetails.status == PurchaseStatus.pending) {
-      showPendingUI();
-    } else {
-      if (purchaseDetails.status == PurchaseStatus.error) {
-        handleError(purchaseDetails.error!);
-      } else if (purchaseDetails.status == PurchaseStatus.purchased ||
-          purchaseDetails.status == PurchaseStatus.restored) {
-        final bool valid = await _verifyPurchase(purchaseDetails);
-        if (valid) {
-          unawaited(deliverProduct(purchaseDetails));
-        } else {
-          _handleInvalidPurchase(purchaseDetails);
-          return;
+  Future<void> _listenToPurchaseUpdated(
+      List<PurchaseDetails> purchaseDetailsList) async {
+    for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.pending) {
+        showPendingUI();
+      } else {
+        if (purchaseDetails.status == PurchaseStatus.error) {
+          handleError(purchaseDetails.error!);
+        } else if (purchaseDetails.status == PurchaseStatus.purchased ||
+            purchaseDetails.status == PurchaseStatus.restored) {
+          final bool valid = await _verifyPurchase(purchaseDetails);
+          if (valid) {
+            unawaited(deliverProduct(purchaseDetails));
+          } else {
+            _handleInvalidPurchase(purchaseDetails);
+            return;
+          }
         }
-      }
-      if (purchaseDetails.pendingCompletePurchase) {
-        await _inAppPurchase.completePurchase(purchaseDetails);
+        if (purchaseDetails.pendingCompletePurchase) {
+          await _inAppPurchase.completePurchase(purchaseDetails);
+        }
       }
     }
   }
-}
-
 
   void showPendingUI() {
     showDialog(
@@ -154,17 +154,16 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Future<bool> _verifyPurchase(PurchaseDetails purchaseDetails) async {
-    // TODO: Implement your own verification logic
-    // Verify the purchase and return a boolean indicating whether it's valid
-    return true; // Replace with your own verification logic
+    return true;
   }
 
   Future<void> deliverProduct(PurchaseDetails purchaseDetails) async {
-    // TODO: Implement product delivery logic
-    // Deliver the purchased product to the user
-    // For example, you can grant the user the purchased coins
     final String productID = purchaseDetails.productID;
-    if (_kProductIds.contains(productID)) {
+    final String? purchaseID = purchaseDetails.purchaseID;
+
+    if (_kProductIds.contains(productID) && !_purchases.contains(purchaseID)) {
+      _purchases.add(purchaseID as PurchaseDetails); // Add the purchase ID to the list
+
       if (productID == coinId1) {
         _updateUserCoinCount(1);
       } else if (productID == coinId2) {
@@ -244,7 +243,7 @@ class _BuyCoinState extends State<BuyCoin> {
                   SizedBox(height: height_ * 0.02),
                   ElevatedButton(
                     onPressed: () {
-                      _inAppPurchase.buyNonConsumable(
+                      _inAppPurchase.buyConsumable(
                         purchaseParam:
                             PurchaseParam(productDetails: _products[0]),
                       );
@@ -270,7 +269,7 @@ class _BuyCoinState extends State<BuyCoin> {
                   SizedBox(height: height_ * 0.015),
                   ElevatedButton(
                     onPressed: () {
-                      _inAppPurchase.buyNonConsumable(
+                      _inAppPurchase.buyConsumable(
                         purchaseParam:
                             PurchaseParam(productDetails: _products[1]),
                       );
@@ -296,7 +295,7 @@ class _BuyCoinState extends State<BuyCoin> {
                   SizedBox(height: height_ * 0.015),
                   ElevatedButton(
                     onPressed: () {
-                      _inAppPurchase.buyNonConsumable(
+                      _inAppPurchase.buyConsumable(
                         purchaseParam:
                             PurchaseParam(productDetails: _products[2]),
                       );
@@ -329,7 +328,7 @@ class _BuyCoinState extends State<BuyCoin> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   getColor(context), // set background color
-                             // set text color
+                              // set text color
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),

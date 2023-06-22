@@ -63,7 +63,7 @@ class _clientHistoryAppointmentState extends State<clientHistoryAppointment> {
           });
 
           final currencyFormat =
-              NumberFormat.currency(locale: 'en_US', symbol: '\Coin ');
+              NumberFormat.currency(locale: 'en_US', symbol: ' Coin');
           String formattedTotalAmount = currencyFormat.format(totalAmount);
 
           return Column(

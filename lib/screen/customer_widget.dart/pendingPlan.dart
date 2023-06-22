@@ -135,7 +135,7 @@ class _PendingPlanListState extends State<PendingPlanList> {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 209, 209, 209),
+              color: Color.fromARGB(255, 219, 219, 219),
               borderRadius: BorderRadius.circular(10),
             ),
             padding: EdgeInsets.all(16),

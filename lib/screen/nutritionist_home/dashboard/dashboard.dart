@@ -154,7 +154,7 @@ class _dashboardState extends State<dashboard> {
         margin: EdgeInsets.all(width_ * 0.04),
         padding: EdgeInsets.all(width_ * 0.03),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Color.fromARGB(131, 108, 108, 108),
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(
@@ -315,7 +315,7 @@ class _dashboardState extends State<dashboard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Color.fromARGB(131, 108, 108, 108),
                   height: height_ * 0.10,
                   child: Row(
                     children: [
@@ -352,7 +352,7 @@ class _dashboardState extends State<dashboard> {
                           Text(
                             'Today',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 125, 125, 125),
+                              color: Color.fromARGB(255, 232, 232, 232),
                               fontSize: width_ * 0.03,
                               fontWeight: FontWeight.bold,
                             ),
@@ -372,7 +372,7 @@ class _dashboardState extends State<dashboard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: Color.fromARGB(131, 108, 108, 108),
                     height: height_ * 0.10,
                     child: Row(
                       children: [
@@ -409,7 +409,7 @@ class _dashboardState extends State<dashboard> {
                             Text(
                               'Total',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 125, 125, 125),
+                                color: Color.fromARGB(255, 232, 232, 232),
                                 fontSize: width_ * 0.03,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -429,70 +429,7 @@ class _dashboardState extends State<dashboard> {
     );
   }
 
-  AppBar appBar(double width_, double height_) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Text(
-        'Dashboard',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: width_ * 0.07,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      actions: [
-        IconButton(
-          icon: Icon(
-            Icons.calendar_today,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            popUpButton(context, width_, height_);
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.notifications,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            // Add your code here for notification icon action
-          },
-        ),
-      ],
-    );
-  }
-
-  Future<dynamic> popUpButton(
-      BuildContext context, double width_, double height_) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          content: Container(
-            height: height_ * 0.45,
-            width: width_ * 0.8,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-            ),
-            child: TableCalendar(
-              focusedDay: DateTime.now(),
-              firstDay: DateTime.utc(2022, 1, 1),
-              lastDay: DateTime.utc(2024, 12, 31),
-              calendarFormat: CalendarFormat.month,
-              startingDayOfWeek: StartingDayOfWeek.sunday,
-              // Add any additional calendar properties here
-            ),
-          ),
-        );
-      },
-    );
-  }
+  
 
   // Initialize Firebase
 }

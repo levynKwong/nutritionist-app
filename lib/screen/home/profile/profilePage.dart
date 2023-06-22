@@ -370,6 +370,7 @@ class _profileState extends State<profile> {
                 ],
               ),
             ),
+            
             TextButton(
               onPressed: () {
                 Navigator.push(

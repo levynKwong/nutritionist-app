@@ -865,7 +865,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             child: Text(
               _email,
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -924,7 +924,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 }
               }()),
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -956,7 +956,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             child: Text(
               '$_fullname',
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -1000,7 +1000,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 }
               }()),
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -1046,7 +1046,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 }
               }()),
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -1078,7 +1078,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             child: Text(
               ('$_address'),
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -1110,7 +1110,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             child: Text(
               ('$_phoneNumber'),
               style: TextStyle(
-                fontSize: width_ * 0.05,
+                fontSize: width_ * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary,
               ),
