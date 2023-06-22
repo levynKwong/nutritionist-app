@@ -136,6 +136,9 @@ class _ChatDetailState extends State<ChatDetail> {
                     SizedBox(width: width_ * 0.03),
                     Text(
                       '${widget.friendName}',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary
+                      )
                     ),
                   ],
                 ),

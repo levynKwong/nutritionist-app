@@ -326,6 +326,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                         style: TextStyle(
                           fontSize: 16, // Adjust the font size as needed
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.secondary
                           // Add any other desired text styles
                         ),
                       ),

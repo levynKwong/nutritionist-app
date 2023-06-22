@@ -40,7 +40,7 @@ class _MenuButtonState extends State<MenuButton> {
         loadAnswers(),
       ]);
       dataLoaded = true;
-      setState(() {}); // Refresh the UI after data is loaded
+     
     }
   }
 

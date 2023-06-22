@@ -201,12 +201,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                 automaticallyImplyLeading: true,
                 title: Row(
                   children: [
-                    // CircleAvatar(
-                    //   backgroundImage: imageUrl != null
-                    //       ? NetworkImage(imageUrl!) as ImageProvider<Object>?
-                    //       : AssetImage('images/OIB.png'),
-                    // ),
-                    // SizedBox(width: width_ * 0.03),
+                   
                     Expanded(
                       // Wrap Text widget with Expanded
                       child: Text(
@@ -215,6 +210,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                         style: TextStyle(
                           fontSize: 16, // Adjust the font size as needed
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.secondary
                           // Add any other desired text styles
                         ), // Set overflow property
                       ),
@@ -231,7 +227,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                       width: width_ * 0.15,
                       margin: EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(231, 53, 63, 201),
+                        color: Color.fromARGB(231, 139, 139, 139),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: TextButton(
@@ -500,7 +496,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                                       height: 24.0,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Colors.white,
+                                       
                                       ),
                                       child: Icon(
                                         Icons.circle,
@@ -518,7 +514,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
                         ),
                         SizedBox(width: 15),
                         CircleAvatar(
-                          backgroundColor: Color(0xFF575dcb),
+                          backgroundColor: getColor(context),
                           radius: 22.5,
                           child: IconButton(
                             onPressed: () {
