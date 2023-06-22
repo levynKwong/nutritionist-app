@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -47,7 +48,7 @@ class ChatBubble extends StatelessWidget {
               horizontal: 15,
             ),
             decoration: BoxDecoration(
-              color: isMe ? Color(0xFF575dcb) : Color(0xFFE0E0E0),
+              color: isMe ? getColor(context) : Color(0xFFE0E0E0),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),

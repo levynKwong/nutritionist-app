@@ -178,8 +178,9 @@ class _ReportButtonState extends State<ReportButton> {
           },
         );
       },
-      child: Icon(Icons.report),
+      child: Icon(Icons.report,color: Theme.of(context).colorScheme.secondary),
       backgroundColor: Colors.transparent,
+      
       elevation: 0,
     );
   }

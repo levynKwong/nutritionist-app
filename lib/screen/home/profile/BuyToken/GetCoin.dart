@@ -68,16 +68,18 @@ class _GetCoinState extends State<GetCoin> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text('Get Coin'), // Set the appbar title
+        backgroundColor: getColor(context),
+      ),
       body: Stack(
         children: [
-          background(),
           SafeArea(
             child: SingleChildScrollView(
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    topBar(width_, height_, context),
                     SizedBox(height: height_ * 0.02),
                     CoinCounter(),
                     SizedBox(height: height_ * 0.02),
@@ -140,7 +142,7 @@ class _GetCoinState extends State<GetCoin> {
           onPressed: () => Navigator.pop(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: getColor(context), // set background color
-            foregroundColor: Colors.white, // set text color
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -163,8 +165,8 @@ class _GetCoinState extends State<GetCoin> {
             }
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: getColor(context), // set background color
-            foregroundColor: Colors.white, // set text color
+            backgroundColor: getColor(context), 
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

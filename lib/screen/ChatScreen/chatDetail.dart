@@ -206,8 +206,7 @@ class _ChatDetailState extends State<ChatDetail> {
                             );
                           },
                           icon: const Icon(Icons.add),
-                          color: const Color.fromARGB(
-                              255, 0, 0, 0), // Change the button color to blue
+                          
                           disabledColor: Colors
                               .grey, // Change the button color when it's disabled
                           // Disable the button and display "not available"
@@ -307,7 +306,7 @@ class _ChatDetailState extends State<ChatDetail> {
                         ),
                         SizedBox(width: 15),
                         CircleAvatar(
-                          backgroundColor: Color(0xFF575dcb),
+                          backgroundColor: getColor(context),
                           radius: 22.5,
                           child: IconButton(
                             onPressed: () {
