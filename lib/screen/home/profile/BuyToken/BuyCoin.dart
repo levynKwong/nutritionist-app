@@ -30,6 +30,7 @@ class _BuyCoinState extends State<BuyCoin> {
     coinId2,
     coinId3,
   ];
+  bool _isUpdatingCoinCount = false; // Add this flag
   static const bool _kAutoConsume = true;
   late StreamSubscription<List<PurchaseDetails>> _subscription;
   List<String> _notFoundIds = <String>[];
@@ -158,23 +159,30 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Future<void> deliverProduct(PurchaseDetails purchaseDetails) async {
-    final String productID = purchaseDetails.productID;
-    final String? purchaseID = purchaseDetails.purchaseID;
+    if (_isUpdatingCoinCount) {
+      return; // Skip if coin count is already being updated
+    }
 
-    if (_kProductIds.contains(productID) && !_purchases.contains(purchaseID)) {
-      _purchases.add(purchaseID as PurchaseDetails); // Add the purchase ID to the list
+    if (purchaseDetails.status == PurchaseStatus.purchased) {
+      _isUpdatingCoinCount =
+          true; // Set the flag to indicate the update process has started
 
-      if (productID == coinId1) {
-        _updateUserCoinCount(1);
-      } else if (productID == coinId2) {
-        _updateUserCoinCount(2);
-      } else if (productID == coinId3) {
-        _updateUserCoinCount(3);
+      if (purchaseDetails.productID == coinId1) {
+        await _updateUserCoinCount(1);
+      } else if (purchaseDetails.productID == coinId2) {
+        await _updateUserCoinCount(2);
+      } else if (purchaseDetails.productID == coinId3) {
+        await _updateUserCoinCount(0);
       }
     }
+
+    setState(() {
+      _purchases.add(purchaseDetails);
+      _purchasePending = false;
+    });
   }
 
-  void _updateUserCoinCount(int coinsToAdd) async {
+  Future<void> _updateUserCoinCount(int coinsToAdd) async {
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
     // Get the user document reference
@@ -189,8 +197,18 @@ class _BuyCoinState extends State<BuyCoin> {
         // Get the current coin count
         final currentCoins = userSnapshot.data()!['coin'] ?? 0;
 
-        // Calculate the new coin count
-        final newCoins = currentCoins + coinsToAdd;
+        // Calculate the new coin count based on coinsToAdd
+        int newCoins;
+        if (coinsToAdd == 1) {
+          newCoins = currentCoins + 1;
+        } else if (coinsToAdd == 2) {
+          newCoins = currentCoins + 2;
+        } else if (coinsToAdd == 3) {
+          newCoins = currentCoins + 3;
+        } else {
+          // Invalid coinsToAdd value
+          throw Exception('Invalid coinsToAdd value: $coinsToAdd');
+        }
 
         // Update the user document with the new coin count
         transaction.update(userDoc, {'coin': newCoins});

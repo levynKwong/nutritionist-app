@@ -154,7 +154,7 @@ class _dashboardState extends State<dashboard> {
         margin: EdgeInsets.all(width_ * 0.04),
         padding: EdgeInsets.all(width_ * 0.03),
         decoration: BoxDecoration(
-          color: Color.fromARGB(131, 108, 108, 108),
+          color: Color.fromARGB(125, 38, 156, 156),
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(
@@ -315,7 +315,7 @@ class _dashboardState extends State<dashboard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  color: Color.fromARGB(131, 108, 108, 108),
+                  color: Color.fromARGB(189, 46, 191, 191),
                   height: height_ * 0.10,
                   child: Row(
                     children: [
@@ -372,7 +372,7 @@ class _dashboardState extends State<dashboard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    color: Color.fromARGB(131, 108, 108, 108),
+                    color: Color.fromARGB(189, 46, 191, 191),
                     height: height_ * 0.10,
                     child: Row(
                       children: [

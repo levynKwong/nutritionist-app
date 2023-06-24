@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 
 import 'package:meal_aware/screen/nutritionist_home/dashboard/TimeAvailability.dart';
 import 'package:meal_aware/screen/nutritionist_home/dashboard/chatAvailability.dart';
+import 'package:meal_aware/screen/nutritionist_home/dashboard/stopPurchase.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class appBarTop extends StatelessWidget implements PreferredSizeWidget {
@@ -120,16 +121,23 @@ class appBarTopCal2 extends StatelessWidget implements PreferredSizeWidget {
                 },
               );
             }),
-          SizedBox(width: width_*0.02,)
-        // IconButton(
-        //     icon: Icon(
-        //       Icons.calendar_today,
-        //       color: Color.fromARGB(255, 255, 255, 255),
-        //     ),
-        //     onPressed: () {
-        //       popUpButton(context);
-        //     }),
-        // NotificationWidget(),
+          
+          IconButton(
+            icon: Icon(
+              Icons.attach_money,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StopPurchase(
+                    userId: currentId,
+                  );
+                },
+              );
+            }),
+        
       ],
     );
   }
