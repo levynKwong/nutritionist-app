@@ -40,6 +40,8 @@ class _profileState extends State<profile> {
   String _username = '';
   String? _fullname;
   String? _age;
+  bool _loading = true;
+  bool _lockToggle = false;
 
   String? _country;
 
@@ -71,6 +73,31 @@ class _profileState extends State<profile> {
   List<int> IdealWeight = List.generate(150, (index) => index + 0);
   int? MealPerDay;
   List<int> meal = List.generate(10, (index) => index + 0);
+
+  void _fetchFirestoreLock() {
+    FirebaseFirestore.instance
+        .collection('stopPurchaseToggle')
+        .doc('stopPurchaseId')
+        .get()
+        .then((snapshot) {
+      if (snapshot.exists) {
+        final data = snapshot.data();
+        if (data != null && data.containsKey('stopPurchase')) {
+          setState(() {
+            _lockToggle = data['stopPurchase'];
+          });
+        }
+      }
+      setState(() {
+        _loading = false;
+      });
+    }).catchError((error) {
+      setState(() {
+        _loading = false;
+      });
+      print('Error retrieving lock status: $error');
+    });
+  }
 
   Future<String> getImageLink() async {
     final docSnapshot = await FirebaseFirestore.instance
@@ -178,6 +205,7 @@ class _profileState extends State<profile> {
         _email = email;
       });
     });
+    _fetchFirestoreLock();
   }
 
   @override
@@ -218,8 +246,6 @@ class _profileState extends State<profile> {
           ],
         ),
       );
-
-
 
   Widget topTitle(double height_, double width_) {
     return Center(
@@ -321,12 +347,31 @@ class _profileState extends State<profile> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BuyCoin(),
-                  ),
-                );
+                if (_lockToggle) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Locked'),
+                      content: Text(
+                          'This feature is locked as there are too many patient on the platform.  It\'s important to prioritize the well-being and workload of our doctors. We understand that this may cause inconvenience, but it\'s necessary to maintain a balanced and manageable environment for the doctors.\n\nPlease try again later and we appologies for any inconvenience \n\nDo not stay on the profile page it won\'t reload automatically'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BuyCoin(),
+                    ),
+                  );
+                }
               },
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
@@ -340,9 +385,7 @@ class _profileState extends State<profile> {
                     'images/tokenIcon.png',
                     height: height_ * 0.1,
                     width: width_ * 0.1,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .secondary, // Set the desired color here
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(width: width_ * 0.08),
                   Expanded(
@@ -370,7 +413,7 @@ class _profileState extends State<profile> {
                 ],
               ),
             ),
-            
+
             TextButton(
               onPressed: () {
                 Navigator.push(
