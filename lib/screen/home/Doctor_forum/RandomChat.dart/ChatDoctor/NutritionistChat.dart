@@ -121,9 +121,18 @@ class _NutritionistChatState extends State<NutritionistChat> {
               children: [
                 if (_users.isEmpty)
                   Center(
-                    child: Text(
-                      'No nutritionist registered yet',
-                      style: TextStyle(fontSize: 16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'No nutritionist found yet',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: height_ * 0.25),
+                        Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
                     ),
                   )
                 else
