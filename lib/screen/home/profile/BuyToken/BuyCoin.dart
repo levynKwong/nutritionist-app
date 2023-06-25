@@ -183,42 +183,52 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Future<void> _updateUserCoinCount(int coinsToAdd) async {
-  final User? user = FirebaseAuth.instance.currentUser;
-  final uid = user!.uid;
-  // Get the user document reference
-  final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
+    if (_isUpdatingCoinCount) {
+      return; // Skip if coin count is already being updated
+    }
 
-  try {
-    // Use a transaction to update the user's coin count
-    await FirebaseFirestore.instance.runTransaction((transaction) async {
-      // Get the current user document snapshot
-      final userSnapshot = await transaction.get(userDoc);
+    _isUpdatingCoinCount =
+        true; // Set the flag to indicate the update process has started
 
-      // Get the current coin count
-      final currentCoins = userSnapshot.data()!['coin'] ?? 0;
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+    // Get the user document reference
+    final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
 
-      // Calculate the new coin count based on coinsToAdd
-      int newCoins = currentCoins + coinsToAdd;
+    try {
+      // Use a transaction to update the user's coin count
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        // Get the current user document snapshot
+        final userSnapshot = await transaction.get(userDoc);
 
-      // Update the user document with the new coin count
-      transaction.update(userDoc, {'coin': newCoins});
-    });
+        // Get the current coin count
+        final currentCoins = userSnapshot.data()!['coin'] ?? 0;
 
-    // Show a success message
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Coins added successfully!')),
-    );
-    NotificationService.showNotification(
-      title: 'Payment Successful',
-      body: 'You have successfully purchased $coinsToAdd coins!',
-    );
-  } catch (e) {
-    // Show an error message
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Something went wrong')),
-    );
+        // Calculate the new coin count based on coinsToAdd
+        int newCoins = currentCoins + coinsToAdd;
+
+        // Update the user document with the new coin count
+        transaction.update(userDoc, {'coin': newCoins});
+      });
+
+      // Show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Coins added successfully!')),
+      );
+      NotificationService.showNotification(
+        title: 'Payment Successful',
+        body: 'You have successfully purchased $coinsToAdd coins!',
+      );
+    } catch (e) {
+      // Show an error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Something went wrong')),
+      );
+    } finally {
+      _isUpdatingCoinCount =
+          false; // Reset the flag after the update process is completed
+    }
   }
-}
 
   void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -413,5 +423,3 @@ class _BuyCoinState extends State<BuyCoin> {
     );
   }
 }
-
-
