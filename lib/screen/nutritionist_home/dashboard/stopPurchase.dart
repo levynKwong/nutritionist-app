@@ -33,8 +33,8 @@ class _StopPurchaseState extends State<StopPurchase> {
 
   void _fetchFirestoreLock() {
     FirebaseFirestore.instance
-        .collection('Nutritionist')
-        .doc(widget.userId)
+        .collection('stopPurchaseToggle')
+        .doc('stopPurchaseId')
         .get()
         .then((snapshot) {
       if (snapshot.exists) {
