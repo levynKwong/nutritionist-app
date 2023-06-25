@@ -154,14 +154,14 @@ class _dashboardState extends State<dashboard> {
         margin: EdgeInsets.all(width_ * 0.04),
         padding: EdgeInsets.all(width_ * 0.03),
         decoration: BoxDecoration(
-          color: Color.fromARGB(125, 38, 156, 156),
+          color: Color.fromARGB(207, 39, 158, 158),
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(
               color: Color.fromARGB(255, 207, 207, 207),
-              spreadRadius: 3,
-              blurRadius: 2,
-              offset: Offset(0, 1),
+              spreadRadius: 1.5,
+              blurRadius: 1,
+              offset: Offset(0, 0),
             ),
           ],
         ),

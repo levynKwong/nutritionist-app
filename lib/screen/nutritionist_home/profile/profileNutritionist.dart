@@ -533,8 +533,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
       if (pickedFile != null) {
         // Uploading the image to Firebase Storage
         var file = File(pickedFile.path);
-        var fileName =
-            DateTime.now().millisecondsSinceEpoch.toString() + '.png';
+        var fileName = currentId + '.png';
         var storageReference = firebase_storage.FirebaseStorage.instance
             .ref()
             .child('profile_images')

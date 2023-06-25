@@ -632,8 +632,7 @@ class _profileState extends State<profile> {
       if (pickedFile != null) {
         // Uploading the image to Firebase Storage
         var file = File(pickedFile.path);
-        var fileName =
-            DateTime.now().millisecondsSinceEpoch.toString() + '.png';
+        var fileName = currentId + '.png'; // Use currentId as the UID
         var storageReference = firebase_storage.FirebaseStorage.instance
             .ref()
             .child('profile_images')

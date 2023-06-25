@@ -172,7 +172,7 @@ class _BuyCoinState extends State<BuyCoin> {
       } else if (purchaseDetails.productID == coinId2) {
         await _updateUserCoinCount(2);
       } else if (purchaseDetails.productID == coinId3) {
-        await _updateUserCoinCount(0);
+        await _updateUserCoinCount(3);
       }
     }
 
@@ -183,52 +183,42 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Future<void> _updateUserCoinCount(int coinsToAdd) async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-    // Get the user document reference
-    final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
+  final User? user = FirebaseAuth.instance.currentUser;
+  final uid = user!.uid;
+  // Get the user document reference
+  final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
 
-    try {
-      // Use a transaction to update the user's coin count
-      await FirebaseFirestore.instance.runTransaction((transaction) async {
-        // Get the current user document snapshot
-        final userSnapshot = await transaction.get(userDoc);
+  try {
+    // Use a transaction to update the user's coin count
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      // Get the current user document snapshot
+      final userSnapshot = await transaction.get(userDoc);
 
-        // Get the current coin count
-        final currentCoins = userSnapshot.data()!['coin'] ?? 0;
+      // Get the current coin count
+      final currentCoins = userSnapshot.data()!['coin'] ?? 0;
 
-        // Calculate the new coin count based on coinsToAdd
-        int newCoins;
-        if (coinsToAdd == 1) {
-          newCoins = currentCoins + 1;
-        } else if (coinsToAdd == 2) {
-          newCoins = currentCoins + 2;
-        } else if (coinsToAdd == 3) {
-          newCoins = currentCoins + 3;
-        } else {
-          // Invalid coinsToAdd value
-          throw Exception('Invalid coinsToAdd value: $coinsToAdd');
-        }
+      // Calculate the new coin count based on coinsToAdd
+      int newCoins = currentCoins + coinsToAdd;
 
-        // Update the user document with the new coin count
-        transaction.update(userDoc, {'coin': newCoins});
-      });
+      // Update the user document with the new coin count
+      transaction.update(userDoc, {'coin': newCoins});
+    });
 
-      // Show a success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Coins added successfully!')),
-      );
-      NotificationService.showNotification(
-        title: 'Payment Successful',
-        body: 'You have successfully purchased $coinsToAdd coins!',
-      );
-    } catch (e) {
-      // Show an error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Something went wrong')),
-      );
-    }
+    // Show a success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Coins added successfully!')),
+    );
+    NotificationService.showNotification(
+      title: 'Payment Successful',
+      body: 'You have successfully purchased $coinsToAdd coins!',
+    );
+  } catch (e) {
+    // Show an error message
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Something went wrong')),
+    );
   }
+}
 
   void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -425,121 +415,3 @@ class _BuyCoinState extends State<BuyCoin> {
 }
 
 
-
-// goog_JOqwYSmDCvNhYRFmMfOVybysoDu
- // Widget buildRadioTile({
-  //   required int value,
-  //   required Image image,
-  //   required Widget title,
-  //   required double imageSize,
-  // }) {
-  //   return Container(
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(10.0),
-  //       color: Color(0xFFa0b1f9),
-  //     ),
-  //     height: 60,
-  //     child: RadioListTile(
-  //       value: value,
-  //       groupValue: selectedRadio,
-  //       onChanged: (val) {
-  //         print('number $val');
-  //         setSelectedRadio(val!);
-  //       },
-  //       controlAffinity: ListTileControlAffinity.trailing,
-  //       activeColor: Color(0xFF575dcb),
-  //       title: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           SizedBox(
-  //             width: imageSize,
-  //             height: imageSize,
-  //             child: image,
-  //           ),
-  //           SizedBox(width: 26),
-  //           Flexible(child: title),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-
-
-
-  // Widget selectionButton(double height_, double width_) {
-  //   return Center(
-  //     child: Container(
-  //       child: Container(
-  //         width: width_ * 0.8,
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           crossAxisAlignment: CrossAxisAlignment.stretch,
-  //           children: <Widget>[
-  //             buildRadioTile(
-  //               value: 1,
-  //               image: Image.asset('images/token1.png'),
-  //               title: Text('1', style: TextStyle(fontWeight: FontWeight.bold)),
-  //               imageSize: width_ * 0.11,
-  //             ),
-  //             SizedBox(height: height_ * 0.02),
-  //             buildRadioTile(
-  //               value: 2,
-  //               image: Image.asset('images/token2.png'),
-  //               title: Text('2', style: TextStyle(fontWeight: FontWeight.bold)),
-  //               imageSize: width_ * 0.13,
-  //             ),
-  //             SizedBox(height: height_ * 0.02),
-  //             buildRadioTile(
-  //               value: 3,
-  //               image: Image.asset('images/token3.png'),
-  //               title: Text('3', style: TextStyle(fontWeight: FontWeight.bold)),
-  //               imageSize: width_ * 0.14,
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-// --------------------------------------------
-  // Center TermsofUse(double height_, double width_) {
-  //   return Center(
-  //     child: Container(
-  //       margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           TextButton(
-  //             onPressed: () {
-  //               // Navigate to Terms of Use page
-  //             },
-  //             child: Text(
-  //               'Terms of Use',
-  //               style: TextStyle(
-  //                 color: Color(0xFF7B7B7B),
-  //               ),
-  //             ),
-  //           ),
-  //           Text(
-  //             ' | ',
-  //             style: TextStyle(
-  //               color: Color(0xFF7B7B7B),
-  //             ),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // Navigate to Privacy Policy page
-  //             },
-  //             child: Text(
-  //               'Privacy Policy',
-  //               style: TextStyle(
-  //                 color: Color(0xFF7B7B7B),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
