@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
@@ -75,14 +76,29 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        children: screens,
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: screens,
+          ),
+          UpgradeAlert(
+            upgrader: Upgrader(
+              shouldPopScope: () => true,
+              canDismissDialog: false,
+              dialogStyle: UpgradeDialogStyle.material,
+              debugDisplayAlways: true,
+              showIgnore: false,
+              showLater:false
+            ),
+            child: Container(), // Replace with your content
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

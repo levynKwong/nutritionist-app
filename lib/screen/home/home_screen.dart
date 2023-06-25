@@ -7,6 +7,7 @@ import 'package:meal_aware/screen/home/Doctor_forum/doctor_forum.dart';
 import 'package:meal_aware/screen/home/Message/message.dart';
 import 'package:meal_aware/screen/home/MessageNutritionit/messageNutritionist.dart';
 import 'package:meal_aware/screen/home/profile/profilePage.dart';
+import 'package:upgrader/upgrader.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -35,29 +36,45 @@ class _HomeState extends State<Home> {
 
   void initMessaging() async {
     await _firebaseMessaging.requestPermission();
- 
   }
-
 
   @override
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        children: screens,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: screens,
+          ),
+          UpgradeAlert(
+            upgrader: Upgrader(
+              shouldPopScope: () => true,
+              canDismissDialog: false,
+              dialogStyle: UpgradeDialogStyle.material,
+              debugDisplayAlways: true,
+              showIgnore: false,
+              showLater:false,
+              durationUntilAlertAgain: Duration(days: 1),
+            ),
+            child: Container(), // Replace with your content
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary, // set navigation bar background color
+          color: Theme.of(context)
+              .colorScheme
+              .tertiary, // set navigation bar background color
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 8)
+            BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 8),
           ],
         ),
         child: SafeArea(
@@ -73,19 +90,16 @@ class _HomeState extends State<Home> {
               duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: width_ * 0.03,
-              tabActiveBorder: Border.all(color: Theme.of(context).colorScheme.primary, width: 1),
+              tabActiveBorder: Border.all(
+                  color: Theme.of(context).colorScheme.primary, width: 1),
               tabs: [
                 GButton(
-                  icon: Icons.book,
-                  text: 'Message Doctor',
+                  icon: Icons.home,
+                  text: 'Dashboard',
                 ),
                 GButton(
                   icon: Icons.message,
                   text: 'Message Friend',
-                ),
-                GButton(
-                  icon: Icons.face,
-                  text: 'Doctor Forum',
                 ),
                 GButton(
                   icon: Icons.person,
@@ -98,8 +112,8 @@ class _HomeState extends State<Home> {
                   _currentIndex = index;
                   _pageController.animateToPage(
                     index,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.ease,
+                    duration: Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
                   );
                 });
               },
