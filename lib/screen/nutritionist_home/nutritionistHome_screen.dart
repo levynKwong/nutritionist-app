@@ -94,7 +94,8 @@ class _NutritionistHomeState extends State<NutritionistHome> {
               dialogStyle: UpgradeDialogStyle.material,
               debugDisplayAlways: true,
               showIgnore: false,
-              showLater:false
+              showLater:false,
+              durationUntilAlertAgain: Duration(days: 1),
             ),
             child: Container(), // Replace with your content
           ),
