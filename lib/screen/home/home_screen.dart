@@ -35,42 +35,9 @@ class _HomeState extends State<Home> {
 
   void initMessaging() async {
     await _firebaseMessaging.requestPermission();
-    setupFirebaseMessaging();
+ 
   }
 
-  void setupFirebaseMessaging() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message.notification?.title ?? ''),
-          content: Text(message.notification?.body ?? ''),
-          actions: [
-            TextButton(
-              child: Text('Dismiss'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Update'),
-              onPressed: redirectToPlayStore,
-            ),
-          ],
-        ),
-      );
-    });
-  }
-
-  void redirectToPlayStore() async {
-    const url =
-        'https://play.google.com/store/apps/details?id=com.mealAware.app.package'; // Replace with your app's Play Store URL
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
