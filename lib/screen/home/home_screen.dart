@@ -56,10 +56,8 @@ class _HomeState extends State<Home> {
           ),
           UpgradeAlert(
             upgrader: Upgrader(
-              shouldPopScope: () => true,
               canDismissDialog: false,
               dialogStyle: UpgradeDialogStyle.material,
-              debugDisplayAlways: true,
               showIgnore: false,
               showLater:false,
               durationUntilAlertAgain: Duration(days: 1),
@@ -93,13 +91,17 @@ class _HomeState extends State<Home> {
               tabActiveBorder: Border.all(
                   color: Theme.of(context).colorScheme.primary, width: 1),
               tabs: [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Dashboard',
+                 GButton(
+                  icon: Icons.book,
+                  text: 'Message Doctor',
                 ),
                 GButton(
                   icon: Icons.message,
                   text: 'Message Friend',
+                ),
+                GButton(
+                  icon: Icons.face,
+                  text: 'Doctor Forum',
                 ),
                 GButton(
                   icon: Icons.person,
@@ -112,7 +114,7 @@ class _HomeState extends State<Home> {
                   _currentIndex = index;
                   _pageController.animateToPage(
                     index,
-                    duration: Duration(milliseconds: 200),
+                    duration: Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
                   );
                 });

@@ -163,10 +163,14 @@ class _BuyCoinState extends State<BuyCoin> {
       return; // Skip if coin count is already being updated
     }
 
-    if (purchaseDetails.status == PurchaseStatus.purchased) {
-      _isUpdatingCoinCount =
-          true; // Set the flag to indicate the update process has started
+    if (_purchases.contains(purchaseDetails)) {
+      return; // Skip if the purchase has already been processed
+    }
 
+    _isUpdatingCoinCount =
+        true; // Set the flag to indicate the update process has started
+
+    if (purchaseDetails.status == PurchaseStatus.purchased) {
       if (purchaseDetails.productID == coinId1) {
         await _updateUserCoinCount(1);
       } else if (purchaseDetails.productID == coinId2) {
@@ -180,6 +184,9 @@ class _BuyCoinState extends State<BuyCoin> {
       _purchases.add(purchaseDetails);
       _purchasePending = false;
     });
+
+    _isUpdatingCoinCount =
+        false; // Reset the flag after the update process is completed
   }
 
   Future<void> _updateUserCoinCount(int coinsToAdd) async {

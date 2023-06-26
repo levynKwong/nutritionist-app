@@ -66,7 +66,6 @@ class _NutritionistHomeState extends State<NutritionistHome> {
     return [
       dashboard(),
       messageClient(),
-      // form(url: url),
       profileNutritionist(),
     ];
   }
@@ -88,11 +87,9 @@ class _NutritionistHomeState extends State<NutritionistHome> {
             children: screens,
           ),
           UpgradeAlert(
-            upgrader: Upgrader(
-              shouldPopScope: () => true,
+           upgrader: Upgrader(
               canDismissDialog: false,
               dialogStyle: UpgradeDialogStyle.material,
-              debugDisplayAlways: true,
               showIgnore: false,
               showLater:false,
               durationUntilAlertAgain: Duration(days: 1),
