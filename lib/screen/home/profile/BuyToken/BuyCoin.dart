@@ -167,9 +167,10 @@ class _BuyCoinState extends State<BuyCoin> {
     if (_purchases.contains(purchaseDetails)) {
       return; // Skip if the purchase has already been processed
     }
-
-    _isUpdatingCoinCount =
-        true; // Set the flag to indicate the update process has started
+    setState(() {
+      _isUpdatingCoinCount =
+          true; // Set the flag to indicate the update process has started
+    });
 
     if (purchaseDetails.status == PurchaseStatus.purchased) {
       if (purchaseDetails.productID == coinId1) {
@@ -186,12 +187,20 @@ class _BuyCoinState extends State<BuyCoin> {
       _purchasePending = false;
     });
 
-    _isUpdatingCoinCount =
-        false; // Reset the flag after the update process is completed
+    setState(() {
+      _isUpdatingCoinCount =
+          false; // Reset the flag after the update process is completed
+    });
   }
 
   Future<void> _updateUserCoinCount(int coinsToAdd) async {
-   
+    if (_isUpdatingCoinCount) {
+      return; // Skip if coin count is already being updated
+    }
+    setState(() {
+      _isUpdatingCoinCount =
+          true; // Set the flag to indicate the update process has started
+    });
 
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
@@ -207,7 +216,7 @@ class _BuyCoinState extends State<BuyCoin> {
         // Get the current coin count
         final currentCoins = userSnapshot.data()!['coin'] ?? 0;
 
-        // Calculate the new coin count based on coinsToAdd
+        // Calculate the new coin count by incrementing the current count
         int newCoins = currentCoins + coinsToAdd;
 
         // Update the user document with the new coin count
@@ -222,18 +231,25 @@ class _BuyCoinState extends State<BuyCoin> {
         title: 'Payment Successful',
         body: 'You have successfully purchased $coinsToAdd coins!',
       );
-      //navigator to home page
+      // Navigator to home page
       Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-              (Route<dynamic> route) => false,
-            );
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+        (Route<dynamic> route) => false,
+      );
+
+      // Clear the processed purchases list
+      _purchases.clear();
     } catch (e) {
       // Show an error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Something went wrong')),
       );
-    
+    } finally {
+      setState(() {
+        _isUpdatingCoinCount =
+            false; // Reset the flag after the update process is completed
+      });
     }
   }
 

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
 
-final userId = FirebaseAuth.instance.currentUser!.uid;
+
 // this currentId is used to put current User ID
 String currentId = '';
 
@@ -28,7 +28,7 @@ Future<void> saveUser(String email, String fullname, String username,
 
   DocumentSnapshot userSnapshot;
   bool userIdExists = false;
-  currentId = userId;
+
 
   if (userType == 'Patient') {
     userSnapshot = await firestore.collection('Patient').doc(currentId).get();

@@ -383,9 +383,9 @@ class User1 {
     }
 
     String gender;
-    if (data['gender'] == '10') {
+    if (data['gender'] == '1') {
       gender = 'Male';
-    } else if (data['gender'] == '11') {
+    } else if (data['gender'] == '2') {
       gender = 'Female';
     } else {
       gender = 'Non-Binary';

@@ -461,7 +461,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                     ),
                                     SizedBox(height: height_ * 0.02),
                                     Text(
-                                      'By pressing "submit" you agree to our',
+                                      'By pressing "submit" you agree to our terms and conditions',
                                       style: TextStyle(
                                        
                                         fontSize:
