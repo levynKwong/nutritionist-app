@@ -10,6 +10,7 @@ import 'package:meal_aware/screen/customer_widget.dart/notification_service.dart
 import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/home/profile/BuyToken/GetCoin.dart';
 
 class BuyCoin extends StatefulWidget {
@@ -190,12 +191,7 @@ class _BuyCoinState extends State<BuyCoin> {
   }
 
   Future<void> _updateUserCoinCount(int coinsToAdd) async {
-    if (_isUpdatingCoinCount) {
-      return; // Skip if coin count is already being updated
-    }
-
-    _isUpdatingCoinCount =
-        true; // Set the flag to indicate the update process has started
+   
 
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
@@ -226,14 +222,18 @@ class _BuyCoinState extends State<BuyCoin> {
         title: 'Payment Successful',
         body: 'You have successfully purchased $coinsToAdd coins!',
       );
+      //navigator to home page
+      Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => Home()),
+              (Route<dynamic> route) => false,
+            );
     } catch (e) {
       // Show an error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Something went wrong')),
       );
-    } finally {
-      _isUpdatingCoinCount =
-          false; // Reset the flag after the update process is completed
+    
     }
   }
 
