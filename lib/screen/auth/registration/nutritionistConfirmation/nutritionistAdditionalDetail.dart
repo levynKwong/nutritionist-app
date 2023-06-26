@@ -274,7 +274,8 @@ class _NutritionistAdditionalDetailState
                                     _customSpecialization!,
                                     experience!,
                                     gender!,
-                                    num);
+                                    num,
+                                    currentId);
                               },
                               //
 

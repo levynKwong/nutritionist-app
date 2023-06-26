@@ -2,10 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
 
-
-// this currentId is used to put current User ID
-String currentId = '';
-
+String currentId = FirebaseAuth.instance.currentUser!.uid;
 String generateNewUserId() {
   final random = Random();
   const int userIdLength = 25;
@@ -26,22 +23,24 @@ Future<void> saveUser(String email, String fullname, String username,
     String age, String phonenumber, String userType, int num) async {
   final firestore = FirebaseFirestore.instance;
 
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
   DocumentSnapshot userSnapshot;
   bool userIdExists = false;
-
+  String currentId1 = userId;
 
   if (userType == 'Patient') {
-    userSnapshot = await firestore.collection('Patient').doc(currentId).get();
+    userSnapshot = await firestore.collection('Patient').doc(currentId1).get();
     userIdExists = userSnapshot.exists;
   } else if (userType == 'Nutritionist') {
     userSnapshot =
-        await firestore.collection('Nutritionist').doc(currentId).get();
+        await firestore.collection('Nutritionist').doc(currentId1).get();
     userIdExists = userSnapshot.exists;
   }
 
   if (userIdExists) {
     // User with userId already exists, create another one
-    currentId = generateNewUserId(); // Generate a new userId here
+    currentId1 = generateNewUserId(); // Generate a new userId here
   }
 
   if (userType == 'Patient') {
@@ -54,13 +53,13 @@ Future<void> saveUser(String email, String fullname, String username,
       'joinDate': DateTime.now(),
       'registrationProgress': num,
       'coin': 0,
-      'pid': currentId,
+      'pid': currentId1,
       'image_url':
           'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=1ec9ec55-79d2-4861-a75c-c5abe9c8118c',
       'questions': [],
     };
 
-    await firestore.collection('Patient').doc(currentId).set(userData);
+    await firestore.collection('Patient').doc(currentId1).set(userData);
   } else if (userType == 'Nutritionist') {
     Map<String, dynamic> userData = {
       'email': email,
@@ -70,14 +69,14 @@ Future<void> saveUser(String email, String fullname, String username,
       'phoneNumber': phonenumber,
       'joinDate': DateTime.now(),
       'registrationProgress': num,
-      'nid': currentId,
+      'nid': currentId1,
       'image_url':
           'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=1ec9ec55-79d2-4861-a75c-c5abe9c8118c',
       'questions': [],
-      'lockToggle':true,
+      'lockToggle': true,
     };
 
-    await firestore.collection('Nutritionist').doc(currentId).set(userData);
+    await firestore.collection('Nutritionist').doc(currentId1).set(userData);
   }
 }
 
@@ -87,7 +86,8 @@ Future<void> saveNutritionistAdditionalDetail(
     String customSpecialization,
     String workExperience,
     String gender,
-    int num) async {
+    int num,
+    String currentId) async {
   Map<String, dynamic> userData = {
     'address': address,
     'specialization': specialization,
@@ -104,7 +104,7 @@ Future<void> saveNutritionistAdditionalDetail(
       .set(userData, SetOptions(merge: true));
 }
 
-Future<void> progressRegistration(int num) async {
+Future<void> progressRegistration(int num, String currentId) async {
   Map<String, dynamic> userData = {
     'registrationProgress': num,
   };

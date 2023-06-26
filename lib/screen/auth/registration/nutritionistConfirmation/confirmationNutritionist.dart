@@ -177,7 +177,7 @@ class _confirmationNutritionistState extends State<confirmationNutritionist> {
 
                               if (await validateCodeAndUpdateExpectedCodes(
                                   enteredCode)) {
-                                progressRegistration(num);
+                                progressRegistration(num, currentId);
                                 // Navigate to the home screen if the entered code is valid
                                 Navigator.push(
                                   context,
