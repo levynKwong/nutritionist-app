@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-
-import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
+import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class chatInfo extends StatefulWidget {
   const chatInfo({super.key});
@@ -16,7 +15,7 @@ class _chatInfoState extends State<chatInfo> {
 
   void _onIntroEnd(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => helpPageNutritionist()),
+      MaterialPageRoute(builder: (_) => NutritionistHome()),
     );
   }
 

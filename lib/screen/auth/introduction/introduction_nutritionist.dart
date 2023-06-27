@@ -17,19 +17,10 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
 
   void _onIntroEnd(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => helpPageNutritionist()),
+      MaterialPageRoute(builder: (_) => NutritionistHome()),
     );
   }
 
-  // Widget _buildFullscreenImage() {
-  //   return Image.asset(
-  //     '1.jpg',
-  //     fit: BoxFit.cover,
-  //     height: double.infinity,
-  //     width: double.infinity,
-  //     alignment: Alignment.center,
-  //   );
-  // }
 
   Widget _buildImage(String assetName, [double width = 500]) {
     return Image.asset('images/$assetName', width: width);

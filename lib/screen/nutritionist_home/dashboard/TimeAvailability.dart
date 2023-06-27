@@ -171,7 +171,9 @@ class _TimeAvailabilityState extends State<TimeAvailability> {
       actions: [
         Row(
           children: [
-            Text('Lock:'),
+            Text(
+                'Lock is automatic,\ndon\'t toggle unless it is \nlocked caused by an error.',
+                style: TextStyle(color: Colors.red)),
             Switch(
               value: _lockToggle,
               onChanged: (value) {

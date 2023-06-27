@@ -19,16 +19,6 @@ class _lockChatState extends State<lockChat> {
     );
   }
 
-  // Widget _buildFullscreenImage() {
-  //   return Image.asset(
-  //     '1.jpg',
-  //     fit: BoxFit.cover,
-  //     height: double.infinity,
-  //     width: double.infinity,
-  //     alignment: Alignment.center,
-  //   );
-  // }
-
   Widget _buildImage(String assetName, [double width = 500]) {
     return Image.asset('images/$assetName', width: width);
   }
@@ -52,24 +42,8 @@ class _lockChatState extends State<lockChat> {
       autoScrollDuration: 4000,
       globalHeader: Align(
         alignment: Alignment.topRight,
-        // child: SafeArea(
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(top: 16, right: 16),
-        //     child: _buildImage('1.jpg', 100),
-        //   ),
-        // ),
       ),
-      // globalFooter: SizedBox(
-      //   width: double.infinity,
-      //   height: 60,
-      //   child: ElevatedButton(
-      //     child: const Text(
-      //       'Let\'s go right away!',
-      //       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-      //     ),
-      //     onPressed: () => _onIntroEnd(context),
-      //   ),
-      // ),
+     
       pages: [
         PageViewModel(
           title: "Chat Locked",

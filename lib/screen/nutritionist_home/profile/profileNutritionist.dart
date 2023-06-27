@@ -8,6 +8,7 @@ import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
+import 'package:meal_aware/screen/customer_widget.dart/aboutUs.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
 import 'package:meal_aware/screen/customer_widget.dart/deleteButton.dart';
@@ -410,12 +411,12 @@ class _profileNutritionistState extends State<profileNutritionist> {
             
             TextButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => introductionNutritionist(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutUs(),
+                  ),
+                );
               },
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
