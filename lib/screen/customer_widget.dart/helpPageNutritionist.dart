@@ -5,6 +5,7 @@ import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.da
 import 'package:meal_aware/screen/auth/introduction/lockChat.dart';
 import 'package:meal_aware/screen/auth/introduction/nutritionistAppoinment.dart';
 import 'package:meal_aware/screen/auth/introduction/theDashboard.dart';
+import 'package:meal_aware/screen/auth/introduction/theDashboardMaxClient.dart';
 import 'package:meal_aware/screen/auth/introduction/theDashboardPendingPlan.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/termsAndContitionHelpPage.dart';
@@ -165,7 +166,7 @@ class helpPageNutritionist extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => lockChat(),
+                    builder: (context) => TheDashboardPendingMaxClient(),
                   ),
                 );
               },

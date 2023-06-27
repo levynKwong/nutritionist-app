@@ -49,13 +49,13 @@ class _TheDashboardPendingMaxClientState extends State<TheDashboardPendingMaxCli
       pages: [
         
         PageViewModel(
-          title: "Pending Plan",
+          title: "Maximum Chat client",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "Pending plan display the username,time,date and allows you to remove the client from the pending plan. Full control is given to you. For more info go to the Pending Plan info",
+                  "This is the maximum client availability page. This page will show the maximum client that you can have. If you want to increase the maximum client. ",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -67,17 +67,17 @@ class _TheDashboardPendingMaxClientState extends State<TheDashboardPendingMaxCli
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('d3.jpg'),
+          image: _buildImage('d4.jpg'),
           reverse: true,
         ),
         PageViewModel(
-          title: "Client more info",
+          title: "Set Maximum Client ",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "By tapping on the client button, you can view more information about the client",
+                  "You can allow to set the maximum client you want to allow to reach out to you.",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -89,17 +89,17 @@ class _TheDashboardPendingMaxClientState extends State<TheDashboardPendingMaxCli
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('p2.jpg'),
+          image: _buildImage('m1.jpg'),
           reverse: true,
         ),
         PageViewModel(
-          title: "Delete client",
+          title: "Maximum client reached",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "This allow you to remove the client from the pending plan list. ",
+                  "A lock button will be toggle automatically when max client reached. You can also toggle it manually. ",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -111,17 +111,17 @@ class _TheDashboardPendingMaxClientState extends State<TheDashboardPendingMaxCli
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('p3.jpg'),
+          image: _buildImage('m2.jpg'),
           reverse: true,
         ),
         PageViewModel(
-          title: "Delete client confirmation",
+          title: "Client side",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "This is the confirmation page to delete the client from the pending plan list.",
+                  "This is how it will appear on client side when a client want to make a purchase.",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -133,7 +133,7 @@ class _TheDashboardPendingMaxClientState extends State<TheDashboardPendingMaxCli
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('p4.jpg'),
+          image: _buildImage('m3.jpg'),
           reverse: true,
         ),
         
