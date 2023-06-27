@@ -42,6 +42,8 @@ class _BuyCoinState extends State<BuyCoin> {
   bool _purchasePending = false;
   bool _loading = true;
   String? _queryProductError;
+  bool _purchaseError = false;
+  bool _receivedProducts = false;
 
   @override
   void initState() {
@@ -175,10 +177,20 @@ class _BuyCoinState extends State<BuyCoin> {
     if (purchaseDetails.status == PurchaseStatus.purchased) {
       if (purchaseDetails.productID == coinId1) {
         await _updateUserCoinCount(1);
+        setState(() {
+          _receivedProducts = true;
+        });
+        
       } else if (purchaseDetails.productID == coinId2) {
         await _updateUserCoinCount(2);
+         setState(() {
+          _receivedProducts = true;
+        });
       } else if (purchaseDetails.productID == coinId3) {
         await _updateUserCoinCount(3);
+         setState(() {
+          _receivedProducts = true;
+        });
       }
     }
 
@@ -193,50 +205,54 @@ class _BuyCoinState extends State<BuyCoin> {
     });
   }
 
- Future<void> _updateUserCoinCount(int coinsToAdd) async {
-  setState(() {
-    _isUpdatingCoinCount = true; // Set the flag to indicate the update process has started
-  });
-
-  try {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final uid = user!.uid;
-    final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
-
-    await FirebaseFirestore.instance.runTransaction((transaction) async {
-      final userSnapshot = await transaction.get(userDoc);
-      final currentCoins = userSnapshot.data()!['coin'] ?? 0;
-      int newCoins = currentCoins + coinsToAdd;
-      transaction.update(userDoc, {'coin': newCoins});
+  Future<void> _updateUserCoinCount(int coinsToAdd) async {
+    setState(() {
+      _isUpdatingCoinCount =
+          true; // Set the flag to indicate the update process has started
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Coins added successfully!')),
-    );
-    NotificationService.showNotification(
-      title: 'Payment Successful',
-      body: 'You have successfully purchased $coinsToAdd coins!',
-    );
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => Home()),
-      (Route<dynamic> route) => false,
-    );
+    try {
+      final User? user = FirebaseAuth.instance.currentUser;
+      final uid = user!.uid;
+      final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
 
-    _purchases.clear();
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Something went wrong')),
-    );
-  } finally {
-    if (mounted) {
-      setState(() {
-        _isUpdatingCoinCount = false; // Reset the flag after the update process is completed
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        final userSnapshot = await transaction.get(userDoc);
+        final currentCoins = userSnapshot.data()!['coin'] ?? 0;
+        int newCoins = currentCoins + coinsToAdd;
+        transaction.update(userDoc, {'coin': newCoins});
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Coins added successfully!')),
+      );
+      NotificationService.showNotification(
+        title: 'Payment Successful',
+        body: 'You have successfully purchased $coinsToAdd coins!',
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+        (Route<dynamic> route) => false,
+      );
+
+      _purchases.clear();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Something went wrong')),
+      );
+      setState(() {
+        _purchaseError = true;
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isUpdatingCoinCount =
+              false; // Reset the flag after the update process is completed
+        });
+      }
     }
   }
-}
-
 
   void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -421,7 +437,44 @@ class _BuyCoinState extends State<BuyCoin> {
         ),
       );
     }
-
+    if (_purchaseError= true) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Purchase Error'),
+            content: Text('Failed to complete the purchase. If you have made a purchase and have not received any coin, please contact us by sending us an email at mealawareness@gmail.com. Make sure to give us the email that you registered in the app and the email you used to make the payment which is your google play account.\n\n We are sorry for the inconvenience.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+    if (_receivedProducts= true) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Impotant notice'),
+            content: Text('You\'re purchase is going through, please wait a few second. Make sure to not make another purchase and wait as this might create a conflict. Purchase will not be refunded if accidently made multiple purchases.\n\nFor any questions, please contact us by sending us an email at mealawareness@gmail.com'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buy Coins'),

@@ -170,7 +170,7 @@ class _introductionPatientState extends State<introductionPatient> {
             children: const [
               Flexible(
                 child: Text(
-                  "If you seem lost, click on 'More Info' and you will get additional information or guidance.",
+                  "If you seem lost, click on 'Help' and you will get additional information or guidance.",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -182,7 +182,7 @@ class _introductionPatientState extends State<introductionPatient> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('5.jpg'),
+          image: _buildImage('9.jpg'),
           reverse: true,
         ),
         PageViewModel(
