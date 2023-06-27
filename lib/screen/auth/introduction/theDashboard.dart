@@ -1,18 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
-import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
-class introductionNutritionist extends StatefulWidget {
-  const introductionNutritionist({super.key});
+import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
+
+
+class TheDashboard extends StatefulWidget {
+  const TheDashboard({super.key});
 
   @override
-  State<introductionNutritionist> createState() =>
-      _introductionNutritionistState();
+  State<TheDashboard> createState() => _TheDashboardState();
 }
 
-class _introductionNutritionistState extends State<introductionNutritionist> {
+class _TheDashboardState extends State<TheDashboard> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
@@ -20,16 +20,6 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
       MaterialPageRoute(builder: (_) => helpPageNutritionist()),
     );
   }
-
-  // Widget _buildFullscreenImage() {
-  //   return Image.asset(
-  //     '1.jpg',
-  //     fit: BoxFit.cover,
-  //     height: double.infinity,
-  //     width: double.infinity,
-  //     alignment: Alignment.center,
-  //   );
-  // }
 
   Widget _buildImage(String assetName, [double width = 500]) {
     return Image.asset('images/$assetName', width: width);
@@ -54,40 +44,17 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
       autoScrollDuration: 4000,
       globalHeader: Align(
         alignment: Alignment.topRight,
-        // child: SafeArea(
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(top: 16, right: 16),
-        //     child: _buildImage('1.jpg', 100),
-        //   ),
-        // ),
       ),
-      // globalFooter: SizedBox(
-      //   width: double.infinity,
-      //   height: 60,
-      //   child: ElevatedButton(
-      //     child: const Text(
-      //       'Let\'s go right away!',
-      //       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-      //     ),
-      //     onPressed: () => _onIntroEnd(context),
-      //   ),
-      // ),
+
       pages: [
         PageViewModel(
-          title: "Welcome to MealAware",
-          body:
-              "MealAware is a platform that helps you to track your daily food intake and provide you with a healthy diet plan.\n\n Let's get started!",
-          image: _buildImage('nutritionist_photo.png', 300),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "Dashboard",
+          title: "Client Counter",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "Welcome to your dashboard, here you can look for your clients appointment schedule and place the time slot for your clients",
+                  "Client Counter in pending plan. This will allow you to keep track of how many clients are there in your pending plan.",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -99,7 +66,51 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('n5.jpg'),
+          image: _buildImage('d1.jpg'),
+          reverse: true,
+        ),
+        PageViewModel(
+          title: "Platform Client",
+          bodyWidget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Flexible(
+                child: Text(
+                  "This allows you to know how many clients are there in this platform.",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          decoration: pageDecoration.copyWith(
+            bodyFlex: 2,
+            imageFlex: 8,
+            bodyAlignment: Alignment.bottomCenter,
+            imageAlignment: Alignment.topCenter,
+          ),
+          image: _buildImage('d2.jpg'),
+          reverse: true,
+        ),
+        PageViewModel(
+          title: "Pending Plan",
+          bodyWidget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Flexible(
+                child: Text(
+                  "Pending plan display the username,time,date and allows you to remove the client from the pending plan. Full control is given to you. For more info go to the Pending Plan info",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          decoration: pageDecoration.copyWith(
+            bodyFlex: 2,
+            imageFlex: 8,
+            bodyAlignment: Alignment.bottomCenter,
+            imageAlignment: Alignment.topCenter,
+          ),
+          image: _buildImage('d3.jpg'),
           reverse: true,
         ),
         PageViewModel(
@@ -109,7 +120,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             children: const [
               Flexible(
                 child: Text(
-                  "This page is where you can set your maximum client. You have full control over it.",
+                  "This allows you to set the maximum client availability. For more info go to the Maximum Client Availability info",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -121,17 +132,17 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('n7.jpg'),
+          image: _buildImage('d4.jpg'),
           reverse: true,
         ),
         PageViewModel(
-          title: "Time availability",
+          title: "Time Availability",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "This page is where you can set your time availability for your clients to book an appointment with you.",
+                  "This allows you to set the time availability. For more info go to the Time Availability info",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -143,17 +154,17 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('n1.jpg'),
+          image: _buildImage('d5.jpg'),
           reverse: true,
         ),
         PageViewModel(
-          title: "Lock People from Purchase",
+          title: "Lock all purchases",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "This page allows you to lock people from purchasing coins in the application.",
+                  "This allows you to lock all purchases. For more info go to the Lock all purchases info",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -165,61 +176,10 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('n8.jpg'),
+          image: _buildImage('d6.jpg'),
           reverse: true,
         ),
-         PageViewModel(
-          title: "Message your clients",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Flexible(
-                child: Text(
-                  "This page allows you to chat with your clients and help them to achieve their goals.",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
-            imageFlex: 8,
-            bodyAlignment: Alignment.bottomCenter,
-            imageAlignment: Alignment.topCenter,
-          ),
-          image: _buildImage('n9.jpg'),
-          reverse: true,
-        ),
-        PageViewModel(
-          title: "Profile Page",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Flexible(
-                child: Text(
-                  "If you need more help regarding the app, go on the help section",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
-            imageFlex: 8,
-            bodyAlignment: Alignment.bottomCenter,
-            imageAlignment: Alignment.topCenter,
-          ),
-          image: _buildImage('n3.jpg'),
-          reverse: true,
-        ),
-       
-        PageViewModel(
-          title: "Thanks for using MealAware",
-          body:
-              "We are delighted to have you as part of our community. Our app is designed to make your life easier and more enjoyable.\n\nExplore the features, connect with other users, and unlock exciting opportunities.\n\nWe hope you have a fantastic experience!",
-          image: _buildImage('nutritionist_photo.png', 300),
-          decoration: pageDecoration,
-        ),
+        
       ],
       onDone: () => _onIntroEnd(context),
 //onSkip: () => _onIntroEnd(context), // You can override onSkip callback

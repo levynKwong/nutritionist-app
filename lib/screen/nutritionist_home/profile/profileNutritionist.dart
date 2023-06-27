@@ -11,6 +11,8 @@ import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.da
 import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
 import 'package:meal_aware/screen/customer_widget.dart/deleteButton.dart';
+import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
+
 
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/termsAndContitionHelpPage.dart';
@@ -363,7 +365,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => introductionNutritionist(),
+                    builder: (context) => helpPageNutritionist(),
                   ),
                 );
               },
@@ -405,53 +407,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
                 ],
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TermsAndConditionsInHelpPage(),
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all<Size>(
-                  Size(width_ * 0.8, height_ * 0.07),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.help_outline,
-                    size: width_ * 0.1,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  SizedBox(width: width_ * 0.08),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Terms and Conditions',
-                        style: TextStyle(
-                          fontSize: width_ * 0.04,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: width_ * 0.07),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Theme.of(context).colorScheme.secondary,
-                      size: width_ * 0.04,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            
             TextButton(
               onPressed: () {
                 // Navigator.push(
