@@ -437,7 +437,7 @@ class _BuyCoinState extends State<BuyCoin> {
         ),
       );
     }
-    if (_purchaseError= true) {
+    if (_purchaseError ==true) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -456,7 +456,7 @@ class _BuyCoinState extends State<BuyCoin> {
         },
       );
     }
-    if (_receivedProducts= true) {
+    if (_receivedProducts == true) {
       showDialog(
         context: context,
         builder: (BuildContext context) {

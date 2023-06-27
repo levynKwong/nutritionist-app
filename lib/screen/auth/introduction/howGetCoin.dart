@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 
-class introductionPatient extends StatefulWidget {
-  const introductionPatient({super.key});
+class HowGetCoin extends StatefulWidget {
+  const HowGetCoin({super.key});
 
   @override
-  State<introductionPatient> createState() => _introductionPatientState();
+  State<HowGetCoin> createState() => _HowGetCoinState();
 }
 
-class _introductionPatientState extends State<introductionPatient> {
+class _HowGetCoinState extends State<HowGetCoin> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
@@ -46,13 +46,7 @@ class _introductionPatientState extends State<introductionPatient> {
       ),
      
       pages: [
-        PageViewModel(
-          title: "Welcome to MealAware",
-          body:
-              "MealAware is a platform that helps you to track your daily food intake and provide you with a healthy diet plan.\n\n Let's get started!",
-          image: _buildImage('nutritionist_photo.png', 300),
-          decoration: pageDecoration,
-        ),
+        
         PageViewModel(
           title: "Start by buying coins",
           bodyWidget: Row(
@@ -98,13 +92,13 @@ class _introductionPatientState extends State<introductionPatient> {
           reverse: true,
         ),
         PageViewModel(
-          title: "Doctor's Forum",
+          title: "Use Coupons",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Flexible(
                 child: Text(
-                  "This page is where you can start chatting with random people, chat with nutritionist and book an appointment with them.",
+                  "This page is where you can type 6-digit code where the patient will receive a coin.",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -116,75 +110,10 @@ class _introductionPatientState extends State<introductionPatient> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('8.jpg'),
+          image: _buildImage('coupon.jpg'),
           reverse: true,
         ),
-        PageViewModel(
-          title: "Message a Nutritionist",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Flexible(
-                child: Text(
-                  " You can message a nutritionist and ask them about your diet plan and they will help you to achieve your goal.",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
-            imageFlex: 8,
-            bodyAlignment: Alignment.bottomCenter,
-            imageAlignment: Alignment.topCenter,
-          ),
-          image: _buildImage('4.jpg'),
-          reverse: true,
-        ),
-        PageViewModel(
-          title: "Book an Appointment",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Flexible(
-                child: Text(
-                  "You can book an appointment with a nutritionist and they will help you to achieve your goal.",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
-            imageFlex: 8,
-            bodyAlignment: Alignment.bottomCenter,
-            imageAlignment: Alignment.topCenter,
-          ),
-          image: _buildImage('5.jpg'),
-          reverse: true,
-        ),
-        PageViewModel(
-          title: "Profile Page",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Flexible(
-                child: Text(
-                  "If you seem lost, click on 'Help' and you will get additional information or guidance.",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
-            imageFlex: 8,
-            bodyAlignment: Alignment.bottomCenter,
-            imageAlignment: Alignment.topCenter,
-          ),
-          image: _buildImage('9.jpg'),
-          reverse: true,
-        ),
+       
         PageViewModel(
           title: "Thanks for using MealAware",
           body:

@@ -112,7 +112,7 @@ class _nutritionistAppoinmentState extends State<nutritionistAppoinment> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('a2.jpg'),
+          image: _buildImage('c2.jpg'),
           reverse: true,
         ),
         PageViewModel(
@@ -134,7 +134,7 @@ class _nutritionistAppoinmentState extends State<nutritionistAppoinment> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('a3.jpg'),
+          image: _buildImage('c3.jpg'),
           reverse: true,
         ),
         PageViewModel(
@@ -156,7 +156,7 @@ class _nutritionistAppoinmentState extends State<nutritionistAppoinment> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('a4.jpg'),
+          image: _buildImage('5.jpg'),
           reverse: true,
         ),
         PageViewModel(
@@ -178,7 +178,7 @@ class _nutritionistAppoinmentState extends State<nutritionistAppoinment> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('a5.jpg'),
+          image: _buildImage('c4.jpg'),
           reverse: true,
         ),
         PageViewModel(

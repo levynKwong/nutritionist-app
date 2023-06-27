@@ -178,7 +178,7 @@ class _chatNutritionistHelpState extends State<chatNutritionistHelp> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('c7.jpg'),
+          image: _buildImage('4.jpg'),
           reverse: true,
         ),
         PageViewModel(

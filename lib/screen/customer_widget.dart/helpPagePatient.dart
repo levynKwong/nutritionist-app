@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_aware/screen/auth/introduction/chatNutritionistHelp.dart';
+import 'package:meal_aware/screen/auth/introduction/howGetCoin.dart';
 import 'package:meal_aware/screen/auth/introduction/introduction_patient.dart';
 import 'package:meal_aware/screen/auth/introduction/lockChat.dart';
 import 'package:meal_aware/screen/auth/introduction/nutritionistAppoinment.dart';
@@ -70,7 +71,7 @@ class HelpPagePatient extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => introductionPatient(),
+                    builder: (context) => HowGetCoin(),
                   ),
                 );
               },

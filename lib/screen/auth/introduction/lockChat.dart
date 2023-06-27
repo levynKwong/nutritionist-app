@@ -78,7 +78,7 @@ class _lockChatState extends State<lockChat> {
             children: const [
               Flexible(
                 child: Text(
-                  "You need to purchase to continue chatting with your nutritionist",
+                  "You need to purchase to continue chatting with your nutritionist after every 24 hours",
                   textAlign: TextAlign.center,
                 ),
               ),
