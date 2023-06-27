@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
 
-String currentId = FirebaseAuth.instance.currentUser!.uid;
+String currentId = '';
 String generateNewUserId() {
   final random = Random();
   const int userIdLength = 25;
@@ -58,7 +58,9 @@ Future<void> saveUser(String email, String fullname, String username,
           'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=1ec9ec55-79d2-4861-a75c-c5abe9c8118c',
       'questions': [],
     };
-
+   
+      currentId = currentId1;
+    
     await firestore.collection('Patient').doc(currentId1).set(userData);
   } else if (userType == 'Nutritionist') {
     Map<String, dynamic> userData = {
@@ -75,7 +77,7 @@ Future<void> saveUser(String email, String fullname, String username,
       'questions': [],
       'lockToggle': true,
     };
-
+    currentId = currentId1;
     await firestore.collection('Nutritionist').doc(currentId1).set(userData);
   }
 }

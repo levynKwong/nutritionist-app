@@ -193,65 +193,50 @@ class _BuyCoinState extends State<BuyCoin> {
     });
   }
 
-  Future<void> _updateUserCoinCount(int coinsToAdd) async {
-    if (_isUpdatingCoinCount) {
-      return; // Skip if coin count is already being updated
-    }
-    setState(() {
-      _isUpdatingCoinCount =
-          true; // Set the flag to indicate the update process has started
-    });
+ Future<void> _updateUserCoinCount(int coinsToAdd) async {
+  setState(() {
+    _isUpdatingCoinCount = true; // Set the flag to indicate the update process has started
+  });
 
+  try {
     final User? user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;
-    // Get the user document reference
     final userDoc = FirebaseFirestore.instance.collection('Patient').doc(uid);
 
-    try {
-      // Use a transaction to update the user's coin count
-      await FirebaseFirestore.instance.runTransaction((transaction) async {
-        // Get the current user document snapshot
-        final userSnapshot = await transaction.get(userDoc);
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      final userSnapshot = await transaction.get(userDoc);
+      final currentCoins = userSnapshot.data()!['coin'] ?? 0;
+      int newCoins = currentCoins + coinsToAdd;
+      transaction.update(userDoc, {'coin': newCoins});
+    });
 
-        // Get the current coin count
-        final currentCoins = userSnapshot.data()!['coin'] ?? 0;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Coins added successfully!')),
+    );
+    NotificationService.showNotification(
+      title: 'Payment Successful',
+      body: 'You have successfully purchased $coinsToAdd coins!',
+    );
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Home()),
+      (Route<dynamic> route) => false,
+    );
 
-        // Calculate the new coin count by incrementing the current count
-        int newCoins = currentCoins + coinsToAdd;
-
-        // Update the user document with the new coin count
-        transaction.update(userDoc, {'coin': newCoins});
-      });
-
-      // Show a success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Coins added successfully!')),
-      );
-      NotificationService.showNotification(
-        title: 'Payment Successful',
-        body: 'You have successfully purchased $coinsToAdd coins!',
-      );
-      // Navigator to home page
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-        (Route<dynamic> route) => false,
-      );
-
-      // Clear the processed purchases list
-      _purchases.clear();
-    } catch (e) {
-      // Show an error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Something went wrong')),
-      );
-    } finally {
+    _purchases.clear();
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Something went wrong')),
+    );
+  } finally {
+    if (mounted) {
       setState(() {
-        _isUpdatingCoinCount =
-            false; // Reset the flag after the update process is completed
+        _isUpdatingCoinCount = false; // Reset the flag after the update process is completed
       });
     }
   }
+}
+
 
   void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {
     ScaffoldMessenger.of(context).showSnackBar(
