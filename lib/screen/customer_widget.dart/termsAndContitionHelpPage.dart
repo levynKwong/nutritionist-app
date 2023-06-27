@@ -152,6 +152,18 @@ class TermsAndConditionsInHelpPage extends StatelessWidget {
                             'The Nutritionist App may modify these terms and conditions at any time, and any such modification will be effective immediately upon posting on the App. Your continued use of the App after any modification constitutes your acceptance of the modified terms.\n\n',
                         style: TextStyle(fontSize: 16.0),
                       ),
+                      TextSpan(
+                        text: 'Data Storage and Privacy\n',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            'We prioritize your privacy and assure you that your data is not stored on your phone. Instead, it is securely stored on our database, which is designed to protect your information. We do not view or access your data unless legally compelled or necessary for enforcing Terms or ensuring the safety of our users.\n\n',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
                     ],
                   ),
           ),
