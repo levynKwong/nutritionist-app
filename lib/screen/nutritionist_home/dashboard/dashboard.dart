@@ -113,14 +113,14 @@ class _dashboardState extends State<dashboard> {
     int count = 0;
 
     QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('pendingPlan').get();
+        await FirebaseFirestore.instance.collection('Patient').get();
     List<QueryDocumentSnapshot<Object?>> documents = querySnapshot.docs;
 
     Set<String> uniqueIds = Set<String>();
     for (QueryDocumentSnapshot<Object?> document in documents) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      String uid = data['nutritionistId'] as String;
-      uniqueIds.add(uid);
+      String pid = data['pid'] as String;
+      uniqueIds.add(pid);
     }
 
     count = uniqueIds.length;
