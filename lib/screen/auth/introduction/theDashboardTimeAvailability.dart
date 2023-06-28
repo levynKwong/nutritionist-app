@@ -20,7 +20,7 @@ class _theDashboardTimeAvailabilityState extends State<theDashboardTimeAvailabil
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 200]) {
+  Widget _buildImage(String assetName, [double width = 400]) {
     return Image.asset('images/$assetName', width: width);
   }
 

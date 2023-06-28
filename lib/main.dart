@@ -16,7 +16,6 @@ import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -62,24 +61,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-       themeMode: ThemeMode.system,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         colorScheme: ColorScheme.light(
-          primary: Color(0xFF2fbfbf), 
-          secondary: Color.fromARGB(255, 7, 7, 7),
-          tertiary: Color.fromARGB(255, 255, 255, 255)// Set the primary color for the light theme
-        ),
-       
-           // Set the primary color for the light theme
-       
+            primary: Color(0xFF2fbfbf),
+            secondary: Color.fromARGB(255, 7, 7, 7),
+            tertiary: Color.fromARGB(
+                255, 255, 255, 255) // Set the primary color for the light theme
+            ),
+
+        // Set the primary color for the light theme
+
         // Additional light theme settings...
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.dark(
-          primary: Color(0xFF2fbfbf),
-          secondary: Color.fromARGB(255, 255, 255, 255),
-          tertiary: Color.fromARGB(255, 0, 0, 0) // Set the primary color for the dark theme
-        ),
+            primary: Color(0xFF2fbfbf),
+            secondary: Color.fromARGB(255, 255, 255, 255),
+            tertiary: Color.fromARGB(
+                255, 0, 0, 0) // Set the primary color for the dark theme
+            ),
         // Additional dark theme settings...
       ),
       home: Login(),
@@ -132,226 +133,233 @@ class _LoginState extends State<Login> {
     prefs.remove('password');
   }
 
- @override
-Widget build(BuildContext context) {
-  final double width_ = MediaQuery.of(context).size.width;
-  final double height_ = MediaQuery.of(context).size.height;
-  return Scaffold(
-    body: SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/background_login.png'),
-            fit: BoxFit.contain,
-            alignment: Alignment(0, -0.45),
+  @override
+  Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+    final double height_ = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/background_login.png'),
+              fit: BoxFit.contain,
+              alignment: Alignment(0, -0.45),
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            SizedBox(height: height_ * 0.05),
-            Container(
-              color: Colors.transparent,
-              child: Column(
-                children: [
-                  Text(
-                    'MeA',
-                    style: TextStyle(
-                      color: getColor(context),
-                      fontSize: width_ * 0.15, // Adjusted font size
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'MealAware Company Ltd',
-                    style: TextStyle(
-                      color: getColor(context),
-                      fontSize: width_ * 0.04, // Adjusted font size
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: height_ * 0.05),
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("images/doctor_holdingPhone.png"),
-                          fit: BoxFit.contain,
-                          alignment: Alignment(0, -1),
-                        ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SizedBox(height: height_ * 0.05),
+              Container(
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    Text(
+                      'MeA',
+                      style: TextStyle(
+                        color: getColor(context),
+                        fontSize: width_ * 0.15, // Adjusted font size
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Container(
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    fontSize: width_ * 0.06, // Adjusted font size
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                             
-                            ],
+                    Text(
+                      'MealAware Company Ltd',
+                      style: TextStyle(
+                        color: getColor(context),
+                        fontSize: width_ * 0.04, // Adjusted font size
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: height_ * 0.05),
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("images/doctor_holdingPhone.png"),
+                            fit: BoxFit.contain,
+                            alignment: Alignment(0, -1),
                           ),
                         ),
                       ),
-                      SizedBox(height: height_ * 0.015),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(
-                            width_ * 0.08, 0, width_ * 0.08, 0),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                onSaved: (newValue) {
-                                  emailController.text = newValue!;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please Enter Your Email';
-                                  }
-                                  if (!RegExp(
-                                          '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  prefixIcon: Icon(Icons.email),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
-                              TextFormField(
-                                controller: passwordController,
-                                autofocus: false,
-                                obscureText: true,
-                                onSaved: (newValue) {
-                                  passwordController.text = newValue!;
-                                },
-                                validator: (value) {
-                                  RegExp regex = RegExp(r'^.{6,32}$');
-                                  if (value!.isEmpty) {
-                                    return 'Password is required for login';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Password must be between 6 and 32 characters';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  prefixIcon: Icon(Icons.lock),
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              SizedBox(height: height_ * 0.02),
-                              
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    login(emailController.text,
-                                        passwordController.text);
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      getColor(context), // sets the background color of the button
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: height_ * 0.06,
+                    ),
+                    SizedBox(height: height_ * 0.01),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Container(
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
                                   child: Text(
                                     'Login',
                                     style: TextStyle(
-                                      fontSize: width_ * 0.04, // Adjusted font size
-                                      color: Theme.of(context).colorScheme.secondary,
+                                      fontSize:
+                                          width_ * 0.06, // Adjusted font size
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                              ),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              (ForgotPasswordScreen()),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'forgot password?',
-                                      style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.04,
-                                        color: Theme.of(context).colorScheme.secondary,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              (RegisterScreen()),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'or Sign Up with',
-                                      style: TextStyle(
-                                        color: Theme.of(context).colorScheme.secondary,
-                                        fontSize: width_ * 0.040, // Adjusted font size
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                        SizedBox(height: height_ * 0.015),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              width_ * 0.08, 0, width_ * 0.08, 0),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  onSaved: (newValue) {
+                                    emailController.text = newValue!;
+                                  },
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please Enter Your Email';
+                                    }
+                                    if (!RegExp(
+                                            '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+                                        .hasMatch(value)) {
+                                      return 'Please enter a valid email';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Email',
+                                    prefixIcon: Icon(Icons.email),
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02),
+                                TextFormField(
+                                  controller: passwordController,
+                                  autofocus: false,
+                                  obscureText: true,
+                                  onSaved: (newValue) {
+                                    passwordController.text = newValue!;
+                                  },
+                                  validator: (value) {
+                                    RegExp regex = RegExp(r'^.{6,32}$');
+                                    if (value!.isEmpty) {
+                                      return 'Password is required for login';
+                                    } else if (!regex.hasMatch(value)) {
+                                      return 'Password must be between 6 and 32 characters';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Password',
+                                    prefixIcon: Icon(Icons.lock),
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                                SizedBox(height: height_ * 0.02),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      login(emailController.text,
+                                          passwordController.text);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: getColor(
+                                        context), // sets the background color of the button
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: height_ * 0.06,
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        fontSize:
+                                            width_ * 0.04, // Adjusted font size
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                (ForgotPasswordScreen()),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'forgot password?',
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.04,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                (RegisterScreen()),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'or Sign Up with',
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          fontSize: width_ *
+                                              0.040, // Adjusted font size
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   void login(String email, String password) async {
     try {

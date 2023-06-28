@@ -116,7 +116,7 @@ class _EmailVerificationCodeState extends State<EmailVerificationCode> {
           Positioned(
             left: 0,
             right: 0,
-            top: height_ * 0.42,
+            top: height_ * 0.55,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

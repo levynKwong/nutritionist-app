@@ -19,7 +19,7 @@ class _introductionPatientState extends State<introductionPatient> {
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 200]) {
+  Widget _buildImage(String assetName, [double width = 400]) {
     return Image.asset('images/$assetName', width: width);
   }
 
@@ -32,7 +32,7 @@ class _introductionPatientState extends State<introductionPatient> {
       titleTextStyle:
           TextStyle(fontSize: width_ * 0.05, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
-      bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 40.0),
       pageColor: Theme.of(context).colorScheme.tertiary,
       imagePadding: EdgeInsets.zero,
     );
@@ -68,8 +68,8 @@ class _introductionPatientState extends State<introductionPatient> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 3,
-            imageFlex: 8,
+            bodyFlex: 2,
+            imageFlex: 7,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
@@ -90,8 +90,8 @@ class _introductionPatientState extends State<introductionPatient> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 3,
-            imageFlex: 8,
+            bodyFlex: 2,
+            imageFlex: 7,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
@@ -112,8 +112,8 @@ class _introductionPatientState extends State<introductionPatient> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 3,
-            imageFlex: 8,
+            bodyFlex: 2,
+            imageFlex: 7,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
@@ -134,8 +134,8 @@ class _introductionPatientState extends State<introductionPatient> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 3,
-            imageFlex: 8,
+            bodyFlex: 2,
+            imageFlex: 7,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
@@ -156,8 +156,8 @@ class _introductionPatientState extends State<introductionPatient> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 3,
-            imageFlex: 8,
+            bodyFlex: 2,
+            imageFlex: 7,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
@@ -178,8 +178,8 @@ class _introductionPatientState extends State<introductionPatient> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 3,
-            imageFlex: 8,
+            bodyFlex: 2,
+            imageFlex: 7,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),

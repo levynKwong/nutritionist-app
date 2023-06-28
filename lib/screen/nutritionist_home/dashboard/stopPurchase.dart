@@ -38,7 +38,7 @@ class _StopPurchaseState extends State<StopPurchase> {
         .get()
         .then((snapshot) {
       if (snapshot.exists) {
-        final data = snapshot.data() as Map<String, dynamic>?;
+        final data = snapshot.data();
         if (data != null && data.containsKey('stopPurchase')) {
           setState(() {
             _lockToggle = data['stopPurchase'];
