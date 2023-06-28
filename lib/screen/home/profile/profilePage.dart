@@ -40,7 +40,7 @@ class _profileState extends State<profile> {
   String _username = '';
   String? _fullname;
   String? _age;
-  bool _loading = true;
+
   bool _lockToggle = false;
 
   String? _country;
@@ -88,13 +88,7 @@ class _profileState extends State<profile> {
           });
         }
       }
-      setState(() {
-        _loading = false;
-      });
     }).catchError((error) {
-      setState(() {
-        _loading = false;
-      });
       print('Error retrieving lock status: $error');
     });
   }
@@ -347,13 +341,13 @@ class _profileState extends State<profile> {
           children: [
             TextButton(
               onPressed: () {
-                if (_lockToggle) {
+                if (_lockToggle == true) {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
                       title: Text('Locked'),
                       content: Text(
-                          'This feature is locked as there are too many patient on the platform.  It\'s important to prioritize the well-being and workload of our doctors. We understand that this may cause inconvenience, but it\'s necessary to maintain a balanced and manageable environment for the doctors.\n\nPlease try again later and we appologies for any inconvenience \n\nDo not stay on the profile page it won\'t reload automatically'),
+                          'This feature is locked as there are too many patients on the platform. It\'s important to prioritize the well-being and workload of our doctors. We understand that this may cause inconvenience, but it\'s necessary to maintain a balanced and manageable environment for the doctors.\n\nPlease try again later and we apologize for any inconvenience.\n\nDo not stay on the profile page; it won\'t reload automatically.'),
                       actions: [
                         TextButton(
                           onPressed: () {
