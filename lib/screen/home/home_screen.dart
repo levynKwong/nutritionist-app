@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';

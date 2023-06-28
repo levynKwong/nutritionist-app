@@ -3,17 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/introduction/chatInfo.dart';
-import 'package:meal_aware/screen/auth/introduction/chatNutritionistHelp.dart';
-import 'package:meal_aware/screen/auth/introduction/lockChat.dart';
-import 'package:meal_aware/screen/auth/introduction/nutritionistAppoinment.dart';
-import 'package:meal_aware/screen/auth/introduction/theDashboard.dart';
-import 'package:meal_aware/screen/auth/introduction/theDashboardLockPurchase.dart';
-import 'package:meal_aware/screen/auth/introduction/theDashboardMaxClient.dart';
-import 'package:meal_aware/screen/auth/introduction/theDashboardPendingPlan.dart';
-import 'package:meal_aware/screen/auth/introduction/theDashboardTimeAvailability.dart';
 import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
-
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/confirmationNutritionist.dart';
 import 'package:meal_aware/screen/auth/registration/nutritionistConfirmation/nutritionistAdditionalDetail.dart';
@@ -22,12 +12,10 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'screen/auth/introduction/howGetCoin.dart';
-import 'screen/auth/introduction/introduction_patient.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

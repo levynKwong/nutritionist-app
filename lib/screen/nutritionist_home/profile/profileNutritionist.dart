@@ -7,20 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meal_aware/main.dart';
 
 import 'package:meal_aware/screen/auth/SaveUser.dart';
-import 'package:meal_aware/screen/auth/introduction/introduction_nutritionist.dart';
 import 'package:meal_aware/screen/customer_widget.dart/aboutUs.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistory.dart';
 import 'package:meal_aware/screen/customer_widget.dart/clientHistoryAppointment.dart';
 import 'package:meal_aware/screen/customer_widget.dart/deleteButton.dart';
 import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
-
-
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
-import 'package:meal_aware/screen/customer_widget.dart/termsAndContitionHelpPage.dart';
-
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class profileNutritionist extends StatefulWidget {
