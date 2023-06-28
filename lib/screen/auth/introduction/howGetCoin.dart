@@ -19,16 +19,18 @@ class _HowGetCoinState extends State<HowGetCoin> {
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 500]) {
+  Widget _buildImage(String assetName, [double width = 200]) {
     return Image.asset('images/$assetName', width: width);
   }
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
     const bodyStyle = TextStyle(fontSize: 19.0);
 
     var pageDecoration = PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle:
+          TextStyle(fontSize: width_ * 0.05, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Theme.of(context).colorScheme.tertiary,
@@ -42,11 +44,9 @@ class _HowGetCoinState extends State<HowGetCoin> {
       autoScrollDuration: 4000,
       globalHeader: Align(
         alignment: Alignment.topRight,
-       
       ),
-     
+
       pages: [
-        
         PageViewModel(
           title: "Start by buying coins",
           bodyWidget: Row(
@@ -61,7 +61,7 @@ class _HowGetCoinState extends State<HowGetCoin> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -83,7 +83,7 @@ class _HowGetCoinState extends State<HowGetCoin> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -105,7 +105,7 @@ class _HowGetCoinState extends State<HowGetCoin> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -113,7 +113,6 @@ class _HowGetCoinState extends State<HowGetCoin> {
           image: _buildImage('coupon.jpg'),
           reverse: true,
         ),
-       
         PageViewModel(
           title: "Thanks for using MealAware",
           body:
