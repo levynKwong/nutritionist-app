@@ -279,6 +279,7 @@ Future<void> startPaymentStatusChecker() async {
                                 userId: currentId,
                                 date: date,
                                 timeAvailable: _selectedTimeSlots,
+                                nutritionistName: nutritionistName,
                               ),
                             ),
                           );
