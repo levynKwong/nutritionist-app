@@ -251,12 +251,12 @@ class _dashboardState extends State<dashboard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: width_ * 0.1),
+                  SizedBox(width: width_ * 0.07),
                   Text(
-                    'Time',
+                    'Time/Date',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: width_ * 0.1),
+                  SizedBox(width: width_ * 0.07),
                   Text(
                     'Remove',
                     style: TextStyle(fontWeight: FontWeight.bold),

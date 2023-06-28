@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:intl/intl.dart';
 
@@ -21,7 +22,8 @@ class _clientHistoryAppointmentState extends State<clientHistoryAppointment> {
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('paymentAppointment')
-            .orderBy('nid')
+            .where('nid',isEqualTo: currentId)
+            .orderBy('date', descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {

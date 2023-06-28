@@ -97,6 +97,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
         String userId = documentSnapshot.id;
         int timeSlot = documentSnapshot.get('timeSlot');
         String clientId = documentSnapshot.get('userId');
+        DateTime date = documentSnapshot.get('date').toDate().toLocal();
+        int day = date.day;
 
         String timeString = timeSlot == 0
             ? '6:00'
@@ -154,8 +156,8 @@ class _PendingPlanListState extends State<PendingPlanList> {
                       return Text(
                         "$username",
                         style: TextStyle(
-                            fontSize: width_ * 0.045,
-                            color: Colors.black,
+                          fontSize: width_ * 0.045,
+                          color: Colors.black,
                         ),
                       );
                     } else {
@@ -164,14 +166,12 @@ class _PendingPlanListState extends State<PendingPlanList> {
                   },
                 ),
                 Text(
-                  "$timeString",
-                  style: TextStyle(
-                      fontSize: width_ * 0.045,
-                      color: Colors.black),
+                  "$timeString/$day",
+                  style:
+                      TextStyle(fontSize: width_ * 0.045, color: Colors.black),
                 ),
                 IconButton(
-                  icon: Icon(Icons.close,
-                      color: Colors.black),
+                  icon: Icon(Icons.close, color: Colors.black),
                   onPressed: () {
                     showDialog(
                       context: context,
