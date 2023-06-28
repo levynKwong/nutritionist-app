@@ -156,6 +156,12 @@ class _NutritionistAdditionalDetailState
                                               newValue == '5';
                                         });
                                       },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select a specialization';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     SizedBox(height: height_ * 0.02),
                                     if (_selectedSpecialization == '5')
@@ -197,8 +203,15 @@ class _NutritionistAdditionalDetailState
                                         ),
                                       ],
                                       onChanged: (String? Value) {
-                                        setState(() {});
-                                        experience = Value;
+                                        setState(() {
+                                          experience = Value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select your experience';
+                                        }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.025),
@@ -224,8 +237,15 @@ class _NutritionistAdditionalDetailState
                                         ),
                                       ],
                                       onChanged: (String? Value) {
-                                        setState(() {});
-                                        gender = Value;
+                                        setState(() {
+                                          gender = Value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select your gender';
+                                        }
+                                        return null;
                                       },
                                     ),
                                     SizedBox(height: height_ * 0.02),
@@ -263,25 +283,32 @@ class _NutritionistAdditionalDetailState
                                 width_ * 0.08, 0, width_ * 0.08, 0),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            confirmationNutritionist()));
-                                saveNutritionistAdditionalDetail(
+                                // Check if the form is valid
+                                if (_formKey.currentState!.validate()) {
+                                  // If the form is valid, save the details
+                                  saveNutritionistAdditionalDetail(
                                     addressController.text,
                                     _selectedSpecialization!,
                                     _customSpecialization!,
                                     experience!,
                                     gender!,
                                     num,
-                                    currentId);
-                              },
-                              //
+                                    currentId,
+                                  );
 
-                              // final addressController = TextEditingController();
+                                  // Navigate to the next screen
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          confirmationNutritionist(),
+                                    ),
+                                  );
+                                }
+                              },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: getColor(context), // sets the background color of the button
+                                backgroundColor: getColor(
+                                    context), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
