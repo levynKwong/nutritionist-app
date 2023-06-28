@@ -77,7 +77,7 @@ class _SelectionDateState extends State<SelectionDate> {
                 child: TimeAvailabilityScreen(
                     userId: currentId,
                     nutritionistId: nutritionistUid,
-                    date: '$_focusedDay'),
+                    date: '$_focusedDay', nutritionistName: nutritionistName,),
               ),
             ],
           ),

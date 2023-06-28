@@ -9,20 +9,22 @@ class TimeAvailabilityScreen extends StatefulWidget {
   final String nutritionistId;
   final String date;
   final now = DateTime.now();
+  String nutritionistName;
 
   TimeAvailabilityScreen(
-      {required this.userId, required this.nutritionistId, required this.date});
+      {required this.userId, required this.nutritionistId, required this.date,required this.nutritionistName});
 
   @override
   _TimeAvailabilityScreenState createState() =>
-      _TimeAvailabilityScreenState(userId, nutritionistId, date);
+      _TimeAvailabilityScreenState(userId, nutritionistId, date, nutritionistName);
 }
 
 class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   final String userId;
   final String nutritionistId;
   final String date;
-  _TimeAvailabilityScreenState(this.userId, this.nutritionistId, this.date);
+  final String nutritionistName;
+  _TimeAvailabilityScreenState(this.userId, this.nutritionistId, this.date,this.nutritionistName);
   late Stream<List<bool>> _timeAvailabilityStream;
   List<bool> _selectedTimeSlots = [];
 

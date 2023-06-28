@@ -13,6 +13,7 @@ import 'package:meal_aware/screen/customer_widget.dart/purchaseAppointment.dart'
 import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/customer_widget.dart/topRightCoinCounter.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/SelectionDate.dart';
 import 'package:meal_aware/screen/home/home_screen.dart';
 
 class paymentAppointment extends StatefulWidget {
@@ -20,27 +21,28 @@ class paymentAppointment extends StatefulWidget {
   String date;
   List<bool> timeAvailable = [];
   String userId;
+  String nutritionistName;
   paymentAppointment(
       {super.key,
       required this.nutritionistUid,
       required this.date,
       required this.timeAvailable,
-      required this.userId});
+      required this.userId,
+      required this.nutritionistName});
 
   @override
-  State<paymentAppointment> createState() =>
-      _paymentAppointmentState(nutritionistUid, date, timeAvailable, userId);
+  State<paymentAppointment> createState() => _paymentAppointmentState(
+      nutritionistUid, date, timeAvailable, userId, nutritionistName);
 }
 
 class _paymentAppointmentState extends State<paymentAppointment> {
-   late BuildContext _storedContext;
+  late BuildContext _storedContext;
   @override
   void initState() {
     super.initState();
     _getSelectedTimeSlotsCount(timeAvailable);
     _storedContext = context;
     handleTimeLimit();
-    
   }
 
   @override
@@ -69,28 +71,45 @@ class _paymentAppointmentState extends State<paymentAppointment> {
     });
   }
 
-  
-
   String date;
 
   List<bool> timeAvailable = [];
 
   String nutritionistUid;
   String userId;
-  _paymentAppointmentState(
-      this.nutritionistUid, this.date, this.timeAvailable, this.userId);
+  String nutritionistName;
+  _paymentAppointmentState(this.nutritionistUid, this.date, this.timeAvailable,
+      this.userId, this.nutritionistName);
 
-   void handleTimeLimit() {
+  void handleTimeLimit() {
     Timer(Duration(seconds: 30), () {
       if (Navigator.canPop(_storedContext)) {
-        Navigator.pop(_storedContext);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SelectionDate(
+                nutritionistName: nutritionistName,
+                nutritionistUid: nutritionistUid),
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'This is to prevent user from blocking the time slot for too long.',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+           
+          ),
+        );
       }
 
       FirebaseFirestore.instance
           .collection('timeAvailability')
           .doc(nutritionistUid) // Replace with the actual document ID
-          .set({'lock': false}, SetOptions(merge: true))
-          .then((_) {
+          .set({'lock': false}, SetOptions(merge: true)).then((_) {
         // Navigate to the payment screen
       }).catchError((error) {
         print("Failed to update timeAvailability: $error");
@@ -112,7 +131,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
             children: [
               topSubTitle(width_, height_),
               NutritionistService(width_, height_),
-             
               content(width_, height_),
               bottomContent(width_, height_)
             ],
@@ -140,7 +158,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
       child: Column(
         children: [
           InkWell(
-            
             child: Container(
               width: width_ * 0.3,
               height: height_ * 0.25,
@@ -438,7 +455,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
   Widget bottomContent(double width_, double height_) {
     return Container(
       child: Column(children: [
-        
         TermsAndConditionsDialog(),
         SizedBox(height: height_ * 0.020),
         buttons(height_, width_)
