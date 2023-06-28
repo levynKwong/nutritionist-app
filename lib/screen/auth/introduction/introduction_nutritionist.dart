@@ -67,7 +67,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
         PageViewModel(
           title: "Welcome to MealAware",
           body:
-              "MealAware is a platform that helps you to track your daily food intake and provide you with a healthy diet plan.\n\n Let's get started!",
+              "MealAware is a platform that helps you chat and book appointment with your nutritionist.\n\n Let's get started!",
           image: _buildImage('nutritionist_photo.png', 300),
           decoration: pageDecoration,
         ),
@@ -78,7 +78,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             children: const [
               Flexible(
                 child: Text(
-                  "Welcome to your dashboard, here you can look for your clients appointment schedule and place the time slot for your clients",
+                  "Welcome to your dashboard. Here, you can view your clients' appointment schedule and allocate time slots for them.",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -122,7 +122,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             children: const [
               Flexible(
                 child: Text(
-                  "This page is where you can set your time availability for your clients to book an appointment with you.",
+                  "This page allows you to set your time availability for clients to book appointments with you.",
                   textAlign: TextAlign.center,
                 ),
               ),

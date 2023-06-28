@@ -282,7 +282,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                r"^\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+\s*$")
+                                                r"^(?!.*\s)[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+$")
                                             .hasMatch(value)) {
                                           return ("Please Enter a valid email");
                                         }

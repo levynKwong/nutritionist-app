@@ -49,7 +49,7 @@ class _introductionPatientState extends State<introductionPatient> {
         PageViewModel(
           title: "Welcome to MealAware",
           body:
-              "MealAware is a platform that helps you to track your daily food intake and provide you with a healthy diet plan.\n\n Let's get started!",
+              "MealAware is a platform that helps you chat and book appointment with your nutritionist.\n\n Let's get started!",
           image: _buildImage('nutritionist_photo.png', 300),
           decoration: pageDecoration,
         ),

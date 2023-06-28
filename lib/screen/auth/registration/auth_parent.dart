@@ -46,30 +46,30 @@ class _ParentAuthState extends State<ParentAuth> {
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                     Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => (Login()),
                                 ),
                               );
-                          },
-                          icon: Icon(Icons.arrow_back),
-                        ),
-                        SizedBox(width: width_* 0.22),
-                        Text(
-                          'MeA',
-                          style: TextStyle(
-                            color: getColor(context),
-                            fontSize: width_ * 0.15,
-                            fontWeight: FontWeight.bold,
+                            },
+                            icon: Icon(Icons.arrow_back),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(width: width_ * 0.22),
+                          Text(
+                            'MeA',
+                            style: TextStyle(
+                              color: getColor(context),
+                              fontSize: width_ * 0.15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: height_ * 0.01),
                       Text(
                         'MealAware Company Ltd',
@@ -110,14 +110,13 @@ class _ParentAuthState extends State<ParentAuth> {
                                   ),
                                   SizedBox(height: height_ * 0.02),
                                   Center(
-                                  child:Text(
-                                    'Since you are under 18, you need to have \n\a parent or a guardian to register you.',
-                                    style: TextStyle(
-                                      fontSize: width_ * 0.04,
-                                      color: Color.fromARGB(255, 197, 51, 40),
+                                    child: Text(
+                                      'Since you are under 18, you need to have \n\a parent or a guardian to register you.',
+                                      style: TextStyle(
+                                        fontSize: width_ * 0.04,
+                                        color: Color.fromARGB(255, 197, 51, 40),
+                                      ),
                                     ),
-                                  ),
-
                                   )
                                   // add additional widgets here if needed
                                 ],
@@ -250,7 +249,7 @@ class _ParentAuthState extends State<ParentAuth> {
                                         }
                                         // reg expression for email validation
                                         if (!RegExp(
-                                                r"^\s*[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+\s*$")
+                                                r"^(?!.*\s)[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+$")
                                             .hasMatch(value)) {
                                           return ("Please Enter a valid email");
                                         }
@@ -347,7 +346,8 @@ class _ParentAuthState extends State<ParentAuth> {
                                     num);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:getColor(context), // sets the background color of the button
+                                backgroundColor: getColor(
+                                    context), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
