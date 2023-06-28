@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
 class introductionNutritionist extends StatefulWidget {
@@ -21,17 +20,19 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
     );
   }
 
-
-  Widget _buildImage(String assetName, [double width = 500]) {
+  Widget _buildImage(String assetName, [double width = 200]) {
     return Image.asset('images/$assetName', width: width);
   }
 
   @override
   Widget build(BuildContext context) {
+    final double width_ = MediaQuery.of(context).size.width;
+
     const bodyStyle = TextStyle(fontSize: 19.0);
 
     var pageDecoration = PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle:
+          TextStyle(fontSize: width_ * 0.05, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Theme.of(context).colorScheme.tertiary,
@@ -45,30 +46,14 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
       autoScrollDuration: 4000,
       globalHeader: Align(
         alignment: Alignment.topRight,
-        // child: SafeArea(
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(top: 16, right: 16),
-        //     child: _buildImage('1.jpg', 100),
-        //   ),
-        // ),
       ),
-      // globalFooter: SizedBox(
-      //   width: double.infinity,
-      //   height: 60,
-      //   child: ElevatedButton(
-      //     child: const Text(
-      //       'Let\'s go right away!',
-      //       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-      //     ),
-      //     onPressed: () => _onIntroEnd(context),
-      //   ),
-      // ),
+
       pages: [
         PageViewModel(
           title: "Welcome to MealAware",
           body:
               "MealAware is a platform that helps you chat and book appointment with your nutritionist.\n\n Let's get started!",
-          image: _buildImage('nutritionist_photo.png', 300),
+          image: _buildImage('nutritionist_photo.png', 250),
           decoration: pageDecoration,
         ),
         PageViewModel(
@@ -85,7 +70,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -107,7 +92,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -129,7 +114,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -151,7 +136,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -159,7 +144,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
           image: _buildImage('n8.jpg'),
           reverse: true,
         ),
-         PageViewModel(
+        PageViewModel(
           title: "Message your clients",
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +158,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -195,7 +180,7 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -203,14 +188,14 @@ class _introductionNutritionistState extends State<introductionNutritionist> {
           image: _buildImage('n3.jpg'),
           reverse: true,
         ),
-       
-        PageViewModel(
-          title: "Thanks for using MealAware",
-          body:
-              "We are delighted to have you as part of our community. Our app is designed to make your life easier and more enjoyable.\n\nExplore the features, connect with other users, and unlock exciting opportunities.\n\nWe hope you have a fantastic experience!",
-          image: _buildImage('nutritionist_photo.png', 300),
-          decoration: pageDecoration,
-        ),
+
+        // PageViewModel(
+        //   title: "Thanks for using MealAware",
+        //   body:
+        //       "We are delighted to have you as part of our community. Our app is designed to make your life easier and more enjoyable.\n\nExplore the features, connect with other users, and unlock exciting opportunities.\n\nWe hope you have a fantastic experience!",
+        //   image: _buildImage('nutritionist_photo.png', 300),
+        //   decoration: pageDecoration,
+        // ),
       ],
       onDone: () => _onIntroEnd(context),
 //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
