@@ -5,7 +5,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:meal_aware/screen/customer_widget.dart/helpPageNutritionist.dart';
 import 'package:meal_aware/screen/nutritionist_home/nutritionistHome_screen.dart';
 
-
 class TheDashboard extends StatefulWidget {
   const TheDashboard({super.key});
 
@@ -22,16 +21,17 @@ class _TheDashboardState extends State<TheDashboard> {
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 500]) {
+  Widget _buildImage(String assetName, [double width = 200]) {
     return Image.asset('images/$assetName', width: width);
   }
 
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
-
+    final double width_ = MediaQuery.of(context).size.width;
     var pageDecoration = PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle:
+          TextStyle(fontSize: width_ * 0.05, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Theme.of(context).colorScheme.tertiary,
@@ -62,7 +62,7 @@ class _TheDashboardState extends State<TheDashboard> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -84,7 +84,7 @@ class _TheDashboardState extends State<TheDashboard> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -106,7 +106,7 @@ class _TheDashboardState extends State<TheDashboard> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -128,7 +128,7 @@ class _TheDashboardState extends State<TheDashboard> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -150,7 +150,7 @@ class _TheDashboardState extends State<TheDashboard> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -172,7 +172,7 @@ class _TheDashboardState extends State<TheDashboard> {
             ],
           ),
           decoration: pageDecoration.copyWith(
-            bodyFlex: 2,
+            bodyFlex: 3,
             imageFlex: 8,
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
@@ -180,7 +180,6 @@ class _TheDashboardState extends State<TheDashboard> {
           image: _buildImage('d6.jpg'),
           reverse: true,
         ),
-        
       ],
       onDone: () => _onIntroEnd(context),
 //onSkip: () => _onIntroEnd(context), // You can override onSkip callback

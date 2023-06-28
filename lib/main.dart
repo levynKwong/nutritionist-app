@@ -7,6 +7,11 @@ import 'package:meal_aware/screen/auth/introduction/chatInfo.dart';
 import 'package:meal_aware/screen/auth/introduction/chatNutritionistHelp.dart';
 import 'package:meal_aware/screen/auth/introduction/lockChat.dart';
 import 'package:meal_aware/screen/auth/introduction/nutritionistAppoinment.dart';
+import 'package:meal_aware/screen/auth/introduction/theDashboard.dart';
+import 'package:meal_aware/screen/auth/introduction/theDashboardLockPurchase.dart';
+import 'package:meal_aware/screen/auth/introduction/theDashboardMaxClient.dart';
+import 'package:meal_aware/screen/auth/introduction/theDashboardPendingPlan.dart';
+import 'package:meal_aware/screen/auth/introduction/theDashboardTimeAvailability.dart';
 import 'package:meal_aware/screen/auth/login/forgotPassword/forgotPassword.dart';
 
 import 'package:meal_aware/screen/auth/registration/auth_screen_register.dart';
@@ -89,8 +94,7 @@ class _MyAppState extends State<MyApp> {
         ),
         // Additional dark theme settings...
       ),
-      home:nutritionistAppoinment(),
-      // home: Login(),
+      home: Login(),
     );
   }
 }
