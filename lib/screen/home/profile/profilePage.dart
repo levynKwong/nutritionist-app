@@ -341,6 +341,7 @@ class _profileState extends State<profile> {
           children: [
             TextButton(
               onPressed: () {
+                _fetchFirestoreLock();
                 if (_lockToggle == true) {
                   showDialog(
                     context: context,
