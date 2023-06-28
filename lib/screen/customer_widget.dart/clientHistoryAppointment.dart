@@ -52,7 +52,6 @@ class _clientHistoryAppointmentState extends State<clientHistoryAppointment> {
 
           snapshot.data!.docs.forEach((DocumentSnapshot document) {
             Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            String pid = data['pid'];
             int amount = data['amount'];
             Timestamp timestamp = data['date'];
             DateTime dateTime = timestamp.toDate();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 
 class OrdersHistory extends StatefulWidget {
@@ -19,29 +20,22 @@ class _OrdersHistoryState extends State<OrdersHistory> {
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('payments')
-            .orderBy('pid')
+            .where('pid', isEqualTo: currentId)
+            .orderBy('date', descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Center(
-             child:Text('Error: ${snapshot.error}')
-
-            );
+            return Center(child: Text('Error: ${snapshot.error}'));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-
-            return Center(
-            child:CircularProgressIndicator()
-
-            );
+            return Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.data!.docs.isEmpty) {
-            return Center (
-            child:Text('No purchase history found.'),
+            return Center(
+              child: Text('No purchase history found.'),
             );
-              
           }
 
           double totalAmount = 0;
