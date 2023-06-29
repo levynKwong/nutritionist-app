@@ -382,7 +382,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 55),
+                      padding: EdgeInsets.only(bottom: height_*0.1),
                       child: Container(
                         height: MediaQuery.of(context).size.height,
                         child: ListView.builder(
