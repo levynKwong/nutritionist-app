@@ -18,12 +18,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-  final screens = [
-    messageNutritionist(),
-    message(),
-    DoctorForum(),
-    profile(),
-  ];
+  List<Widget> get screens {
+    return [
+      messageNutritionist(),
+      message(),
+      DoctorForum(),
+      profile(),
+    ];
+  }
+
   final PageController _pageController = PageController();
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
