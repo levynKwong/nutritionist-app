@@ -56,7 +56,6 @@ Future<void> saveUser(String email, String fullname, String username,
       'pid': currentId1,
       'image_url':
           'https://firebasestorage.googleapis.com/v0/b/meal-aware.appspot.com/o/profile_images%2FOIB.png?alt=media&token=1ec9ec55-79d2-4861-a75c-c5abe9c8118c',
-      'questions': [],
     };
    
       currentId = currentId1;
