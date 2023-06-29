@@ -9,7 +9,7 @@ class TimeAvailabilityScreen extends StatefulWidget {
   final String nutritionistId;
   final String date;
   final now = DateTime.now();
-  String nutritionistName;
+  final String nutritionistName;
 
   TimeAvailabilityScreen(
       {required this.userId, required this.nutritionistId, required this.date,required this.nutritionistName});
@@ -110,94 +110,100 @@ Future<void> startPaymentStatusChecker() async {
   Widget build(BuildContext context) {
     final double width_ = MediaQuery.of(context).size.width;
     final double height_ = MediaQuery.of(context).size.height;
-    return Container(
-      child: Center(
-        child: StreamBuilder<List<bool>>(
-          stream: _timeAvailabilityStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
-            if (!snapshot.hasData) {
-              return CircularProgressIndicator();
-            }
-            final timeAvailable = snapshot.data!;
-            if (_selectedTimeSlots.length != timeAvailable.length) {
-              _selectedTimeSlots =
-                  List<bool>.filled(timeAvailable.length, false);
-            }
-            if (timeAvailable.isEmpty) {
-              return Text('No time slots available');
-            } else {
-              return Column(
-                children: [
-                  Expanded(
-                    child: Wrap(
-                      runSpacing: 8.0, // set space between rows
-                      children: List.generate(
-                        _getAvailableTimeSlots(timeAvailable).length,
-                        (index) {
-                          final isSelected = _selectedTimeSlots[index];
-                          final availableIndex =
-                              _getAvailableTimeSlots(timeAvailable)[index];
-                          final timeSlot = ' ${availableIndex + 6}:00';
-                          return SizedBox(
-                            width: width_ * 0.3, // set width of button
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: width_ * 0.01),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (timeAvailable[_getAvailableTimeSlots(
-                                      timeAvailable)[index]]) {
-                                    _toggleSelection(index);
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith(
-                                    (states) {
-                                      if (isSelected) {
-                                        return Colors.grey;
-                                      } else {
-                                        // If the corresponding boolean value in _selectedTimeSlots is false, disable the button and set its color to grey.
-                                        if (!timeAvailable[
-                                            _getAvailableTimeSlots(
-                                                timeAvailable)[index]]) {
-                                          return Color.fromARGB(
-                                              255, 168, 72, 72);
-                                        } else {
-                                          return getColor(context);
-                                        }
+    return Column(
+      children: [
+        Container(
+          height: height_ * 0.43,
+          child: Center(
+            child: StreamBuilder<List<bool>>(
+              stream: _timeAvailabilityStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+                final timeAvailable = snapshot.data!;
+                if (_selectedTimeSlots.length != timeAvailable.length) {
+                  _selectedTimeSlots =
+                      List<bool>.filled(timeAvailable.length, false);
+                }
+                if (timeAvailable.isEmpty) {
+                  return Text('No time slots available');
+                } else {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: Wrap(
+                          runSpacing: 5.0, // set space between rows
+                          children: List.generate(
+                            _getAvailableTimeSlots(timeAvailable).length,
+                            (index) {
+                              final isSelected = _selectedTimeSlots[index];
+                              final availableIndex =
+                                  _getAvailableTimeSlots(timeAvailable)[index];
+                              final timeSlot = ' ${availableIndex + 6}:00';
+                              return SizedBox(
+                                width: width_ * 0.3, // set width of button
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: width_ * 0.01),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (timeAvailable[_getAvailableTimeSlots(
+                                          timeAvailable)[index]]) {
+                                        _toggleSelection(index);
                                       }
                                     },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                        (states) {
+                                          if (isSelected) {
+                                            return Colors.grey;
+                                          } else {
+                                            // If the corresponding boolean value in _selectedTimeSlots is false, disable the button and set its color to grey.
+                                            if (!timeAvailable[
+                                                _getAvailableTimeSlots(
+                                                    timeAvailable)[index]]) {
+                                              return Color.fromARGB(
+                                                  255, 168, 72, 72);
+                                            } else {
+                                              return getColor(context);
+                                            }
+                                          }
+                                        },
+                                      ),
+                                      minimumSize:
+                                          MaterialStateProperty.all(Size(60, 30)),
+                                    ),
+                                    child: Text(
+                                      timeSlot,
+                                      style: TextStyle(fontSize: 14.0),
+                                    ),
                                   ),
-                                  minimumSize:
-                                      MaterialStateProperty.all(Size(60, 30)),
                                 ),
-                                child: Text(
-                                  timeSlot,
-                                  style: TextStyle(fontSize: 14.0),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                              );
+                            },
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: height_ * 0.01),
-                  buttons(height_, width_)
-                ],
-              );
-            }
-          },
+                     
+                      buttons(height_, width_),
+                      SizedBox(height: height_ * 0.02),
+                    ],
+                  );
+                }
+              },
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
-  Container buttons(double height_, double width_) {
+  Widget buttons(double height_, double width_) {
     bool isTimeSlotSelected = _selectedTimeSlots.contains(true);
 
     return Container(
@@ -220,7 +226,7 @@ Future<void> startPaymentStatusChecker() async {
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: getColor(context),
-              minimumSize: Size(width_ * 0.3, 50),
+              minimumSize: Size(width_ * 0.3, 45),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -297,7 +303,7 @@ Future<void> startPaymentStatusChecker() async {
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: getColor(context),
-              minimumSize: Size(width_ * 0.3, 50),
+              minimumSize: Size(width_ * 0.3, 45),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -305,6 +311,7 @@ Future<void> startPaymentStatusChecker() async {
             child: Text('Next'),
           ),
         ],
+      
       ),
     );
   }

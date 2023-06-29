@@ -71,14 +71,12 @@ class _SelectionDateState extends State<SelectionDate> {
               SizedBox(
                 height: height_ * 0.01,
               ),
-              SizedBox(
-                width: width_ * 1,
-                height: height_ * 0.35,
-                child: TimeAvailabilityScreen(
+              SingleChildScrollView(
+              child:TimeAvailabilityScreen(
                     userId: currentId,
                     nutritionistId: nutritionistUid,
                     date: '$_focusedDay', nutritionistName: nutritionistName,),
-              ),
+              )
             ],
           ),
         ),

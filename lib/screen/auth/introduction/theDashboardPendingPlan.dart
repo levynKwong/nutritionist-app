@@ -143,14 +143,14 @@ class _TheDashboardPendingPlanState extends State<TheDashboardPendingPlan> {
       nextFlex: 0,
       showBackButton: true,
 //rtl: true, // Display as right-to-left
-      back: const Icon(Icons.arrow_back, color: Color(0xFF575ecb)),
+      back: const Icon(Icons.arrow_back, color: Color(0xFF2fbfbf)),
       skip: const Text('Skip',
           style:
-              TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF575ecb))),
-      next: const Icon(Icons.arrow_forward, color: Color(0xFF575ecb)),
+              TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF2fbfbf))),
+      next: const Icon(Icons.arrow_forward, color: Color(0xFF2fbfbf)),
       done: const Text('Done',
           style:
-              TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF575ecb))),
+              TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF2fbfbf))),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       controlsPadding: kIsWeb
