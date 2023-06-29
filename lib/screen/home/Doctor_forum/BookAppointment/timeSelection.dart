@@ -222,15 +222,6 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => NutritionistBookAppointment()),
               );
-              FirebaseFirestore.instance
-                  .collection('timeAvailability')
-                  .doc(nutritionistId) // Replace with the actual document ID
-                  .set({'lock': false}, SetOptions(merge: true)).then((_) {
-                // Navigate to the payment screen
-              }).catchError((error) {
-                print("Failed to update timeAvailability: $error");
-                // Handle error if necessary
-              });
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
