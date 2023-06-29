@@ -52,6 +52,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   String? imageUrl;
   File? selectedFile;
   Duration globalRemainingTime = Duration.zero;
+  
+
+
 
   @override
   void initState() {
@@ -208,9 +211,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       print('Error checking status: $error');
     });
   }
-  // Timer.periodic(Duration(hours: 1), (Timer timer) {
-  //   checkPaymentStatus();
-  // });
+
 
   void startPaymentStatusChecker() {
     final now = DateTime.now();
@@ -415,7 +416,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                       padding: EdgeInsets.only(
                           bottom: height_ * 0.09, left: width_ * 0),
                       child: Text(
-                          'available time: ${globalRemainingTime.inHours}:${globalRemainingTime.inMinutes.remainder(60)} left'),
+                          'available time: ${globalRemainingTime.inHours} h ${globalRemainingTime.inMinutes.remainder(60)} m remaining'),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
