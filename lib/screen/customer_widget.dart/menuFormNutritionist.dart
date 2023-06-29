@@ -96,6 +96,7 @@ class _MenuButtonNutritionistState extends State<MenuButtonNutritionist> {
                         title: Text(questions[i]),
                         subtitle: TextFormField(
                           initialValue: answers.length > i ? answers[i] : '',
+                          maxLines: null,
                           decoration: InputDecoration(
                             labelText: 'Answer',
                             enabled: false, // Disable editing

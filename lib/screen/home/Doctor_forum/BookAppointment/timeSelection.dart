@@ -120,7 +120,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
     return Column(
       children: [
         Container(
-          height: height_ * 0.43,
+          height: height_ * 0.40,
           child: Center(
             child: StreamBuilder<List<bool>>(
               stream: _timeAvailabilityStream,
@@ -143,7 +143,7 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
                     children: [
                       Expanded(
                         child: Wrap(
-                          runSpacing: 5.0, // set space between rows
+                          runSpacing: 0.0, // set space between rows
                           children: List.generate(
                             _getAvailableTimeSlots(timeAvailable).length,
                             (index) {

@@ -60,17 +60,15 @@ class _SelectionDateState extends State<SelectionDate> {
           child: Column(
             children: [
               SizedBox(
-                height: height_ * 0.01,
+                height: height_ * 0.005,
               ),
               topSubTitle(width_, height_),
               calendar(width_, height_),
               SizedBox(
-                height: height_ * 0.01,
+                height: height_ * 0.005,
               ),
               Text5(text: 'SLOTS AVAILABLE :'),
-              SizedBox(
-                height: height_ * 0.01,
-              ),
+              
               SingleChildScrollView(
               child:TimeAvailabilityScreen(
                     userId: currentId,
@@ -122,7 +120,7 @@ class _SelectionDateState extends State<SelectionDate> {
               ),
             ),
             SizedBox(
-              height: height_ * 0.02,
+              height: height_ * 0.005,
             ),
             Text5(text: 'Selected day: ${_selectedDay.toLocal()}'),
           ],
