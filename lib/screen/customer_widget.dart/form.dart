@@ -14,7 +14,7 @@ class NutritionistForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarTopBack(titleText: 'Nutritionist Form'),
+      appBar: AppBar(title: Text('Nutritionist Form')),
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
             .collection('Nutritionist')
@@ -39,7 +39,10 @@ class NutritionistForm extends StatelessWidget {
                   []);
 
           return NutritionistQuestionsForm(
-              nid: nid, name: name, questions: questions);
+            nid: nid,
+            name: name,
+            questions: questions,
+          );
         },
       ),
     );
@@ -51,26 +54,38 @@ class NutritionistQuestionsForm extends StatefulWidget {
   final String name;
   final List<String> questions;
 
-  NutritionistQuestionsForm(
-      {required this.nid, required this.name, required this.questions});
+  NutritionistQuestionsForm({
+    required this.nid,
+    required this.name,
+    required this.questions,
+  });
 
   @override
   _NutritionistQuestionsFormState createState() =>
       _NutritionistQuestionsFormState();
 }
 
-class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
-  late List<String> answers;
+class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm>
+    with AutomaticKeepAliveClientMixin {
+  late Map<String, String> answers;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    answers = List<String>.filled(widget.questions.length, '');
+    answers = {};
+    for (String question in widget.questions) {
+      answers[question] = '';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Ensure that the super.build method is called
+
     return Container(
       padding: EdgeInsets.all(16.0),
       child: Form(
@@ -89,12 +104,15 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
             ),
             SizedBox(height: 8.0),
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
                 itemCount: widget.questions.length,
+                separatorBuilder: (context, index) => SizedBox(height: 8.0),
                 itemBuilder: (context, index) {
+                  String question = widget.questions[index];
                   return ListTile(
-                    title: Text(widget.questions[index]),
+                    title: Text(question),
                     subtitle: TextFormField(
+                      initialValue: answers[question], // Set initial value
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a value';
@@ -102,7 +120,9 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
                         return null;
                       },
                       onChanged: (value) {
-                        answers[index] = value;
+                        setState(() {
+                          answers[question] = value;
+                        });
                       },
                     ),
                   );
@@ -112,15 +132,10 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // Validate form before submitting
                 if (_formKey.currentState!.validate()) {
-                  // Submit form and save data to Firebase
                   submitForm();
                 }
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: getColor(context), // Set the desired background color
-              ),
               child: Text('Submit'),
             ),
           ],
@@ -130,37 +145,22 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
   }
 
   void submitForm() {
-    FirebaseFirestore.instance.collection('Forms').doc().set(
+  List<String> answersList = widget.questions.map((question) => answers[question]!).toList();
+
+  FirebaseFirestore.instance
+    .collection('Forms')
+    .doc(widget.nid) // Use the same document ID for updates
+    .set(
       {
-        'answers': answers,
+        'answers': answersList,
         'nid': widget.nid,
         'pid': currentId,
       },
-      SetOptions(merge: true), // Merge the new data with existing document
-    ).then((value) {
-      // Update progress field
-      FirebaseFirestore.instance
-          .collection('payments')
-          .where('nid', isEqualTo: widget.nid)
-          .where('pid', isEqualTo: currentId)
-          .get()
-          .then((querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-          doc.reference.set(
-            {
-              'progress': 2,
-            },
-            SetOptions(
-                merge: true), // Merge the new data with existing document
-          );
-        });
-      });
-
-      // Show success message
+      SetOptions(merge: true),
+    )
+    .then((value) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Form submitted successfully'),
-        ),
+        SnackBar(content: Text('Form submitted successfully')),
       );
 
       Navigator.push(
@@ -172,13 +172,12 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm> {
           ),
         ),
       );
-    }).catchError((error) {
-      // Show error message
+    })
+    .catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $error'),
-        ),
+        SnackBar(content: Text('Error: $error')),
       );
     });
-  }
+}
+
 }
