@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -29,7 +30,6 @@ class _NutritionistHomeState extends State<NutritionistHome> {
 
     _pageController = PageController(initialPage: _currentIndex);
     fetchEditFormData();
-  
   }
 
   @override
@@ -41,7 +41,8 @@ class _NutritionistHomeState extends State<NutritionistHome> {
   void fetchEditFormData() {
     FirebaseFirestore.instance
         .collection('Nutritionist')
-        .doc(currentId) // Replace 'currentId' with the specific document ID you want to fetch
+        .doc(
+            currentId) // Replace 'currentId' with the specific document ID you want to fetch
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
@@ -58,8 +59,6 @@ class _NutritionistHomeState extends State<NutritionistHome> {
       print('Error fetching editForm data: $error');
     });
   }
-
-
 
   List<Widget> get screens {
     return [
@@ -83,14 +82,17 @@ class _NutritionistHomeState extends State<NutritionistHome> {
                 _currentIndex = index;
               });
             },
+            dragStartBehavior: DragStartBehavior.down,
+            physics:
+                const BouncingScrollPhysics(), // Add this line for smoother scrolling
             children: screens,
           ),
           UpgradeAlert(
-           upgrader: Upgrader(
+            upgrader: Upgrader(
               canDismissDialog: false,
               dialogStyle: UpgradeDialogStyle.material,
               showIgnore: false,
-              showLater:false,
+              showLater: false,
               durationUntilAlertAgain: Duration(days: 1),
             ),
             child: Container(), // Replace with your content
@@ -99,7 +101,9 @@ class _NutritionistHomeState extends State<NutritionistHome> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary, // set navigation bar background color
+          color: Theme.of(context)
+              .colorScheme
+              .tertiary, // set navigation bar background color
           boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 8)
           ],
@@ -117,7 +121,8 @@ class _NutritionistHomeState extends State<NutritionistHome> {
               duration: Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white.withOpacity(0.1),
               tabBorderRadius: width_ * 0.03,
-              tabActiveBorder: Border.all(color: Theme.of(context).colorScheme.primary, width: 1),
+              tabActiveBorder: Border.all(
+                  color: Theme.of(context).colorScheme.primary, width: 1),
               tabs: [
                 GButton(
                   icon: Icons.home,
@@ -127,7 +132,6 @@ class _NutritionistHomeState extends State<NutritionistHome> {
                   icon: Icons.message,
                   text: 'Message Friend',
                 ),
-
                 GButton(
                   icon: Icons.person,
                   text: 'Profile',

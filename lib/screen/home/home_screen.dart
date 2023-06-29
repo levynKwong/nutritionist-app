@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -51,6 +52,9 @@ class _HomeState extends State<Home> {
                 _currentIndex = index;
               });
             },
+            dragStartBehavior: DragStartBehavior.down,
+            physics:
+                const BouncingScrollPhysics(), // Add this line for smoother scrolling
             children: screens,
           ),
           UpgradeAlert(
@@ -58,7 +62,7 @@ class _HomeState extends State<Home> {
               canDismissDialog: false,
               dialogStyle: UpgradeDialogStyle.material,
               showIgnore: false,
-              showLater:false,
+              showLater: false,
               durationUntilAlertAgain: Duration(days: 1),
             ),
             child: Container(), // Replace with your content
@@ -90,7 +94,7 @@ class _HomeState extends State<Home> {
               tabActiveBorder: Border.all(
                   color: Theme.of(context).colorScheme.primary, width: 1),
               tabs: [
-                 GButton(
+                GButton(
                   icon: Icons.book,
                   text: 'Message Doctor',
                 ),
