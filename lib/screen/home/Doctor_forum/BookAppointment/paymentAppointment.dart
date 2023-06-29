@@ -97,9 +97,6 @@ class _paymentAppointmentState extends State<paymentAppointment> {
           SnackBar(
             content: Text(
               'This is to prevent user from blocking the time slot for too long.',
-              style: TextStyle(
-                color: Colors.white,
-              ),
             ),
            
           ),

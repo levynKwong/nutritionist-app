@@ -34,6 +34,7 @@ class ChatDetailNutritionist extends StatefulWidget {
 }
 
 class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
+  late BuildContext _storedContext;
   final messageController = TextEditingController();
   CollectionReference chats =
       FirebaseFirestore.instance.collection('chatNutritionist');
@@ -65,6 +66,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
         imageUrl = value;
       });
     });
+    handleTimeLimit();
   }
 
   Future<String> getImageLink() async {
@@ -240,8 +242,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
           } else {
             Duration remainingTime = paymentDate.difference(now);
             globalRemainingTime = remainingTime;
-
-           
           }
         }
       }).catchError((error) {
@@ -256,6 +256,12 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     // Periodically perform payment status check every 2 hours
     Timer.periodic(Duration(hours: 2), (Timer timer) {
       performPaymentStatusCheck();
+    });
+  }
+
+  void handleTimeLimit() {
+    Timer(Duration(hours: 1), () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     });
   }
 
@@ -324,11 +330,11 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                         'Dr ' + '${widget.friendName}',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 16, // Adjust the font size as needed
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.secondary
-                          // Add any other desired text styles
-                        ),
+                            fontSize: 16, // Adjust the font size as needed
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.secondary
+                            // Add any other desired text styles
+                            ),
                       ),
                     ),
                   ],
@@ -407,7 +413,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                     ),
                     Container(
                       padding: EdgeInsets.only(
-                          bottom: height_ * 0.07, left: width_ * 0),
+                          bottom: height_ * 0.09, left: width_ * 0),
                       child: Text(
                           'available time: ${globalRemainingTime.inHours}:${globalRemainingTime.inMinutes.remainder(60)} left'),
                     ),

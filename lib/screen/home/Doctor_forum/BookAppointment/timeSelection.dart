@@ -113,7 +113,7 @@ Future<void> startPaymentStatusChecker() async {
     return Column(
       children: [
         Container(
-          height: height_ * 0.43,
+          height: height_ * 0.44,
           child: Center(
             child: StreamBuilder<List<bool>>(
               stream: _timeAvailabilityStream,
