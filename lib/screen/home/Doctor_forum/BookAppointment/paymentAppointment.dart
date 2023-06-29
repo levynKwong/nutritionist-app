@@ -96,7 +96,7 @@ class _paymentAppointmentState extends State<paymentAppointment> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'This is to prevent user from blocking the time slot for too long.',
+              'This is to prevent user from blocking the time slot for too long. Sorry for the inconvenience',
             ),
            
           ),
