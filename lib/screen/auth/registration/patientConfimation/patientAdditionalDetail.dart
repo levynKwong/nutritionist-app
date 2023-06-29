@@ -190,7 +190,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                     SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<int>(
                                       decoration: InputDecoration(
-                                        labelText: 'Height',
+                                        labelText: 'Height in cm',
                                         prefixIcon: Icon(Icons.height),
                                         border: OutlineInputBorder(),
                                       ),
@@ -216,7 +216,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                     SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<int>(
                                       decoration: InputDecoration(
-                                        labelText: 'Weight',
+                                        labelText: 'Weight in kg',
                                         prefixIcon: Icon(Icons.monitor_weight),
                                         border: OutlineInputBorder(),
                                       ),
@@ -242,7 +242,7 @@ class _PatientAdditionalDetailState extends State<PatientAdditionalDetail> {
                                     SizedBox(height: height_ * 0.02),
                                     DropdownButtonFormField<int>(
                                       decoration: InputDecoration(
-                                        labelText: 'Ideal Weight',
+                                        labelText: 'Ideal Weight in kg',
                                         prefixIcon: Icon(Icons.monitor_weight),
                                         border: OutlineInputBorder(),
                                       ),
