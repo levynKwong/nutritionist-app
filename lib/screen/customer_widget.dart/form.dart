@@ -145,39 +145,71 @@ class _NutritionistQuestionsFormState extends State<NutritionistQuestionsForm>
   }
 
   void submitForm() {
-  List<String> answersList = widget.questions.map((question) => answers[question]!).toList();
+    List<String> answersList =
+        widget.questions.map((question) => answers[question]!).toList();
 
-  FirebaseFirestore.instance
-    .collection('Forms')
-    .doc(widget.nid) // Use the same document ID for updates
-    .set(
-      {
-        'answers': answersList,
-        'nid': widget.nid,
-        'pid': currentId,
-      },
-      SetOptions(merge: true),
-    )
-    .then((value) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Form submitted successfully')),
-      );
+    FirebaseFirestore.instance
+        .collection('Forms')
+        .where('nid', isEqualTo: widget.nid)
+        .where('pid', isEqualTo: currentId)
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.size > 0) {
+        // Document already exists, update it
+        querySnapshot.docs.first.reference.set(
+          {
+            'answers': answersList,
+          },
+          SetOptions(merge: true),
+        ).then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Form updated successfully')),
+          );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ChatDetailNutritionist(
-            friendUid: widget.nid,
-            friendName: widget.name,
-          ),
-        ),
-      );
-    })
-    .catchError((error) {
+          // Navigate to the appropriate screen
+          navigateToChatDetail();
+        }).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $error')),
+          );
+        });
+      } else {
+        // Document doesn't exist, create a new one
+        FirebaseFirestore.instance.collection('Forms').add(
+          {
+            'answers': answersList,
+            'nid': widget.nid,
+            'pid': currentId,
+          },
+        ).then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Form submitted successfully')),
+          );
+
+          // Navigate to the appropriate screen
+          navigateToChatDetail();
+        }).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $error')),
+          );
+        });
+      }
+    }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $error')),
       );
     });
-}
+  }
 
+  void navigateToChatDetail() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatDetailNutritionist(
+          friendUid: widget.nid,
+          friendName: widget.name,
+        ),
+      ),
+    );
+  }
 }
