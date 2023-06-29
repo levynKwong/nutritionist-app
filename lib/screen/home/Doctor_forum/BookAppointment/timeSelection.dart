@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/customer_widget.dart/color.dart';
+import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/NutritionistBookApp.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/paymentAppointment.dart';
 
 class TimeAvailabilityScreen extends StatefulWidget {
@@ -12,11 +13,14 @@ class TimeAvailabilityScreen extends StatefulWidget {
   final String nutritionistName;
 
   TimeAvailabilityScreen(
-      {required this.userId, required this.nutritionistId, required this.date,required this.nutritionistName});
+      {required this.userId,
+      required this.nutritionistId,
+      required this.date,
+      required this.nutritionistName});
 
   @override
-  _TimeAvailabilityScreenState createState() =>
-      _TimeAvailabilityScreenState(userId, nutritionistId, date, nutritionistName);
+  _TimeAvailabilityScreenState createState() => _TimeAvailabilityScreenState(
+      userId, nutritionistId, date, nutritionistName);
 }
 
 class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
@@ -24,7 +28,8 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
   final String nutritionistId;
   final String date;
   final String nutritionistName;
-  _TimeAvailabilityScreenState(this.userId, this.nutritionistId, this.date,this.nutritionistName);
+  _TimeAvailabilityScreenState(
+      this.userId, this.nutritionistId, this.date, this.nutritionistName);
   late Stream<List<bool>> _timeAvailabilityStream;
   List<bool> _selectedTimeSlots = [];
 
@@ -46,7 +51,8 @@ class _TimeAvailabilityScreenState extends State<TimeAvailabilityScreen> {
     });
     _selectedTimeSlots = List<bool>.filled(_selectedTimeSlots.length, false);
   }
-Future<void> startPaymentStatusChecker() async {
+
+  Future<void> startPaymentStatusChecker() async {
     final now = DateTime.now();
     final sixtySec = now.subtract(Duration(seconds: 60));
 
@@ -86,6 +92,7 @@ Future<void> startPaymentStatusChecker() async {
 
     // Periodically perform payment status check every 2 hours
   }
+
   void _toggleSelection(int index) {
     setState(() {
       for (int i = 0; i < _selectedTimeSlots.length; i++) {
@@ -175,8 +182,8 @@ Future<void> startPaymentStatusChecker() async {
                                           }
                                         },
                                       ),
-                                      minimumSize:
-                                          MaterialStateProperty.all(Size(60, 30)),
+                                      minimumSize: MaterialStateProperty.all(
+                                          Size(60, 30)),
                                     ),
                                     child: Text(
                                       timeSlot,
@@ -189,7 +196,6 @@ Future<void> startPaymentStatusChecker() async {
                           ),
                         ),
                       ),
-                     
                       buttons(height_, width_),
                       SizedBox(height: height_ * 0.02),
                     ],
@@ -212,7 +218,10 @@ Future<void> startPaymentStatusChecker() async {
         children: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NutritionistBookAppointment()),
+              );
               FirebaseFirestore.instance
                   .collection('timeAvailability')
                   .doc(nutritionistId) // Replace with the actual document ID
@@ -311,7 +320,6 @@ Future<void> startPaymentStatusChecker() async {
             child: Text('Next'),
           ),
         ],
-      
       ),
     );
   }

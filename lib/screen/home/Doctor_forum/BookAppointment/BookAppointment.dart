@@ -3,6 +3,7 @@ import 'package:meal_aware/screen/customer_widget.dart/color.dart';
 import 'package:meal_aware/screen/customer_widget.dart/navBar.dart';
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/BookAppointment/NutritionistBookApp.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class BookAppointmentService extends StatefulWidget {
   const BookAppointmentService({super.key});
@@ -92,7 +93,10 @@ Container buttons(double height_, double width_, context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       ElevatedButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Home()),
+              );},
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white, backgroundColor: getColor(context),
           minimumSize: Size(width_ * 0.3, 50), // set text color
