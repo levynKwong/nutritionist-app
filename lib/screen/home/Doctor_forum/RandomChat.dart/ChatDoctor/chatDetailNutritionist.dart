@@ -416,7 +416,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                       padding: EdgeInsets.only(
                           bottom: height_ * 0.09, left: width_ * 0),
                       child: Text(
-                          'available time: ${globalRemainingTime.inHours} h ${globalRemainingTime.inMinutes.remainder(60)} m remaining'),
+                          'available time: ${globalRemainingTime.inHours}h ${globalRemainingTime.inMinutes.remainder(60)}m (24h limit)'),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
