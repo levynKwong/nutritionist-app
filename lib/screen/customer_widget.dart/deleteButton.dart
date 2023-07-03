@@ -2,10 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_aware/main.dart';
+import 'package:meal_aware/screen/auth/SaveUser.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 Widget deleteAccount(BuildContext context) {
+  Future<void> deleteProfileImage() async {
+    // Delete the image from Firebase Storage
+    var fileName = currentId + '.png';
+    var storageReference = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('profile_images')
+        .child(fileName);
+    await storageReference.delete();
+
+    // Remove the image URL from the "Patient" collection
+    var patientData = {
+      'image_url': FieldValue.delete(),
+    };
+  }
+
   return TextButton(
-  
     onPressed: () async {
       showDialog(
         context: context,
@@ -43,7 +59,7 @@ Widget deleteAccount(BuildContext context) {
                       .delete()
                       .then((value) =>
                           {FirebaseAuth.instance.currentUser?.delete()});
-
+                  deleteProfileImage();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => Login()),
