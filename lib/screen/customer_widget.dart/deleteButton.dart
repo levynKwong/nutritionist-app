@@ -14,11 +14,6 @@ Widget deleteAccount(BuildContext context) {
         .child('profile_images')
         .child(fileName);
     await storageReference.delete();
-
-    // Remove the image URL from the "Patient" collection
-    var patientData = {
-      'image_url': FieldValue.delete(),
-    };
   }
 
   return TextButton(
