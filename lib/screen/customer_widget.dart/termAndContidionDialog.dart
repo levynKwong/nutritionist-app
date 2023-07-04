@@ -172,6 +172,18 @@ class TermsAndConditionsDialog extends StatelessWidget {
                             'We prioritize your privacy and assure you that your data is not stored on your phone. Instead, it is securely stored on our database, which is designed to protect your information. We do not view or access your data unless legally compelled or necessary for enforcing Terms or ensuring the safety of our users.\n\n',
                         style: TextStyle(fontSize: 16.0),
                       ),
+                      TextSpan(
+                        text: 'Payment\n',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            'By utilizing the payment services provided by Google Play, it is important to note that we, as the service provider, do not retain any of your card information. Your card details are securely processed by Google and their authorized payment processors, ensuring the confidentiality and protection of your financial data. We prioritize the security and privacy of our users and adhere to industry-standard encryption measures, allowing you to make payments with peace of mind knowing that your sensitive card information is not stored by us.\n\n',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
                     ],
                   ),
                   style: TextStyle(fontSize: 16.0),
