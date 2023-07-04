@@ -52,9 +52,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
   String? imageUrl;
   File? selectedFile;
   Duration globalRemainingTime = Duration.zero;
-  
-
-
 
   @override
   void initState() {
@@ -187,7 +184,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
           'phoneNumbers': [currentUserPhoneNumber, friendPhoneNumber]
         });
         sendMessage('Hi, Please to meet you Dr $friendName');
-        sendMessage('"Dear Users, make sure to check your app regularly to get the latest updates from your nutritionist. We hope you enjoy your journey with us. Stay healthy and stay safe!"- MealAware');
+        sendMessage(
+            '"Dear Users, make sure to check your app regularly to get the latest updates from your nutritionist. We hope you enjoy your journey with us. Stay healthy and stay safe!"- MealAware');
       }
     }
   }
@@ -211,7 +209,6 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       print('Error checking status: $error');
     });
   }
-
 
   void startPaymentStatusChecker() {
     final now = DateTime.now();
@@ -383,7 +380,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: height_*0.1),
+                      padding: EdgeInsets.only(bottom: height_ * 0.1),
                       child: Container(
                         height: MediaQuery.of(context).size.height,
                         child: ListView.builder(
@@ -887,28 +884,30 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
               borderRadius: BorderRadius.circular(10),
             ),
             title: Text('More Info'),
-            content: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Username: Dr $username'),
-                  Text(''),
-                  Text('fullname: $fullname'),
-                  Text(''),
-                  Text('Email: $email'),
-                  Text(''),
-                  Text('Address of work: $address'),
-                  Text(''),
-                  Text('Phone: $phoneNumber'),
-                  Text(''),
-                  Text('Specialization: $specialization'),
-                  Text(''),
-                  Text('Gender: $gender'),
-                ],
+            content: SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Username: Dr $username'),
+                    Text(''),
+                    Text('fullname: $fullname'),
+                    Text(''),
+                    Text('Email: $email'),
+                    Text(''),
+                    Text('Address of work: $address'),
+                    Text(''),
+                    Text('Phone: $phoneNumber'),
+                    Text(''),
+                    Text('Specialization: $specialization'),
+                    Text(''),
+                    Text('Gender: $gender'),
+                  ],
+                ),
               ),
             ),
             actions: [
