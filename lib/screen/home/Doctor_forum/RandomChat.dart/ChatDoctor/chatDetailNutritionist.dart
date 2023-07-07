@@ -126,7 +126,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
     if (snapshot.docs.isNotEmpty) {
       final docId = snapshot.docs.single.id;
 
-      await chats.doc(docId).update({'unreadMessages': 0});
+      await chats.doc(docId).update({'readN': true});
     }
   }
 
@@ -155,7 +155,7 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       } else {
         final docRef = await chats.add({
           'users': [currentUserId, friendUid],
-          'unreadMessages': 1
+          'readN': true
         });
         final docId = docRef.id;
         setState(() {
@@ -183,9 +183,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
           'emails': [currentUserEmail, friendEmail],
           'phoneNumbers': [currentUserPhoneNumber, friendPhoneNumber]
         });
-        sendMessage('Hi, Please to meet you Dr $friendName');
         sendMessage(
             '"Dear Users, make sure to check your app regularly to get the latest updates from your nutritionist. We hope you enjoy your journey with us. Stay healthy and stay safe!"- MealAware');
+        sendMessage('Hi, Please to meet you Dr $friendName');
       }
     }
   }
@@ -727,7 +727,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       chatRef.update({
         'lastMessage': msg,
         'lastMessageTime': FieldValue.serverTimestamp(),
-        'unreadMessages': 1
+        
+        'readP': false
       });
 
       // Clear the message input field
@@ -767,7 +768,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       chatRef.update({
         'lastMessage': '$imageUrl', // Use the direct image URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
-        'unreadMessages': 1
+        
+         'readP': false
       });
 
       // Clear the message input field
@@ -815,7 +817,8 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
       chatRef.update({
         'lastMessage': fileUrl, // Use the file URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
-        'unreadMessages': 1
+        
+         'readP': false
       });
 
       // Clear the message input field

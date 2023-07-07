@@ -51,7 +51,8 @@ class ChatListScreenClient extends StatelessWidget {
 
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
-              final unreadMessages = docs[index]['unreadMessages'] ?? [];
+              final readP= docs[index]['readP'] ?? [];
+             
 
               // Retrieve the image URL for the friend
               return FutureBuilder<DocumentSnapshot>(
@@ -103,7 +104,7 @@ class ChatListScreenClient extends StatelessWidget {
                           );
                         },
                         trailing: Visibility(
-                          visible: unreadMessages == 1,
+                          visible: readP == false,
                           child: Container(
                             width: 10,
                             height: 10,
@@ -158,7 +159,7 @@ class ChatListScreenClient extends StatelessWidget {
                           );
                         },
                         trailing: Visibility(
-                          visible: unreadMessages == 1,
+                          visible: readP == false,
                           child: Container(
                             width: 10,
                             height: 10,
@@ -231,7 +232,7 @@ class ChatListScreenClient extends StatelessWidget {
                         );
                       },
                       trailing: Visibility(
-                        visible: unreadMessages == 1,
+                        visible: readP == false,
                         child: Container(
                           width: 10,
                           height: 10,

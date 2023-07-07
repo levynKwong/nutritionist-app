@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:meal_aware/screen/auth/SaveUser.dart';
 import 'package:meal_aware/screen/home/Doctor_forum/RandomChat.dart/ChatDoctor/chatDetailNutritionist.dart';
 
-
 class ChatListScreenNutritionist extends StatelessWidget {
   final chatStream = FirebaseFirestore.instance
       .collection('chatNutritionist')
@@ -52,8 +51,9 @@ class ChatListScreenNutritionist extends StatelessWidget {
 
               final lastMessage = docs[index]['lastMessage'];
               final lastMessageTime = docs[index]['lastMessageTime'];
-              final unreadMessages = docs[index]['unreadMessages'] ?? [];
-
+              final readN = docs[index]['readN'] ?? [];
+         
+           
               // Retrieve the image URL for the friend
               return FutureBuilder<DocumentSnapshot>(
                 future: FirebaseFirestore.instance
@@ -104,7 +104,7 @@ class ChatListScreenNutritionist extends StatelessWidget {
                           );
                         },
                         trailing: Visibility(
-                          visible: unreadMessages == 2,
+                          visible: readN == false,
                           child: Container(
                             width: 10,
                             height: 10,
@@ -159,7 +159,7 @@ class ChatListScreenNutritionist extends StatelessWidget {
                           );
                         },
                         trailing: Visibility(
-                          visible: unreadMessages == 2,
+                          visible: readN == false,
                           child: Container(
                             width: 10,
                             height: 10,
@@ -232,7 +232,7 @@ class ChatListScreenNutritionist extends StatelessWidget {
                         );
                       },
                       trailing: Visibility(
-                        visible: unreadMessages == 2,
+                        visible: readN == false,
                         child: Container(
                           width: 10,
                           height: 10,

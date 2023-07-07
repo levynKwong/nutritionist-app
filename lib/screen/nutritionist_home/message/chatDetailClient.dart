@@ -110,7 +110,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
     if (snapshot.docs.isNotEmpty) {
       final docId = snapshot.docs.single.id;
 
-      await chats.doc(docId).update({'unreadMessages': 0});
+      await chats.doc(docId).update({'readP': true});
     }
   }
 
@@ -554,7 +554,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
       chatRef.update({
         'lastMessage': msg,
         'lastMessageTime': FieldValue.serverTimestamp(),
-        'unreadMessages': 2
+        'readN': false
       });
 
       // Clear the message input field
@@ -594,7 +594,7 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
       chatRef.update({
         'lastMessage': '$imageUrl', // Use the direct image URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
-        'unreadMessages': 2
+        'readN': false
       });
 
       // Clear the message input field
@@ -642,7 +642,8 @@ class _ChatDetailClientState extends State<ChatDetailClient> {
       chatRef.update({
         'lastMessage': fileUrl, // Use the file URL in lastMessage
         'lastMessageTime': FieldValue.serverTimestamp(),
-        'unreadMessages': 2
+        
+        'readN': false
       });
 
       // Clear the message input field
