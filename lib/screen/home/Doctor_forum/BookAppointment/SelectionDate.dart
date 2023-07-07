@@ -106,7 +106,7 @@ class _SelectionDateState extends State<SelectionDate> {
                 locale: 'en_US',
                 rowHeight: height_ * 0.052, //43
                 headerStyle:
-                    HeaderStyle(formatButtonVisible: true, titleCentered: true),
+                    HeaderStyle(formatButtonVisible: false, titleCentered: true),
                 selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
                 // onDaySelected: _onDaySelected,
                 focusedDay: _focusedDay,
