@@ -48,31 +48,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                     Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => (Login()),
                                 ),
                               );
-                          },
-                          icon: Icon(Icons.arrow_back),
-                        ),
-                        SizedBox(width: width_* 0.22),
-                        Text(
-                          'MeA',
-                          style: TextStyle(
-                            color: getColor(context),
-                            fontSize: width_ * 0.15,
-                            fontWeight: FontWeight.bold,
+                            },
+                            icon: Icon(Icons.arrow_back),
                           ),
-                        ),
-                      ],
-                    ),
-
+                          SizedBox(width: width_ * 0.22),
+                          Text(
+                            'MeA',
+                            style: TextStyle(
+                              color: getColor(context),
+                              fontSize: width_ * 0.15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: height_ * 0.01),
                       Text(
                         'MealAware Company Ltd',
@@ -165,11 +164,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       items: [
                                         DropdownMenuItem(
                                           value: '5',
-                                          child: Text('13-18'),
+                                          child: Text('13-17'),
                                         ),
                                         DropdownMenuItem(
                                           value: '6',
-                                          child: Text('19-24'),
+                                          child: Text('18-24'),
                                         ),
                                         DropdownMenuItem(
                                           value: '7',
@@ -234,7 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Please enter your full name';
-                                        } else if (!RegExp(r"^[a-zA-Z\s]+$")
+                                        } else if (!RegExp(r"^[a-zA-Z\séèêëàâäïîöôùûüçÿ]+$")
                                             .hasMatch(value)) {
                                           return 'Please enter a valid name';
                                         }
@@ -256,12 +255,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (value!.isEmpty) {
                                           return ("Please enter a username");
                                         }
-                                        // reg expression for email validation
+                                        // Updated regular expression to allow 'é' and other special characters
                                         if (value.length > 15) {
                                           return ("Please enter a valid username (3 to 15 characters)");
                                         } else if (!RegExp(
-                                                "^(?=.{3,15})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])")
-                                            .hasMatch(value)) {
+                                          "^(?=.{3,15})(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_éèêëàâäïîöôùûüçÿ]+(?<![_.])",
+                                        ).hasMatch(value)) {
                                           return ("Please enter a valid username (3 to 15 characters)");
                                         }
 
@@ -280,11 +279,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (value!.isEmpty) {
                                           return ("Please Enter Your Email");
                                         }
-                                        // reg expression for email validation
+                                        // regular expression for email validation
                                         if (!RegExp(
-                                                r"^(?!.*\s)[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+$")
-                                            .hasMatch(value)) {
-                                          return ("Please Enter a valid email");
+                                          // Updated regular expression to allow 'é' and other special characters
+                                          r"^(?!.*\s)[a-zA-Z0-9+_.-éèêëàâäïîöôùûüçÿ]+@[a-zA-Z0-9.-]+\.[a-z]+$",
+                                        ).hasMatch(value)) {
+                                          return ("Please Enter a valid email, spaces are not allowed");
                                         }
                                         return null;
                                       },
@@ -303,7 +303,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                         if (!RegExp(r'^\+?[0-9]{7,12}$')
                                             .hasMatch(value)) {
-                                          return 'Please enter a valid phone number';
+                                          return 'Please enter a valid phone number, spaces are not allowed';
                                         }
                                         return null;
                                       },
@@ -379,7 +379,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     num);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: getColor(context), // sets the background color of the button
+                                backgroundColor: getColor(
+                                    context), // sets the background color of the button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),

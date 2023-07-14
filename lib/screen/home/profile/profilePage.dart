@@ -718,13 +718,13 @@ class _profileState extends State<profile> {
                           case '2':
                             return '6-10';
                           case '3':
-                            return '11-15';
+                            return '13-15';
                           case '4':
-                            return '16-18';
+                            return '16-17';
                           case '5':
-                            return '6-18';
+                            return '13-17';
                           case '6':
-                            return '19-24';
+                            return '18-24';
                           case '7':
                             return '25-34';
                           case '8':
@@ -921,7 +921,7 @@ class _profileState extends State<profile> {
     ),
     DropdownMenuItem(
       value: '4',
-      child: Text('16-18'),
+      child: Text('16-17'),
     ),
     // DropdownMenuItem(
     //   value: '5',
@@ -929,7 +929,7 @@ class _profileState extends State<profile> {
     // ),
     DropdownMenuItem(
       value: '6',
-      child: Text('19-24'),
+      child: Text('18-24'),
     ),
     DropdownMenuItem(
       value: '7',

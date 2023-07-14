@@ -228,7 +228,7 @@ class _LoginState extends State<Login> {
                                       return 'Please Enter Your Email';
                                     }
                                     if (!RegExp(
-                                            '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+                                            '^[a-zA-Z0-9+_.-éèêëàâäïîöôùûüçÿ]+@[a-zA-Z0-9.-]+.[a-z]')
                                         .hasMatch(value)) {
                                       return 'Please enter a valid email';
                                     }

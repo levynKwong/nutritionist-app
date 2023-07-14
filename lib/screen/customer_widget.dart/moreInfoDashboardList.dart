@@ -1,19 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
-
 class MoreInfoDashboardList extends StatefulWidget {
   final List<String> friendId;
-  
-  const MoreInfoDashboardList({Key? key, required this.friendId}) : super(key: key);
+
+  const MoreInfoDashboardList({Key? key, required this.friendId})
+      : super(key: key);
 
   @override
   State<MoreInfoDashboardList> createState() => _MoreInfoDashboardListState();
 }
 
 class _MoreInfoDashboardListState extends State<MoreInfoDashboardList> {
-late String _username = ''; // Initialize with default value
+  late String _username = ''; // Initialize with default value
   late String _age = '';
   late String _country = '';
   late String _gender = '';
@@ -40,8 +39,8 @@ late String _username = ''; // Initialize with default value
   }
 
   Future<void> fetchData() async {
-    final snapshots = widget.friendId.map((id) =>
-        FirebaseFirestore.instance.collection('Patient').doc(id).get());
+    final snapshots = widget.friendId.map(
+        (id) => FirebaseFirestore.instance.collection('Patient').doc(id).get());
 
     final docSnapshots = await Future.wait(snapshots);
 
@@ -75,13 +74,13 @@ late String _username = ''; // Initialize with default value
       case '2':
         return '6-10';
       case '3':
-        return '11-15';
+        return '13-15';
       case '4':
-        return '16-18';
+        return '16-17';
       case '5':
-        return '6-18';
+        return '13-17';
       case '6':
-        return '19-24';
+        return '18-24';
       case '7':
         return '25-34';
       case '8':
