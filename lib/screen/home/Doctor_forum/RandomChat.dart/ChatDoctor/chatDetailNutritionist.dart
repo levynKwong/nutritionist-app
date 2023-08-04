@@ -183,9 +183,9 @@ class _ChatDetailNutritionistState extends State<ChatDetailNutritionist> {
           'emails': [currentUserEmail, friendEmail],
           'phoneNumbers': [currentUserPhoneNumber, friendPhoneNumber]
         });
-        sendMessage('Hi, Please to meet you Dr $friendName');
         sendMessage(
             '"Dear Users, make sure to check your app regularly to get the latest updates from your nutritionist. We hope you enjoy your journey with us. Stay healthy and stay safe!"- MealAware');
+        sendMessage('Hi, Please to meet you Dr $friendName');
       }
     }
   }

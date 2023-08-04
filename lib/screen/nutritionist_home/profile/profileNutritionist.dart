@@ -471,7 +471,7 @@ class _profileNutritionistState extends State<profileNutritionist> {
             listPhoneNumber(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_, 0),
-            deleteAccount(context),
+            // deleteAccount(context),
             logout(height_),
             SizedBox(height: height_ * 0.02),
           ],

@@ -7,6 +7,7 @@ import 'package:meal_aware/screen/customer_widget.dart/termAndContidionDialog.da
 import 'package:meal_aware/screen/customer_widget.dart/text.dart';
 
 import 'package:meal_aware/screen/customer_widget.dart/CoinCounter.dart';
+import 'package:meal_aware/screen/home/home_screen.dart';
 
 class GetCoin extends StatefulWidget {
   const GetCoin({super.key});
@@ -164,8 +165,7 @@ class _GetCoinState extends State<GetCoin> {
             }
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: getColor(context), 
-
+            backgroundColor: getColor(context),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -175,49 +175,6 @@ class _GetCoinState extends State<GetCoin> {
       ],
     ));
   }
-
-  // Center TermsofUse(double height_, double width_) {
-  //   return Center(
-  //     child: Container(
-  //       margin: EdgeInsets.only(left: width_ * 0.1, right: width_ * 0.1),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           TextButton(
-  //             onPressed: () {
-  //               TermsAndConditionsDialog();
-  //             },
-  //             child: Text(
-  //               'Terms of Use',
-  //               style: TextStyle(
-  //                 color: Color(0xFF7B7B7B),
-  //                 // decoration: TextDecoration.underline,
-  //               ),
-  //             ),
-  //           ),
-  //           Text(
-  //             ' | ',
-  //             style: TextStyle(
-  //               color: Color(0xFF7B7B7B),
-  //             ),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // Navigate to Privacy Policy page
-  //             },
-  //             child: Text(
-  //               'Privacy Policy',
-  //               style: TextStyle(
-  //                 color: Color(0xFF7B7B7B),
-  //                 // decoration: TextDecoration.underline,
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget topBar(double width_, double height_, BuildContext context) {
     return Row(
@@ -304,6 +261,11 @@ class _GetCoinState extends State<GetCoin> {
         title: 'Coupon Code',
         body:
             'You have successfully redeemed a coupon code. You have been awarded 1 coin.',
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+        (Route<dynamic> route) => false,
       );
     } catch (e) {
       // Show an error message

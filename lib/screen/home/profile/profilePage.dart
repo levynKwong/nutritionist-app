@@ -614,7 +614,7 @@ class _profileState extends State<profile> {
             listDietaryPreference(height_, width_),
             SizedBox(height: height_ * 0.02),
             dividingLine2(width_, height_),
-            deleteAccount(context),
+            // deleteAccount(context),
             logout(height_),
             SizedBox(height: height_ * 0.02),
           ],

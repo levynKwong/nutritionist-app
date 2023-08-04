@@ -295,7 +295,7 @@ class _BuyCoinState extends State<BuyCoin> {
                         SizedBox(width: width_ * 0.17),
                         Text('Buy 1 coin '),
                         SizedBox(width: width_ * 0.10),
-                        Text("Rs 700")
+                        Text("Rs 600")
                       ],
                     ),
                   ),
@@ -323,7 +323,7 @@ class _BuyCoinState extends State<BuyCoin> {
                         SizedBox(width: width_ * 0.15),
                         Text('Buy 2 coins'),
                         SizedBox(width: width_ * 0.09),
-                        Text("Rs 1400")
+                        Text("Rs 1200")
                       ],
                     ),
                   ),
@@ -351,7 +351,7 @@ class _BuyCoinState extends State<BuyCoin> {
                         SizedBox(width: width_ * 0.14),
                         Text('Buy 3 coins'),
                         SizedBox(width: width_ * 0.09),
-                        Text("Rs 2100")
+                        Text("Rs 1800")
                       ],
                     ),
                   ),
