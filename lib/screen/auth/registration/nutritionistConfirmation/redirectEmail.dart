@@ -8,7 +8,7 @@ class TextWithLink extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        launchUrl(Uri.parse('mailto:mealawareness@gmail.com'));
+        launchUrl(Uri.parse('mailto:'));
       },
       child: Text.rich(
         TextSpan(
