@@ -1,9 +1,9 @@
-# meal_aware
+# meal_aware<br>
 
-Mauritian-focused nutritionist app with chat, appointment booking and virtual currency\n
-start date: Mar 26, 2023\n
-End date:  Nov 4, 2023\n
+Mauritian-focused nutritionist app with chat, appointment booking and virtual currency<br>
+start date: Mar 26, 2023<br>
+End date:  Nov 4, 2023<br>
 
-Contributors:\n
-[Levyn Kwong Hin Sang](https://github.com/levynkwong2001)\n
-[Derek Lee Nen That](https://github.com/Dereklee0312)\n
+Contributors:<br>
+[Levyn Kwong Hin Sang](https://github.com/levynkwong2001)<br>
+[Derek Lee Nen That](https://github.com/Dereklee0312)<br>
