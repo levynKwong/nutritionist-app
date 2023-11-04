@@ -1,16 +1,9 @@
 # meal_aware
 
-A new Flutter project.
+Mauritian-focused nutritionist app with chat, appointment booking and virtual currency
+start date: Mar 26, 2023
+End date:  Nov 4, 2023
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Contributors:
+[Levyn Kwong Hin Sang](https://github.com/levynkwong2001)
+[Derek Lee Nen That](https://github.com/Dereklee0312)
