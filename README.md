@@ -1,6 +1,7 @@
 # meal_aware<br>
 
-Mauritian-focused nutritionist app with chat, appointment booking and virtual currency<br>
+Mauritian-focused nutritionist app with chat, appointment booking and virtual currency.<br>
+Published in play store with over 30 people downloading the application.<br>
 start date: Mar 26, 2023<br>
 End date:  Nov 4, 2023<br>
 
